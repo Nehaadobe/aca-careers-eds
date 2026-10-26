@@ -1,0 +1,49 @@
+{
+  "variantName": "banner",
+  "baseBlock": "banner",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Heading, copy and call to action over a background image",
+    "layout": "Edge-to-edge band; image covers the block behind the content",
+    "locations": "Dark blue band (#014d83) with white text on the left and the image (California office-locations map) on the right half from 900px; image stacks above the text on mobile",
+    "source": "https://careers.blueshieldca.com/",
+    "sections": [
+      "Find Your Next Role locations band"
+    ],
+    "statement": "Blue band (#0071bc) with one large centered white statement paragraph; no image, no CTA",
+    "image-cta": "Full-bleed photo with a light dark overlay; centered white H2 and a primary CTA button over it",
+    "sources": [
+      "https://careers.blueshieldca.com/growth-development",
+      "https://careers.blueshieldca.com/life-at-blue-shield"
+    ]
+  },
+  "contentPattern": {
+    "structure": "row 1: background image; row 2: heading (H2), paragraphs and a CTA link in its own paragraph",
+    "example": "Map image, H2 'Find Your Next Role', 3 paragraphs, 'Search open positions' button",
+    "statement": "single row: one statement paragraph",
+    "image-cta": "row 1: background photo; row 2: H2 and a CTA link in its own paragraph"
+  },
+  "options": [
+    {
+      "class": "locations",
+      "label": "Locations band"
+    },
+    {
+      "class": "statement",
+      "label": "Statement"
+    },
+    {
+      "class": "image-cta",
+      "label": "Image CTA"
+    }
+  ],
+  "memberVariantIds": [
+    "banner-locations",
+    "banner-statement",
+    "banner-image-cta"
+  ],
+  "usage": [
+    "Homepage locations band: authored as 'Banner (locations)'"
+  ],
+  "reuseGuidance": "Use plain 'Banner' for text over a full-cover photo; add 'locations' when the image is an illustration or map that must stay fully visible beside the text. A lone link becomes a button. Use 'statement' for a single large statement on a blue band (no image), and 'image-cta' for a centered heading and CTA button over a full-bleed photo."
+}

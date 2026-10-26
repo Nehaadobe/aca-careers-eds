@@ -1,0 +1,80 @@
+/*
+ * Embed block. Values from careers.blueshieldca.com:
+ * - YouTube embed in .article-body (p > .ipr_responsiveVideo > iframe): full column width, margin 0 0 20px
+ * - option "video" (figure.article-hero-video > .ipr_responsiveVideo > video): 16:9 (padding-bottom 56.25%),
+ *   object-fit contain, transparent backdrop, figure margin 0 0 40px
+ * The article header resets the margin when it hosts the hero video.
+ */
+.embed {
+  width: 100%;
+  margin: 0 0 20px;
+}
+
+.embed.video {
+  margin-bottom: 40px;
+}
+
+.embed .embed-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.embed .embed-frame > video,
+.embed .embed-frame > iframe,
+.embed .embed-frame > picture,
+.embed .embed-frame > picture img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.embed .embed-frame > video {
+  object-fit: contain;
+}
+
+.embed .embed-frame > picture img {
+  object-fit: cover;
+}
+
+/* facade play button: the site's 60px brand-blue play circle (columns/cards video posters) */
+.embed .embed-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--brand-blue);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.embed .embed-play::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23fff' d='M47.538 28.875 19.846 12c-.461 0-.923 0-1.154.225-.461.225-.692.45-.692.9v33.75c0 .45.23.675.692.9 0 .225.231.225.462.225s.461 0 .692-.225L47.538 30.9c.231-.225.462-.675.462-.9 0-.45-.23-.9-.462-1.125ZM20.308 44.85v-29.7L44.769 30l-24.461 14.85Z'/%3E%3C/svg%3E") center / 60px 60px no-repeat;
+}
+
+.embed .embed-play:hover {
+  background-color: var(--brand-blue-hover);
+}
+
+.embed .embed-play:focus-visible {
+  outline: 0;
+  box-shadow: var(--focus-ring);
+}
+
+.embed .embed-consent {
+  margin: 12px 0 0;
+  font-size: var(--body-font-size-xs);
+}

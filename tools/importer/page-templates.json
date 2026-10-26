@@ -2,127 +2,563 @@
   "templates": [
     {
       "name": "homepage",
+      "description": "Careers homepage: image hero with Find Your Next Role CTA, intro text, 3-up image gallery with feature link tiles, employee quote tiles, locations CTA band over a California map",
       "urls": [
         "https://careers.blueshieldca.com/"
       ],
-      "coverageGaps": [],
-      "description": "Landing page with full-width media hero, image gallery with feature tiles, quote tiles, locations band and embedded poll",
-      "blocks": []
+      "representativeUrl": "https://careers.blueshieldca.com/",
+      "urlPattern": "/",
+      "blocks": [
+        {
+          "name": "hero-home",
+          "instances": [
+            "#site_content > div.hero",
+            "div.hero"
+          ]
+        },
+        {
+          "name": "gallery",
+          "instances": [
+            "#site_content .homegallery",
+            ".homegallery"
+          ]
+        },
+        {
+          "name": "cards-feature-links",
+          "instances": [
+            "#site_content .homegallery_tiles",
+            ".homegallery_tiles"
+          ]
+        },
+        {
+          "name": "quote",
+          "instances": [
+            ".bioTiles .bioTiles-item",
+            ".bioTiles-item"
+          ]
+        },
+        {
+          "name": "banner-locations",
+          "instances": [
+            "#site_content > section.locations",
+            "section.locations"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "rc1",
+          "name": "hero",
+          "selector": [
+            "#site_content > div.hero",
+            "div.hero"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-home"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc2",
+          "name": "intro-text",
+          "selector": [
+            "#site_content > div.page-body",
+            "div.page-body"
+          ],
+          "style": "centered",
+          "blocks": [],
+          "defaultContent": [
+            ".home-textSection h2",
+            ".home-textSection p"
+          ]
+        },
+        {
+          "id": "rc3",
+          "name": "gallery-with-feature-tiles",
+          "selector": [
+            "#site_content > div.homegallery_wrapper",
+            "div.homegallery_wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "gallery",
+            "cards-feature-links"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "rc4",
+          "name": "why-work-with-us",
+          "selector": [
+            "#site_content > section.contentSection.contentSection__centerTitle",
+            "section.contentSection__centerTitle"
+          ],
+          "style": "centered, two-up",
+          "blocks": [
+            "quote"
+          ],
+          "defaultContent": [
+            ".contentSection-header .contentSection-title"
+          ]
+        },
+        {
+          "id": "rc5",
+          "name": "locations-band",
+          "selector": [
+            "#site_content > section.locations",
+            "section.locations"
+          ],
+          "style": null,
+          "blocks": [
+            "banner-locations"
+          ],
+          "defaultContent": []
+        }
+      ]
     },
     {
-      "name": "image-hero-content-page",
+      "name": "landing",
+      "description": "Section landing page: page header (title, subtitle, hero image) followed by authored sections such as icon tiles, image galleries, text banner, alternating text/image rows, ERG logo cards, video tiles, promo banner and FAQ accordion",
       "urls": [
         "https://careers.blueshieldca.com/a-culture-of-belonging",
-        "https://careers.blueshieldca.com/blog",
-        "https://careers.blueshieldca.com/blog/a-day-in-the-life-of-a-blue-shield-actuarial-analyst",
-        "https://careers.blueshieldca.com/blog/a-great-place-to-do-meaningful-work",
-        "https://careers.blueshieldca.com/blog/a-tribute-to-our-black-employee-network",
-        "https://careers.blueshieldca.com/blog/a-tribute-to-our-employees-of-asian-and-pacific-islander-american-heritage",
-        "https://careers.blueshieldca.com/blog/advancing-through-leadership-and-beyond-with-apa-co-chairs-sree-iyyanki-and-tony-hsieh",
-        "https://careers.blueshieldca.com/blog/alvins-story-making-an-impact-while-helping-your-friends-and-family",
-        "https://careers.blueshieldca.com/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist",
-        "https://careers.blueshieldca.com/blog/authors",
-        "https://careers.blueshieldca.com/blog/being-your-authentic-self-in-a-hybrid-work-environment-and-more-with-pride-co-chair-theo-retos",
-        "https://careers.blueshieldca.com/blog/beyond-the-bedside-how-two-nurses-thrive-at-blue-shield",
-        "https://careers.blueshieldca.com/blog/black-employee-network-celebrates-black-history-month-a-conversation-with-employee-resource-group-co-chairs-karena-bradshaw-and-chetera-watson",
-        "https://careers.blueshieldca.com/blog/blue-goes-greener-a-conversation-with-baylis-beard-blue-shields-new-director-of-sustainability",
-        "https://careers.blueshieldca.com/blog/blue-shield-of-california-internship-program-2024",
-        "https://careers.blueshieldca.com/blog/blue-shield-of-california-internship-program-and-early-career-opportunities",
-        "https://careers.blueshieldca.com/blog/connecting-values-to-my-work",
-        "https://careers.blueshieldca.com/blog/corporate-citizenship-award-recipient-mari-corbin",
-        "https://careers.blueshieldca.com/blog/creating-more-breathing-space-for-our-people-to-rejuvenate",
-        "https://careers.blueshieldca.com/blog/developing-future-leaders-from-high-school-on-up-blue-shield-partners-with-cristo-rey",
-        "https://careers.blueshieldca.com/blog/dont-speak-for-me-speak-with-me",
-        "https://careers.blueshieldca.com/blog/embracing-sabbatical-bliss-personal-journeys-of-refreshment-and-renewal",
-        "https://careers.blueshieldca.com/blog/empowering-purposeful-change-in-the-workplace-insights-from-our-elevating-women-co-chairs",
-        "https://careers.blueshieldca.com/blog/eva-durazo-championing-health-equity-at-blue-shield-of-california",
-        "https://careers.blueshieldca.com/blog/find-your-passion-and-it-will-grow",
-        "https://careers.blueshieldca.com/blog/from-kangaroo-encounters-to-lifesaving-endeavors-three-blue-shield-employees-share-their-sabbatical-adventures",
-        "https://careers.blueshieldca.com/blog/from-linkedin-live-let-s-talk-career-opportunities-in-health-care",
-        "https://careers.blueshieldca.com/blog/giving-back-to-our-community-ricquels-volunteer-story",
-        "https://careers.blueshieldca.com/blog/health-and-environmental-sustainability",
-        "https://careers.blueshieldca.com/blog/how-a-special-investigations-unit-manager-fosters-teamwork-and-transparency-at-blue-shield",
-        "https://careers.blueshieldca.com/blog/how-blue-shield-celebrated-employee-appreciation-week",
-        "https://careers.blueshieldca.com/blog/how-blue-shield-of-californias-mentorship-program-fosters-career-growth-and-development",
-        "https://careers.blueshieldca.com/blog/how-kelly-aaron-uses-her-free-time-to-make-meaningful-change-for-others",
-        "https://careers.blueshieldca.com/blog/how-one-nurse-is-transforming-health-care-without-wearing-scrubs-to-work",
-        "https://careers.blueshieldca.com/blog/how-our-people-gave-back-to-their-beloved-communities-this-martin-luther-king-day",
-        "https://careers.blueshieldca.com/blog/how-salina-wong-is-helping-reimagine-pharmacy-care-at-blue-shield-of-california",
-        "https://careers.blueshieldca.com/blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities",
-        "https://careers.blueshieldca.com/blog/how-three-blue-shield-employees-recharged-and-reconnected-on-sabbatical",
-        "https://careers.blueshieldca.com/blog/how-two-bluesky-leaders-are-championing-mental-health-access-awareness-and-advocacy-for-californias-youth",
-        "https://careers.blueshieldca.com/blog/how-working-at-blue-shield-improved-sheridans-health-and-wellbeing",
-        "https://careers.blueshieldca.com/blog/inaugural-ready-to-lead-rosemarie-pham-leadership-excellence-award-presented-to-andre-mayberry",
-        "https://careers.blueshieldca.com/blog/joining-the-it-organization-at-blue-shield-of-california-with-lisa-davis-senior-vice-president-chief-information-officer",
-        "https://careers.blueshieldca.com/blog/jumpstart-your-health-care-career",
-        "https://careers.blueshieldca.com/blog/lessons-and-advice-from-mentors-and-proteges-at-blue-shield-of-california",
-        "https://careers.blueshieldca.com/blog/looking-back-on-a-year-of-giving-at-blue-shield",
-        "https://careers.blueshieldca.com/blog/looking-for-your-next-tech-job",
-        "https://careers.blueshieldca.com/blog/marias-story-aligning-values-working-with-blue-shield-of-california",
-        "https://careers.blueshieldca.com/blog/mission-report-our-engaged-employees",
-        "https://careers.blueshieldca.com/blog/my-perfect-destination-the-intersection-of-passion-and-profession",
-        "https://careers.blueshieldca.com/blog/my-sabbatical-stories-of-joy-and-inspiration-from-around-the-world",
-        "https://careers.blueshieldca.com/blog/perseverance-in-motion",
-        "https://careers.blueshieldca.com/blog/recruiting-and-mentoring-future-talent-actuarial-manager-joe-sabo-shares-advice-for-landing-a-role-at-blue-shield",
-        "https://careers.blueshieldca.com/blog/releases-20221130-6884118",
-        "https://careers.blueshieldca.com/blog/responding-to-covid-fatigue-our-people-need-more-support",
-        "https://careers.blueshieldca.com/blog/sabbatical-stories-our-people-share-tales-of-family-bonds-new-beginnings-and-safari-thrills",
-        "https://careers.blueshieldca.com/blog/search",
-        "https://careers.blueshieldca.com/blog/supporting-our-future-leaders-blue-shields-internship-program",
-        "https://careers.blueshieldca.com/blog/the-actuarial-study-program-supporting-the-career-growth-of-our-actuaries",
-        "https://careers.blueshieldca.com/blog/the-best-leaders-make-themselves-available",
-        "https://careers.blueshieldca.com/blog/uplifting-communities-is-part-of-my-culture",
-        "https://careers.blueshieldca.com/blog/veterans-bring-talent-and-loyalty-to-the-table",
-        "https://careers.blueshieldca.com/blog/what-we-stand-for-our-core-values-in-action",
-        "https://careers.blueshieldca.com/blog/when-a-corporate-mission-becomes-deeply-personal",
-        "https://careers.blueshieldca.com/events",
         "https://careers.blueshieldca.com/growth-development",
+        "https://careers.blueshieldca.com/total-rewards",
         "https://careers.blueshieldca.com/how-to-get-hired",
+        "https://careers.blueshieldca.com/life-at-blue-shield",
         "https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model",
-        "https://careers.blueshieldca.com/total-rewards"
+        "https://careers.blueshieldca.com/events"
       ],
-      "coverageGaps": [],
-      "description": "Shared header/footer with page title over a large hero image followed by long-form body content, optional tiles/galleries and a related-items card row (articles, listing and section landing pages)",
-      "blocks": []
+      "representativeUrl": "https://careers.blueshieldca.com/total-rewards",
+      "urlPattern": "/*",
+      "blocks": [
+        {
+          "name": "hero-page",
+          "instances": [
+            "#site_content > div.page > div.page-header:not(.no_hero)",
+            ".page-header:not(.no_hero)"
+          ]
+        },
+        {
+          "name": "cards-icon-tiles",
+          "instances": [
+            "#site_content .tileIcons",
+            ".tileIcons"
+          ]
+        },
+        {
+          "name": "gallery",
+          "instances": [
+            "#site_content .page-body > div.homegallery",
+            ".page-body > div.homegallery",
+            "#site_content .page-body > div.dei_cards .homegallery",
+            ".dei_cards .homegallery"
+          ]
+        },
+        {
+          "name": "banner-statement",
+          "instances": [
+            "#site_content .page-body > section.ipr_textBanner",
+            "section.ipr_textBanner"
+          ]
+        },
+        {
+          "name": "columns-alternating",
+          "instances": [
+            "#site_content .white_text .ipr_indexChess",
+            ".ipr_indexChess",
+            "#site_content .page-body .white_text .ipr_indexChess"
+          ]
+        },
+        {
+          "name": "cards-story-grid",
+          "instances": [
+            "#site_content .page-body section.contentSection .tiles",
+            ".contentSection .tiles"
+          ]
+        },
+        {
+          "name": "accordion",
+          "instances": [
+            "#site_content .page-body .faq",
+            ".faq"
+          ]
+        },
+        {
+          "name": "cards-video-tiles",
+          "instances": [
+            "#site_content .page-body .ipr_videoTiles",
+            ".ipr_videoTiles"
+          ]
+        },
+        {
+          "name": "banner-image-cta",
+          "instances": [
+            "#site_content .page-body section.ipr_banner",
+            "section.ipr_banner"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "name": "page-header",
+          "selector": [
+            "#site_content > div.page > div.page-header",
+            "div.page-header"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-page"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "s2",
+          "name": "our-promise-to-our-employees",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container:nth-of-type(1)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "cards-icon-tiles"
+          ],
+          "defaultContent": [
+            ".contentSection-header .contentSection-title"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "image-gallery",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.homegallery:nth-of-type(2)"
+          ],
+          "style": null,
+          "blocks": [
+            "gallery"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "s4",
+          "name": "health-and-well-being",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container:nth-of-type(3)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "cards-icon-tiles"
+          ],
+          "defaultContent": [
+            ".contentSection-header .contentSection-title"
+          ]
+        },
+        {
+          "id": "s5",
+          "name": "image-gallery-2",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.homegallery:nth-of-type(4)"
+          ],
+          "style": null,
+          "blocks": [
+            "gallery"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "s6",
+          "name": "career-growth-and-development",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container:nth-of-type(5)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "cards-icon-tiles"
+          ],
+          "defaultContent": [
+            ".contentSection-header .contentSection-title"
+          ]
+        },
+        {
+          "id": "gd-s2",
+          "name": "mission-statement-banner",
+          "selector": [
+            "#site_content > div.page > div.page-body > section.ipr_textBanner"
+          ],
+          "style": "blue",
+          "blocks": [
+            "banner-statement"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "gd-s4",
+          "name": "our-internship-program",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container > div.white_text"
+          ],
+          "style": "centered",
+          "blocks": [
+            "columns-alternating"
+          ],
+          "defaultContent": [
+            ".contentSection-header .contentSection-title"
+          ]
+        },
+        {
+          "id": "gd-s5",
+          "name": "growth-and-development-stories",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container > section.contentSection"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-story-grid"
+          ],
+          "defaultContent": [
+            ".contentSection-header .contentSection-title",
+            ".contentSection-header a"
+          ]
+        },
+        {
+          "id": "cb-s2",
+          "name": "erg-image-row",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.dei_cards"
+          ],
+          "style": null,
+          "blocks": [
+            "gallery"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "cb-s3",
+          "name": "our-employee-resource-groups",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container .page-narrowContent"
+          ],
+          "style": "centered",
+          "blocks": [],
+          "defaultContent": [
+            ".page-narrowContent h2",
+            ".page-narrowContent p",
+            ".page-narrowContent .textImage img"
+          ]
+        },
+        {
+          "id": "hh-s2",
+          "name": "we-want-you-to-succeed",
+          "selector": [
+            "#site_content > div.page > div.page-body section.tileIcons_widget"
+          ],
+          "style": "centered",
+          "blocks": [
+            "cards-icon-tiles"
+          ],
+          "defaultContent": [
+            ".contentSection-header .contentSection-title",
+            ".contentSection-header p"
+          ]
+        },
+        {
+          "id": "hh-s3",
+          "name": "frequently-asked-questions",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container > div.container"
+          ],
+          "style": "centered",
+          "blocks": [
+            "accordion"
+          ],
+          "defaultContent": [
+            ".contentSection-header .contentSection-title"
+          ]
+        },
+        {
+          "id": "lb-s2",
+          "name": "our-mission-and-values",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container > div.simplebox"
+          ],
+          "style": "light-blue, centered",
+          "blocks": [],
+          "defaultContent": [
+            ".simplebox h2",
+            ".simplebox p"
+          ]
+        },
+        {
+          "id": "lb-s3",
+          "name": "value-video-tiles",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container > div.ipr_videoTiles"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-video-tiles"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "lb-s4",
+          "name": "view-our-job-opportunities",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container > section.ipr_banner"
+          ],
+          "style": null,
+          "blocks": [
+            "banner-image-cta"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "wm-s2",
+          "name": "connecting-with-purpose",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container:nth-of-type(2)"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-alternating"
+          ],
+          "defaultContent": []
+        }
+      ]
     },
     {
-      "name": "text-led-content-page",
+      "name": "content-page",
+      "description": "Content page: page header (with or without hero image) and body — the Our People story listing with search, Role/Topic filters, sort and pagination, the authors index, and text-only pages",
       "urls": [
-        "https://careers.blueshieldca.com/blog/asian-american-and-pacific-islander-heritage-month",
-        "https://careers.blueshieldca.com/blog/celebrating-a-record-breaking-year-of-giving-back-in-2023",
-        "https://careers.blueshieldca.com/blog/customer-service-spotlight-mal-madrigal-medicare-advantage",
-        "https://careers.blueshieldca.com/blog/empowered-to-succeed-moises-bandas-leadership-and-development-journey-6910203",
-        "https://careers.blueshieldca.com/blog/equal-pay-a-goal-were-committed-to-at-blue-shield",
-        "https://careers.blueshieldca.com/blog/finding-purpose-and-passion-at-work",
-        "https://careers.blueshieldca.com/blog/how-blue-shield-elevates-and-supports-our-women-year-round",
-        "https://careers.blueshieldca.com/blog/how-blue-shield-is-cultivating-a-mindset-of-gratitude",
-        "https://careers.blueshieldca.com/blog/jack-zhang-embracing-storytelling-and-belonging-at-blue-shield",
-        "https://careers.blueshieldca.com/blog/life-at-blue-shield",
-        "https://careers.blueshieldca.com/blog/mission-values-in-action-awards-our-highest-honor-6893914",
-        "https://careers.blueshieldca.com/blog/our-people-our-stories-bridget-cordova",
-        "https://careers.blueshieldca.com/blog/passion-respect-and-pride-honoring-our-people-of-hispanic-heritage-through-a-culture-of-celebrating-cultures",
-        "https://careers.blueshieldca.com/blog/reflections-from-our-2025-interns",
-        "https://careers.blueshieldca.com/blog/reflections-from-our-2026-interns",
-        "https://careers.blueshieldca.com/blog/the-power-of-giving-back-shayok-dutta-s-inspiring-volunteer-journey",
-        "https://careers.blueshieldca.com/blog/to-the-call-and-beyond-a-blue-shield-salute-to-customer-experience",
-        "https://careers.blueshieldca.com/blog/we-see-and-celebrate-y-for-you",
-        "https://careers.blueshieldca.com/login",
-        "https://careers.blueshieldca.com/password_recover",
-        "https://careers.blueshieldca.com/registration",
+        "https://careers.blueshieldca.com/blog",
+        "https://careers.blueshieldca.com/blog/authors",
         "https://careers.blueshieldca.com/why-relocate"
       ],
-      "coverageGaps": [],
-      "description": "Shared header/footer with a title-led top section and no hero image, followed by body content or a simple form and a related-items card row",
-      "blocks": []
+      "representativeUrl": "https://careers.blueshieldca.com/blog",
+      "urlPattern": "/*",
+      "blocks": [
+        {
+          "name": "hero-page",
+          "instances": [
+            "#site_content > div.page > div.page-header",
+            "div.page-header"
+          ]
+        },
+        {
+          "name": "story-listing",
+          "instances": [
+            "#site_content .page-body > div.container:has(form.indexFilter)",
+            ".page-body > div.container:has(form.indexFilter)"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "name": "page-header",
+          "selector": [
+            "#site_content > div.page > div.page-header",
+            "div.page-header"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-page"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "s2",
+          "name": "our-people-story-listing",
+          "selector": [
+            "#site_content > div.page > div.page-body > div.container"
+          ],
+          "style": null,
+          "blocks": [
+            "story-listing"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "wr-s2",
+          "name": "body-text",
+          "selector": [
+            "#site_content > div.page > div.page-body"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            ".page-body p",
+            ".page-body ol",
+            ".page-body ul"
+          ]
+        }
+      ]
     },
     {
-      "name": "video-landing-page",
+      "name": "blog-article",
+      "description": "Our People story: article header (Role/Topic categories, title, date, authors, optional hero image), social share, rich-text body with inline captioned images, YouTube embeds and galleries, and a More Stories related-cards row",
       "urls": [
-        "https://careers.blueshieldca.com/life-at-blue-shield"
+        "https://careers.blueshieldca.com/blog/reflections-from-our-2026-interns",
+        "https://careers.blueshieldca.com/blog/perseverance-in-motion",
+        "https://careers.blueshieldca.com/blog/the-power-of-giving-back-shayok-dutta-s-inspiring-volunteer-journey",
+        "https://careers.blueshieldca.com/blog/my-sabbatical-stories-of-joy-and-inspiration-from-around-the-world",
+        "https://careers.blueshieldca.com/blog/reflections-from-our-2025-interns",
+        "https://careers.blueshieldca.com/blog/empowered-to-succeed-moises-bandas-leadership-and-development-journey-6910203",
+        "https://careers.blueshieldca.com/blog/customer-service-spotlight-mal-madrigal-medicare-advantage",
+        "https://careers.blueshieldca.com/blog/blue-shield-of-california-internship-program-2024",
+        "https://careers.blueshieldca.com/blog/life-at-blue-shield",
+        "https://careers.blueshieldca.com/blog/embracing-sabbatical-bliss-personal-journeys-of-refreshment-and-renewal",
+        "https://careers.blueshieldca.com/blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities",
+        "https://careers.blueshieldca.com/blog/advancing-through-leadership-and-beyond-with-apa-co-chairs-sree-iyyanki-and-tony-hsieh",
+        "https://careers.blueshieldca.com/blog/jack-zhang-embracing-storytelling-and-belonging-at-blue-shield",
+        "https://careers.blueshieldca.com/blog/how-two-bluesky-leaders-are-championing-mental-health-access-awareness-and-advocacy-for-californias-youth",
+        "https://careers.blueshieldca.com/blog/beyond-the-bedside-how-two-nurses-thrive-at-blue-shield",
+        "https://careers.blueshieldca.com/blog/eva-durazo-championing-health-equity-at-blue-shield-of-california",
+        "https://careers.blueshieldca.com/blog/blue-goes-greener-a-conversation-with-baylis-beard-blue-shields-new-director-of-sustainability",
+        "https://careers.blueshieldca.com/blog/our-people-our-stories-bridget-cordova",
+        "https://careers.blueshieldca.com/blog/empowering-purposeful-change-in-the-workplace-insights-from-our-elevating-women-co-chairs",
+        "https://careers.blueshieldca.com/blog/sabbatical-stories-our-people-share-tales-of-family-bonds-new-beginnings-and-safari-thrills",
+        "https://careers.blueshieldca.com/blog/a-day-in-the-life-of-a-blue-shield-actuarial-analyst",
+        "https://careers.blueshieldca.com/blog/black-employee-network-celebrates-black-history-month-a-conversation-with-employee-resource-group-co-chairs-karena-bradshaw-and-chetera-watson"
       ],
-      "coverageGaps": [],
-      "description": "Section landing page with page hero, video tile grid, promotional banner with CTA and embedded poll",
-      "blocks": []
+      "representativeUrl": "https://careers.blueshieldca.com/blog/perseverance-in-motion",
+      "urlPattern": "/blog/*",
+      "blocks": [],
+      "sections": [
+        {
+          "id": "s1",
+          "name": "article",
+          "selector": [
+            "#site_content > div.article",
+            "div.article"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "h1",
+            ".article-hero img",
+            ".article-body p",
+            ".article-body ul",
+            ".article-body ol",
+            ".article-body h2",
+            ".article-body h3",
+            ".article-body img"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "more-stories",
+          "selector": [
+            "#site_content > section.contentSection.blue_bottom"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        }
+      ]
     }
-  ]
+  ],
+  "metadata": {
+    "projectType": "da"
+  }
 }

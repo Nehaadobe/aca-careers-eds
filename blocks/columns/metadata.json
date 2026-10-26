@@ -1,0 +1,44 @@
+{
+  "variantName": "columns",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Side-by-side columns of content; with 'alternating', image/text rows whose sides alternate",
+    "layout": "Cells sit side by side from 900px and stack on mobile",
+    "alternating": "Image/text rows on white; odd rows image left, even rows image right from 900px; image stacks above the text on mobile. A poster image with a YouTube link shows a blue circular play button and opens the video in a modal dialog",
+    "sources": [
+      "https://careers.blueshieldca.com/growth-development",
+      "https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model"
+    ],
+    "sections": [
+      "Our Internship Program",
+      "Connecting with purpose / hybrid strategy"
+    ]
+  },
+  "contentPattern": {
+    "structure": "one row per line of columns, one cell per column. With 'alternating': each row has a media cell (image, optionally followed by a youtube.com/watch link for a video) and a text cell (optional H3, paragraphs, lists, links); author the cells in either order",
+    "example": "Row 1: poster image + https://www.youtube.com/watch?v=R2OGCW75eaY | paragraphs, bullet list, bold link 'View our current internship opportunities'"
+  },
+  "options": [
+    {
+      "class": "alternating",
+      "label": "Alternating"
+    }
+  ],
+  "memberVariantIds": [
+    "columns-alternating"
+  ],
+  "usage": {
+    "notes": [
+      "Growth & development internship program row with a video poster: authored as 'Columns (alternating)'",
+      "Our workplace model two image/text rows: authored as 'Columns (alternating)'"
+    ],
+    "pagesUsing": [
+      "/growth-development",
+      "/life-at-blue-shield/our-workplace-model"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-10-26"
+  },
+  "reuseGuidance": "Use 'Columns (alternating)' for stacked image/text rows that swap sides; the block puts the image left on odd rows and right on even rows, whatever the authored cell order. Put a YouTube link under the image to turn it into a video play button. Plain 'Columns' keeps the boilerplate behaviour."
+}

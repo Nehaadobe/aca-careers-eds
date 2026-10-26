@@ -1,0 +1,108 @@
+/*
+ * Accordion (FAQ) — values from https://careers.blueshieldca.com/how-to-get-hired (.faq).
+ * Source sizes are identical on mobile and desktop, so there is no breakpoint.
+ */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: start;
+  interpolate-size: allow-keywords;
+}
+
+/* question row */
+.accordion .accordion-item-label {
+  display: block;
+  border-radius: 8px;
+  padding: 20px 30px;
+  background-color: #f4f4f4;
+  color: #003b5c;
+  font-size: var(--heading-font-size-m);
+  font-weight: 500;
+  line-height: 27px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.accordion .accordion-item-label::-webkit-details-marker {
+  display: none;
+}
+
+.accordion .accordion-item-label > :is(h1, h2, h3, h4, h5, h6, p) {
+  margin: 0;
+  font: inherit;
+}
+
+/* chevron: fontello angle-down (U+F107), floated right like the source glyph */
+.accordion .accordion-item-label::before {
+  content: '';
+  float: right;
+  width: 0.643em;
+  height: 27px;
+  background-color: var(--text-color);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 643 1000'%3E%3Cpath transform='matrix(1 0 0 -1 0 850)' d='M600 446q0-7-6-13l-260-260q-5-5-13-5t-12 5l-260 260q-6 6-6 13t6 13l28 28q5 5 12 5t13-5l219-220 220 220q5 5 13 5t12-5l28-28q6-6 6-13z'/%3E%3C/svg%3E") center / 100% 1em no-repeat;
+  transition: 0.3s;
+}
+
+.accordion .accordion-item-label:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.accordion .accordion-item-label:hover,
+.accordion .accordion-item-label:focus-visible,
+.accordion .accordion-item[open] > .accordion-item-label {
+  background-color: #003b5c;
+  color: #fff;
+}
+
+.accordion .accordion-item-label:hover::before,
+.accordion .accordion-item-label:focus-visible::before,
+.accordion .accordion-item[open] > .accordion-item-label::before {
+  background-color: #fff;
+}
+
+.accordion .accordion-item[open] > .accordion-item-label {
+  padding-bottom: 38px;
+}
+
+.accordion .accordion-item[open] > .accordion-item-label::before {
+  transform: rotate(180deg);
+}
+
+/* reveal: source animates max-height over 0.3s ease-in-out */
+.accordion .accordion-item::details-content {
+  block-size: 0;
+  overflow: clip;
+  overflow-clip-margin: 16px;
+  transition: block-size 0.3s ease-in-out, content-visibility 0.3s ease-in-out allow-discrete;
+}
+
+.accordion .accordion-item[open]::details-content {
+  block-size: auto;
+}
+
+/* answer panel: white card overlapping the navy question row */
+.accordion .accordion-item-body {
+  position: relative;
+  margin: -16px 0 10px;
+  border-radius: 16px;
+  padding: 40px;
+  background-color: #fff;
+  box-shadow: rgb(0 0 0 / 16%) 0 4px 16px -4px;
+}
+
+.accordion .accordion-item-body > :first-child {
+  margin-top: 0;
+}
+
+.accordion .accordion-item-body > :last-child {
+  margin-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion .accordion-item-label::before,
+  .accordion .accordion-item::details-content {
+    transition: none;
+  }
+}

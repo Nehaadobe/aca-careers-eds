@@ -37,6 +37,9 @@ function loadConsented() {
  */
 function onConsentUpdate() {
   const consented = hasConsent();
+  // Latest state, for code that loads after the event fired (e.g. the embed block).
+  // A replacement CMP integration should keep both this and the event.
+  window.consentState = { consented };
   window.dispatchEvent(new CustomEvent('consent.update', { detail: { consented } }));
   if (consented) {
     loadConsented();

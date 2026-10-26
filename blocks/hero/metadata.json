@@ -1,0 +1,65 @@
+{
+  "variantName": "hero",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Page-opening image with a headline and call to action",
+    "layout": "Background image fills the block; content row sits on top",
+    "home": "Full-bleed photo with a centered H2 headline and a CTA button below it",
+    "source": "https://careers.blueshieldca.com/",
+    "sections": [
+      "Hero"
+    ],
+    "page": "Page header on white: H1 and one or more subtitle paragraphs on the left, photo with a large rounded bottom-left corner on the right from 900px; photo stacks above the text on mobile",
+    "sources": [
+      "https://careers.blueshieldca.com/total-rewards",
+      "https://careers.blueshieldca.com/growth-development",
+      "https://careers.blueshieldca.com/a-culture-of-belonging",
+      "https://careers.blueshieldca.com/how-to-get-hired",
+      "https://careers.blueshieldca.com/life-at-blue-shield",
+      "https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model"
+    ]
+  },
+  "contentPattern": {
+    "structure": "row 1: background image; row 2: heading (H1 or H2) and an optional CTA link in its own paragraph",
+    "example": "Background image, H2 'A great place to do meaningful work.', CTA 'Find Your Next Role'",
+    "page": "row 1: photo; row 2: H1 followed by one or more subtitle paragraphs (no CTA)",
+    "pageExample": "Photo, H1 'Total rewards', subtitle paragraph"
+  },
+  "options": [
+    {
+      "class": "home",
+      "label": "Home"
+    },
+    {
+      "class": "page",
+      "label": "Page"
+    }
+  ],
+  "memberVariantIds": [
+    "hero-home",
+    "hero-page"
+  ],
+  "usage": {
+    "notes": [
+      "Homepage top hero: authored as 'Hero (home)'",
+      "Growth & development page header: authored as 'Hero (page)' (variant hero-page)",
+      "Culture of belonging page header: authored as 'Hero (page)' (variant hero-page)",
+      "How to get hired page header: authored as 'Hero (page)' (variant hero-page)",
+      "Life at Blue Shield page header: authored as 'Hero (page)' (variant hero-page)",
+      "Our workplace model page header: authored as 'Hero (page)' (variant hero-page)",
+      "Our people (/blog) page header: authored as 'Hero (page)' (variant hero-page)"
+    ],
+    "pagesUsing": [
+      "/growth-development",
+      "/a-culture-of-belonging",
+      "/how-to-get-hired",
+      "/life-at-blue-shield",
+      "/life-at-blue-shield/our-workplace-model",
+      "/blog"
+    ],
+    "reuseCount": 6,
+    "lastUsed": "2026-10-26"
+  },
+  "reuseGuidance": "Use plain 'Hero' for the boilerplate left-aligned hero; add the 'home' option for the full-bleed centered homepage hero. A lone link in the content row becomes a button under 'home'. Add the 'page' option for interior page headers: H1 and subtitle text beside a photo with a rounded corner."
+}

@@ -1,0 +1,12 @@
+{
+  "status": "success",
+  "url": "https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model",
+  "path": "life-at-blue-shield/our-workplace-model",
+  "timestamp": "2026-10-26T09:18:24.737Z",
+  "title": "Our workplace model | Blue Shield of California | Careers",
+  "template": "landing",
+  "blocks": [
+    "hero-page",
+    "columns-alternating"
+  ]
+}

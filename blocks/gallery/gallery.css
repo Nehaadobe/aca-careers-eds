@@ -1,0 +1,314 @@
+/*
+ * Gallery: full-bleed 3-up image row.
+ * Values from careers.blueshieldca.com .homegallery (see migration-work/gallery-extracted.css).
+ * The source keeps the row at every viewport: outer items share the space,
+ * the middle item is 38% wide and sets the row height (66% of its width).
+ */
+
+/* Gallery runs edge to edge */
+main > .section > .gallery-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.gallery {
+  margin: 30px 0;
+}
+
+.gallery .gallery-list {
+  display: flex;
+  justify-content: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery .gallery-item {
+  position: relative;
+  flex: 0 33 33.33%;
+  margin: 0;
+  line-height: 0;
+}
+
+.gallery .gallery-item:nth-child(2) {
+  flex: 0 0 38%;
+}
+
+.gallery .gallery-trigger {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.gallery .gallery-trigger:focus-visible {
+  outline: 3px solid var(--link-color);
+  outline-offset: -3px;
+}
+
+/* The middle image (or a lone image) defines the row height: padding-bottom 66% on source */
+.gallery .gallery-item:nth-child(2) .gallery-trigger,
+.gallery .gallery-item:only-child .gallery-trigger {
+  height: auto;
+  aspect-ratio: 50 / 33;
+}
+
+.gallery .gallery-trigger img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Lightbox: source theme lightbox (Magnific Popup image gallery) */
+body.gallery-lightbox-open {
+  overflow: hidden;
+}
+
+.gallery .gallery-lightbox {
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+.gallery .gallery-lightbox::backdrop {
+  background: rgb(11 11 11 / 80%);
+}
+
+.gallery .gallery-lightbox-inner {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 6px;
+  line-height: 0;
+}
+
+.gallery .gallery-lightbox-figure {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+  line-height: 0;
+}
+
+/* Placeholder panel behind the image */
+.gallery .gallery-lightbox-figure::after {
+  content: "";
+  position: absolute;
+  inset: 40px 0;
+  z-index: -1;
+  display: block;
+  background: #444;
+  box-shadow: 0 0 8px rgb(0 0 0 / 60%);
+}
+
+.gallery .gallery-lightbox-media {
+  display: block;
+}
+
+.gallery .gallery-lightbox-media picture {
+  display: contents;
+}
+
+.gallery .gallery-lightbox-media img {
+  box-sizing: border-box;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100dvh;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+/* Bottom bar: title left, counter right, inside the image's bottom padding */
+.gallery .gallery-lightbox-caption {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: -36px;
+  padding-right: 36px;
+  color: #f3f3f3;
+  font-size: var(--body-font-size-m);
+  line-height: 18px;
+  text-align: left;
+  overflow-wrap: break-word;
+}
+
+.gallery .gallery-lightbox-status {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin: -36px 0 0;
+  color: #ccc;
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.gallery .gallery-lightbox-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.gallery .gallery-lightbox button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.65;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.gallery .gallery-lightbox button:hover,
+.gallery .gallery-lightbox button:focus-visible {
+  opacity: 1;
+}
+
+.gallery .gallery-lightbox button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+}
+
+.gallery .gallery-lightbox button[hidden] {
+  display: none;
+}
+
+.gallery .gallery-lightbox-close {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  padding: 0 6px 18px 10px;
+  font-family: Arial, Baskerville, monospace;
+  font-size: 28px;
+  font-style: normal;
+  line-height: 44px;
+  text-align: right;
+}
+
+.gallery .gallery-lightbox-close:active {
+  top: 1px;
+}
+
+/* Arrows: CSS triangles, glyph hidden */
+.gallery .gallery-lightbox-prev,
+.gallery .gallery-lightbox-next {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 90px;
+  height: 110px;
+  margin-top: -55px;
+  font-size: 0;
+  transform: scale(0.75);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gallery .gallery-lightbox-prev > span,
+.gallery .gallery-lightbox-next > span {
+  display: none;
+}
+
+.gallery .gallery-lightbox-prev::before,
+.gallery .gallery-lightbox-prev::after,
+.gallery .gallery-lightbox-next::before,
+.gallery .gallery-lightbox-next::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 0;
+  height: 0;
+  margin-top: 35px;
+  margin-left: 35px;
+  border: medium inset transparent;
+}
+
+.gallery .gallery-lightbox-prev::after,
+.gallery .gallery-lightbox-next::after {
+  top: 8px;
+  border-top-width: 13px;
+  border-bottom-width: 13px;
+}
+
+.gallery .gallery-lightbox-prev::before,
+.gallery .gallery-lightbox-next::before {
+  border-top-width: 21px;
+  border-bottom-width: 21px;
+  opacity: 0.7;
+}
+
+.gallery .gallery-lightbox-prev {
+  left: 0;
+  transform-origin: 0 center;
+}
+
+.gallery .gallery-lightbox-prev::after {
+  margin-left: 31px;
+  border-right: 17px solid #fff;
+}
+
+.gallery .gallery-lightbox-prev::before {
+  margin-left: 25px;
+  border-right: 27px solid #3f3f3f;
+}
+
+.gallery .gallery-lightbox-next {
+  right: 0;
+  transform-origin: 100% center;
+}
+
+.gallery .gallery-lightbox-next::after {
+  margin-left: 39px;
+  border-left: 17px solid #fff;
+}
+
+.gallery .gallery-lightbox-next::before {
+  border-left: 27px solid #3f3f3f;
+}
+
+.gallery .gallery-lightbox-prev:active,
+.gallery .gallery-lightbox-next:active {
+  margin-top: -54px;
+}
+
+@media (width >= 900px) {
+  .gallery .gallery-lightbox-inner {
+    padding: 0 8px;
+  }
+
+  .gallery .gallery-lightbox-prev,
+  .gallery .gallery-lightbox-next {
+    transform: none;
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "variantName": "embed",
+  "baseBlock": "embed",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Responsive 16:9 video",
+    "video": "Native HTML5 player (<video controls preload='none'>) with the poster image; MP4 from the site's media host (iprsoftwaremedia.com) plays directly",
+    "default": "YouTube/Vimeo lazy facade: poster with a circular play button; the youtube-nocookie / Vimeo (dnt) iframe is created on click, only with consent",
+    "source": "https://careers.blueshieldca.com/blog/our-people-our-stories-bridget-cordova",
+    "sections": ["Article hero video"]
+  },
+  "contentPattern": {
+    "structure": "row 1: poster image (optional); row 2: link to the media (.mp4 for the video option, or a YouTube/Vimeo URL)",
+    "example": "Embed (video): poster image, link to bridget cordova social cut v2.mp4",
+    "consent": "Third-party iframes wait for the project consent check (scripts/consent-check.js, 'consent.update' event with detail.consented). Without consent a click shows a notice with a 'watch it on YouTube/Vimeo' link (new tab) instead of loading the iframe"
+  },
+  "options": [
+    { "class": "video", "label": "Video" }
+  ],
+  "memberVariantIds": ["embed-video"],
+  "usage": {
+    "notes": ["3 blog-article stories start with an Embed (video) hero; the article-header moves it into the header"],
+    "pagesUsing": [
+      "/blog/our-people-our-stories-bridget-cordova",
+      "/blog/jack-zhang-embracing-storytelling-and-belonging-at-blue-shield",
+      "/blog/life-at-blue-shield"
+    ],
+    "reuseCount": 3,
+    "lastUsed": "2026-10-26"
+  },
+  "reuseGuidance": "Use 'Embed (video)' with a poster image and an .mp4 link for self-hosted video. Use plain 'Embed' with a YouTube or Vimeo link (and optionally a poster image) for third-party video."
+}

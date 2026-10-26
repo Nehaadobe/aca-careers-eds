@@ -1,0 +1,72 @@
+/*
+ * Blue Shield of California Careers — brand tokens.
+ * Extracted from https://careers.blueshieldca.com/ computed styles (migration-work/brand.json).
+ */
+
+:root {
+  /* colors */
+  --brand-blue: #0071bc;
+  --brand-blue-hover: #0060a0;
+  --brand-blue-dark: #005a96;
+  --brand-navy: #014d83;
+  --brand-light-blue: #edf6f9;
+  --brand-grey: #6c757d;
+  --background-color: #fff;
+  --light-color: var(--brand-light-blue);
+  --dark-color: var(--brand-navy);
+  --text-color: #25282a;
+  --link-color: var(--brand-blue);
+  --link-hover-color: var(--brand-blue-dark);
+
+  /* two-tone ring: visible (3:1+) on white, light-blue and brand-blue backgrounds */
+  --focus-ring: 0 0 0 2px #fff, 0 0 0 4px var(--brand-blue-dark);
+
+  /* fonts */
+  --body-font-family: proxima-nova, proxima-nova-fallback, sans-serif;
+  --heading-font-family: proxima-nova, proxima-nova-fallback, sans-serif;
+  --display-font-family: trade-gothic-next-condensed, trade-gothic-next-condensed-fallback, sans-serif;
+
+  /* body sizes (source uses the same sizes on mobile and desktop) */
+  --body-font-size-l: 20px;
+  --body-font-size-m: 16px;
+  --body-font-size-s: 14px;
+  --body-font-size-xs: 12px;
+  --body-line-height: 1.5;
+
+  /* heading sizes */
+  --heading-font-size-xxl: 42px; /* h1 page title (display font, uppercase) */
+  --heading-font-size-xl: 32px; /* h2 section title */
+  --heading-font-size-l: 24px; /* h3 card title */
+  --heading-font-size-m: 18px; /* h4 / tile title */
+  --heading-font-size-s: 16px;
+  --heading-font-size-xs: 14px;
+  --article-title-font-size: 36px;
+  --display-letter-spacing: 1.3333px;
+
+  /* spacing */
+  --section-spacing: 60px;
+  --content-max-width: 1320px;
+  --content-padding: 15px;
+  --article-max-width: 960px;
+  --nav-height: 82px; /* full header height, reserved before the header loads */
+
+  /* header */
+  --header-border-color: #f4f4f4;
+  --header-utility-color: #767676;
+  --header-button-bg: #f8f9fa;
+
+  /* footer */
+  --footer-bg: #25282a;
+
+  /* shapes */
+  --brand-radius: 20px 0; /* top-left + bottom-right rounded corners */
+  --button-radius: 22.56px;
+  --transition-fast: 0.15s ease-in-out;
+}
+
+/* breakpoint-exception: source shows the utility row from 992px */
+@media (width >= 992px) {
+  :root {
+    --nav-height: 134px; /* utility row 49px + main row 83px + 2px border */
+  }
+}
