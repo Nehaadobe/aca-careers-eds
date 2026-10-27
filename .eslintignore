@@ -1,2 +1,4 @@
 helix-importer-ui
 *.min.js
+# visual regression suite: own package and dependencies (see e2e/visual-testing/README.md)
+e2e/

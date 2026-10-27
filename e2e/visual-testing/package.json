@@ -1,0 +1,23 @@
+{
+  "name": "aca-careers-visual-testing",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Visual regression tests: compares the migrated EDS site against approved LIVE reference screenshots",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "install:browsers": "playwright install chromium",
+    "visual:baseline": "node visual/run.js baseline",
+    "visual": "node visual/run.js compare",
+    "visual:pages": "node visual/run.js compare visual/pages.spec.js",
+    "visual:blocks": "node visual/run.js compare visual/blocks.spec.js",
+    "visual:report": "playwright show-report playwright-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "pixelmatch": "8.0.0",
+    "pngjs": "7.0.0"
+  }
+}
