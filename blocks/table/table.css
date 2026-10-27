@@ -1,0 +1,82 @@
+.table {
+  margin: 32px 0;
+}
+
+.table .table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table .table-scroll:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+.table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--body-font-size-s);
+}
+
+.table thead tr {
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #dadada;
+}
+
+.table th,
+.table td {
+  padding: 0.5em;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  font-weight: 700;
+}
+
+.table th p,
+.table td p {
+  margin: 0;
+}
+
+.table td p + p {
+  margin-top: 0.25em;
+}
+
+.table.no-header tbody tr:first-child {
+  border-top: 1px solid #dadada;
+}
+
+/*
+ * single-cell table: bordered callout box.
+ * Source renders <table border="1" cellpadding="0">: a 1px grey frame with no
+ * cell padding; every paragraph keeps the body 0 0 20px margin, so the last
+ * one leaves 20px of space inside the bottom edge. Same at all widths.
+ */
+.table.table-is-callout {
+  margin: 0 0 20px;
+}
+
+.table .table-callout {
+  padding: 0;
+  border: 1px solid rgb(128 128 128);
+  color: var(--text-color);
+}
+
+.table .table-callout > * {
+  margin-top: 0;
+}
+
+.table .table-callout p {
+  margin: 0 0 20px;
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+.table .table-callout strong {
+  font-weight: 600;
+}

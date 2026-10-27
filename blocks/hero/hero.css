@@ -1,37 +1,166 @@
-.hero-container .hero-wrapper {
-  max-width: unset;
+/*
+ * Hero block. Values from the source computed styles (migration-work/hero-extracted.css).
+ * Options:
+ *   home          - full-bleed photo, headline + CTA centered at the bottom
+ *   page          - page header: title/subtitle left, photo right (rounded bottom-left)
+ *   page no-image - title only (no-image is added by hero.js when no picture is authored)
+ */
+
+/* the hero manages its own width; the section wrapper must not cap it */
+main .section > .hero-wrapper {
+  max-width: none;
   padding: 0;
 }
 
-.hero {
+/* ---------- default + home: full-bleed photo with overlaid headline ---------- */
+.hero:not(.page) {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
-}
-
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
-.hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   box-sizing: border-box;
+  min-height: 480px;
+  padding: 0 var(--content-padding);
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--text-color);
 }
 
-.hero img {
-  object-fit: cover;
+.hero:not(.page) picture {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: #f4f4f4;
+}
+
+.hero:not(.page) img {
+  display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+}
+
+.hero:not(.page) .hero-content {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 30px 0;
+  text-align: center;
+}
+
+.hero:not(.page) .hero-content h1,
+.hero:not(.page) .hero-content h2 {
+  max-width: 450px;
+  margin: 0;
+  color: var(--background-color);
+  font-family: var(--display-font-family);
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 500;
+  line-height: 48px;
+  letter-spacing: var(--display-letter-spacing);
+  text-transform: uppercase;
+  text-shadow: rgb(0 0 0) 0 0 1px;
+}
+
+.hero:not(.page) .hero-content p {
+  margin: 20px 0 0;
+}
+
+/* ---------- page: page header with text and photo ---------- */
+.hero.page {
+  color: var(--text-color);
+}
+
+.hero.page .hero-media-wrap {
+  overflow: hidden;
+  line-height: 0;
+}
+
+.hero.page picture {
+  display: block;
+}
+
+.hero.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.hero.page .hero-content {
+  padding: 0 var(--content-padding);
+  text-align: center;
+}
+
+.hero.page .hero-content h1 {
+  margin: 0 0 20px;
+  padding: 40px 0 0;
+}
+
+.hero.page .hero-content p {
+  margin: 0 0 20px;
+  font-size: var(--body-font-size-l);
+  line-height: 30px;
+}
+
+.hero.page .hero-content h1 + p {
+  padding-top: 40px;
+}
+
+.hero.page .hero-content > p:last-child {
+  margin-bottom: 0;
 }
 
 @media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
+  .hero.page {
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box;
+    max-width: var(--content-max-width);
+    min-height: 320px;
+    margin: 0 auto;
+    padding: 0 var(--content-padding) 40px;
+  }
+
+  .hero.page .hero-content {
+    flex: 0 0 40%;
+    box-sizing: border-box;
+    padding: 40px 0 0;
+    text-align: start;
+  }
+
+  .hero.page .hero-content h1 {
+    padding: 0 40px 0 0;
+  }
+
+  .hero.page .hero-content p,
+  .hero.page .hero-content h1 + p {
+    padding: 0 40px 0 0;
+  }
+
+  .hero.page .hero-media-wrap {
+    flex: 0 0 60%;
+    order: 1;
+    border-radius: 0 0 0 80px;
+  }
+
+  /* fill the column when the text is taller than the photo */
+  .hero.page picture,
+  .hero.page img {
+    height: 100%;
+  }
+
+  /* title only: no reserved height or bottom spacing */
+  .hero.page.no-image {
+    min-height: 0;
+    padding-bottom: 0;
+  }
+}
+
+/* source caps title/subtitle measure on wide screens (.page-title, .page-subtitle) */
+@media (width >= 1400px) {
+  .hero.page .hero-content h1,
+  .hero.page .hero-content p {
+    box-sizing: border-box;
+    max-width: calc(645px - 10vw);
   }
 }

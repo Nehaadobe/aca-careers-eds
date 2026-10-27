@@ -1,0 +1,38 @@
+{
+  "variantName": "gallery",
+  "baseBlock": "gallery",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Edge-to-edge row of images that open full size in an accessible lightbox",
+    "layout": "Images stack on mobile and share one row from 600px; lightbox is a native modal dialog with previous/next, Escape to close and trapped focus",
+    "source": "https://careers.blueshieldca.com/",
+    "sections": [
+      "Gallery with feature tiles"
+    ]
+  },
+  "contentPattern": {
+    "structure": "one row per image; the cell holds the image, optionally a link to the full-size file (wrapping the image or as a separate link) and an optional caption paragraph",
+    "example": "3 office images opening in a lightbox"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "gallery-lightbox"
+  ],
+  "usage": {
+    "notes": [
+      "Homepage 3-up image row: authored as 'Gallery'",
+      "Total rewards: two 3-up rows between icon-tile sections, authored as 'Gallery'",
+      "Growth & development: one 3-up row after the text banner, authored as 'Gallery'",
+      "Culture of belonging: one 3-up row (div.dei_cards), authored as 'Gallery'"
+    ],
+    "pagesUsing": [
+      "/index",
+      "/total-rewards",
+      "/growth-development",
+      "/a-culture-of-belonging"
+    ],
+    "reuseCount": 3,
+    "lastUsed": "2026-10-26"
+  },
+  "reuseGuidance": "Use for any image row that should enlarge on click. Without a full-size link the lightbox shows a large optimized rendition of the same image. No third-party scripts."
+}

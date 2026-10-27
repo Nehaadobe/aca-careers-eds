@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://careers.blueshieldca.com/life-at-blue-shield",
+  "path": "life-at-blue-shield",
+  "timestamp": "2026-10-26T09:18:21.026Z",
+  "title": "Life at Blue Shield | Blue Shield of California | Careers",
+  "template": "landing",
+  "blocks": [
+    "hero-page",
+    "cards-video-tiles",
+    "banner-image-cta"
+  ]
+}

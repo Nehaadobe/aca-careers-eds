@@ -5,11 +5,15 @@ import {
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
+  getMetadata,
   waitForFirstImage,
   loadSection,
   loadSections,
   loadCSS,
   buildBlock,
+  readBlockConfig,
+  toCamelCase,
+  toClassName,
 } from './aem.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
@@ -74,10 +78,103 @@ function buildWidgetAutoBlocks(main) {
 }
 
 /**
+ * Reads page metadata by name, tolerating authored casing and spacing
+ * ("Publication Date" vs "publication-date"). Production pages carry
+ * normalised names; local previews of imported content keep the authored ones.
+ * @param {string} name metadata name, e.g. 'publication-date'
+ * @param {Document} [doc]
+ * @returns {string} the value ('' when absent); repeated tags are comma-joined
+ */
+export function getPageMetadata(name, doc = document) {
+  const exact = getMetadata(name, doc);
+  if (exact) return exact;
+  const key = toClassName(name);
+  return [...doc.head.querySelectorAll('meta[name]')]
+    .filter((meta) => toClassName(meta.getAttribute('name')) === key)
+    .map((meta) => meta.content)
+    .join(', ');
+}
+
+/** Metadata shown in the blog-article header, as [row label, metadata name]. */
+const ARTICLE_HEADER_FIELDS = [
+  ['Role', 'role'],
+  ['Topic', 'topic'],
+  ['Publication Date', 'publication-date'],
+  ['Author', 'author'],
+  ['Author Title', 'author-title'],
+];
+
+/**
+ * Blog articles: moves the first H1 and the hero that immediately follows it
+ * (an image paragraph or an embed block) into an auto-built article-header
+ * block, with the article metadata and a share block, in a new first section.
+ * @param {Element} main The container element
+ */
+function buildArticleHeader(main) {
+  const h1 = main.querySelector(':scope > div > h1');
+  if (!h1 || h1.closest('.article-header')) return;
+
+  const rows = ARTICLE_HEADER_FIELDS
+    .map(([label, name]) => [label, getPageMetadata(name)])
+    .filter(([, value]) => value.trim());
+
+  const source = h1.parentElement;
+  const next = h1.nextElementSibling;
+  let hero = null;
+  if (next && next.matches('div.embed')) {
+    hero = next;
+  } else if (
+    next && next.tagName === 'P'
+    && next.querySelector('picture') && !next.textContent.trim()
+  ) {
+    hero = next.querySelector('picture');
+    next.remove();
+  }
+
+  rows.push([h1]);
+  if (hero) rows.push([hero]);
+  rows.push([buildBlock('share', '')]);
+
+  const section = document.createElement('div');
+  section.append(buildBlock('article-header', rows));
+  main.prepend(section);
+  if (!source.children.length && !source.textContent.trim()) source.remove();
+}
+
+/**
+ * Blog articles: appends a "More Stories" section with related story cards.
+ * The cards block (related option) fills itself from the query index and
+ * removes the section when there is nothing to show.
+ * @param {Element} main The container element
+ */
+function buildRelatedStories(main) {
+  if (main.querySelector('.cards.related')) return;
+  const heading = document.createElement('h2');
+  heading.textContent = 'More Stories';
+  const cards = buildBlock('cards', [[heading]]);
+  cards.classList.add('related');
+  const section = document.createElement('div');
+  section.classList.add('related-stories');
+  section.append(cards);
+  main.append(section);
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
 function buildAutoBlocks(main) {
+  try {
+    // only the page's own <main>: fragments (nav, footer) also run decorateMain
+    const isPageMain = main === document.querySelector('body > main');
+    if (isPageMain && toClassName(getPageMetadata('template')) === 'blog-article') {
+      buildArticleHeader(main);
+      buildRelatedStories(main);
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Blog article auto blocking failed', error);
+  }
   try {
     // auto load `*/fragments/*` references
     const fragments = [...main.querySelectorAll('a[href*="/fragments/"]')].filter((f) => !f.closest('.fragment'));
@@ -143,6 +240,32 @@ function decorateButtons(main) {
 }
 
 /**
+ * Applies Section Metadata tables: `Style` values become section classes,
+ * other keys become data attributes. The vendored aem.js does not do this.
+ * @param {Element} main The main element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll(':scope > div.section').forEach((section) => {
+    const sectionMeta = section.querySelector('div.section-metadata');
+    if (!sectionMeta) return;
+    const meta = readBlockConfig(sectionMeta);
+    Object.keys(meta).forEach((key) => {
+      if (key === 'style') {
+        String(meta.style).split(',')
+          .map((style) => toClassName(style.trim()))
+          .filter((style) => style)
+          .forEach((style) => section.classList.add(style));
+      } else {
+        section.dataset[toCamelCase(key)] = meta[key];
+      }
+    });
+    const wrapper = sectionMeta.parentElement;
+    if (wrapper && wrapper !== section && wrapper.children.length === 1) wrapper.remove();
+    else sectionMeta.remove();
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -151,6 +274,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
 }
@@ -162,6 +286,10 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
+  // aem.js reads lowercase meta names; local previews keep authored case ("Template"),
+  // so add the template class through the case-insensitive lookup as well
+  const template = toClassName(getPageMetadata('template'));
+  if (template) document.body.classList.add(template);
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);

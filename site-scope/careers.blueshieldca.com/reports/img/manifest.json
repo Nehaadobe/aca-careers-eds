@@ -1,0 +1,278 @@
+{
+ "bsc-header": [
+  {
+   "status": "ok",
+   "file": "bsc-header-1.jpg",
+   "url": "https://careers.blueshieldca.com/",
+   "clipped": false
+  },
+  {
+   "status": "ok",
+   "file": "bsc-header-2.jpg",
+   "url": "https://careers.blueshieldca.com/",
+   "how": "mobile viewport after opening the menu"
+  }
+ ],
+ "bsc-footer": [
+  {
+   "status": "ok",
+   "file": "bsc-footer-1.jpg",
+   "url": "https://careers.blueshieldca.com/",
+   "clipped": false
+  }
+ ],
+ "bsc-home-hero": [
+  {
+   "status": "ok",
+   "file": "bsc-home-hero-1.jpg",
+   "url": "https://careers.blueshieldca.com/",
+   "clipped": false
+  }
+ ],
+ "bsc-page-hero": [
+  {
+   "status": "ok",
+   "file": "bsc-page-hero-1.jpg",
+   "url": "https://careers.blueshieldca.com/total-rewards",
+   "clipped": false
+  },
+  {
+   "status": "ok",
+   "file": "bsc-page-hero-2.jpg",
+   "url": "https://careers.blueshieldca.com/why-relocate",
+   "clipped": false
+  }
+ ],
+ "bsc-article-header": [
+  {
+   "status": "ok",
+   "file": "bsc-article-header-1.jpg",
+   "url": "https://careers.blueshieldca.com/blog/perseverance-in-motion",
+   "clipped": true
+  },
+  {
+   "status": "ok",
+   "file": "bsc-article-header-2.jpg",
+   "url": "https://careers.blueshieldca.com/blog/finding-purpose-and-passion-at-work",
+   "clipped": true
+  }
+ ],
+ "bsc-share": [
+  {
+   "status": "ok",
+   "file": "bsc-share-1.jpg",
+   "url": "https://careers.blueshieldca.com/blog/perseverance-in-motion",
+   "clipped": false
+  }
+ ],
+ "bsc-story-cards": [
+  {
+   "status": "ok",
+   "file": "bsc-story-cards-1.jpg",
+   "url": "https://careers.blueshieldca.com/blog/perseverance-in-motion",
+   "clipped": false
+  },
+  {
+   "status": "ok",
+   "file": "bsc-story-cards-2.jpg",
+   "url": "https://careers.blueshieldca.com/blog",
+   "clipped": true
+  },
+  {
+   "status": "ok",
+   "file": "bsc-story-cards-3.jpg",
+   "url": "https://careers.blueshieldca.com/growth-development",
+   "clipped": false
+  }
+ ],
+ "bsc-story-listing": [
+  {
+   "status": "ok",
+   "file": "bsc-story-listing-1.jpg",
+   "url": "https://careers.blueshieldca.com/blog",
+   "clipped": true
+  },
+  {
+   "status": "ok",
+   "file": "bsc-story-listing-2.jpg",
+   "url": "https://careers.blueshieldca.com/blog/search?q=nurse",
+   "clipped": false
+  }
+ ],
+ "bsc-authors": [
+  {
+   "status": "ok",
+   "file": "bsc-authors-1.jpg",
+   "url": "https://careers.blueshieldca.com/blog/authors",
+   "clipped": true
+  }
+ ],
+ "bsc-gallery": [
+  {
+   "status": "ok",
+   "file": "bsc-gallery-1.jpg",
+   "url": "https://careers.blueshieldca.com/",
+   "clipped": false
+  },
+  {
+   "status": "ok",
+   "file": "bsc-gallery-2.jpg",
+   "url": "https://careers.blueshieldca.com/total-rewards",
+   "clipped": false
+  }
+ ],
+ "bsc-feature-tiles": [
+  {
+   "status": "ok",
+   "file": "bsc-feature-tiles-1.jpg",
+   "url": "https://careers.blueshieldca.com/",
+   "clipped": false
+  }
+ ],
+ "bsc-quote-tiles": [
+  {
+   "status": "ok",
+   "file": "bsc-quote-tiles-1.jpg",
+   "url": "https://careers.blueshieldca.com/",
+   "clipped": false
+  }
+ ],
+ "bsc-icon-tiles": [
+  {
+   "status": "ok",
+   "file": "bsc-icon-tiles-1.jpg",
+   "url": "https://careers.blueshieldca.com/total-rewards",
+   "clipped": false
+  },
+  {
+   "status": "ok",
+   "file": "bsc-icon-tiles-2.jpg",
+   "url": "https://careers.blueshieldca.com/how-to-get-hired",
+   "clipped": false
+  }
+ ],
+ "bsc-section": [
+  {
+   "status": "ok",
+   "file": "bsc-section-1.jpg",
+   "url": "https://careers.blueshieldca.com/total-rewards",
+   "clipped": true
+  }
+ ],
+ "bsc-text-banner": [
+  {
+   "status": "ok",
+   "file": "bsc-text-banner-1.jpg",
+   "url": "https://careers.blueshieldca.com/growth-development",
+   "clipped": false
+  }
+ ],
+ "bsc-promo-banner": [
+  {
+   "status": "ok",
+   "file": "bsc-promo-banner-1.jpg",
+   "url": "https://careers.blueshieldca.com/life-at-blue-shield",
+   "clipped": false
+  },
+  {
+   "status": "ok",
+   "file": "bsc-promo-banner-2.jpg",
+   "url": "https://careers.blueshieldca.com/",
+   "clipped": false
+  }
+ ],
+ "bsc-video-tiles": [
+  {
+   "status": "ok",
+   "file": "bsc-video-tiles-1.jpg",
+   "url": "https://careers.blueshieldca.com/life-at-blue-shield",
+   "clipped": false
+  }
+ ],
+ "bsc-embed": [
+  {
+   "status": "ok",
+   "file": "bsc-embed-1.jpg",
+   "url": "https://careers.blueshieldca.com/blog/a-tribute-to-our-black-employee-network",
+   "clipped": false
+  }
+ ],
+ "bsc-columns": [
+  {
+   "status": "ok",
+   "file": "bsc-columns-1.jpg",
+   "url": "https://careers.blueshieldca.com/blog/a-day-in-the-life-of-a-blue-shield-actuarial-analyst",
+   "how": "element with surrounding text"
+  },
+  {
+   "status": "ok",
+   "file": "bsc-columns-2.jpg",
+   "url": "https://careers.blueshieldca.com/growth-development",
+   "clipped": false
+  },
+  {
+   "status": "ok",
+   "file": "bsc-columns-3.jpg",
+   "url": "https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model",
+   "clipped": false
+  }
+ ],
+ "bsc-erg-cards": [
+  {
+   "status": "ok",
+   "file": "bsc-erg-cards-1.jpg",
+   "url": "https://careers.blueshieldca.com/a-culture-of-belonging",
+   "clipped": false
+  }
+ ],
+ "bsc-faq": [
+  {
+   "status": "ok",
+   "file": "bsc-faq-1.jpg",
+   "url": "https://careers.blueshieldca.com/how-to-get-hired",
+   "clipped": false
+  }
+ ],
+ "bsc-poll": [
+  {
+   "status": "ok",
+   "file": "bsc-poll-1.jpg",
+   "url": "https://careers.blueshieldca.com/",
+   "how": "viewport"
+  }
+ ],
+ "bsc-account-forms": [
+  {
+   "status": "ok",
+   "file": "bsc-account-forms-1.jpg",
+   "url": "https://careers.blueshieldca.com/login",
+   "clipped": false
+  },
+  {
+   "status": "ok",
+   "file": "bsc-account-forms-2.jpg",
+   "url": "https://careers.blueshieldca.com/registration",
+   "clipped": false
+  },
+  {
+   "status": "ok",
+   "file": "bsc-account-forms-3.jpg",
+   "url": "https://careers.blueshieldca.com/password_recover",
+   "clipped": false
+  }
+ ],
+ "bsc-job-alerts": [
+  {
+   "status": "none",
+   "note": "No live instance — /alerts returns HTTP 404; the alerts form is no longer rendered on any page."
+  }
+ ],
+ "bsc-events": [
+  {
+   "status": "ok",
+   "file": "bsc-events-1.jpg",
+   "url": "https://careers.blueshieldca.com/events",
+   "clipped": false
+  }
+ ]
+}

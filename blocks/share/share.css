@@ -1,0 +1,79 @@
+/* Share: "Share" label followed by round LinkedIn / Facebook / X links.
+   Values from .article-share on the source (identical on mobile and desktop). */
+.share {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+.share .share-label {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-weight: 600;
+}
+
+.share .share-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0 0 0 20px;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.share .share-links > li {
+  display: block;
+  margin: 0;
+}
+
+.share .share-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #37414a;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 0.3s;
+}
+
+.share .share-link:hover,
+.share .share-link:focus {
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+.share .share-link:focus-visible {
+  outline: 1px auto var(--text-color);
+  outline-offset: 1px;
+}
+
+.share .share-linkedin {
+  background-color: #007bb6;
+}
+
+.share .share-facebook {
+  background-color: #3b5998;
+}
+
+.share .share-x {
+  background-color: #00aced;
+}
+
+.share .share-icon {
+  display: block;
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .share .share-link {
+    transition: none;
+  }
+}

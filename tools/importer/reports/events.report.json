@@ -1,0 +1,11 @@
+{
+  "status": "success",
+  "url": "https://careers.blueshieldca.com/events",
+  "path": "events",
+  "timestamp": "2026-10-26T09:18:30.826Z",
+  "title": "Upcoming events | Blue Shield of California | Careers",
+  "template": "landing",
+  "blocks": [
+    "hero-page"
+  ]
+}

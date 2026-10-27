@@ -1,0 +1,74 @@
+{
+ "homepage": {
+  "status": "ok",
+  "file": "tpl-homepage.jpg",
+  "url": "https://careers.blueshieldca.com/",
+  "how": "full page",
+  "httpStatus": 200,
+  "pageHeight": 3166,
+  "clipped": false
+ },
+ "section-landing": {
+  "status": "ok",
+  "file": "tpl-section-landing.jpg",
+  "url": "https://careers.blueshieldca.com/total-rewards",
+  "how": "full page",
+  "httpStatus": 200,
+  "pageHeight": 4664,
+  "clipped": false
+ },
+ "text-page": {
+  "status": "ok",
+  "file": "tpl-text-page.jpg",
+  "url": "https://careers.blueshieldca.com/why-relocate",
+  "how": "full page",
+  "httpStatus": 200,
+  "pageHeight": 1165,
+  "clipped": false
+ },
+ "story-article": {
+  "status": "ok",
+  "file": "tpl-story-article.jpg",
+  "url": "https://careers.blueshieldca.com/blog/perseverance-in-motion",
+  "how": "full page",
+  "httpStatus": 200,
+  "pageHeight": 3197,
+  "clipped": false
+ },
+ "story-listing": {
+  "status": "ok",
+  "file": "tpl-story-listing.jpg",
+  "url": "https://careers.blueshieldca.com/blog",
+  "how": "full page",
+  "httpStatus": 200,
+  "pageHeight": 3379,
+  "clipped": false
+ },
+ "authors-listing": {
+  "status": "ok",
+  "file": "tpl-authors-listing.jpg",
+  "url": "https://careers.blueshieldca.com/blog/authors",
+  "how": "full page",
+  "httpStatus": 200,
+  "pageHeight": 3379,
+  "clipped": false
+ },
+ "account-form": {
+  "status": "ok",
+  "file": "tpl-account-form.jpg",
+  "url": "https://careers.blueshieldca.com/login",
+  "how": "full page",
+  "httpStatus": 200,
+  "pageHeight": 1166,
+  "clipped": false
+ },
+ "retired-404": {
+  "status": "ok",
+  "file": "tpl-retired-404.jpg",
+  "url": "https://careers.blueshieldca.com/alerts",
+  "how": "full page",
+  "httpStatus": 404,
+  "pageHeight": 1007,
+  "clipped": false
+ }
+}

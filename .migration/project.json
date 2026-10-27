@@ -1,0 +1,11 @@
+{
+  "type": "da",
+  "sites": {
+    "aca-careers-eds": {
+      "previewOrg": "Nehaadobe",
+      "previewSite": "aca-careers-eds",
+      "contentHostUrl": "https://content.da.live/nehaadobe/aca-careers-eds/",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}

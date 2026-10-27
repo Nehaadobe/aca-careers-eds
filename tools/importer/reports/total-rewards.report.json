@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://careers.blueshieldca.com/total-rewards",
+  "path": "total-rewards",
+  "timestamp": "2026-10-26T09:18:12.397Z",
+  "title": "Total rewards | Blue Shield of California | Careers",
+  "template": "landing",
+  "blocks": [
+    "hero-page",
+    "cards-icon-tiles",
+    "cards-icon-tiles",
+    "cards-icon-tiles",
+    "gallery",
+    "gallery"
+  ]
+}

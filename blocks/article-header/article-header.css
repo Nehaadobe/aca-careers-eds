@@ -1,0 +1,137 @@
+/* Article header: categories, title, date, byline + share, then a full-width hero.
+ * Values from source computed styles (careers.blueshieldca.com blog articles).
+ * Source breakpoint for the byline/share row and the wide hero is 992px.
+ */
+.article-header {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-top: 40px;
+
+  /* source: 40px between hero and article body (section spacing is 60px) */
+  margin-bottom: calc(40px - var(--section-spacing));
+}
+
+.article-header .article-header-content {
+  width: 100%;
+  max-width: 930px;
+  margin: 0 auto;
+}
+
+/* categories: inline-block links separated by a space + 30px (as in the source markup) */
+.article-header .article-header-categories {
+  margin: 0 0 15px;
+  padding: 0;
+  list-style: none;
+}
+
+.article-header .article-header-categories li {
+  display: inline;
+  margin: 0;
+}
+
+/* collapsible space between links, dropped at line wraps like source whitespace */
+.article-header .article-header-categories li + li::before {
+  content: " ";
+}
+
+.article-header .article-header-categories li + li a {
+  margin-left: 30px;
+}
+
+.article-header .article-header-categories a:any-link {
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.article-header .article-header-categories a:hover {
+  text-decoration: underline;
+}
+
+.article-header .article-header-title {
+  margin: 0 0 20px;
+  font-size: var(--article-title-font-size);
+  line-height: 40px;
+}
+
+.article-header .article-header-date {
+  margin: 20px 0;
+}
+
+/* byline + share: stacked on mobile, one row on desktop */
+.article-header .article-header-meta {
+  margin: 0;
+}
+
+/* source keeps the (empty) author row's space when a story has no byline */
+.article-header .article-header-meta:not(:has(.article-header-byline)) {
+  margin-top: 40px;
+}
+
+.article-header .article-header-byline {
+  display: flow-root;
+  margin: 0 0 20px;
+}
+
+.article-header .article-header-byline > p {
+  margin: 0;
+  line-height: 19.2px;
+}
+
+.article-header .article-header-byline > .article-header-author {
+  margin: 3px 0;
+  font-weight: 600;
+}
+
+/* hero */
+.article-header .article-header-hero {
+  width: 100%;
+  line-height: 0;
+}
+
+/* image hero breaks out of the 930px text column (source: viewport minus 15px gutters) */
+.article-header .article-header-hero:has(> picture) {
+  align-self: center;
+  width: calc(100vw - 2 * var(--content-padding));
+}
+
+.article-header .article-header-hero picture,
+.article-header .article-header-hero img {
+  display: block;
+  width: 100%;
+}
+
+/* source hero renditions are 1200x630 thumbnails, shown at their natural ratio */
+.article-header .article-header-hero img {
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+}
+
+/* video hero stays in the text column */
+.article-header .article-header-hero .embed {
+  margin: 0;
+  line-height: normal;
+}
+
+@media (width >= 992px) {
+  .article-header .article-header-meta {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* with a byline, share sits at the right end of the row; without one it stays left */
+  .article-header .article-header-byline {
+    margin: 0 10px 0 0;
+  }
+
+  .article-header .article-header-meta:not(:has(.article-header-byline)) {
+    margin-top: 60px;
+  }
+
+  /* source: 90% wide figure with 15px inner gutters */
+  .article-header .article-header-hero:has(> picture) {
+    width: calc(90vw - 2 * var(--content-padding));
+  }
+}

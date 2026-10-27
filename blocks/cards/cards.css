@@ -1,3 +1,10 @@
+/*
+ * Cards: one <li> per authored row (image cell + body cell).
+ * Option values come from careers.blueshieldca.com computed styles
+ * (see migration-work/cards-extracted.css). The source stacks every
+ * variant in a single column below its desktop breakpoint.
+ */
+
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -8,6 +15,7 @@
 }
 
 .cards > ul > li {
+  margin: 0;
   border: 1px solid #dadada;
   background-color: var(--background-color);
 }
@@ -24,4 +32,329 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+/* Shared: a card whose link is stretched over the whole tile */
+.cards .cards-card-linked {
+  position: relative;
+}
+
+.cards .cards-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.cards .cards-card-linked:focus-within {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+.cards .cards-card-title,
+.cards .cards-card-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards .cards-card-link:focus-visible {
+  outline: none;
+}
+
+.cards .cards-card-linked:hover .cards-card-link {
+  text-decoration: underline;
+}
+
+/* Option: feature-links - white shadowed tiles with a chevron CTA (source .homegallery_tiles) */
+.cards.feature-links > ul {
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.cards.feature-links > ul > li {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border: 0;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 15%);
+  color: var(--text-color);
+  text-align: left;
+}
+
+.cards.feature-links .cards-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 0;
+}
+
+.cards.feature-links .cards-card-body > * {
+  margin: 0;
+}
+
+.cards.feature-links .cards-card-body h3 {
+  margin: 0 0 16px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.cards.feature-links .cards-card-body p {
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+/* source descriptions end in a blank line (24px) before the CTA */
+.cards.feature-links .cards-card-body > p:where(:not(.cards-card-cta)) {
+  flex: 0 100 100%;
+  margin-bottom: 24px;
+}
+
+.cards.feature-links .cards-card-cta {
+  margin-top: auto;
+}
+
+main .cards.feature-links .cards-card-cta a:any-link {
+  display: inline-block;
+  color: var(--link-color);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  text-decoration: none;
+}
+
+.cards.feature-links .cards-card-cta a::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 7px;
+  border-top: 2px solid currentcolor;
+  border-right: 2px solid currentcolor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.3s;
+}
+
+.cards.feature-links .cards-card-cta a:hover::after,
+.cards.feature-links .cards-card-cta a:focus::after {
+  transform: translate(5px, -2px) rotate(45deg);
+}
+
+/* Option: icon-tiles - centered icon, title and description (source .tileIcons) */
+.cards.icon-tiles > ul {
+  grid-template-columns: 1fr;
+  gap: 0 30px;
+}
+
+.cards.icon-tiles > ul > li {
+  padding-top: 30px;
+  border: 0;
+  background-color: transparent;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.cards.icon-tiles .cards-card-image {
+  margin: 0 0 16px;
+  text-align: center;
+}
+
+.cards.icon-tiles .cards-card-image picture {
+  display: inline-block;
+}
+
+.cards.icon-tiles > ul > li img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: fill;
+}
+
+.cards.icon-tiles .cards-card-body {
+  margin: 0;
+}
+
+.cards.icon-tiles .cards-card-body h3 {
+  margin: 0 0 30px;
+  font-size: var(--heading-font-size-m);
+  font-weight: 600;
+  line-height: 21.6px;
+}
+
+.cards.icon-tiles .cards-card-body p {
+  margin: 0 0 20px;
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+/* Option: story-grid - image, blue title and description in a rounded tile (source .tiles) */
+.cards.story-grid > ul {
+  grid-template-columns: 1fr;
+  gap: 30px;
+  padding: 10px 0 20px;
+}
+
+.cards.story-grid > ul > li {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 0;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 16%);
+  transition: box-shadow var(--transition-fast);
+}
+
+.cards.story-grid > ul > li:where(:hover, :focus-within) {
+  box-shadow: 0 0 0 1px var(--brand-blue), 0 0 10px 0 rgb(0 0 0 / 16%);
+}
+
+.cards.story-grid > ul > li img {
+  aspect-ratio: 25 / 14;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.cards.story-grid .cards-card-body {
+  margin: 0;
+  padding: 40px;
+  background-color: #fff;
+}
+
+.cards.story-grid .cards-card-body h3 {
+  margin: 0 0 30px;
+  color: var(--link-color);
+  font-size: var(--heading-font-size-l);
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.cards.story-grid .cards-card-body p {
+  margin: 0;
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+.cards.story-grid .cards-card-linked:hover .cards-card-link {
+  text-decoration: none;
+}
+
+/* Option: video-tiles - square thumbnail, play icon and a blue title bar (source .ipr_videoTiles) */
+.cards.video-tiles > ul {
+  grid-template-columns: 1fr;
+  gap: 20px 40px;
+}
+
+.cards.video-tiles > ul > li {
+  display: flex;
+  flex-direction: column;
+  border: 0;
+}
+
+.cards.video-tiles .cards-card-image {
+  position: relative;
+  flex: 100 100 100%;
+}
+
+.cards.video-tiles .cards-card-image > p {
+  margin: 0;
+}
+
+.cards.video-tiles > ul > li img {
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.cards.video-tiles .cards-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  box-shadow: inset 0 0 0 2px #fff, 0 0 2px rgb(0 0 0 / 40%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cards.video-tiles .cards-video-play::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M24 19.5v21l17-10.5z' fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") center / 60px 60px no-repeat;
+}
+
+.cards.video-tiles .cards-card-body {
+  margin: 0;
+  padding: 20px;
+  background-color: var(--brand-blue);
+  color: #fff;
+  text-align: center;
+}
+
+.cards.video-tiles .cards-card-body > * {
+  margin: 0;
+}
+
+.cards.video-tiles .cards-card-body h3 {
+  color: #fff;
+  font-size: var(--heading-font-size-l);
+  font-weight: 600;
+  line-height: 28.8px;
+}
+
+/* Option: related - auto-built "More Stories" on blog articles; reuses the story-grid look */
+.cards.related .cards-related-heading {
+  margin: 0 0 30px;
+  text-align: center;
+}
+
+.cards.related .cards-related-heading > * {
+  margin: 0;
+  font-size: var(--heading-font-size-xl);
+  font-weight: 600;
+  line-height: 38.4px;
+}
+
+.cards.related.story-grid .cards-card-body h3 {
+  margin: 0 0 10px;
+}
+
+.cards.related.story-grid .cards-card-body p {
+  margin: 0 0 10px;
+}
+
+.cards.related.story-grid .cards-card-body .cards-card-more {
+  margin: 0;
+  color: var(--link-color);
+}
+
+@media (width >= 900px) {
+  .cards.feature-links > ul,
+  .cards.icon-tiles > ul,
+  .cards.story-grid > ul,
+  .cards.video-tiles > ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cards.feature-links > ul {
+    gap: 30px;
+  }
+
+  .cards.video-tiles > ul {
+    gap: 40px;
+  }
+
+  /* Tiles that follow a gallery in the same section overlap its lower edge */
+  .gallery-wrapper + .cards-wrapper > .cards.feature-links {
+    position: relative;
+    z-index: 1;
+    margin-top: -140px;
+  }
 }

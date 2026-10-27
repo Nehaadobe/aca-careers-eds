@@ -1,0 +1,72 @@
+{
+  "variantName": "cards",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Grid of repeating tiles",
+    "feature-links": "Text-only white tiles (title, short description, chevron CTA link); directly after a gallery in the same section they overlap its lower edge on desktop",
+    "source": "https://careers.blueshieldca.com/",
+    "sections": [
+      "Gallery with feature tiles"
+    ],
+    "icon-tiles": "Borderless tiles: small centered icon, centered H3 title and rich description; 3-column wrapping grid from 900px (2 from 600px, 1 on mobile); tile counts vary (3, 5, 6, 8)",
+    "story-grid": "Story cards in a 3-up row: image, title, short description; the whole card follows the card's link",
+    "video-tiles": "Square thumbnail with a white circular play icon and a blue (#0071bc) title bar; the card's youtube.com/watch link opens an accessible modal video player (native <dialog>, iframe loaded on click, Esc/close restores focus)",
+    "sources": [
+      "https://careers.blueshieldca.com/total-rewards",
+      "https://careers.blueshieldca.com/growth-development",
+      "https://careers.blueshieldca.com/how-to-get-hired",
+      "https://careers.blueshieldca.com/life-at-blue-shield"
+    ],
+    "related": "Auto-built \"More Stories\" band at the end of blog articles: centered H2 and 3 story cards (image, linked title, description) in the story-grid look on a light-blue section band (section class related-stories)"
+  },
+  "contentPattern": {
+    "structure": "one row per card; optional image cell, then a body cell with title heading, description paragraph and a CTA link in its own paragraph",
+    "example": "3 feature link tiles: 'Life at Blue Shield', 'Our people', 'Serving our communities'",
+    "icon-tiles": "one row per tile: icon image cell, body cell with H3 title and description paragraph(s) (links allowed)",
+    "story-grid": "one row per story: image cell, body cell with H3 title linked to the story, short description paragraph",
+    "video-tiles": "one row per video: thumbnail image cell, body cell with H3 title linked to a youtube.com/watch URL (or the title plus a separate paragraph holding the YouTube link)",
+    "related": "auto-built on blog-article pages: a single heading row (\"More Stories\"); cards are filled from /query-index.json via scripts/story-index.js: stories sharing the page Role/Topic first, then newest, current page excluded, max 3. If the index is unavailable or empty the block and its empty section are removed. Authored card rows, if present, are used instead of the index"
+  },
+  "options": [
+    {
+      "class": "feature-links",
+      "label": "Feature links"
+    },
+    {
+      "class": "icon-tiles",
+      "label": "Icon Tiles"
+    },
+    {
+      "class": "story-grid",
+      "label": "Story Grid"
+    },
+    {
+      "class": "video-tiles",
+      "label": "Video Tiles"
+    },
+    {
+      "class": "related",
+      "label": "Related"
+    }
+  ],
+  "memberVariantIds": [
+    "cards-feature-links",
+    "cards-icon-tiles",
+    "cards-story-grid",
+    "cards-video-tiles",
+    "cards-related"
+  ],
+  "usage": {
+    "notes": [
+      "Homepage feature tiles under the gallery: authored as 'Cards (feature-links)'",
+      "How to get hired: 6 hiring-process steps, authored as 'Cards (icon-tiles)' (variant cards-icon-tiles)"
+    ],
+    "pagesUsing": [
+      "/how-to-get-hired"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-26"
+  },
+  "reuseGuidance": "Use 'Cards (feature-links)' for text-only link tiles. Place it right after a Gallery block in the same section to get the overlap. Image cards keep using plain 'Cards'. Use 'icon-tiles' for icon + title + description grids, 'story-grid' for linked story cards, and 'video-tiles' for YouTube thumbnails that play in a modal."
+}

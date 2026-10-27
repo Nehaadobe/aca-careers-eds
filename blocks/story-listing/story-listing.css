@@ -1,0 +1,396 @@
+/* Story listing: filter panel, story grid, pagination (source /blog .indexFilter, .tiles, .pagination) */
+.story-listing {
+  color: var(--text-color);
+}
+
+/* Filter panel */
+.story-listing .story-listing-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0 0 30px;
+  padding: 25px 30px 40px;
+  border-radius: var(--brand-radius);
+  background-color: var(--brand-light-blue);
+}
+
+.story-listing .story-listing-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* "Filter Posts" title with "Clear Filters" on the right; the link's taller line overhangs like the source float */
+.story-listing .story-listing-field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  height: 24px;
+}
+
+.story-listing .story-listing-label {
+  font-size: var(--body-font-size-m);
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.story-listing a.story-listing-clear:any-link {
+  flex: none;
+  color: var(--link-color);
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.story-listing a.story-listing-clear:hover {
+  color: var(--link-hover-color);
+}
+
+/* Search input with the submit button overlaying its right end */
+.story-listing .story-listing-search-input {
+  position: relative;
+  display: flex;
+}
+
+.story-listing .story-listing-input,
+.story-listing .story-listing-select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 47.0938px;
+  margin: 0;
+  padding: 10.56px 40px 10.56px 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px 0 0 6px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.story-listing .story-listing-input::placeholder {
+  color: var(--brand-grey);
+  opacity: 1;
+}
+
+.story-listing .story-listing-input::-webkit-search-cancel-button {
+  margin-right: 8px;
+}
+
+.story-listing .story-listing-select {
+  padding-right: 48px;
+  border-radius: 6px;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-position: calc(100% - 16px) 50%;
+  background-repeat: no-repeat;
+  background-size: 16px 12px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.story-listing .story-listing-input:focus,
+.story-listing .story-listing-select:focus {
+  border-color: var(--brand-blue);
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.story-listing .story-listing-search-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 45px;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--brand-blue);
+  border-radius: 0 6px 6px 0;
+  background-color: var(--brand-blue);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.story-listing .story-listing-search-button:hover {
+  border-color: var(--brand-blue-dark);
+  background-color: var(--brand-blue-hover);
+}
+
+.story-listing .story-listing-search-button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Magnifier glyph drawn in CSS (circle + handle), 24px icon box like the source svg */
+.story-listing .story-listing-search-icon {
+  position: relative;
+  box-sizing: border-box;
+  width: 17px;
+  height: 17px;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+  transform: translate(-2px, -2px);
+}
+
+.story-listing .story-listing-search-icon::after {
+  content: '';
+  position: absolute;
+  top: calc(100% - 3px);
+  left: calc(100% - 3px);
+  width: 7px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: currentcolor;
+  transform: rotate(45deg);
+  transform-origin: left center;
+}
+
+.story-listing .story-listing-selects {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Results count: not shown on the source; kept for screen readers (role=status) */
+.story-listing .story-listing-count {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ...but shown when nothing matches */
+.story-listing.story-listing-empty .story-listing-count {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0 0 30px;
+  overflow: visible;
+  clip-path: none;
+  white-space: normal;
+}
+
+/* Story grid (same tile treatment as cards.story-grid / source .tiles) */
+.story-listing .story-listing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  margin: 0;
+  padding: 10px 0 20px;
+  list-style: none;
+}
+
+.story-listing .story-listing-grid:focus {
+  outline: none;
+}
+
+.story-listing.story-listing-empty .story-listing-grid {
+  display: none;
+}
+
+.story-listing .story-listing-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 16%);
+  transition: box-shadow var(--transition-fast);
+}
+
+.story-listing .story-listing-card:where(:hover, :focus-within) {
+  box-shadow: 0 0 0 1px var(--brand-blue), 0 0 10px 0 rgb(0 0 0 / 16%);
+}
+
+.story-listing .story-listing-card-image {
+  line-height: 0;
+}
+
+.story-listing .story-listing-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 25 / 14;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.story-listing .story-listing-card-body {
+  flex: 1 1 auto;
+  padding: 40px;
+  background-color: #fff;
+}
+
+.story-listing .story-listing-card-title {
+  margin: 0 0 30px;
+  color: var(--link-color);
+  font-size: var(--heading-font-size-l);
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.story-listing .story-listing-card-link:any-link,
+.story-listing .story-listing-card-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The title link covers the whole tile */
+.story-listing .story-listing-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.story-listing .story-listing-card-link:focus-visible {
+  outline: none;
+}
+
+.story-listing .story-listing-card-date {
+  margin: 10px 0;
+  color: #767676;
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+.story-listing .story-listing-card-description {
+  margin: 0;
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+/* Pagination */
+.story-listing .story-listing-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  font-size: var(--body-font-size-l);
+  line-height: 30px;
+}
+
+.story-listing .story-listing-pagination[hidden] {
+  display: none;
+}
+
+.story-listing .story-listing-pages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.story-listing .story-listing-pages li {
+  margin: 0;
+  padding: 0 5px;
+}
+
+.story-listing .story-listing-pages a:any-link {
+  color: var(--link-color);
+}
+
+.story-listing .story-listing-pages a:hover {
+  color: var(--link-hover-color);
+}
+
+.story-listing .story-listing-pages a[aria-current='page'] {
+  color: #000;
+  font-weight: 600;
+}
+
+.story-listing .story-listing-page-prev,
+.story-listing .story-listing-page-next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 30px;
+  color: var(--link-color);
+}
+
+.story-listing .story-listing-page-prev[aria-disabled='true'],
+.story-listing .story-listing-page-next[aria-disabled='true'] {
+  color: var(--brand-grey);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* Angle glyph (source fontello icon-angle-left/right) */
+.story-listing .story-listing-page-arrow {
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid currentcolor;
+  border-right: 2px solid currentcolor;
+}
+
+.story-listing .story-listing-page-prev .story-listing-page-arrow {
+  margin-left: 3px;
+  transform: rotate(-135deg);
+}
+
+.story-listing .story-listing-page-next .story-listing-page-arrow {
+  margin-right: 3px;
+  transform: rotate(45deg);
+}
+
+/* Loading */
+.story-listing.story-listing-loading .story-listing-grid {
+  min-height: 200px;
+}
+
+@media (width >= 900px) {
+  /* Search on its own row, facets and sort share the next row (source <= 1400px) */
+  .story-listing .story-listing-filters {
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 25px 30px;
+  }
+
+  .story-listing .story-listing-field {
+    flex: 0 1 auto;
+  }
+
+  .story-listing .story-listing-search {
+    flex: 0 0 100%;
+  }
+
+  .story-listing .story-listing-selects {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .story-listing .story-listing-select {
+    width: auto;
+    padding-right: 120px;
+  }
+
+  .story-listing .story-listing-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (width > 1400px) {
+  /* All three filter groups on one row */
+  .story-listing .story-listing-search {
+    flex: 0 0 253px;
+  }
+}
