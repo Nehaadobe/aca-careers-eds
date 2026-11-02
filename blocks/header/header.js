@@ -79,8 +79,6 @@ function setupDropdown(item) {
   const trigger = item.querySelector(':scope > a, :scope > p > a');
   const panel = item.querySelector(':scope > ul');
   if (!trigger || !panel) return;
-  // a nested list wraps the item text in a paragraph; unwrap it to style it like its siblings
-  if (trigger.parentElement.tagName === 'P') trigger.parentElement.replaceWith(trigger);
   item.classList.add('nav-drop');
   panel.classList.add('nav-dropdown');
   trigger.classList.add('nav-drop-trigger');
@@ -231,6 +229,9 @@ export default async function decorate(block) {
     list?.classList.add('nav-list');
     list?.querySelectorAll(':scope > li').forEach((li) => {
       li.classList.add('nav-item');
+      // Document Authoring wraps list item text in a paragraph; unwrap it so items style alike
+      const para = li.querySelector(':scope > p:has(> a)');
+      if (para) para.replaceWith(...para.childNodes);
       setupDropdown(li);
     });
     list?.querySelectorAll('.nav-dropdown').forEach(openExternalInNewTab);
