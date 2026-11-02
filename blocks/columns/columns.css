@@ -43,7 +43,7 @@
   flex-direction: column;
   gap: 15px;
   padding: 20px 0;
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 .columns.alternating > div {
@@ -104,7 +104,7 @@ main .columns.alternating a.button:any-link {
   border: 0;
   border-radius: 0;
   background: none;
-  color: var(--link-color);
+  color: var(--color-link);
   font-size: var(--body-font-size-m);
   font-weight: 600;
   line-height: inherit;
@@ -115,7 +115,7 @@ main .columns.alternating a.button:any-link {
 main .columns.alternating a.button:hover {
   border: 0;
   background: none;
-  color: var(--link-hover-color);
+  color: var(--color-link-hover);
 }
 
 /* Video poster: the whole image is a play button */
@@ -130,13 +130,15 @@ main .columns.alternating a.button:hover {
   left: 50%;
   width: 60px;
   height: 60px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ccircle cx='30' cy='30' r='29' fill='%230071BC' stroke='%230071BC' stroke-width='2'/%3E%3Cpath fill='%23fff' d='M47.538 28.875 19.846 12c-.461 0-.923 0-1.154.225-.461.225-.692.45-.692.9v33.75c0 .45.23.675.692.9 0 .225.231.225.462.225s.461 0 .692-.225L47.538 30.9c.231-.225.462-.675.462-.9 0-.45-.23-.9-.462-1.125ZM20.308 44.85v-29.7L44.769 30l-24.461 14.85Z'/%3E%3C/svg%3E") center / 60px no-repeat;
+  border-radius: 50%;
+  background: var(--icon-play-solid) center / 60px no-repeat;
+  background-color: var(--color-primary);
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
 .columns.alternating .columns-video:focus-visible {
-  outline: 3px solid var(--brand-blue);
+  outline: 3px solid var(--color-primary);
   outline-offset: 3px;
 }
 

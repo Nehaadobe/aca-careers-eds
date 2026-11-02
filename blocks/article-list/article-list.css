@@ -1,0 +1,150 @@
+/*
+ * Article list block: curated grid of story cards (source .tiles / .blue_bottom).
+ * Classes set by article-list.js from the option rows:
+ *   columns-2 | columns-3 | columns-4   grid columns from 992px (source col-lg-4, default 3)
+ *   ground-light | ground-tinted | ground-dark
+ *   with-link-label                     cards end with the "View highlights" label
+ * Tokens only (multi-brand): no raw colors or font stacks.
+ */
+
+/* the card row is content-wide (1320px) like the source, also on blog articles,
+   whose sections are capped at the 960px reading column (same specificity as that
+   rule in styles.css; block CSS loads later) */
+body main > .section > div.article-list-wrapper {
+  max-width: var(--content-max-width);
+}
+
+.article-list .article-list-items {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 30px;
+  margin: 0;
+  padding: 10px 0 20px;
+  list-style: none;
+}
+
+/* Light = source plain content-section tiles, nested one container deeper (30px inset) */
+.article-list.ground-light .article-list-items {
+  padding-inline: 30px;
+}
+
+.article-list .article-list-items > li {
+  display: flex;
+  margin: 0;
+}
+
+.article-list .article-list-card {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-link);
+  text-decoration: none;
+  transition: box-shadow var(--transition-fast);
+}
+
+.article-list .article-list-card:hover,
+.article-list .article-list-card:focus-visible {
+  box-shadow: 0 0 0 1px var(--color-link), var(--shadow-card);
+}
+
+.article-list .article-list-card:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring), var(--shadow-card);
+}
+
+.article-list .article-list-card-image {
+  line-height: 0;
+  background-color: var(--color-surface-muted);
+}
+
+/* source .tiles-figure: padding-top 56% box, image object-fit cover, centered */
+.article-list .article-list-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 25 / 14;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.article-list .article-list-card-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.article-list .article-list-card-title {
+  margin: 0 0 30px;
+  color: var(--color-link);
+  font-family: var(--font-heading);
+  font-size: var(--heading-font-size-l);
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.article-list .article-list-card-date {
+  margin: 0 0 10px;
+  color: var(--color-text-muted);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+.article-list .article-list-card-description {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+/* More Stories band (source .blue_bottom): tighter title, label right under the text */
+.article-list.with-link-label .article-list-card-title,
+.article-list.with-link-label .article-list-card-description {
+  margin-bottom: 10px;
+}
+
+.article-list .article-list-card-more {
+  color: var(--color-link);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+.article-list .article-list-card:hover .article-list-card-more {
+  color: var(--color-link-hover);
+}
+
+/* grounds: a full-bleed band from 40% of the section height (source .blue_bottom::before);
+   the section heading above the block (38px + 30px margin) counts toward that 40% */
+.article-list.ground-tinted,
+.article-list.ground-dark {
+  --article-list-band: var(--color-surface-tint);
+
+  padding-bottom: 40px;
+  border-image: linear-gradient(to bottom, transparent calc(40% - 41px), var(--article-list-band) calc(40% - 41px)) fill 0 / 0 / 0 100vw;
+}
+
+.article-list.ground-dark {
+  --article-list-band: var(--color-band);
+}
+
+@media (width >= 992px) {
+  .article-list.columns-2 .article-list-items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .article-list.columns-3 .article-list-items {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .article-list.columns-4 .article-list-items {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .article-list.columns-4 .article-list-card-body {
+    padding: 24px 24px 30px;
+  }
+}

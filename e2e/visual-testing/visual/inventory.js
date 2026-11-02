@@ -115,6 +115,7 @@ export function sideMasks(c, side, isPage) {
 export function referenceFingerprint(c, isPage) {
   const data = {
     id: c.id,
+    origin: c.referenceOrigin || '',
     path: sidePath(c, 'reference'),
     status: c.status || 200,
     capture: isPage ? 'full-page' : c.capture,

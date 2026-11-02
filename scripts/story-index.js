@@ -130,6 +130,25 @@ export function fetchSheet(url) {
 }
 
 /**
+ * Reads the authored values of one key from the library block-options sheet
+ * (key | blocks | values | type | label), the same list authors pick from in the
+ * slash menu. "Label=value" entries resolve to their value. Resolves to [] when
+ * the sheet or the key is missing.
+ * @param {string} url e.g. /tools/library/blocks.json?sheet=options
+ * @param {string} key e.g. roles
+ * @returns {Promise<string[]>}
+ */
+export async function loadOptionValues(url, key) {
+  const rows = await fetchSheet(url);
+  const row = rows.find((r) => normalizeText(r.key) === normalizeText(key));
+  if (!row) return [];
+  return String(row.values || '')
+    .split('|')
+    .map((item) => item.split('=').pop().trim())
+    .filter(Boolean);
+}
+
+/**
  * Turns a sheet row into a story. Query-index rows use `path`; external rows
  * use `url`. Rows without a title or link are dropped (returns null).
  * @param {object} row
@@ -167,21 +186,26 @@ function trimSlash(path) {
 }
 
 /**
- * Loads and merges stories from the query index and an external-stories sheet.
+ * Loads and merges stories from the query index(es) and an external-stories sheet.
  * @param {object} options
- * @param {string} [options.index] query index URL
+ * @param {string|string[]} [options.index] query index URL(s); for a page in several
+ *   indexes the first index wins
  * @param {string} [options.external] external stories sheet URL
  * @param {string} [options.pathPrefix] keep index entries under this path
  * @param {string[]} [options.exclude] index paths to drop (listing pages)
  * @returns {Promise<object[]>}
  */
 export async function loadStories({
-  index = '/query-index.json',
+  index = '/blog/query-index.json',
   external = '',
   pathPrefix = '/blog/',
   exclude = ['/blog', '/blog/authors', '/blog/search'],
 } = {}) {
-  const [indexRows, externalRows] = await Promise.all([fetchSheet(index), fetchSheet(external)]);
+  const indexes = Array.isArray(index) ? index : [index];
+  const [externalRows, ...indexSheets] = await Promise.all(
+    [fetchSheet(external), ...indexes.map(fetchSheet)],
+  );
+  const indexRows = indexSheets.flat();
   const excluded = new Set(exclude.map(trimSlash));
   const internal = indexRows
     .map(normalizeStory)
@@ -197,6 +221,42 @@ export async function loadStories({
     seen.add(key);
     return true;
   });
+}
+
+/**
+ * Builds a lookup that resolves an authored link to a loaded story. Same-origin
+ * links match by pathname (trailing slash, query and hash ignored); external
+ * links match by full URL (trailing slash and hash ignored).
+ * @param {object[]} stories normalized stories (see loadStories)
+ * @returns {function(string): (object|null)}
+ */
+export function createStoryLookup(stories) {
+  const internal = new Map();
+  const external = new Map();
+  const externalKey = (url) => `${url.origin}${trimSlash(url.pathname)}${url.search}`;
+  stories.forEach((story) => {
+    if (story.external) {
+      try {
+        const key = externalKey(new URL(story.url));
+        if (!external.has(key)) external.set(key, story);
+      } catch (e) { /* skip malformed */ }
+    } else if (!internal.has(trimSlash(story.path))) {
+      internal.set(trimSlash(story.path), story);
+    }
+  });
+  return (href) => {
+    if (!href) return null;
+    let url;
+    try {
+      url = new URL(href, window.location.href);
+    } catch (e) {
+      return null;
+    }
+    if (url.origin === window.location.origin) {
+      return internal.get(trimSlash(url.pathname)) || null;
+    }
+    return external.get(externalKey(url)) || null;
+  };
 }
 
 /**

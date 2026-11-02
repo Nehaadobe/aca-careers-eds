@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 /**
  * Block and state inventory: isolated screenshots of important components.
  * LIVE (iPR theme) and the migrated EDS site use different markup, so every case maps
@@ -17,7 +19,15 @@
  *   pointer   "park" (default: move the pointer away before capture) or "keep" (hover under test)
  */
 
-export const BLOCKS = [
+/**
+ * One case per block variant (generated list in blocks-inventory.json; mobile-390 and
+ * desktop-1440). The original cases below run at every viewport.
+ */
+const VARIANT_CASES = JSON.parse(
+  fs.readFileSync(new URL('./blocks-inventory.json', import.meta.url), 'utf8'),
+);
+
+const ORIGINAL_CASES = [
   {
     id: 'header',
     tags: ['@header', '@nav'],
@@ -39,7 +49,7 @@ export const BLOCKS = [
       union: ['#site_header', '.header-nav_item.subitems > .header-nav_dropdown'],
     },
     actual: {
-      steps: [{ action: 'hover', selector: '.nav-drop > a' }],
+      steps: [{ action: 'hover', selector: '.nav-drop .nav-drop-trigger' }],
       assert: [{ selector: '.nav-drop.is-open > .nav-dropdown', visible: true }],
       union: ['body > header', '.nav-drop > .nav-dropdown'],
     },
@@ -102,3 +112,8 @@ export const BLOCKS = [
     },
   },
 ];
+
+// The site under test serves assembled pages as <path>.html (see pages.js)
+const withActualPath = (c) => ({ actualPath: c.path === '/' ? '/index.html' : `${c.path}.html`, ...c });
+
+export const BLOCKS = [...ORIGINAL_CASES.map(withActualPath), ...VARIANT_CASES];

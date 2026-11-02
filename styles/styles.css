@@ -12,33 +12,14 @@
  * governing permissions and limitations under the License.
  */
 
-/* fallback fonts: Arial (or a metric-compatible clone) scaled to the Adobe Fonts'
-   text widths, so lines wrap the same before and after the swap (no layout shift) */
-@font-face {
-  font-family: proxima-nova-fallback;
-  size-adjust: 99%;
-  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo Regular');
-}
-
-@font-face {
-  font-family: proxima-nova-fallback;
-  font-weight: 600 900;
-  size-adjust: 94%;
-  src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('Arimo Bold');
-}
-
-@font-face {
-  font-family: trade-gothic-next-condensed-fallback;
-  size-adjust: 74%;
-  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo Regular');
-}
-
 body {
   display: none;
   margin: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: var(--body-font-family);
+  background-color: var(--page-background);
+  background-image: var(--page-background-image);
+  color: var(--color-text);
+  color-scheme: var(--color-scheme);
+  font-family: var(--font-body);
   font-size: var(--body-font-size-m);
   line-height: var(--body-line-height);
 }
@@ -70,8 +51,8 @@ h5,
 h6 {
   margin-top: 0;
   margin-bottom: 30px;
-  color: var(--text-color);
-  font-family: var(--heading-font-family);
+  color: var(--color-text);
+  font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.2;
   scroll-margin: 40px;
@@ -79,12 +60,12 @@ h6 {
 
 h1 {
   margin-bottom: 20px;
-  font-family: var(--display-font-family);
+  font-family: var(--font-display);
   font-size: var(--heading-font-size-xxl);
   font-weight: 500;
   line-height: 1.2;
-  letter-spacing: var(--display-letter-spacing);
-  text-transform: uppercase;
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-transform);
 }
 
 h2 { font-size: var(--heading-font-size-xl); }
@@ -122,6 +103,24 @@ li {
   margin-bottom: 4px;
 }
 
+/* source bold is semibold (600), not the UA 700 */
+b,
+strong {
+  font-weight: 600;
+}
+
+/* superscripts and subscripts do not open up the line (source reboot) */
+sub,
+sup {
+  position: relative;
+  font-size: 0.75em;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
 p em:only-child {
   font-size: var(--body-font-size-s);
 }
@@ -134,7 +133,7 @@ pre {
 pre {
   padding: 16px;
   border-radius: 8px;
-  background-color: var(--light-color);
+  background-color: var(--color-surface-tint);
   overflow-x: auto;
   white-space: pre;
 }
@@ -146,20 +145,20 @@ button {
   font: inherit;
 }
 
-/* links: brand blue, no underline; hover darkens */
+/* links: link color, no underline; hover darkens */
 a:any-link {
-  color: var(--link-color);
+  color: var(--color-link);
   text-decoration: none;
   overflow-wrap: break-word;
 }
 
 a:hover {
-  color: var(--link-hover-color);
+  color: var(--color-link-hover);
   text-decoration: none;
 }
 
 a:focus-visible {
-  outline: 2px solid var(--link-hover-color);
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
@@ -172,7 +171,7 @@ main a.button:any-link {
   background: none;
   border: none;
   border-radius: 0;
-  color: var(--link-color);
+  color: var(--color-link);
   font-size: inherit;
   font-weight: inherit;
   padding: 0;
@@ -195,10 +194,10 @@ button.button {
   justify-content: center;
   max-width: 100%;
   margin: 0;
-  border: 1px solid var(--brand-blue);
-  border-radius: var(--button-radius);
+  border: 1px solid var(--button-border-color);
+  border-radius: var(--radius-button);
   padding: 10.56px 40px;
-  font-family: var(--body-font-family);
+  font-family: var(--font-body);
   font-size: var(--body-font-size-m);
   font-weight: 600;
   line-height: 24px;
@@ -214,30 +213,31 @@ main a.button.primary:any-link,
 main a.button.accent:any-link,
 button.button.primary,
 button.button.accent {
-  background-color: var(--brand-blue);
-  color: #fff;
+  background-color: var(--button-primary-background);
+  color: var(--button-primary-color);
 }
 
 main a.button.primary:hover,
 main a.button.accent:hover,
 button.button.primary:hover,
 button.button.accent:hover {
-  border-color: var(--brand-blue-dark);
-  background-color: var(--brand-blue-hover);
-  color: #fff;
+  border-color: var(--button-hover-border-color);
+  background-color: var(--button-primary-hover-background);
+  color: var(--button-primary-color);
 }
 
 /* secondary: white fill, navy text (used on dark bands) */
 main a.button.secondary:any-link,
 button.button.secondary {
-  background-color: #fff;
-  color: var(--brand-navy);
+  border-color: var(--button-secondary-border-color);
+  background-color: var(--button-secondary-background);
+  color: var(--button-secondary-color);
 }
 
 main a.button.secondary:hover,
 button.button.secondary:hover {
-  border-color: var(--brand-blue-dark);
-  color: var(--brand-navy);
+  border-color: var(--button-hover-border-color);
+  color: var(--button-secondary-color);
 }
 
 main a.button:focus-visible,
@@ -280,6 +280,12 @@ main > .section > div {
   max-width: var(--content-max-width);
   margin: auto;
   padding: 0 var(--content-padding);
+}
+
+/* story body sections keep their children's margins inside (the source body is one
+   continuous column), so the story gaps below do not depend on margin collapsing */
+:where(body.blog-article) main > .section:not(.article-header-container) {
+  display: flow-root;
 }
 
 main > .section:first-of-type {
@@ -326,12 +332,12 @@ main .section.centered .default-content-wrapper {
   text-align: center;
 }
 
-/* blue: full-bleed brand-blue band with white text (source .ipr_textBanner / contentSection_blue) */
+/* blue: full-bleed accent band (BSC brand blue) with white text (source .ipr_textBanner / contentSection_blue) */
 main .section.blue {
   margin: 0 0 var(--section-spacing);
   padding: 30px 0;
-  background-color: var(--brand-blue);
-  color: #fff;
+  background-color: var(--color-band-accent);
+  color: var(--color-on-band-accent);
 }
 
 main .section.blue h1,
@@ -340,11 +346,11 @@ main .section.blue h3,
 main .section.blue h4,
 main .section.blue p,
 main .section.blue a:any-link {
-  color: #fff;
+  color: var(--color-on-band-accent);
 }
 
 main .section.blue a:focus-visible {
-  outline-color: #fff;
+  outline-color: var(--color-on-band-accent);
 }
 
 /* links inside running text are underlined: blue on body text is under 3:1,
@@ -358,8 +364,8 @@ main :is(.default-content-wrapper, .table, .accordion, .quote, .columns) :is(p, 
 main .section.light-blue .default-content-wrapper {
   box-sizing: border-box;
   padding: 40px;
-  border-radius: var(--brand-radius);
-  background-color: var(--brand-light-blue);
+  border-radius: var(--radius-panel);
+  background-color: var(--color-surface-tint);
 }
 
 main .section.light-blue .default-content-wrapper > :last-child {
@@ -369,7 +375,7 @@ main .section.light-blue .default-content-wrapper > :last-child {
 /* legacy/boilerplate names kept working */
 main .section.light,
 main .section.highlight {
-  background-color: var(--light-color);
+  background-color: var(--color-surface-tint);
   margin: 0;
   padding: 40px 0;
 }
@@ -379,7 +385,47 @@ body.blog-article main > .section > div {
   max-width: var(--article-max-width);
 }
 
-/* story highlight box: text-column wide, in the flow of the article */
+/* story body text: source subheads (Bootstrap h3: 22.4px from 1200px, fluid below),
+   paragraphs, list items and italics */
+body.blog-article main > .section:not(.article-list-container) .default-content-wrapper h3 {
+  margin-bottom: 8px;
+  font-size: min(calc(1.265rem + 0.18vw), 1.4rem);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+body.blog-article main .default-content-wrapper li {
+  margin-bottom: 0;
+}
+
+body.blog-article main .default-content-wrapper p em:only-child {
+  font-size: inherit;
+}
+
+/* inline story images (source .textImage-center): centered, 20px below, no line gap */
+body.blog-article main .default-content-wrapper p:has(> picture) {
+  text-align: center;
+}
+
+body.blog-article main .default-content-wrapper p > picture img {
+  vertical-align: top;
+}
+
+/* caption: an italic paragraph right after the image (source .textImage-captionBody) */
+body.blog-article main .default-content-wrapper p:has(> picture) + p:has(> em:only-child) {
+  font-size: var(--body-font-size-s);
+  text-align: center;
+}
+
+/* "Find Your Next Role" (source .article-action): centered, 20px padding above and
+   below, so 40px under a paragraph and 20px under a table */
+body.blog-article main .default-content-wrapper > p.button-wrapper:last-child {
+  margin: 0 0 20px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+/* story highlight box (source .simplebox): text-column wide, in the flow of the article */
 body.blog-article main > .section.light-blue {
   margin: 0 0 20px;
 }
@@ -393,18 +439,29 @@ body.blog-article main > .section:has(+ .section.light-blue) {
 }
 
 body.blog-article main > .section.light-blue > .default-content-wrapper {
+  width: calc(100% - 2 * var(--content-padding));
   max-width: calc(var(--article-max-width) - 2 * var(--content-padding));
+  padding-bottom: 60px; /* 40px + the last paragraph's 20px, as on the source */
 }
 
-body.blog-article main > .section.related-stories > div {
+/* "More Stories": content-wide, centered title, 120px below the last body element */
+body.blog-article main > .section.article-list-container {
+  margin-top: 100px;
+}
+
+body.blog-article main > .section.article-list-container > div {
   max-width: var(--content-max-width);
+}
+
+body.blog-article main > .section.article-list-container > .default-content-wrapper {
+  text-align: center;
 }
 
 /* blog articles: auto-built "More Stories" band; the light-blue fill starts 40% down */
 main .section.related-stories {
   margin: var(--section-spacing) 0 0;
   padding: 0 0 40px;
-  background: linear-gradient(to bottom, transparent 40%, var(--brand-light-blue) 40%);
+  background: linear-gradient(to bottom, transparent 40%, var(--color-surface-tint) 40%);
 }
 
 /* honor the OS "reduce motion" setting site-wide (hover zooms, slides, smooth scroll) */
@@ -417,4 +474,31 @@ main .section.related-stories {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* section heading with a single "View More Stories" link (source .contentSection-header):
+   heading left, link right on one row from 768px */
+main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 20px;
+  margin-bottom: 30px;
+}
+
+main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) > * {
+  margin: 0;
+}
+
+main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) > p > a {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  text-decoration: none;
+}
+
+main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) > p > a::after {
+  content: '\203A';
+  margin-left: 6px;
 }

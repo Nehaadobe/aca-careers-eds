@@ -5,7 +5,7 @@
  * Desktop columns start at 992px, like the source.
  */
 footer {
-  font-family: var(--body-font-family);
+  font-family: var(--font-body);
 }
 
 footer .footer {
@@ -36,23 +36,26 @@ footer .footer-band-inner {
 /* main band */
 footer .footer-band-main {
   padding: 45px 0;
-  background-color: var(--footer-bg);
-  color: #fff;
+  background-color: var(--footer-background);
+  color: var(--footer-text);
 }
 
 footer .footer-band-main a:any-link {
-  color: #fff;
+  color: var(--footer-text);
   text-decoration: none;
 }
 
 footer .footer-band-main a:hover {
-  color: #fff;
+  color: var(--footer-text);
   text-decoration: underline;
 }
 
-footer .footer-band-main a:focus-visible,
+footer .footer-band-main a:focus-visible {
+  outline-color: var(--footer-text);
+}
+
 footer .footer-band-utility a:focus-visible {
-  outline-color: #fff;
+  outline-color: var(--footer-utility-text);
 }
 
 footer .footer-brand {
@@ -72,8 +75,8 @@ footer .footer-brand img {
 
 footer .footer-notice h2 {
   margin-bottom: 8px;
-  color: #fff;
-  font-family: var(--body-font-family);
+  color: var(--footer-text);
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
   line-height: 16.8px;
@@ -130,8 +133,8 @@ footer .footer-social img {
 /* utility bar */
 footer .footer-band-utility {
   padding: 20px 0;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--footer-utility-background);
+  color: var(--footer-utility-text);
 }
 
 /* stacked list on small screens */
@@ -150,19 +153,19 @@ footer .footer-utility li:not(:last-child)::after {
 }
 
 footer .footer-band-utility .footer-utility a:any-link {
-  color: #fff;
+  color: var(--footer-utility-text);
   text-decoration: none;
 }
 
 footer .footer-band-utility .footer-utility a:hover {
-  color: #fff;
+  color: var(--footer-utility-text);
 }
 
 /* legal band */
 footer .footer-band-legal {
   padding: 20px 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: var(--color-background);
+  color: var(--color-text);
   line-height: 18px;
 }
 
@@ -234,5 +237,155 @@ footer .footer-band-legal {
 
   footer .footer-social ul {
     margin: 0 0 10px;
+  }
+}
+
+/*
+ * 3-section footer: brand + blurb, link columns, legal line (no notice, social or
+ * utility links; e.g. Stellarus). Source: stellarus.com. A top rule with a centered
+ * accent line, a 2-column grid (brand spans both) that becomes brand (2fr) + 3 link
+ * columns from 1041px, then a divider and the centered mono copyright.
+ */
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-main {
+  position: relative;
+  margin-top: 40px;
+  padding: 56px 0 44px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-main::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background-image: var(--footer-accent-line, none);
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-inner {
+  box-sizing: border-box;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-main .footer-band-inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 28px;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-links {
+  display: contents;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group {
+  padding: 0;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group > p {
+  margin: 0 0 14px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group strong {
+  font-weight: inherit;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group ul {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group li {
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group a {
+  font-size: 12px;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand {
+  grid-column: span 2;
+  margin: 0;
+  padding: 0;
+}
+
+/* logo row: 28px mark (+ the site name, when the fragment has one in the link) */
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand > p:has(img) {
+  display: flex;
+  align-items: center;
+  min-height: 29.7px; /* the 18px site name line */
+  margin-bottom: 14px;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-main .footer-brand a:has(img) {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.65;
+  text-decoration: none;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand > p:not(:has(img)) {
+  font-size: 12px;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-main .footer-brand a:not(:has(img)):any-link {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-utility {
+  display: none;
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-legal {
+  padding: 0 0 36px;
+  background-color: transparent;
+  color: var(--footer-text);
+}
+
+footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-legal {
+  padding-top: 22px;
+  border-top: 1px solid var(--color-border-subtle);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.65;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* breakpoint-exception: the 3-section source footer puts all columns in one row from 1041px */
+@media (width > 1040px) {
+  footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-main .footer-band-inner {
+    grid-template-columns: 2fr repeat(3, minmax(0, 1fr));
+    gap: 36px;
+  }
+
+  footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand {
+    grid-column: auto;
+    max-width: 300px;
   }
 }

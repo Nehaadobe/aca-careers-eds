@@ -204,6 +204,50 @@ function removeEmptyWrappers(root) {
   });
 }
 
+// Legacy listing filter IDs from the source (/blog?c=<id>) -> listing parameters.
+const LEGACY_CATEGORIES = {
+  28778: ['role', 'Commercial Markets'],
+  28786: ['role', 'Consumer Markets'],
+  28779: ['role', 'Customer Experience'],
+  28787: ['role', 'Finance'],
+  28780: ['role', 'Foundation'],
+  28788: ['role', 'Health Solutions'],
+  28781: ['role', 'Information Technology'],
+  28789: ['role', 'Innovation'],
+  28782: ['role', 'Law'],
+  28790: ['role', 'Marketing'],
+  28783: ['role', 'Medi-Cal'],
+  28784: ['role', 'Operations'],
+  28791: ['role', 'People and Engagement'],
+  28785: ['role', 'Promise Medical Clinics'],
+  28792: ['role', 'Transformation'],
+  29654: ['topic', 'Awards and Recognition'],
+  28798: ['topic', 'Blue Shield Foundation'],
+  29652: ['topic', 'Corporate Citizenship'],
+  28775: ['topic', 'Culture of Belonging'],
+  30058: ['topic', 'Employee Resource Groups'],
+  29653: ['topic', 'Growth and Development'],
+  28776: ['topic', 'Growth and Development Programs'],
+  28777: ['topic', 'Life at Blue Shield'],
+};
+
+function rewriteCategoryLinks(root) {
+  root.querySelectorAll('a[href*="?c="]').forEach((a) => {
+    const href = a.getAttribute('href') || '';
+    const m = href.match(/^(?:https?:\/\/careers\.blueshieldca\.com)?\/blog\/?\?(.*)$/);
+    if (!m) return;
+    const params = new URLSearchParams(m[1]);
+    const out = new URLSearchParams();
+    params.getAll('c').forEach((id) => {
+      const cat = LEGACY_CATEGORIES[id];
+      if (cat) out.set(cat[0], cat[1]);
+    });
+    if (params.get('q')) out.set('q', params.get('q'));
+    const qs = out.toString();
+    a.setAttribute('href', qs ? `/blog?${qs}` : '/blog');
+  });
+}
+
 export default function transform(hookName, element, payload) {
   if (hookName === 'beforeTransform') {
     removeAll(element, CHROME_SELECTORS);
@@ -219,6 +263,7 @@ export default function transform(hookName, element, payload) {
     absolutizeMedia(element, getOrigin(payload));
     resolveGetFileImages(element, getOrigin(payload));
     stripTrackingAttrs(element);
+    rewriteCategoryLinks(element);
     removeEmptyWrappers(element);
   }
 }

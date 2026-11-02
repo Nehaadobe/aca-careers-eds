@@ -51,8 +51,8 @@ main > .section > .banner-wrapper {
 
 /* Option: locations - navy band, map pinned right (source section.locations) */
 .banner.locations {
-  background-color: var(--brand-navy);
-  color: #fff;
+  background-color: var(--color-band);
+  color: var(--color-on-band);
 }
 
 /* map behaves like the source background: contain, 100% 50% */
@@ -66,7 +66,7 @@ main > .section > .banner-wrapper {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: rgb(0 0 0 / 50%);
+  background-color: var(--color-scrim);
 }
 
 .banner.locations .banner-content {
@@ -97,8 +97,8 @@ main > .section > .banner-wrapper {
 
 /* Option: statement - centered lead text on the blue band (source .ipr_textBanner) */
 .banner.statement {
-  background-color: var(--brand-blue);
-  color: #fff;
+  background-color: var(--color-band-accent);
+  color: var(--color-on-band-accent);
   text-align: center;
 }
 
@@ -106,15 +106,16 @@ main > .section > .banner-wrapper {
   display: none;
 }
 
+/* source: section padding 30px 0; the lead keeps its 30px bottom margin inside the band */
 .banner.statement .banner-content {
-  max-width: calc(960px + 2 * var(--content-padding));
-  padding: 0 var(--content-padding);
+  max-width: min(calc(960px + 2 * var(--content-padding)), var(--content-max-width));
+  padding: 30px var(--content-padding);
 }
 
 .banner.statement .banner-content :is(p, h1, h2, h3, h4, h5, h6) {
   margin: 0 0 30px;
   color: inherit;
-  font-family: var(--heading-font-family);
+  font-family: var(--font-heading);
   font-size: var(--heading-font-size-l);
   font-weight: 600;
   line-height: 1.2;
@@ -127,7 +128,7 @@ main > .section > .banner-wrapper {
 /* Option: image-cta - photo inside the content width, heading + CTA near the bottom (source .ipr_banner) */
 .banner.image-cta {
   margin-inline: max(var(--content-padding), calc((100% - var(--content-max-width)) / 2 + var(--content-padding)));
-  color: #fff;
+  color: var(--color-on-media);
   text-align: center;
 }
 
@@ -151,7 +152,7 @@ main > .section > .banner-wrapper {
 }
 
 .banner.image-cta.no-image {
-  background-color: var(--dark-color);
+  background-color: var(--color-band);
 }
 
 @media (width >= 768px) {

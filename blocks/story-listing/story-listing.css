@@ -1,6 +1,6 @@
 /* Story listing: filter panel, story grid, pagination (source /blog .indexFilter, .tiles, .pagination) */
 .story-listing {
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 /* Filter panel */
@@ -10,8 +10,8 @@
   gap: 20px;
   margin: 0 0 30px;
   padding: 25px 30px 40px;
-  border-radius: var(--brand-radius);
-  background-color: var(--brand-light-blue);
+  border-radius: var(--radius-panel);
+  background-color: var(--color-surface-tint);
 }
 
 .story-listing .story-listing-field {
@@ -38,13 +38,13 @@
 
 .story-listing a.story-listing-clear:any-link {
   flex: none;
-  color: var(--link-color);
+  color: var(--color-link);
   font-weight: 600;
   line-height: 30px;
 }
 
 .story-listing a.story-listing-clear:hover {
-  color: var(--link-hover-color);
+  color: var(--color-link-hover);
 }
 
 /* Search input with the submit button overlaying its right end */
@@ -61,10 +61,10 @@
   height: 47.0938px;
   margin: 0;
   padding: 10.56px 40px 10.56px 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
   border-radius: 6px 0 0 6px;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: var(--color-background);
+  color: var(--color-text);
   font-family: inherit;
   font-size: var(--body-font-size-m);
   line-height: 24px;
@@ -72,7 +72,7 @@
 }
 
 .story-listing .story-listing-input::placeholder {
-  color: var(--brand-grey);
+  color: var(--color-text-subtle);
   opacity: 1;
 }
 
@@ -83,7 +83,7 @@
 .story-listing .story-listing-select {
   padding-right: 48px;
   border-radius: 6px;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-image: var(--icon-select-chevron);
   background-position: calc(100% - 16px) 50%;
   background-repeat: no-repeat;
   background-size: 16px 12px;
@@ -93,7 +93,7 @@
 
 .story-listing .story-listing-input:focus,
 .story-listing .story-listing-select:focus {
-  border-color: var(--brand-blue);
+  border-color: var(--color-primary);
   outline: none;
   box-shadow: var(--focus-ring);
 }
@@ -110,17 +110,17 @@
   min-height: 100%;
   margin: 0;
   padding: 0;
-  border: 1px solid var(--brand-blue);
+  border: 1px solid var(--button-border-color);
   border-radius: 0 6px 6px 0;
-  background-color: var(--brand-blue);
-  color: #fff;
+  background-color: var(--button-primary-background);
+  color: var(--button-primary-color);
   cursor: pointer;
   transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .story-listing .story-listing-search-button:hover {
-  border-color: var(--brand-blue-dark);
-  background-color: var(--brand-blue-hover);
+  border-color: var(--button-hover-border-color);
+  background-color: var(--button-primary-hover-background);
 }
 
 .story-listing .story-listing-search-button:focus-visible {
@@ -128,28 +128,38 @@
   box-shadow: var(--focus-ring);
 }
 
-/* Magnifier glyph drawn in CSS (circle + handle), 24px icon box like the source svg */
+/* Magnifier glyph drawn in CSS, geometry of the source 24px feather "search" svg:
+   circle r 8 at (11, 11), handle (16.65, 16.65)-(21, 21), 2px round strokes */
 .story-listing .story-listing-search-icon {
   position: relative;
-  box-sizing: border-box;
-  width: 17px;
-  height: 17px;
-  border: 2px solid currentcolor;
-  border-radius: 50%;
-  transform: translate(-2px, -2px);
+  width: 24px;
+  height: 24px;
 }
 
+.story-listing .story-listing-search-icon::before,
 .story-listing .story-listing-search-icon::after {
   content: '';
   position: absolute;
-  top: calc(100% - 3px);
-  left: calc(100% - 3px);
-  width: 7px;
+  box-sizing: border-box;
+}
+
+.story-listing .story-listing-search-icon::before {
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+}
+
+.story-listing .story-listing-search-icon::after {
+  top: 17.83px;
+  left: 14.75px;
+  width: 8.15px;
   height: 2px;
   border-radius: 1px;
   background-color: currentcolor;
   transform: rotate(45deg);
-  transform-origin: left center;
 }
 
 .story-listing .story-listing-selects {
@@ -205,14 +215,14 @@
   flex-direction: column;
   margin: 0;
   overflow: hidden;
-  border-radius: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 10px 0 rgb(0 0 0 / 16%);
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-card);
   transition: box-shadow var(--transition-fast);
 }
 
 .story-listing .story-listing-card:where(:hover, :focus-within) {
-  box-shadow: 0 0 0 1px var(--brand-blue), 0 0 10px 0 rgb(0 0 0 / 16%);
+  box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-card);
 }
 
 .story-listing .story-listing-card-image {
@@ -231,12 +241,12 @@
 .story-listing .story-listing-card-body {
   flex: 1 1 auto;
   padding: 40px;
-  background-color: #fff;
+  background-color: var(--color-surface);
 }
 
 .story-listing .story-listing-card-title {
   margin: 0 0 30px;
-  color: var(--link-color);
+  color: var(--color-link);
   font-size: var(--heading-font-size-l);
   font-weight: 600;
   line-height: 30px;
@@ -262,14 +272,14 @@
 
 .story-listing .story-listing-card-date {
   margin: 10px 0;
-  color: #767676;
+  color: var(--color-text-muted);
   font-size: var(--body-font-size-m);
   line-height: 24px;
 }
 
 .story-listing .story-listing-card-description {
   margin: 0;
-  color: var(--text-color);
+  color: var(--color-text);
   font-size: var(--body-font-size-m);
   line-height: 24px;
 }
@@ -303,16 +313,21 @@
   padding: 0 5px;
 }
 
+/* source: "... 13" share one item, so the dots sit a space-width from the last page */
+.story-listing .story-listing-pages .story-listing-page-gap {
+  padding-right: 0;
+}
+
 .story-listing .story-listing-pages a:any-link {
-  color: var(--link-color);
+  color: var(--color-link);
 }
 
 .story-listing .story-listing-pages a:hover {
-  color: var(--link-hover-color);
+  color: var(--color-link-hover);
 }
 
 .story-listing .story-listing-pages a[aria-current='page'] {
-  color: #000;
+  color: var(--color-text-strong);
   font-weight: 600;
 }
 
@@ -323,12 +338,12 @@
   justify-content: center;
   width: 28px;
   height: 30px;
-  color: var(--link-color);
+  color: var(--color-link);
 }
 
 .story-listing .story-listing-page-prev[aria-disabled='true'],
 .story-listing .story-listing-page-next[aria-disabled='true'] {
-  color: var(--brand-grey);
+  color: var(--color-text-subtle);
   opacity: 0.25;
   pointer-events: none;
 }
@@ -356,13 +371,31 @@
   min-height: 200px;
 }
 
-@media (width >= 900px) {
-  /* Search on its own row, facets and sort share the next row (source <= 1400px) */
+@media (width >= 768px) {
+  /* Source md: groups still stacked, but the selects keep their own width and touch */
+  .story-listing .story-listing-filters {
+    padding-bottom: 25px;
+  }
+
+  .story-listing .story-listing-selects {
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .story-listing .story-listing-select {
+    align-self: flex-start;
+    width: auto;
+    padding-right: 120px;
+  }
+}
+
+@media (width >= 992px) {
+  /* Source lg (Bootstrap col-lg-4 tiles): search on its own row, then facets and
+     sort; when sort wraps (below 1200px) it sits right under the facets */
   .story-listing .story-listing-filters {
     flex-flow: row wrap;
     justify-content: space-between;
-    gap: 20px;
-    padding: 25px 30px;
+    gap: 0 20px;
   }
 
   .story-listing .story-listing-field {
@@ -371,16 +404,12 @@
 
   .story-listing .story-listing-search {
     flex: 0 0 100%;
+    margin-bottom: 20px;
   }
 
   .story-listing .story-listing-selects {
     flex-direction: row;
     gap: 20px;
-  }
-
-  .story-listing .story-listing-select {
-    width: auto;
-    padding-right: 120px;
   }
 
   .story-listing .story-listing-grid {
@@ -392,5 +421,6 @@
   /* All three filter groups on one row */
   .story-listing .story-listing-search {
     flex: 0 0 253px;
+    margin-bottom: 0;
   }
 }

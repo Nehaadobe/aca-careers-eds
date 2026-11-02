@@ -17,14 +17,18 @@
       "https://careers.blueshieldca.com/a-culture-of-belonging",
       "https://careers.blueshieldca.com/how-to-get-hired",
       "https://careers.blueshieldca.com/life-at-blue-shield",
-      "https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model"
-    ]
+      "https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model",
+      "https://www.stellarus.com/careers"
+    ],
+    "centered": "Centered column: eyebrow then H1 (max ≈680px), text max-width 760px, centered; vertical padding ≈ 96px top/bottom on desktop. Eyebrow: mono font, 11px, uppercase, letter-spacing 0.18em, muted color. H1: display font, 700, ≈2.7rem desktop / 1.8rem mobile, line-height 1.08, letter-spacing -0.03em. Body: 18px / 1.7, secondary text color. Primary button: pill (radius full), accent background, white text, 16px 600, padding 15px 30px, glow shadow, trailing arrow →. Secondary button: pill, translucent surface background with a 1px strong border, primary text color."
   },
   "contentPattern": {
     "structure": "row 1: background image; row 2: heading (H1 or H2) and an optional CTA link in its own paragraph",
     "example": "Background image, H2 'A great place to do meaningful work.', CTA 'Find Your Next Role'",
     "page": "row 1: photo; row 2: H1 followed by one or more subtitle paragraphs (no CTA)",
-    "pageExample": "Photo, H1 'Total rewards', subtitle paragraph"
+    "pageExample": "Photo, H1 'Total rewards', subtitle paragraph",
+    "centered": "Same two-row hero model (image row optional/empty, content row). Content: first paragraph before the H1 is the eyebrow; H1; body paragraphs; bold link = primary button, italic link = secondary button.",
+    "centeredExample": "Empty image row; content: eyebrow 'Careers', H1 'Help us fix healthcare.', two paragraphs, bold link View All Open Positions, italic link Submit Your Resume"
   },
   "options": [
     {
@@ -34,11 +38,16 @@
     {
       "class": "page",
       "label": "Page"
+    },
+    {
+      "class": "centered",
+      "label": "Centered"
     }
   ],
   "memberVariantIds": [
     "hero-home",
-    "hero-page"
+    "hero-page",
+    "hero-centered"
   ],
   "usage": {
     "notes": [
@@ -61,5 +70,5 @@
     "reuseCount": 6,
     "lastUsed": "2026-10-26"
   },
-  "reuseGuidance": "Use plain 'Hero' for the boilerplate left-aligned hero; add the 'home' option for the full-bleed centered homepage hero. A lone link in the content row becomes a button under 'home'. Add the 'page' option for interior page headers: H1 and subtitle text beside a photo with a rounded corner."
+  "reuseGuidance": "Use plain 'Hero' for the boilerplate left-aligned hero; add the 'home' option for the full-bleed centered homepage hero. A lone link in the content row becomes a button under 'home'. Add the 'page' option for interior page headers: H1 and subtitle text beside a photo with a rounded corner. Add the 'centered' option for a text-only intro: optional eyebrow paragraph before the H1, body copy and CTA buttons (bold link = primary, italic link = secondary) centered side by side; the image row may be left empty."
 }

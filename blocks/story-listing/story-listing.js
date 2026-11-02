@@ -3,6 +3,7 @@ import {
   filterStories,
   formatStoryDate,
   isSameOrigin,
+  loadOptionValues,
   loadStories,
   sortStories,
   splitList,
@@ -16,9 +17,10 @@ import {
  *   Filters | Roles, Topics          facets to show (each needs story data)
  *   Page Size | 9
  *   Sort | Newest                    Newest, Oldest, Title A-Z, Title Z-A
- *   Roles | A, B, C                  dropdown options (else derived from data)
- *   Topics | A, B, C
- *   Index | /query-index.json        optional
+ *   Roles | A, B, C                  dropdown options; when not authored they come from
+ *   Topics | A, B, C                   the library options sheet, else from the stories
+ *   Filter Values | /tools/library/blocks.json?sheet=options   optional options sheet
+ *   Index | /blog/query-index.json   optional
  *   External Stories | /blog/external-stories.json   optional
  *   Path | /blog/                    optional index path prefix
  *   Exclude | /blog, /blog/authors   optional listing pages to drop
@@ -73,8 +75,9 @@ function readConfig(block) {
     facets,
     pageSize: pageSize > 0 ? pageSize : 9,
     defaultSort: SORTS.some((s) => s.value === sort) ? sort : 'newest',
-    index: text(raw.index, '/query-index.json'),
+    index: text(raw.index, '/blog/query-index.json'),
     external: text(raw['external-stories'], '/blog/external-stories.json'),
+    optionsSheet: text(raw['filter-values'], '/tools/library/blocks.json?sheet=options'),
     pathPrefix: text(raw.path, '/blog/'),
     exclude: raw.exclude ? splitList(raw.exclude) : ['/blog', '/blog/authors', '/blog/search'],
     labels: {
@@ -88,6 +91,33 @@ function readConfig(block) {
   };
 }
 
+/** Legacy listing filter IDs from the previous site (/blog?c=<id>). */
+const LEGACY_CATEGORIES = {
+  28778: ['role', 'Commercial Markets'],
+  28786: ['role', 'Consumer Markets'],
+  28779: ['role', 'Customer Experience'],
+  28787: ['role', 'Finance'],
+  28780: ['role', 'Foundation'],
+  28788: ['role', 'Health Solutions'],
+  28781: ['role', 'Information Technology'],
+  28789: ['role', 'Innovation'],
+  28782: ['role', 'Law'],
+  28790: ['role', 'Marketing'],
+  28783: ['role', 'Medi-Cal'],
+  28784: ['role', 'Operations'],
+  28791: ['role', 'People and Engagement'],
+  28785: ['role', 'Promise Medical Clinics'],
+  28792: ['role', 'Transformation'],
+  29654: ['topic', 'Awards and Recognition'],
+  28798: ['topic', 'Blue Shield Foundation'],
+  29652: ['topic', 'Corporate Citizenship'],
+  28775: ['topic', 'Culture of Belonging'],
+  30058: ['topic', 'Employee Resource Groups'],
+  29653: ['topic', 'Growth and Development'],
+  28776: ['topic', 'Growth and Development Programs'],
+  28777: ['topic', 'Life at Blue Shield'],
+};
+
 /** Reads list state from the current URL, validated against the config. */
 function readState(config) {
   const params = new URLSearchParams(window.location.search);
@@ -95,7 +125,10 @@ function readState(config) {
   const page = parseInt(params.get('page'), 10);
   const facets = {};
   config.facets.forEach((facet) => {
-    const value = (params.get(facet.param) || '').trim();
+    const legacy = params.getAll('c')
+      .map((id) => LEGACY_CATEGORIES[id])
+      .find((cat) => cat && cat[0] === facet.param);
+    const value = (params.get(facet.param) || (legacy ? legacy[1] : '')).trim();
     const match = facet.options.find((opt) => opt.toLowerCase() === value.toLowerCase());
     facets[facet.key] = match || '';
   });
@@ -265,7 +298,8 @@ function buildPagination(config, state, totalPages, nav) {
   const list = el('ol', { className: 'story-listing-pages' });
   pageList(state.page, totalPages).forEach((p) => {
     if (p === null) {
-      list.append(el('li', { className: 'story-listing-page-gap', 'aria-hidden': 'true' }, '…'));
+      // three periods, as on the source (the ellipsis glyph is narrower)
+      list.append(el('li', { className: 'story-listing-page-gap', 'aria-hidden': 'true' }, '...'));
       return;
     }
     const a = el('a', {
@@ -389,14 +423,18 @@ export default async function decorate(block) {
     stories = [];
   }
 
-  // Facets without authored options take their values from the stories.
-  config.facets.forEach((facet) => {
+  // Facets without authored options use the library options sheet (authored order,
+  // so values without stories are listed too); failing that, the stories' values.
+  await Promise.all(config.facets.map(async (facet) => {
     if (facet.options.length) return;
-    const values = [...new Set(stories.flatMap((story) => story[facet.key] || []))]
-      .sort((a, b) => a.localeCompare(b));
+    let values = await loadOptionValues(config.optionsSheet, facet.key);
+    if (!values.length) {
+      values = [...new Set(stories.flatMap((story) => story[facet.key] || []))]
+        .sort((a, b) => a.localeCompare(b));
+    }
     facet.options = values;
     values.forEach((v) => controls.selects[facet.key].append(el('option', { value: v }, v)));
-  });
+  }));
 
   state = readState(config);
   syncControls();

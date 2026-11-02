@@ -9,3 +9,7 @@ sync-block-collection.sh
 catalog/*
 site-scope/*
 e2e/*
+docs/*
+migration-work/*
+tools/importer/*
+default-query.yaml

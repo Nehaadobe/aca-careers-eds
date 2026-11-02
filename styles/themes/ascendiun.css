@@ -1,0 +1,125 @@
+/*
+ * Theme: Ascendiun (page metadata `theme: ascendiun`, set per folder through bulk metadata).
+ * TODO(ascendiun): placeholder. There is no Ascendiun design yet (docs/analysis/README.md §7.4),
+ * so every value below is a copy of the BSC defaults in styles/brand.css. Replace the values
+ * (and add self-hosted fonts with metric-matched fallbacks, as in themes/stellarus.css) once the
+ * design exists. Override token values only. --nav-height is left to brand.css on purpose
+ * (it changes at 992px); set it here only if Ascendiun uses one height at all widths.
+ */
+
+body {
+  --color-scheme: light;
+
+  /* page and surfaces */
+  --color-background: #fff;
+  --color-surface: #fff; /* cards, panels */
+  --color-surface-tint: #edf6f9; /* tinted bands and panels */
+  --color-surface-muted: #f4f4f4; /* image placeholders, FAQ rows */
+  --page-background-image: none; /* decorative page background (themes) */
+
+  /* text */
+  --color-text: #25282a;
+  --color-text-strong: #000; /* current page in pagination */
+  --color-text-muted: #767676; /* captions, dates, eyebrows, utility links */
+  --color-text-subtle: #6c757d; /* placeholders, disabled controls */
+
+  /* links */
+  --color-link: #0071bc;
+  --color-link-hover: #005a96;
+
+  /* primary action */
+  --color-primary: #0071bc;
+  --color-primary-hover: #0060a0;
+  --color-primary-press: #005a96; /* hover border, focus ring */
+  --color-on-primary: #fff;
+
+  /* bands: full-width colored sections */
+  --color-band: #014d83; /* navy: locations banner */
+  --color-on-band: #fff;
+
+  /* strong accent: FAQ question text and open/hover rows */
+  --color-accent-strong: #003b5c;
+  --color-on-accent-strong: #fff;
+
+  /* borders */
+  --color-border: #ccc; /* inputs and selects */
+  --color-border-subtle: #dadada; /* card frames, table rows */
+  --color-border-strong: rgb(128 128 128); /* framed callout tables */
+  --color-focus: #005a96;
+
+  /* media: text and controls over photos and video */
+  --color-on-media: #fff;
+  --color-media-background: #000;
+  --color-scrim: rgb(0 0 0 / 50%); /* darkens a photo behind text */
+  --color-scrim-strong: rgb(0 0 0 / 70%); /* page dim behind the mobile menu */
+  --color-backdrop: rgb(0 0 0 / 80%); /* modal backdrop */
+
+  /* third-party brand colors (share block) */
+  --color-share: #37414a;
+  --color-share-linkedin: #007bb6;
+  --color-share-facebook: #3b5998;
+  --color-share-x: #00aced;
+  --color-on-share: #fff;
+
+  /* header and footer */
+  --header-border-color: #f4f4f4;
+  --header-button-background: #f8f9fa;
+  --footer-background: #25282a;
+  --footer-text: #fff;
+  --footer-utility-background: #000;
+  --footer-utility-text: #fff;
+
+  /* buttons */
+  --button-secondary-background: #fff;
+
+  /* icons drawn with data URIs (colors are part of the image) */
+  --icon-select-chevron: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  --icon-play-outline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M24 19.5v21l17-10.5z' fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E"); /* video tiles */
+  --icon-play-solid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23fff' d='M47.538 28.875 19.846 12c-.461 0-.923 0-1.154.225-.461.225-.692.45-.692.9v33.75c0 .45.23.675.692.9 0 .225.231.225.462.225s.461 0 .692-.225L47.538 30.9c.231-.225.462-.675.462-.9 0-.45-.23-.9-.462-1.125ZM20.308 44.85v-29.7L44.769 30l-24.461 14.85Z'/%3E%3C/svg%3E"); /* video facades */
+
+  /* fonts */
+  --font-body: proxima-nova, proxima-nova-fallback, sans-serif;
+  --font-heading: proxima-nova, proxima-nova-fallback, sans-serif;
+  --font-display: trade-gothic-next-condensed, trade-gothic-next-condensed-fallback, sans-serif;
+  --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
+
+  /* body sizes (source uses the same sizes on mobile and desktop) */
+  --body-font-size-l: 20px;
+  --body-font-size-m: 16px;
+  --body-font-size-s: 14px;
+  --body-font-size-xs: 12px;
+  --body-line-height: 1.5;
+
+  /* heading sizes */
+  --heading-font-size-xxl: 42px; /* h1 page title (display font) */
+  --heading-font-size-xl: 32px; /* h2 section title */
+  --heading-font-size-l: 24px; /* h3 card title */
+  --heading-font-size-m: 18px; /* h4 / tile title */
+  --heading-font-size-s: 16px;
+  --heading-font-size-xs: 14px;
+  --article-title-font-size: 36px;
+  --display-tracking: 1.3333px;
+  --display-transform: uppercase;
+
+  /* spacing */
+  --section-spacing: 60px;
+  --content-padding: 15px;
+  --article-max-width: 960px;
+
+  /* shapes */
+  --radius-button: 22.56px;
+  --radius-card: 20px;
+  --radius-panel: 20px 0; /* top-left + bottom-right rounded corners */
+  --radius-media: 0 0 0 80px; /* page hero photo */
+
+  /* shadows */
+  --shadow-card: 0 0 10px 0 rgb(0 0 0 / 16%);
+  --shadow-tile: 0 0 10px 0 rgb(0 0 0 / 15%); /* feature-link tiles */
+  --shadow-raised: 0 4px 16px -4px rgb(0 0 0 / 16%); /* FAQ answer panel */
+  --shadow-button: none;
+  --shadow-media-control: inset 0 0 0 2px #fff, 0 0 2px rgb(0 0 0 / 40%); /* play ring */
+  --shadow-text-on-media: 0 0 1px #000; /* headline over photos */
+
+  /* motion */
+  --transition-fast: 0.15s ease-in-out;
+}

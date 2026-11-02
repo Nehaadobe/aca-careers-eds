@@ -1,7 +1,7 @@
 /* Quote block: values from source .bioTiles-item computed styles (migration-work/quote-extracted.css) */
 .quote {
   margin: 0 0 30px;
-  color: var(--text-color);
+  color: var(--color-text);
   text-align: center;
 }
 

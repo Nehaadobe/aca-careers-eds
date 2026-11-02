@@ -1,0 +1,1159 @@
+[
+ {
+  "id": "a-culture-of-belonging",
+  "path": "/a-culture-of-belonging",
+  "actualPath": "/a-culture-of-belonging.html",
+  "tags": [
+   "@static"
+  ]
+ },
+ {
+  "id": "blog",
+  "path": "/blog",
+  "actualPath": "/blog.html",
+  "tags": [
+   "@static"
+  ]
+ },
+ {
+  "id": "blog-a-day-in-the-life-of-a-blue-shield-actuarial-analyst",
+  "path": "/blog/a-day-in-the-life-of-a-blue-shield-actuarial-analyst",
+  "actualPath": "/blog/a-day-in-the-life-of-a-blue-shield-actuarial-analyst.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-a-great-place-to-do-meaningful-work",
+  "path": "/blog/a-great-place-to-do-meaningful-work",
+  "actualPath": "/blog/a-great-place-to-do-meaningful-work.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-a-tribute-to-our-black-employee-network",
+  "path": "/blog/a-tribute-to-our-black-employee-network",
+  "actualPath": "/blog/a-tribute-to-our-black-employee-network.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-a-tribute-to-our-employees-of-asian-and-pacific-islander-american-heritage",
+  "path": "/blog/a-tribute-to-our-employees-of-asian-and-pacific-islander-american-heritage",
+  "actualPath": "/blog/a-tribute-to-our-employees-of-asian-and-pacific-islander-american-heritage.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-advancing-through-leadership-and-beyond-with-apa-co-chairs-sree-iyyanki-and",
+  "path": "/blog/advancing-through-leadership-and-beyond-with-apa-co-chairs-sree-iyyanki-and-tony-hsieh",
+  "actualPath": "/blog/advancing-through-leadership-and-beyond-with-apa-co-chairs-sree-iyyanki-and-tony-hsieh.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-alvins-story-making-an-impact-while-helping-your-friends-and-family",
+  "path": "/blog/alvins-story-making-an-impact-while-helping-your-friends-and-family",
+  "actualPath": "/blog/alvins-story-making-an-impact-while-helping-your-friends-and-family.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist",
+  "path": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist",
+  "actualPath": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-asian-american-and-pacific-islander-heritage-month",
+  "path": "/blog/asian-american-and-pacific-islander-heritage-month",
+  "actualPath": "/blog/asian-american-and-pacific-islander-heritage-month.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-being-your-authentic-self-in-a-hybrid-work-environment-and-more-with-pride",
+  "path": "/blog/being-your-authentic-self-in-a-hybrid-work-environment-and-more-with-pride-co-chair-theo-retos",
+  "actualPath": "/blog/being-your-authentic-self-in-a-hybrid-work-environment-and-more-with-pride-co-chair-theo-retos.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-beyond-the-bedside-how-two-nurses-thrive-at-blue-shield",
+  "path": "/blog/beyond-the-bedside-how-two-nurses-thrive-at-blue-shield",
+  "actualPath": "/blog/beyond-the-bedside-how-two-nurses-thrive-at-blue-shield.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-black-employee-network-celebrates-black-history-month-a-conversation-with-e",
+  "path": "/blog/black-employee-network-celebrates-black-history-month-a-conversation-with-employee-resource-group-co-chairs-karena-bradshaw-and-chetera-watson",
+  "actualPath": "/blog/black-employee-network-celebrates-black-history-month-a-conversation-with-employee-resource-group-co-chairs-karena-bradshaw-and-chetera-watson.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-blue-goes-greener-a-conversation-with-baylis-beard-blue-shields-new-directo",
+  "path": "/blog/blue-goes-greener-a-conversation-with-baylis-beard-blue-shields-new-director-of-sustainability",
+  "actualPath": "/blog/blue-goes-greener-a-conversation-with-baylis-beard-blue-shields-new-director-of-sustainability.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-blue-shield-of-california-internship-program-2024",
+  "path": "/blog/blue-shield-of-california-internship-program-2024",
+  "actualPath": "/blog/blue-shield-of-california-internship-program-2024.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-blue-shield-of-california-internship-program-and-early-career-opportunities",
+  "path": "/blog/blue-shield-of-california-internship-program-and-early-career-opportunities",
+  "actualPath": "/blog/blue-shield-of-california-internship-program-and-early-career-opportunities.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-celebrating-a-record-breaking-year-of-giving-back-in-2023",
+  "path": "/blog/celebrating-a-record-breaking-year-of-giving-back-in-2023",
+  "actualPath": "/blog/celebrating-a-record-breaking-year-of-giving-back-in-2023.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-connecting-values-to-my-work",
+  "path": "/blog/connecting-values-to-my-work",
+  "actualPath": "/blog/connecting-values-to-my-work.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-corporate-citizenship-award-recipient-mari-corbin",
+  "path": "/blog/corporate-citizenship-award-recipient-mari-corbin",
+  "actualPath": "/blog/corporate-citizenship-award-recipient-mari-corbin.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-creating-more-breathing-space-for-our-people-to-rejuvenate",
+  "path": "/blog/creating-more-breathing-space-for-our-people-to-rejuvenate",
+  "actualPath": "/blog/creating-more-breathing-space-for-our-people-to-rejuvenate.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-customer-service-spotlight-mal-madrigal-medicare-advantage",
+  "path": "/blog/customer-service-spotlight-mal-madrigal-medicare-advantage",
+  "actualPath": "/blog/customer-service-spotlight-mal-madrigal-medicare-advantage.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-developing-future-leaders-from-high-school-on-up-blue-shield-partners-with",
+  "path": "/blog/developing-future-leaders-from-high-school-on-up-blue-shield-partners-with-cristo-rey",
+  "actualPath": "/blog/developing-future-leaders-from-high-school-on-up-blue-shield-partners-with-cristo-rey.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-dont-speak-for-me-speak-with-me",
+  "path": "/blog/dont-speak-for-me-speak-with-me",
+  "actualPath": "/blog/dont-speak-for-me-speak-with-me.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-embracing-sabbatical-bliss-personal-journeys-of-refreshment-and-renewal",
+  "path": "/blog/embracing-sabbatical-bliss-personal-journeys-of-refreshment-and-renewal",
+  "actualPath": "/blog/embracing-sabbatical-bliss-personal-journeys-of-refreshment-and-renewal.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-empowered-to-succeed-moises-bandas-leadership-and-development-journey-69102",
+  "path": "/blog/empowered-to-succeed-moises-bandas-leadership-and-development-journey-6910203",
+  "actualPath": "/blog/empowered-to-succeed-moises-bandas-leadership-and-development-journey-6910203.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-empowering-purposeful-change-in-the-workplace-insights-from-our-elevating-w",
+  "path": "/blog/empowering-purposeful-change-in-the-workplace-insights-from-our-elevating-women-co-chairs",
+  "actualPath": "/blog/empowering-purposeful-change-in-the-workplace-insights-from-our-elevating-women-co-chairs.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-equal-pay-a-goal-were-committed-to-at-blue-shield",
+  "path": "/blog/equal-pay-a-goal-were-committed-to-at-blue-shield",
+  "actualPath": "/blog/equal-pay-a-goal-were-committed-to-at-blue-shield.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-eva-durazo-championing-health-equity-at-blue-shield-of-california",
+  "path": "/blog/eva-durazo-championing-health-equity-at-blue-shield-of-california",
+  "actualPath": "/blog/eva-durazo-championing-health-equity-at-blue-shield-of-california.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-find-your-passion-and-it-will-grow",
+  "path": "/blog/find-your-passion-and-it-will-grow",
+  "actualPath": "/blog/find-your-passion-and-it-will-grow.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-finding-purpose-and-passion-at-work",
+  "path": "/blog/finding-purpose-and-passion-at-work",
+  "actualPath": "/blog/finding-purpose-and-passion-at-work.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-from-kangaroo-encounters-to-lifesaving-endeavors-three-blue-shield-employee",
+  "path": "/blog/from-kangaroo-encounters-to-lifesaving-endeavors-three-blue-shield-employees-share-their-sabbatical-adventures",
+  "actualPath": "/blog/from-kangaroo-encounters-to-lifesaving-endeavors-three-blue-shield-employees-share-their-sabbatical-adventures.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-from-linkedin-live-let-s-talk-career-opportunities-in-health-care",
+  "path": "/blog/from-linkedin-live-let-s-talk-career-opportunities-in-health-care",
+  "actualPath": "/blog/from-linkedin-live-let-s-talk-career-opportunities-in-health-care.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-giving-back-to-our-community-ricquels-volunteer-story",
+  "path": "/blog/giving-back-to-our-community-ricquels-volunteer-story",
+  "actualPath": "/blog/giving-back-to-our-community-ricquels-volunteer-story.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-health-and-environmental-sustainability",
+  "path": "/blog/health-and-environmental-sustainability",
+  "actualPath": "/blog/health-and-environmental-sustainability.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-blue-shield-celebrated-employee-appreciation-week",
+  "path": "/blog/how-blue-shield-celebrated-employee-appreciation-week",
+  "actualPath": "/blog/how-blue-shield-celebrated-employee-appreciation-week.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-blue-shield-elevates-and-supports-our-women-year-round",
+  "path": "/blog/how-blue-shield-elevates-and-supports-our-women-year-round",
+  "actualPath": "/blog/how-blue-shield-elevates-and-supports-our-women-year-round.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-blue-shield-is-cultivating-a-mindset-of-gratitude",
+  "path": "/blog/how-blue-shield-is-cultivating-a-mindset-of-gratitude",
+  "actualPath": "/blog/how-blue-shield-is-cultivating-a-mindset-of-gratitude.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-blue-shield-of-californias-mentorship-program-fosters-career-growth-and",
+  "path": "/blog/how-blue-shield-of-californias-mentorship-program-fosters-career-growth-and-development",
+  "actualPath": "/blog/how-blue-shield-of-californias-mentorship-program-fosters-career-growth-and-development.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-kelly-aaron-uses-her-free-time-to-make-meaningful-change-for-others",
+  "path": "/blog/how-kelly-aaron-uses-her-free-time-to-make-meaningful-change-for-others",
+  "actualPath": "/blog/how-kelly-aaron-uses-her-free-time-to-make-meaningful-change-for-others.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-one-nurse-is-transforming-health-care-without-wearing-scrubs-to-work",
+  "path": "/blog/how-one-nurse-is-transforming-health-care-without-wearing-scrubs-to-work",
+  "actualPath": "/blog/how-one-nurse-is-transforming-health-care-without-wearing-scrubs-to-work.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-our-people-gave-back-to-their-beloved-communities-this-martin-luther-ki",
+  "path": "/blog/how-our-people-gave-back-to-their-beloved-communities-this-martin-luther-king-day",
+  "actualPath": "/blog/how-our-people-gave-back-to-their-beloved-communities-this-martin-luther-king-day.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-salina-wong-is-helping-reimagine-pharmacy-care-at-blue-shield-of-califo",
+  "path": "/blog/how-salina-wong-is-helping-reimagine-pharmacy-care-at-blue-shield-of-california",
+  "actualPath": "/blog/how-salina-wong-is-helping-reimagine-pharmacy-care-at-blue-shield-of-california.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-sarah-miller-is-nurturing-her-passion-for-healing-communities",
+  "path": "/blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities",
+  "actualPath": "/blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-three-blue-shield-employees-recharged-and-reconnected-on-sabbatical",
+  "path": "/blog/how-three-blue-shield-employees-recharged-and-reconnected-on-sabbatical",
+  "actualPath": "/blog/how-three-blue-shield-employees-recharged-and-reconnected-on-sabbatical.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-two-bluesky-leaders-are-championing-mental-health-access-awareness-and",
+  "path": "/blog/how-two-bluesky-leaders-are-championing-mental-health-access-awareness-and-advocacy-for-californias-youth",
+  "actualPath": "/blog/how-two-bluesky-leaders-are-championing-mental-health-access-awareness-and-advocacy-for-californias-youth.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-how-working-at-blue-shield-improved-sheridans-health-and-wellbeing",
+  "path": "/blog/how-working-at-blue-shield-improved-sheridans-health-and-wellbeing",
+  "actualPath": "/blog/how-working-at-blue-shield-improved-sheridans-health-and-wellbeing.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-inaugural-ready-to-lead-rosemarie-pham-leadership-excellence-award-presente",
+  "path": "/blog/inaugural-ready-to-lead-rosemarie-pham-leadership-excellence-award-presented-to-andre-mayberry",
+  "actualPath": "/blog/inaugural-ready-to-lead-rosemarie-pham-leadership-excellence-award-presented-to-andre-mayberry.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-jack-zhang-embracing-storytelling-and-belonging-at-blue-shield",
+  "path": "/blog/jack-zhang-embracing-storytelling-and-belonging-at-blue-shield",
+  "actualPath": "/blog/jack-zhang-embracing-storytelling-and-belonging-at-blue-shield.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-joining-the-it-organization-at-blue-shield-of-california-with-lisa-davis-se",
+  "path": "/blog/joining-the-it-organization-at-blue-shield-of-california-with-lisa-davis-senior-vice-president-chief-information-officer",
+  "actualPath": "/blog/joining-the-it-organization-at-blue-shield-of-california-with-lisa-davis-senior-vice-president-chief-information-officer.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-jumpstart-your-health-care-career",
+  "path": "/blog/jumpstart-your-health-care-career",
+  "actualPath": "/blog/jumpstart-your-health-care-career.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-lessons-and-advice-from-mentors-and-proteges-at-blue-shield-of-california",
+  "path": "/blog/lessons-and-advice-from-mentors-and-proteges-at-blue-shield-of-california",
+  "actualPath": "/blog/lessons-and-advice-from-mentors-and-proteges-at-blue-shield-of-california.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-life-at-blue-shield",
+  "path": "/blog/life-at-blue-shield",
+  "actualPath": "/blog/life-at-blue-shield.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-looking-back-on-a-year-of-giving-at-blue-shield",
+  "path": "/blog/looking-back-on-a-year-of-giving-at-blue-shield",
+  "actualPath": "/blog/looking-back-on-a-year-of-giving-at-blue-shield.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-looking-for-your-next-tech-job",
+  "path": "/blog/looking-for-your-next-tech-job",
+  "actualPath": "/blog/looking-for-your-next-tech-job.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-marias-story-aligning-values-working-with-blue-shield-of-california",
+  "path": "/blog/marias-story-aligning-values-working-with-blue-shield-of-california",
+  "actualPath": "/blog/marias-story-aligning-values-working-with-blue-shield-of-california.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-mission-report-our-engaged-employees",
+  "path": "/blog/mission-report-our-engaged-employees",
+  "actualPath": "/blog/mission-report-our-engaged-employees.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-mission-values-in-action-awards-our-highest-honor-6893914",
+  "path": "/blog/mission-values-in-action-awards-our-highest-honor-6893914",
+  "actualPath": "/blog/mission-values-in-action-awards-our-highest-honor-6893914.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-my-perfect-destination-the-intersection-of-passion-and-profession",
+  "path": "/blog/my-perfect-destination-the-intersection-of-passion-and-profession",
+  "actualPath": "/blog/my-perfect-destination-the-intersection-of-passion-and-profession.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-my-sabbatical-stories-of-joy-and-inspiration-from-around-the-world",
+  "path": "/blog/my-sabbatical-stories-of-joy-and-inspiration-from-around-the-world",
+  "actualPath": "/blog/my-sabbatical-stories-of-joy-and-inspiration-from-around-the-world.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-our-people-our-stories-bridget-cordova",
+  "path": "/blog/our-people-our-stories-bridget-cordova",
+  "actualPath": "/blog/our-people-our-stories-bridget-cordova.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-passion-respect-and-pride-honoring-our-people-of-hispanic-heritage-through",
+  "path": "/blog/passion-respect-and-pride-honoring-our-people-of-hispanic-heritage-through-a-culture-of-celebrating-cultures",
+  "actualPath": "/blog/passion-respect-and-pride-honoring-our-people-of-hispanic-heritage-through-a-culture-of-celebrating-cultures.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-perseverance-in-motion",
+  "path": "/blog/perseverance-in-motion",
+  "actualPath": "/blog/perseverance-in-motion.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-recruiting-and-mentoring-future-talent-actuarial-manager-joe-sabo-shares-ad",
+  "path": "/blog/recruiting-and-mentoring-future-talent-actuarial-manager-joe-sabo-shares-advice-for-landing-a-role-at-blue-shield",
+  "actualPath": "/blog/recruiting-and-mentoring-future-talent-actuarial-manager-joe-sabo-shares-advice-for-landing-a-role-at-blue-shield.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-reflections-from-our-2025-interns",
+  "path": "/blog/reflections-from-our-2025-interns",
+  "actualPath": "/blog/reflections-from-our-2025-interns.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-reflections-from-our-2026-interns",
+  "path": "/blog/reflections-from-our-2026-interns",
+  "actualPath": "/blog/reflections-from-our-2026-interns.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-releases-20221130-6884118",
+  "path": "/blog/releases-20221130-6884118",
+  "actualPath": "/blog/releases-20221130-6884118.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-responding-to-covid-fatigue-our-people-need-more-support",
+  "path": "/blog/responding-to-covid-fatigue-our-people-need-more-support",
+  "actualPath": "/blog/responding-to-covid-fatigue-our-people-need-more-support.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-sabbatical-stories-our-people-share-tales-of-family-bonds-new-beginnings-an",
+  "path": "/blog/sabbatical-stories-our-people-share-tales-of-family-bonds-new-beginnings-and-safari-thrills",
+  "actualPath": "/blog/sabbatical-stories-our-people-share-tales-of-family-bonds-new-beginnings-and-safari-thrills.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-supporting-our-future-leaders-blue-shields-internship-program",
+  "path": "/blog/supporting-our-future-leaders-blue-shields-internship-program",
+  "actualPath": "/blog/supporting-our-future-leaders-blue-shields-internship-program.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-the-actuarial-study-program-supporting-the-career-growth-of-our-actuaries",
+  "path": "/blog/the-actuarial-study-program-supporting-the-career-growth-of-our-actuaries",
+  "actualPath": "/blog/the-actuarial-study-program-supporting-the-career-growth-of-our-actuaries.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-the-best-leaders-make-themselves-available",
+  "path": "/blog/the-best-leaders-make-themselves-available",
+  "actualPath": "/blog/the-best-leaders-make-themselves-available.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-the-power-of-giving-back-shayok-dutta-s-inspiring-volunteer-journey",
+  "path": "/blog/the-power-of-giving-back-shayok-dutta-s-inspiring-volunteer-journey",
+  "actualPath": "/blog/the-power-of-giving-back-shayok-dutta-s-inspiring-volunteer-journey.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-to-the-call-and-beyond-a-blue-shield-salute-to-customer-experience",
+  "path": "/blog/to-the-call-and-beyond-a-blue-shield-salute-to-customer-experience",
+  "actualPath": "/blog/to-the-call-and-beyond-a-blue-shield-salute-to-customer-experience.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-uplifting-communities-is-part-of-my-culture",
+  "path": "/blog/uplifting-communities-is-part-of-my-culture",
+  "actualPath": "/blog/uplifting-communities-is-part-of-my-culture.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-veterans-bring-talent-and-loyalty-to-the-table",
+  "path": "/blog/veterans-bring-talent-and-loyalty-to-the-table",
+  "actualPath": "/blog/veterans-bring-talent-and-loyalty-to-the-table.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-we-see-and-celebrate-y-for-you",
+  "path": "/blog/we-see-and-celebrate-y-for-you",
+  "actualPath": "/blog/we-see-and-celebrate-y-for-you.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-what-we-stand-for-our-core-values-in-action",
+  "path": "/blog/what-we-stand-for-our-core-values-in-action",
+  "actualPath": "/blog/what-we-stand-for-our-core-values-in-action.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "blog-when-a-corporate-mission-becomes-deeply-personal",
+  "path": "/blog/when-a-corporate-mission-becomes-deeply-personal",
+  "actualPath": "/blog/when-a-corporate-mission-becomes-deeply-personal.html",
+  "tags": [
+   "@story"
+  ],
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  }
+ },
+ {
+  "id": "events",
+  "path": "/events",
+  "actualPath": "/events.html",
+  "tags": [
+   "@static"
+  ]
+ },
+ {
+  "id": "growth-development",
+  "path": "/growth-development",
+  "actualPath": "/growth-development.html",
+  "tags": [
+   "@static"
+  ]
+ },
+ {
+  "id": "how-to-get-hired",
+  "path": "/how-to-get-hired",
+  "actualPath": "/how-to-get-hired.html",
+  "tags": [
+   "@static"
+  ]
+ },
+ {
+  "id": "home",
+  "path": "/",
+  "actualPath": "/index.html",
+  "tags": [
+   "@static"
+  ]
+ },
+ {
+  "id": "life-at-blue-shield",
+  "path": "/life-at-blue-shield",
+  "actualPath": "/life-at-blue-shield.html",
+  "tags": [
+   "@static"
+  ]
+ },
+ {
+  "id": "life-at-blue-shield-our-workplace-model",
+  "path": "/life-at-blue-shield/our-workplace-model",
+  "actualPath": "/life-at-blue-shield/our-workplace-model.html",
+  "tags": [
+   "@static"
+  ]
+ },
+ {
+  "id": "stellarus-careers",
+  "path": "/stellarus/careers",
+  "actualPath": "/stellarus/careers.html",
+  "tags": [
+   "@stellarus"
+  ],
+  "referenceOrigin": "https://www.stellarus.com",
+  "referencePath": "/careers",
+  "reference": {
+   "ready": "#careers"
+  }
+ },
+ {
+  "id": "total-rewards",
+  "path": "/total-rewards",
+  "actualPath": "/total-rewards.html",
+  "tags": [
+   "@static"
+  ]
+ },
+ {
+  "id": "why-relocate",
+  "path": "/why-relocate",
+  "actualPath": "/why-relocate.html",
+  "tags": [
+   "@static"
+  ]
+ }
+]

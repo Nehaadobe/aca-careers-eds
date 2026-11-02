@@ -23,9 +23,10 @@ N/A (Document Authoring project)
 | Filters | Comma-separated facets to show (default: Roles, Topics) |
 | Page Size | Stories per page (default: 9) |
 | Sort | Default sort: Newest, Oldest, Title A-Z or Title Z-A (default: Newest) |
-| Roles | Comma-separated Roles dropdown options; if omitted, derived from the stories |
-| Topics | Comma-separated Topics dropdown options; if omitted, derived from the stories |
-| Index | Optional query index URL (default: /query-index.json) |
+| Roles | Comma-separated Roles dropdown options; if omitted, read from the library options sheet (row `roles`), else derived from the stories |
+| Topics | Comma-separated Topics dropdown options; if omitted, read from the library options sheet (row `topics`), else derived from the stories |
+| Filter Values | Options sheet for Roles/Topics (default `/tools/library/blocks.json?sheet=options`). The same rows feed the authoring slash menu, so authors keep one list. |
+| Index | Optional query index URL (default: /blog/query-index.json) |
 | External Stories | Optional external stories sheet URL (default: /blog/external-stories.json) |
 | Path | Optional path prefix for index entries (default: /blog/) |
 | Exclude | Optional comma-separated listing paths to drop (default: /blog, /blog/authors, /blog/search) |

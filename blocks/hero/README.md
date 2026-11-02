@@ -14,6 +14,7 @@ Single block table. Content: row 1: background image; row 2: heading (H1 or H2) 
 | --- | --- |
 | Home | `home` |
 | Page | `page` |
+| Centered | `centered` |
 
 ## Universal Editor fields
 

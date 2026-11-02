@@ -1,0 +1,11 @@
+{
+  "status": "success",
+  "url": "https://www.stellarus.com/careers",
+  "path": "stellarus/careers",
+  "timestamp": "2026-10-30T19:39:29.356Z",
+  "title": "Stellarus - Universal Healthcare Platform",
+  "template": "stellarus-landing",
+  "blocks": [
+    "hero-centered"
+  ]
+}

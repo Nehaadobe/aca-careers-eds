@@ -20,7 +20,7 @@
       "Sort": "Default sort: Newest, Oldest, Title A-Z or Title Z-A (default: Newest)",
       "Roles": "Comma-separated Roles dropdown options; if omitted, derived from the stories",
       "Topics": "Comma-separated Topics dropdown options; if omitted, derived from the stories",
-      "Index": "Optional query index URL (default: /query-index.json)",
+      "Index": "Optional query index URL (default: /blog/query-index.json)",
       "External Stories": "Optional external stories sheet URL (default: /blog/external-stories.json)",
       "Path": "Optional path prefix for index entries (default: /blog/)",
       "Exclude": "Optional comma-separated listing paths to drop (default: /blog, /blog/authors, /blog/search)",

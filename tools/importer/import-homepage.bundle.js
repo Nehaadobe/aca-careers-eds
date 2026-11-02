@@ -72,38 +72,13 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/gallery.js
-  function isRealLink(href, document) {
-    const value = (href || "").trim();
-    if (!value || value.startsWith("#") || /^javascript:/i.test(value)) return false;
-    try {
-      const base = document.baseURI || document.location && document.location.href;
-      if (!base || base === "about:blank") return true;
-      const target = new URL(value, base);
-      const page = new URL(base);
-      const samePage = target.origin === page.origin && target.pathname.replace(/\/$/, "") === page.pathname.replace(/\/$/, "") && target.search === page.search;
-      return !samePage;
-    } catch (e) {
-      return true;
-    }
-  }
   function parse2(element, { document }) {
     const cells = [];
     const items = element.querySelectorAll(".homegallery-item");
     items.forEach((item) => {
       const img = item.querySelector("img");
       if (!img) return;
-      const cell = [img];
-      const link = item.querySelector("a[href]");
-      const href = link && link.getAttribute("href");
-      if (isRealLink(href, document)) {
-        const p = document.createElement("p");
-        const a = document.createElement("a");
-        a.href = href;
-        a.textContent = img.getAttribute("alt") || "View full size";
-        p.append(a);
-        cell.push(p);
-      }
-      cells.push([cell]);
+      cells.push([[img]]);
     });
     const block = WebImporter.Blocks.createBlock(document, { name: "gallery", cells });
     element.replaceWith(block);
@@ -439,6 +414,47 @@ var CustomImportScript = (() => {
       el.remove();
     });
   }
+  var LEGACY_CATEGORIES = {
+    28778: ["role", "Commercial Markets"],
+    28786: ["role", "Consumer Markets"],
+    28779: ["role", "Customer Experience"],
+    28787: ["role", "Finance"],
+    28780: ["role", "Foundation"],
+    28788: ["role", "Health Solutions"],
+    28781: ["role", "Information Technology"],
+    28789: ["role", "Innovation"],
+    28782: ["role", "Law"],
+    28790: ["role", "Marketing"],
+    28783: ["role", "Medi-Cal"],
+    28784: ["role", "Operations"],
+    28791: ["role", "People and Engagement"],
+    28785: ["role", "Promise Medical Clinics"],
+    28792: ["role", "Transformation"],
+    29654: ["topic", "Awards and Recognition"],
+    28798: ["topic", "Blue Shield Foundation"],
+    29652: ["topic", "Corporate Citizenship"],
+    28775: ["topic", "Culture of Belonging"],
+    30058: ["topic", "Employee Resource Groups"],
+    29653: ["topic", "Growth and Development"],
+    28776: ["topic", "Growth and Development Programs"],
+    28777: ["topic", "Life at Blue Shield"]
+  };
+  function rewriteCategoryLinks(root) {
+    root.querySelectorAll('a[href*="?c="]').forEach((a) => {
+      const href = a.getAttribute("href") || "";
+      const m = href.match(/^(?:https?:\/\/careers\.blueshieldca\.com)?\/blog\/?\?(.*)$/);
+      if (!m) return;
+      const params = new URLSearchParams(m[1]);
+      const out = new URLSearchParams();
+      params.getAll("c").forEach((id) => {
+        const cat = LEGACY_CATEGORIES[id];
+        if (cat) out.set(cat[0], cat[1]);
+      });
+      if (params.get("q")) out.set("q", params.get("q"));
+      const qs = out.toString();
+      a.setAttribute("href", qs ? `/blog?${qs}` : "/blog");
+    });
+  }
   function transform(hookName, element, payload) {
     if (hookName === "beforeTransform") {
       removeAll(element, CHROME_SELECTORS);
@@ -452,12 +468,14 @@ var CustomImportScript = (() => {
       absolutizeMedia(element, getOrigin(payload));
       resolveGetFileImages(element, getOrigin(payload));
       stripTrackingAttrs(element);
+      rewriteCategoryLinks(element);
       removeEmptyWrappers(element);
     }
   }
 
   // tools/importer/transformers/blueshieldca-article.js
   var TEMPLATE = "blog-article";
+  var IMPORT_TEMPLATE = "story-article";
   var ROLES = [
     "Commercial Markets",
     "Consumer Markets",
@@ -492,35 +510,63 @@ var CustomImportScript = (() => {
     const pad = (n) => String(n).padStart(2, "0");
     return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   }
-  function heroSource(img, doc) {
-    const src = img.getAttribute("src") || "";
-    const og = doc.querySelector('meta[property="og:image"]');
-    const ogSrc = og && og.getAttribute("content");
-    if (!ogSrc) return src;
-    const stem = (u) => {
-      try {
-        const p = new URL(u, "https://careers.blueshieldca.com").pathname;
-        return p.slice(0, p.lastIndexOf("/"));
-      } catch (e) {
-        return "";
+  function heroSource(img) {
+    return img.getAttribute("src") || "";
+  }
+  function buttonLinks(article, doc) {
+    article.querySelectorAll("a.btn").forEach((a) => {
+      if (a.closest("strong, b")) return;
+      const strong = doc.createElement("strong");
+      a.replaceWith(strong);
+      strong.append(a);
+      const host = strong.parentElement;
+      if (host && !["P", "LI", "TD", "DIV"].includes(host.tagName)) return;
+      if (host && host.tagName === "DIV") {
+        const p = doc.createElement("p");
+        strong.replaceWith(p);
+        p.append(strong);
       }
-    };
-    return stem(src) && stem(src) === stem(ogSrc) ? ogSrc : src;
+    });
+  }
+  function highlightBoxes(body, doc) {
+    body.querySelectorAll(".simplebox").forEach((box) => {
+      if (!box.textContent.trim()) return;
+      const meta = WebImporter.Blocks.createBlock(doc, { name: "Section Metadata", cells: { style: "light-blue" } });
+      box.before(doc.createElement("hr"));
+      box.after(meta, doc.createElement("hr"));
+    });
   }
   function collectMetadata(article, extra) {
+    const root = article.closest("#site_content") || article.parentElement || article;
+    const heroImg = root.querySelector("figure.article-hero img");
+    if (heroImg && heroImg.getAttribute("src")) {
+      const img = article.ownerDocument.createElement("img");
+      img.setAttribute("src", heroImg.getAttribute("src"));
+      img.setAttribute("alt", clean(heroImg.getAttribute("alt")));
+      extra.Image = img;
+    }
     extra.Template = TEMPLATE;
     const cats = [...article.querySelectorAll(".article-categories a")].map((a) => clean(a.textContent)).filter(Boolean);
     const roles = cats.filter((c) => ROLES.includes(c));
     const topics = cats.filter((c) => TOPICS.includes(c));
-    if (roles.length) extra.Role = roles.join(", ");
-    if (topics.length) extra.Topic = topics.join(", ");
+    if (roles.length) extra.Roles = roles.join(", ");
+    if (topics.length) extra.Topics = topics.join(", ");
     const date = isoDate(article.querySelector(".article-date") && article.querySelector(".article-date").textContent);
     if (date) extra["Publication Date"] = date;
-    const authors = [...article.querySelectorAll(".article-authors .author")].map((a) => ({ name: clean(a.querySelector(".author-title") && a.querySelector(".author-title").textContent), title: clean(a.querySelector(".author-position") && a.querySelector(".author-position").textContent) })).filter((a) => a.name);
+    const authors = [...article.querySelectorAll(".article-authors .author")].map((a) => {
+      const photo = a.querySelector(".author-avatar, .author-photo img");
+      return {
+        name: clean(a.querySelector(".author-title") && a.querySelector(".author-title").textContent),
+        title: clean(a.querySelector(".author-position") && a.querySelector(".author-position").textContent),
+        photo: photo ? photo.getAttribute("src") : ""
+      };
+    }).filter((a) => a.name);
     if (authors.length) {
-      extra.Author = authors.map((a) => a.name).join(", ");
+      extra.Author = authors.map((a) => a.name).join("; ");
       const titles = authors.map((a) => a.title).filter(Boolean);
       if (titles.length) extra["Author Title"] = titles.join("; ");
+      const photos = authors.map((a) => a.photo).filter(Boolean);
+      if (photos.length) extra["Author Image"] = photos.join("; ");
     }
   }
   function heroVideoBlock(figure, doc, title) {
@@ -559,7 +605,7 @@ var CustomImportScript = (() => {
     if (videoBlock) frag.append(videoBlock);
     if (heroImg) {
       const img = doc.createElement("img");
-      img.setAttribute("src", heroSource(heroImg, doc));
+      img.setAttribute("src", heroSource(heroImg));
       img.setAttribute("alt", clean(heroImg.getAttribute("alt")) || (titleEl ? clean(titleEl.textContent) : ""));
       const p = doc.createElement("p");
       p.append(img);
@@ -591,6 +637,9 @@ var CustomImportScript = (() => {
         box.remove();
         return;
       }
+      let side = "";
+      if (box.classList.contains("textImage-left")) side = "left";
+      else if (box.classList.contains("textImage-right")) side = "right";
       const out = [];
       const ip = doc.createElement("p");
       const ni = doc.createElement("img");
@@ -605,6 +654,11 @@ var CustomImportScript = (() => {
         em.textContent = clean(cap.textContent);
         cp.append(em);
         out.push(cp);
+      }
+      if (side) {
+        const block = WebImporter.Blocks.createBlock(doc, { name: "Image", variants: [side], cells: [[out]] });
+        out.length = 0;
+        out.push(block);
       }
       const host = box.closest("p");
       if (host && host !== box) {
@@ -629,18 +683,54 @@ var CustomImportScript = (() => {
     });
   }
   function transform2(hookName, element, payload) {
-    if (!payload || !payload.template || payload.template.name !== TEMPLATE) return;
+    if (!payload || !payload.template || payload.template.name !== IMPORT_TEMPLATE) return;
     const doc = element.ownerDocument || payload.document;
     if (hookName !== "beforeTransform") return;
     const article = element.querySelector("#site_content .article") || element.querySelector(".article");
     if (!article) return;
     if (payload.extraMetadata) collectMetadata(article, payload.extraMetadata);
-    const body = article.querySelector(".article-body") || article;
+    const root = article.closest("#site_content") || element;
+    const body = article.querySelector(".article-body") || root.querySelector(".article-body") || article;
+    body.querySelectorAll("iframe[src]").forEach((f) => {
+      let src = f.getAttribute("src");
+      if (src.startsWith("//")) src = `https:${src}`;
+      if (!/youtube\.com|youtu\.be|vimeo\.com/.test(src)) return;
+      const a = doc.createElement("a");
+      a.setAttribute("href", src);
+      a.textContent = src;
+      const p = doc.createElement("p");
+      p.append(a);
+      const host = f.closest("p");
+      if (host && host !== f) host.after(p);
+      else f.before(p);
+      f.remove();
+    });
     splitParagraphs(body, doc);
-    captionedImages(body, doc);
     calloutTables(body, doc);
+    captionedImages(body, doc);
+    highlightBoxes(body, doc);
+    buttonLinks(root, doc);
     rebuildHeader(article, doc);
-    element.querySelectorAll(".article-share, .content-share, section.contentSection.blue_bottom").forEach((el) => el.remove());
+    element.querySelectorAll(".article-share, .content-share").forEach((el) => el.remove());
+  }
+
+  // tools/importer/transformers/stellarus-page.js
+  var IMPORT_TEMPLATE2 = "stellarus-landing";
+  function transform3(hookName, element, payload) {
+    if (!payload || !payload.template || payload.template.name !== IMPORT_TEMPLATE2) return;
+    if (hookName !== "beforeTransform") return;
+    element.querySelectorAll("nav, footer, #stl-mobile-drawer, .stl-orb, .stl-grain, script, noscript, style").forEach((el) => el.remove());
+    const careers = element.querySelector("#careers");
+    if (careers) {
+      const main = careers.closest("main") || careers.parentElement;
+      [...element.querySelectorAll("#root > div")].forEach((layer) => {
+        if (!layer.contains(main)) layer.remove();
+      });
+      careers.querySelectorAll("svg").forEach((svg) => svg.remove());
+    }
+    if (payload.extraMetadata) {
+      payload.extraMetadata.Theme = "stellarus";
+    }
   }
 
   // tools/importer/transformers/blueshieldca-sections.js
@@ -661,7 +751,7 @@ var CustomImportScript = (() => {
   function findMarker(root, id) {
     return root.querySelector(`hr[${MARKER}="${id}"]`);
   }
-  var AUTO_TEMPLATES = ["landing", "content-page"];
+  var AUTO_TEMPLATES = ["section-landing", "text-page", "story-listing"];
   var AUTO_STYLE_RULES = [
     { style: "light-blue", match: ".simplebox" },
     // only a centered contentSection that actually has a title is centered (the class alone is not enough)
@@ -735,7 +825,7 @@ var CustomImportScript = (() => {
       element.querySelectorAll("hr[data-excat-first-section]").forEach((hr) => hr.remove());
     }
   }
-  function transform3(hookName, element, payload) {
+  function transform4(hookName, element, payload) {
     const doc = element.ownerDocument || payload.document;
     const templateName = payload && payload.template && payload.template.name;
     if (AUTO_TEMPLATES.includes(templateName)) {
@@ -802,7 +892,10 @@ var CustomImportScript = (() => {
     "columns-alternating": "Columns (alternating)",
     accordion: "Accordion",
     // content-page template
-    "story-listing": "Story Listing"
+    "story-listing": "Story Listing",
+    // stellarus-landing template
+    "hero-centered": "Hero (centered)",
+    "article-list": "Article List"
   };
   function normalize(name) {
     return (name || "").toLowerCase().trim().replace(/[\s_]+/g, "-").replace(/-+/g, "-");
@@ -820,8 +913,8 @@ var CustomImportScript = (() => {
     const cells = firstRow.querySelectorAll(":scope > th, :scope > td");
     return cells.length === 1 ? cells[0] : null;
   }
-  function transform4(hookName, element, payload) {
-    if (!transform4.BLOCK_OPTIONS_MAP) transform4.BLOCK_OPTIONS_MAP = BLOCK_OPTIONS_MAP;
+  function transform5(hookName, element, payload) {
+    if (!transform5.BLOCK_OPTIONS_MAP) transform5.BLOCK_OPTIONS_MAP = BLOCK_OPTIONS_MAP;
     if (hookName === "afterTransform") {
       const lookup = buildLookup(__spreadValues(__spreadValues({}, BLOCK_OPTIONS_MAP), payload && payload.blockOptionsMap || {}));
       element.querySelectorAll("table").forEach((table) => {
@@ -960,7 +1053,7 @@ var CustomImportScript = (() => {
     "quote": parse4,
     "banner-locations": parse5
   };
-  var transformers = [transform, transform2, transform3, transform4];
+  var transformers = [transform, transform2, transform3, transform4, transform5];
   var extraMetadata = {};
   function executeTransformers(hookName, element, payload) {
     const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE, extraMetadata });
@@ -1010,7 +1103,7 @@ var CustomImportScript = (() => {
       WebImporter.rules.transformBackgroundImages(main, document);
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
       const rawPath = new URL(params.originalURL).pathname.replace(/\/$/, "").replace(/\.html?$/, "");
-      const path = WebImporter.FileUtils.sanitizePath(rawPath === "" ? "/index" : rawPath);
+      const path = PAGE_TEMPLATE.targetPath || WebImporter.FileUtils.sanitizePath(rawPath === "" ? "/index" : rawPath);
       return [{
         element: main,
         path,

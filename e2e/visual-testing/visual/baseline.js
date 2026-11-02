@@ -117,11 +117,27 @@ export async function compareWithBaseline(testInfo, {
   await testInfo.attach(`${name}-expected.png`, { body: expectedBuf, contentType: 'image/png' });
   await testInfo.attach(`${name}-actual.png`, { body: actual, contentType: 'image/png' });
 
-  if (expected.width !== got.width || expected.height !== got.height) {
-    throw new VisualError('size', `Screenshot size differs: reference ${expected.width}x${expected.height}, `
-      + `actual ${got.width}x${got.height}`);
-  }
   const { threshold, maxDiffPixelRatio } = { ...DEFAULT_TOLERANCE, ...tolerance };
+  if (expected.width !== got.width || expected.height !== got.height) {
+    // compare the shared top-left area so the report still shows how close the pages are
+    const w = Math.min(expected.width, got.width);
+    const h = Math.min(expected.height, got.height);
+    const crop = (img) => {
+      const out = new PNG({ width: w, height: h });
+      PNG.bitblt(img, out, 0, 0, w, h, 0, 0);
+      return out;
+    };
+    const a = crop(expected);
+    const b = crop(got);
+    const overlapDiff = new PNG({ width: w, height: h });
+    const px = pixelmatch(a.data, b.data, overlapDiff.data, w, h, { threshold });
+    const pct = ((px / (w * h)) * 100).toFixed(3);
+    testInfo.annotations.push({ type: 'diff', description: `${px} px (${pct}%) of the shared ${w}x${h} area` });
+    await testInfo.attach(`${name}-diff.png`, { body: PNG.sync.write(overlapDiff), contentType: 'image/png' });
+    throw new VisualError('size', `Screenshot size differs: reference ${expected.width}x${expected.height}, `
+      + `actual ${got.width}x${got.height} (height ${got.height - expected.height >= 0 ? '+' : ''}`
+      + `${got.height - expected.height}px); shared ${w}x${h} area differs by ${pct}%`);
+  }
   const diff = new PNG({ width: got.width, height: got.height });
   const diffPixels = pixelmatch(expected.data, got.data, diff.data, got.width, got.height, { threshold });
   const ratio = diffPixels / (got.width * got.height);

@@ -122,7 +122,7 @@ export async function runCase({
   // selector/readiness profile: LIVE markup for captures and for LIVE-as-target checks
   const side = cfg.mode === 'reference' || cfg.actualProfile === 'live' ? 'reference' : 'actual';
   const sideDef = caseDef[side] || {};
-  const url = urlFor(cfg, sidePath(caseDef, side));
+  const url = urlFor(cfg, sidePath(caseDef, side), caseDef.referenceOrigin);
   const rel = baselineRel(spec, caseDef.id, viewport.name);
   const isPage = kind === 'page';
   const caseFingerprint = referenceFingerprint(caseDef, isPage);

@@ -1,0 +1,94 @@
+version: 1
+indices:
+  sitemap:
+    # every public page of both brands: BSC (/**) and Stellarus (/stellarus/careers)
+    target: /sitemap.json
+    # paths are absolute: a pattern without the leading slash never matches
+    include:
+      - '/**'
+    exclude:
+      # drafts, fragments and the DA authoring library (block, icon and template pages)
+      - '/drafts/**'
+      - '/fragments/**'
+      - '/tools/**'
+      # header and footer fragments (BSC and Stellarus)
+      - '/nav'
+      - '/footer'
+      - '/stellarus/nav'
+      - '/stellarus/footer'
+    # also read by the article-list block for cards that link to non-story pages
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: |
+          attribute(el, 'content')
+      image:
+        select: head > meta[property="og:image"]
+        value: |
+          match(attribute(el, 'content'), 'https:\/\/[^/]+(\/.*)')
+      description:
+        select: head > meta[name="description"]
+        value: |
+          attribute(el, 'content')
+      template:
+        select: head > meta[name="template"]
+        value: |
+          attribute(el, 'content')
+      theme:
+        select: head > meta[name="theme"]
+        value: |
+          attribute(el, 'content')
+      robots:
+        select: head > meta[name="robots"]
+        value: |
+          attribute(el, 'content')
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+  blog:
+    # stories live at /blog/{story}; the listing page /blog itself does not match /blog/*.
+    # Read by the story-listing (/blog) and article-list (More Stories, Our Stories) blocks.
+    target: /blog/query-index.json
+    include:
+      - '/blog/*'
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: |
+          attribute(el, 'content')
+      description:
+        select: head > meta[name="description"]
+        value: |
+          attribute(el, 'content')
+      image:
+        select: head > meta[property="og:image"]
+        value: |
+          match(attribute(el, 'content'), 'https:\/\/[^/]+(\/.*)')
+      date:
+        select: head > meta[name="publication-date"]
+        value: |
+          attribute(el, 'content')
+      # filter facets: values match the DA library options tab (rows roles / topics)
+      roles:
+        select: head > meta[name="roles"]
+        value: |
+          attribute(el, 'content')
+      topics:
+        select: head > meta[name="topics"]
+        value: |
+          attribute(el, 'content')
+      author:
+        select: head > meta[name="author"]
+        value: |
+          attribute(el, 'content')
+      template:
+        select: head > meta[name="template"]
+        value: |
+          attribute(el, 'content')
+      robots:
+        select: head > meta[name="robots"]
+        value: |
+          attribute(el, 'content')
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")

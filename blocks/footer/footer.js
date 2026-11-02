@@ -1,5 +1,6 @@
 /**
- * Footer block: builds the site footer from the footer fragment (content/footer.plain.html).
+ * Footer block: builds the site footer from the footer fragment
+ * (page metadata `footer`, default /footer).
  *
  * Fragment sections, in order (all copy, links and images live in the fragment):
  *   1. brand: logo link
@@ -10,18 +11,21 @@
  *   6. legal: copyright / disclaimer text
  */
 
+import { getMetadata } from '../../scripts/aem.js';
+
 const SECTION_NAMES = ['brand', 'notice', 'links', 'social', 'utility', 'legal'];
 // sections whose off-site links open in a new tab (as on the source site)
 const NEW_TAB_SECTIONS = ['notice', 'social'];
-const CONSENT_HASH = '#cookie-preferences';
 
 /**
- * Fetches the footer fragment: /content first (local preview), then the site root (DA/EDS).
+ * Fetches the footer fragment named by the page's `footer` metadata (default /footer),
+ * so each brand folder can use its own (e.g. /stellarus/footer).
  * @returns {Promise<{html: string, url: string}|null>}
  */
 async function fetchFooterFragment() {
-  let resp = await fetch('/content/footer.plain.html');
-  if (!resp.ok) resp = await fetch('/footer.plain.html');
+  const metaPath = getMetadata('footer');
+  const path = metaPath ? new URL(metaPath, window.location.href).pathname : '/footer';
+  const resp = await fetch(`${path.replace(/(\.plain)?\.html$/, '')}.plain.html`);
   if (!resp.ok) return null;
   return { html: await resp.text(), url: resp.url };
 }
@@ -69,21 +73,30 @@ function groupLinkLists(section) {
 }
 
 /**
- * Wires "Cookie preferences" links to the consent manager's preference center.
- * Uses OneTrust when present; otherwise announces a `consent.preferences` event
- * for whichever consent integration the site adds.
+ * Is this the "Cookie preferences" link? Authored as `#cookie-preferences`; the source
+ * uses `javascript:void(0)` with that text.
+ * @param {HTMLAnchorElement} a
+ * @returns {boolean}
+ */
+function isConsentLink(a) {
+  const href = a.getAttribute('href') || '';
+  return href.endsWith('#cookie-preferences')
+    || (/^javascript:/i.test(href) && /cookie preferences/i.test(a.textContent));
+}
+
+/**
+ * Wires "Cookie preferences" links to the OneTrust preference center (loaded in the
+ * delayed phase by scripts/consent.js). Does nothing while OneTrust is absent.
  * @param {Element} root
  */
 function wireConsentLinks(root) {
-  root.querySelectorAll(`a[href$="${CONSENT_HASH}"]`).forEach((a) => {
+  root.querySelectorAll('a[href]').forEach((a) => {
+    if (!isConsentLink(a)) return;
+    a.setAttribute('href', '#cookie-preferences'); // never navigate to a javascript: URL
     a.setAttribute('role', 'button');
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      if (window.OneTrust && typeof window.OneTrust.ToggleInfoDisplay === 'function') {
-        window.OneTrust.ToggleInfoDisplay();
-      } else {
-        window.dispatchEvent(new CustomEvent('consent.preferences'));
-      }
+      window.OneTrust?.ToggleInfoDisplay?.();
     });
   });
 }
@@ -119,8 +132,11 @@ export default async function decorate(block) {
   resolveImages(source, fragment.url);
 
   const parts = {};
-  [...source.children].filter((el) => el.tagName === 'DIV').forEach((section, i) => {
-    const name = SECTION_NAMES[i];
+  const sections = [...source.children].filter((el) => el.tagName === 'DIV');
+  // 6 sections (BSC) or 3 sections (brand + blurb, link columns, legal line; e.g. Stellarus)
+  const names = sections.length === 3 ? ['brand', 'links', 'legal'] : SECTION_NAMES;
+  sections.forEach((section, i) => {
+    const name = names[i];
     if (!name) return;
     section.className = `footer-${name}`;
     parts[name] = section;

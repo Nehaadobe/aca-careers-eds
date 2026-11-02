@@ -1,0 +1,211 @@
+/*
+ * Theme: Stellarus (page metadata `theme: stellarus`, set per folder through bulk metadata).
+ * Loaded by scripts/scripts.js in loadEager, before the first section renders.
+ * Overrides token values only; the contract and BSC defaults are in styles/brand.css.
+ * Values: Stellarus design tokens (docs/analysis/README.md §7.3, §7.5).
+ */
+
+/* Fonts: self-hosted latin subsets (SIL Open Font License 1.1), only downloaded when used.
+   Inter: the same static files (one per weight) as the source, so text wraps the same.
+   JetBrains Mono is a variable font (one file covers the weight range). */
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../fonts/inter-400-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../../fonts/inter-500-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../../fonts/inter-600-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../../fonts/inter-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 600; /* mobile menu links */
+  font-display: swap;
+  src: url('../../fonts/space-grotesk-600-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../../fonts/space-grotesk-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('../../fonts/jetbrains-mono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* metric-matched fallbacks (frequency-weighted latin widths and hhea metrics, read from
+   the font files), so the swap does not shift the layout */
+@font-face {
+  font-family: inter-fallback;
+  size-adjust: 103.68%;
+  ascent-override: 93.44%;
+  descent-override: 23.26%;
+  line-gap-override: 0%;
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo Regular');
+}
+
+@font-face {
+  font-family: space-grotesk-fallback;
+  font-weight: 700;
+  size-adjust: 102.49%;
+  ascent-override: 96.01%;
+  descent-override: 28.49%;
+  line-gap-override: 0%;
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('Arimo Bold');
+}
+
+@font-face {
+  font-family: jetbrains-mono-fallback;
+  size-adjust: 100%;
+  ascent-override: 102%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+  src: local('Courier New'), local('CourierNewPSMT'), local('Liberation Mono'), local('Cousine');
+}
+
+body {
+  --color-scheme: dark;
+
+  /* page and surfaces: deep space with soft blue / violet / cyan glows (CSS only, static) */
+  --color-background: #070b14;
+  --color-surface: rgb(255 255 255 / 4%);
+  --color-surface-tint: #0b1120;
+  --color-surface-muted: #0f1727;
+
+  /* source: three blurred orbs (blur 80px, opacity .5) under a top/bottom vignette, on a
+     layer fixed to the viewport. Each orb is a radial gradient with the blurred-disk falloff,
+     placed in viewport units; below the first screen the vignette leaves the plain color. */
+  --page-background-image:
+    linear-gradient(rgb(7 11 20 / 70%) 0, rgb(7 11 20 / 0%) 22vh, rgb(7 11 20 / 0%) 80vh, rgb(7 11 20 / 90%) 100vh),
+    radial-gradient(circle at calc(8% + 260px) calc(-8vh + 260px), rgb(37 99 235 / 22.4%) 0, rgb(37 99 235 / 21%) 120px, rgb(37 99 235 / 17.8%) 180px, rgb(37 99 235 / 12%) 240px, rgb(37 99 235 / 5.8%) 300px, rgb(37 99 235 / 1.8%) 360px, rgb(37 99 235 / 0%) 440px),
+    radial-gradient(circle at calc(98% - 230px) calc(30vh + 230px), rgb(167 139 250 / 14.8%) 0, rgb(167 139 250 / 13%) 120px, rgb(167 139 250 / 9.9%) 180px, rgb(167 139 250 / 5.7%) 240px, rgb(167 139 250 / 2.3%) 300px, rgb(167 139 250 / 0.6%) 360px, rgb(167 139 250 / 0%) 420px),
+    radial-gradient(circle at calc(30% + 200px) calc(96vh - 200px), rgb(34 211 238 / 10.5%) 0, rgb(34 211 238 / 8.4%) 120px, rgb(34 211 238 / 5.6%) 180px, rgb(34 211 238 / 2.7%) 240px, rgb(34 211 238 / 0.9%) 300px, rgb(34 211 238 / 0%) 380px);
+
+  /* text */
+  --color-text: #f7f9fd;
+  --color-text-strong: #f7f9fd;
+  --color-text-secondary: #b6c2dc;
+  --color-text-muted: #8794b4;
+  --color-text-subtle: #8794b4;
+
+  /* links */
+  --color-link: #c2d4f0;
+  --color-link-hover: #f7f9fd;
+
+  /* primary action */
+  --color-primary: #2563eb;
+  --color-primary-hover: #2563eb;
+  --color-primary-press: #1d4ed8;
+  --color-on-primary: #fff;
+
+  /* bands */
+  --color-band: #0b1120;
+  --color-on-band: #f7f9fd;
+
+  /* strong accent */
+  --color-accent-strong: #c2d4f0;
+  --color-on-accent-strong: #070b14;
+
+  /* borders and focus */
+  --color-border: rgb(255 255 255 / 8%);
+  --color-border-subtle: rgb(255 255 255 / 8%);
+  --color-border-strong: rgb(255 255 255 / 14%);
+  --color-focus: #60a5fa;
+  --focus-ring: 0 0 0 2px #60a5fa;
+
+  /* share block */
+  --color-share: #1e283f;
+
+  /* header and footer: the careers site nav and footer (/nav, /footer) in Stellarus colors */
+  --nav-logo-filter: brightness(0) invert(1); /* blue careers logo shown white on the dark page */
+  --header-background: transparent;
+  --header-border-color: transparent; /* source: 1px transparent line under the nav */
+  --header-button-background: rgb(255 255 255 / 4%);
+  --footer-background: transparent;
+  --footer-text: #8794b4;
+  --footer-utility-background: transparent;
+  --footer-utility-text: #8794b4;
+  --footer-accent-line: linear-gradient(90deg, rgb(96 165 250 / 0%), rgb(96 165 250 / 50%), rgb(96 165 250 / 0%));
+
+  /* buttons */
+  --button-secondary-background: rgb(255 255 255 / 4%);
+  --button-secondary-color: #f7f9fd;
+  --button-secondary-border-color: rgb(255 255 255 / 14%);
+
+  /* icons */
+  --icon-select-chevron: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23b6c2dc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+
+  /* fonts */
+  --font-body: inter, inter-fallback, sans-serif;
+  --font-heading: 'Space Grotesk', space-grotesk-fallback, sans-serif;
+  --font-display: 'Space Grotesk', space-grotesk-fallback, sans-serif;
+  --font-mono: 'JetBrains Mono', jetbrains-mono-fallback, ui-monospace, monospace;
+  --display-tracking: -0.03em;
+  --display-transform: none;
+
+  /* layout */
+  --content-max-width: 1280px;
+  --content-padding: 24px;
+
+  /* shapes (card, panel and media radii are proposed from the Stellarus scale; confirm) */
+  --radius-button: 9999px;
+  --radius-card: 1rem;
+  --radius-panel: 1rem;
+  --radius-media: 1rem;
+
+  /* shadows */
+  --shadow-card: 0 4px 16px rgb(0 0 0 / 45%);
+  --shadow-tile: 0 4px 16px rgb(0 0 0 / 45%);
+  --shadow-raised: 0 4px 16px rgb(0 0 0 / 45%);
+  --shadow-button: 0 0 20px rgb(59 130 246 / 30%);
+  --shadow-text-on-media: none;
+}
+
+/* breakpoint-exception: source orbs shrink at 640px (320 / 280 / 240px) */
+@media (width <= 640px) {
+  body {
+    --page-background-image:
+      linear-gradient(rgb(7 11 20 / 70%) 0, rgb(7 11 20 / 0%) 22vh, rgb(7 11 20 / 0%) 80vh, rgb(7 11 20 / 90%) 100vh),
+      radial-gradient(circle at calc(-10% + 160px) calc(-8vh + 160px), rgb(37 99 235 / 19.4%) 0, rgb(37 99 235 / 17.7%) 60px, rgb(37 99 235 / 12.9%) 120px, rgb(37 99 235 / 7%) 180px, rgb(37 99 235 / 2.5%) 240px, rgb(37 99 235 / 0.6%) 300px, rgb(37 99 235 / 0%) 360px),
+      radial-gradient(circle at calc(110% - 140px) calc(30vh + 140px), rgb(167 139 250 / 11.7%) 0, rgb(167 139 250 / 10.4%) 60px, rgb(167 139 250 / 7%) 120px, rgb(167 139 250 / 3.3%) 180px, rgb(167 139 250 / 1%) 240px, rgb(167 139 250 / 0%) 320px),
+      radial-gradient(circle at calc(10% + 120px) calc(96vh - 120px), rgb(34 211 238 / 7.4%) 0, rgb(34 211 238 / 6.4%) 60px, rgb(34 211 238 / 3.9%) 120px, rgb(34 211 238 / 1.6%) 180px, rgb(34 211 238 / 0.5%) 240px, rgb(34 211 238 / 0%) 300px);
+  }
+}

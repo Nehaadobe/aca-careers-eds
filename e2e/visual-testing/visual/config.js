@@ -142,9 +142,11 @@ export function getRunConfig() {
  * Actual side: "/" maps to "<prefix>/index" when a prefix is set (local html-folder preview).
  * @param {object} cfg run config
  * @param {string} casePath common/side path, starting with "/"
+ * @param {string} [caseOrigin] LIVE origin of this case when it is not VISUAL_REFERENCE_URL
+ *   (pages of another brand site, e.g. https://www.stellarus.com)
  */
-export function urlFor(cfg, casePath) {
-  if (cfg.mode === 'reference') return `${cfg.referenceOrigin}${casePath}`;
+export function urlFor(cfg, casePath, caseOrigin) {
+  if (cfg.mode === 'reference') return `${caseOrigin || cfg.referenceOrigin}${casePath}`;
   const p = cfg.actualPathPrefix && casePath === '/' ? '/index' : casePath;
   return `${cfg.actualOrigin}${cfg.actualPathPrefix}${p}`;
 }

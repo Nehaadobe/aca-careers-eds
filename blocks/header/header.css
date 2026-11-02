@@ -4,15 +4,15 @@
  * 1200px (desktop nav; below it the menu button opens a left drawer).
  */
 
-/* header: solid white, scrolls with the page (source is not sticky) */
+/* header: solid background (white on BSC), scrolls with the page (source is not sticky) */
 header .nav-wrapper {
   position: relative;
   z-index: 20;
   width: 100%;
-  background-color: var(--background-color);
+  background-color: var(--header-background);
   border-bottom: 2px solid var(--header-border-color);
-  font-family: var(--body-font-family);
-  color: var(--text-color);
+  font-family: var(--font-body);
+  color: var(--color-text);
 }
 
 header nav {
@@ -61,12 +61,12 @@ header .nav-hamburger button {
   padding: 0;
   border: 0;
   border-radius: 0;
-  background-color: var(--header-button-bg);
+  background-color: var(--header-button-background);
   cursor: pointer;
 }
 
 header .nav-hamburger button:focus-visible {
-  outline: 2px solid var(--link-hover-color);
+  outline: 2px solid var(--color-focus);
   outline-offset: -4px;
 }
 
@@ -76,7 +76,7 @@ header .nav-hamburger-icon::after {
   display: block;
   width: 30px;
   height: 2px;
-  background-color: var(--brand-blue);
+  background-color: var(--color-primary);
 }
 
 header .nav-hamburger-icon {
@@ -116,12 +116,13 @@ header .nav-brand .nav-logo img {
   display: block;
   width: 125px;
   height: auto;
+  filter: var(--nav-logo-filter);
 }
 
 header .nav-brand .nav-site-name {
   padding: 23px 0 23px 20px;
   border-left: 2px solid var(--header-border-color);
-  color: var(--text-color);
+  color: var(--color-text);
   font-size: 16px;
   line-height: 32px;
 }
@@ -140,7 +141,7 @@ header nav[aria-expanded='true'] .nav-menu {
   z-index: 150;
   width: min(calc(100vw - 80px), 320px);
   overflow-y: auto;
-  background-color: var(--background-color);
+  background-color: var(--color-background);
 }
 
 header .nav-menu-title {
@@ -150,8 +151,8 @@ header .nav-menu-title {
   height: 80px;
   margin: 0;
   padding: 20px;
-  background-color: var(--brand-blue);
-  color: #fff;
+  background-color: var(--color-band-accent);
+  color: var(--color-on-band-accent);
   font-size: 18px;
   font-weight: 600;
   line-height: 27px;
@@ -165,7 +166,7 @@ header .nav-list .nav-item > a {
   display: flex;
   align-items: center;
   padding: 5px 20px;
-  color: var(--text-color);
+  color: var(--color-text);
   font-size: 16px;
   font-weight: 600;
   line-height: 20px;
@@ -175,7 +176,7 @@ header .nav-list .nav-item > a {
 header .nav-list .nav-dropdown a {
   display: block;
   padding: 3px 15px 3px 40px;
-  color: var(--text-color);
+  color: var(--color-text);
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
@@ -190,22 +191,23 @@ header .nav-tools {
 header .nav-tools .nav-cta {
   display: block;
   padding: 10.56px 10px;
-  border: 1px solid var(--brand-blue);
-  border-radius: var(--button-radius);
-  background-color: var(--brand-blue);
-  color: #fff;
+  border: 1px solid var(--button-border-color);
+  border-radius: var(--radius-button);
+  background-color: var(--button-primary-background);
+  box-shadow: var(--shadow-button);
+  color: var(--button-primary-color);
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
   text-align: center;
   white-space: nowrap;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 header .nav-tools .nav-cta:hover {
-  border-color: var(--brand-blue-dark);
-  background-color: var(--brand-blue-hover);
-  color: #fff;
+  border-color: var(--button-hover-border-color);
+  background-color: var(--button-primary-hover-background);
+  color: var(--button-primary-color);
 }
 
 header .nav-tools .nav-cta:focus-visible {
@@ -244,7 +246,7 @@ header nav[aria-expanded='true'] .nav-overlay {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background-color: rgb(0 0 0 / 70%);
+  background-color: var(--color-scrim-strong);
 }
 
 /* breakpoint-exception: source switches the site-name size at 576px */
@@ -280,15 +282,15 @@ header nav[aria-expanded='true'] .nav-overlay {
     content: '|';
     display: inline-block;
     margin: 0 10px;
-    color: var(--text-color);
+    color: var(--color-text);
   }
 
   header .nav-utility a {
-    color: var(--header-utility-color);
+    color: var(--color-text-muted);
   }
 
   header .nav-utility a:hover {
-    color: var(--text-color);
+    color: var(--color-text);
   }
 
   header .nav-row-main {
@@ -368,7 +370,7 @@ header nav[aria-expanded='true'] .nav-overlay {
     padding: 0 20px;
   }
 
-  /* dropdown: full-width brand-blue bar under the header, centered links */
+  /* dropdown: full-width accent bar under the header, centered links */
   header .nav-dropdown {
     display: none;
     position: absolute;
@@ -378,7 +380,7 @@ header nav[aria-expanded='true'] .nav-overlay {
     z-index: 1;
     justify-content: center;
     padding: 15px 0;
-    background-color: var(--brand-blue);
+    background-color: var(--color-band-accent);
   }
 
   header .nav-drop.is-open > .nav-dropdown {
@@ -387,17 +389,17 @@ header nav[aria-expanded='true'] .nav-overlay {
 
   header .nav-list .nav-dropdown a {
     padding: 5px 15px;
-    color: #fff;
+    color: var(--color-on-band-accent);
     font-weight: 600;
   }
 
   header .nav-list .nav-dropdown a:hover {
-    color: #fff;
+    color: var(--color-on-band-accent);
     text-decoration: underline;
   }
 
   header .nav-list .nav-dropdown a:focus-visible {
-    outline-color: #fff;
+    outline-color: var(--color-on-band-accent);
   }
 
   /* notch under the open trigger */
@@ -411,11 +413,255 @@ header nav[aria-expanded='true'] .nav-overlay {
     margin-left: -11px;
     border: solid transparent;
     border-width: 0 11px 12px;
-    border-bottom-color: var(--brand-blue);
+    border-bottom-color: var(--color-band-accent);
   }
 
   header .nav-tools {
     flex: 0 0 auto;
     align-items: center;
+  }
+}
+
+/*
+ * Single-row header: a nav fragment without a utility row (3 sections: brand, sections,
+ * tools; e.g. Stellarus). Source: stellarus.com. Mobile: brand left, 40px menu button
+ * right, full-screen drawer under the bar. From 921px: brand | pill links | glow CTA.
+ * The empty utility row marks this layout; colors, fonts and radii come from tokens.
+ */
+header .nav-wrapper:has(.nav-row-utility:empty) {
+  border-bottom-width: 1px;
+}
+
+header .nav-row-utility:empty,
+header .nav-row-utility:empty ~ .nav-overlay {
+  display: none;
+}
+
+header .nav-row-utility:empty + .nav-row-main {
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-sizing: border-box;
+  max-width: var(--content-max-width);
+  min-height: calc(var(--nav-height) - 1px);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+}
+
+/* brand: 34px logo + site name, both above the open drawer */
+header .nav-row-utility:empty + .nav-row-main .nav-brand {
+  position: relative;
+  z-index: 2;
+  gap: 11px;
+  min-width: 0;
+  padding: 0;
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-brand .nav-logo {
+  padding: 0;
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-brand .nav-logo img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-brand .nav-site-name,
+header .nav-row-utility:empty + .nav-row-main .nav-brand .nav-site-name:hover {
+  padding: 0;
+  border: 0;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.65;
+  letter-spacing: var(--display-tracking);
+}
+
+/* menu button: 40px rounded tile, three-line icon that turns into a cross */
+header .nav-row-utility:empty + .nav-row-main .nav-hamburger {
+  position: relative;
+  z-index: 2;
+  order: 1;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-hamburger button,
+header nav[aria-expanded='true'] > .nav-row-utility:empty + .nav-row-main .nav-hamburger button {
+  position: static;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  color: var(--color-text);
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-hamburger-icon,
+header .nav-row-utility:empty + .nav-row-main .nav-hamburger-icon::before,
+header .nav-row-utility:empty + .nav-row-main .nav-hamburger-icon::after {
+  width: 15px;
+  height: 1.67px; /* source: 2px stroke on a 24px grid drawn at 20px */
+  border-radius: 1px;
+  background-color: currentcolor;
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-hamburger-icon::before {
+  top: -5px;
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-hamburger-icon::after {
+  top: 5px;
+}
+
+header nav[aria-expanded='true'] > .nav-row-utility:empty + .nav-row-main .nav-hamburger-icon {
+  background-color: transparent;
+}
+
+header nav[aria-expanded='true'] > .nav-row-utility:empty + .nav-row-main .nav-hamburger-icon::before,
+header nav[aria-expanded='true'] > .nav-row-utility:empty + .nav-row-main .nav-hamburger-icon::after {
+  top: 0;
+}
+
+/* drawer: full screen, under the bar, no page dimming */
+header nav[aria-expanded='true'] > .nav-row-utility:empty + .nav-row-main .nav-menu {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  width: auto;
+  padding: 88px var(--content-padding) 32px;
+  overflow-y: auto;
+  background-color: color-mix(in srgb, var(--color-background) 96%, transparent);
+  backdrop-filter: blur(16px);
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-menu-title {
+  display: none;
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-list .nav-item > a {
+  display: block;
+  padding: 14px 16px;
+  border-radius: 12px;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.65;
+}
+
+/* current page (aria-current="page" on the link) */
+header .nav-row-utility:empty + .nav-row-main .nav-list .nav-item > a[aria-current='page'] {
+  background-color: var(--color-surface);
+  color: var(--color-link);
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-tools {
+  margin-top: 28px;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* call to action: glow pill with an arrow */
+header .nav-row-utility:empty + .nav-row-main .nav-tools .nav-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 44px;
+  padding: 11px 22px;
+  border-color: transparent;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0.005em;
+}
+
+header .nav-row-utility:empty + .nav-row-main .nav-tools .nav-cta::after {
+  content: '';
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* breakpoint-exception: the single-row source shows the desktop nav from 921px */
+@media (width > 920px) {
+  header .nav-row-utility:empty + .nav-row-main .nav-hamburger {
+    display: none;
+  }
+
+  /* brand, links and CTA become items of the bar, spaced apart */
+  header .nav-row-utility:empty + .nav-row-main .nav-menu,
+  header nav[aria-expanded='true'] > .nav-row-utility:empty + .nav-row-main .nav-menu {
+    display: contents;
+  }
+
+  header .nav-row-utility:empty + .nav-row-main .nav-sections {
+    display: block;
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  header .nav-row-utility:empty + .nav-row-main .nav-list {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  /* 16px link padding as on the source; it narrows below ~1010px so the 7 links fit
+     between the brand and the CTA (the source lets them overlap the logo there) */
+  header .nav-row-utility:empty + .nav-row-main .nav-list .nav-item > a {
+    height: auto;
+    padding: 8px clamp(8px, calc((100vw - 800px) / 14), 16px);
+    border-radius: var(--radius-button);
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  header .nav-row-utility:empty + .nav-row-main .nav-list .nav-item > a:hover {
+    color: var(--color-text);
+  }
+
+  header .nav-row-utility:empty + .nav-row-main .nav-list .nav-item > a[aria-current='page'] {
+    color: var(--color-link);
+  }
+
+  header .nav-row-utility:empty + .nav-row-main .nav-tools {
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  header .nav-row-utility:empty + .nav-row-main .nav-tools .nav-cta {
+    gap: 6px;
+    width: auto;
+    height: 36px;
+    padding: 8px 16px;
+  }
+
+  header .nav-row-utility:empty + .nav-row-main .nav-tools .nav-cta::after {
+    width: 15px;
+    height: 15px;
   }
 }

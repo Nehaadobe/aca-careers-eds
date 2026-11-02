@@ -8,6 +8,7 @@ import quoteParser from './parsers/quote.js';
 import bannerLocationsParser from './parsers/banner-locations.js';
 import blueshieldcaCleanupTransformer from './transformers/blueshieldca-cleanup.js';
 import blueshieldcaArticleTransformer from './transformers/blueshieldca-article.js';
+import stellarusPageTransformer from './transformers/stellarus-page.js';
 import blueshieldcaSectionsTransformer from './transformers/blueshieldca-sections.js';
 import blockOptionsTransformer from './transformers/block-options.js';
 
@@ -139,8 +140,7 @@ const parsers = {
 
 // Order matters: cleanup first; sections adds section breaks + Section Metadata;
 // block-options renames variant tables to "Base (option)" after parsing.
-const transformers = [blueshieldcaCleanupTransformer, blueshieldcaArticleTransformer, blueshieldcaSectionsTransformer, blockOptionsTransformer];
-
+const transformers = [blueshieldcaCleanupTransformer, blueshieldcaArticleTransformer, stellarusPageTransformer, blueshieldcaSectionsTransformer, blockOptionsTransformer];
 // Shared across hooks so transformers can contribute page metadata (e.g. Role, Topic, Author).
 let extraMetadata = {};
 
@@ -196,7 +196,8 @@ export default {
     const rawPath = new URL(params.originalURL).pathname
       .replace(/\/$/, '')
       .replace(/\.html?$/, '');
-    const path = WebImporter.FileUtils.sanitizePath(rawPath === '' ? '/index' : rawPath);
+    // targetPath (e.g. /stellarus/careers) places a page from another site in its brand folder
+    const path = PAGE_TEMPLATE.targetPath || WebImporter.FileUtils.sanitizePath(rawPath === '' ? '/index' : rawPath);
 
     return [{
       element: main,

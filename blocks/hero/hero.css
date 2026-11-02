@@ -4,6 +4,7 @@
  *   home          - full-bleed photo, headline + CTA centered at the bottom
  *   page          - page header: title/subtitle left, photo right (rounded bottom-left)
  *   page no-image - title only (no-image is added by hero.js when no picture is authored)
+ *   centered      - centered text intro: eyebrow, H1, copy, CTAs side by side (Stellarus careers)
  */
 
 /* the hero manages its own width; the section wrapper must not cap it */
@@ -13,7 +14,7 @@ main .section > .hero-wrapper {
 }
 
 /* ---------- default + home: full-bleed photo with overlaid headline ---------- */
-.hero:not(.page) {
+.hero:not(.page, .centered) {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -23,51 +24,51 @@ main .section > .hero-wrapper {
   padding: 0 var(--content-padding);
   overflow: hidden;
   isolation: isolate;
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
-.hero:not(.page) picture {
+.hero:not(.page, .centered) picture {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-color: #f4f4f4;
+  background-color: var(--color-surface-muted);
 }
 
-.hero:not(.page) img {
+.hero:not(.page, .centered) img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.hero:not(.page) .hero-content {
+.hero:not(.page, .centered) .hero-content {
   max-width: 450px;
   margin: 0 auto;
   padding: 30px 0;
   text-align: center;
 }
 
-.hero:not(.page) .hero-content h1,
-.hero:not(.page) .hero-content h2 {
+.hero:not(.page, .centered) .hero-content h1,
+.hero:not(.page, .centered) .hero-content h2 {
   max-width: 450px;
   margin: 0;
-  color: var(--background-color);
-  font-family: var(--display-font-family);
+  color: var(--color-on-media);
+  font-family: var(--font-display);
   font-size: var(--heading-font-size-xxl);
   font-weight: 500;
   line-height: 48px;
-  letter-spacing: var(--display-letter-spacing);
-  text-transform: uppercase;
-  text-shadow: rgb(0 0 0) 0 0 1px;
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-transform);
+  text-shadow: var(--shadow-text-on-media);
 }
 
-.hero:not(.page) .hero-content p {
+.hero:not(.page, .centered) .hero-content p {
   margin: 20px 0 0;
 }
 
 /* ---------- page: page header with text and photo ---------- */
 .hero.page {
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 .hero.page .hero-media-wrap {
@@ -140,7 +141,7 @@ main .section > .hero-wrapper {
   .hero.page .hero-media-wrap {
     flex: 0 0 60%;
     order: 1;
-    border-radius: 0 0 0 80px;
+    border-radius: var(--radius-media);
   }
 
   /* fill the column when the text is taller than the photo */
@@ -163,4 +164,131 @@ main .section > .hero-wrapper {
     box-sizing: border-box;
     max-width: calc(645px - 10vw);
   }
+}
+
+/* ---------- centered: text-only intro (eyebrow, H1, copy, CTAs) ----------
+   Source: stellarus.com/careers (fluid padding and H1 size, measured at 390-1440px). */
+.hero.centered:not(.page) {
+  box-sizing: border-box;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 80px) var(--content-padding) clamp(48px, 7vw, 96px);
+  color: var(--color-text);
+  text-align: center;
+}
+
+.hero.centered:not(.page) .hero-media-wrap {
+  max-width: 760px;
+  margin: 0 auto 40px;
+  line-height: 0;
+}
+
+.hero.centered:not(.page) .hero-media-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero.centered:not(.page) .hero-content {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.hero.centered:not(.page) .hero-eyebrow {
+  margin: 0 0 14px;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.65;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hero.centered:not(.page) .hero-content :is(h1, h2, h3) {
+  max-width: 680px;
+  margin: 0 auto 48px;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.4vw, 2.7rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-transform);
+}
+
+.hero.centered:not(.page) .hero-content > p:not(.hero-eyebrow) {
+  margin: 0 0 18px;
+  color: var(--color-text-secondary);
+  font-size: 18px;
+  line-height: 1.7;
+  text-wrap: pretty; /* source: no one-word last lines */
+}
+
+/* buttons wrap onto a second centered row when they do not fit (source: 14px gaps) */
+.hero.centered:not(.page) .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 34px; /* collapses with the paragraph margin: 34px below the copy */
+}
+
+.hero.centered:not(.page) .hero-actions p.button-wrapper {
+  margin: 0;
+}
+
+.hero.centered:not(.page) .hero-actions a.button:any-link {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 54px;
+  margin: 0;
+  padding: 15px 30px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-button);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent):any-link {
+  background-color: var(--button-primary-background);
+  box-shadow: var(--shadow-button);
+  color: var(--button-primary-color);
+}
+
+.hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent):hover {
+  background-color: var(--button-primary-hover-background);
+  color: var(--button-primary-color);
+}
+
+/* arrow icon (source: 18px stroke arrow), drawn in the text color */
+.hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent)::after {
+  content: '';
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  background-color: currentcolor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.hero.centered:not(.page) .hero-actions a.button.secondary:any-link {
+  border-color: var(--button-secondary-border-color);
+  background-color: var(--button-secondary-background);
+  color: var(--button-secondary-color);
+}
+
+.hero.centered:not(.page) .hero-actions a.button.secondary:hover {
+  color: var(--button-secondary-color);
+}
+
+.hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent, .secondary):focus-visible {
+  box-shadow: var(--focus-ring);
 }

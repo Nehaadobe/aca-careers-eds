@@ -72,9 +72,8 @@ export default function parse(element, { document }) {
   if (facets.length) cells.push(['Filters', facets.map((f) => f.name).join(', ')]);
   cells.push(['Page Size', String(pageSize)]);
   cells.push(['Sort', sort]);
-  facets.forEach((f) => {
-    if (f.options.length) cells.push([f.name, f.options.join(', ')]);
-  });
+  // Filter values are not copied into the block: they come from the library
+  // options sheet (single source shared with the authoring slash menu).
   cells.push(['Path', '/blog/']);
   cells.push(['External Stories', '/blog/external-stories.json']);
   if (placeholder) cells.push(['Search Placeholder', placeholder]);

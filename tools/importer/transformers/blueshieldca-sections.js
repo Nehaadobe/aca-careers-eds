@@ -38,7 +38,7 @@ function findMarker(root, id) {
  * a centered contentSection title -> "centered", the blue band -> "blue".
  * The template's sections[] still documents the representative page.
  */
-const AUTO_TEMPLATES = ['landing', 'content-page'];
+const AUTO_TEMPLATES = ['section-landing', 'text-page', 'story-listing'];
 const AUTO_STYLE_RULES = [
   { style: 'light-blue', match: '.simplebox' },
   // only a centered contentSection that actually has a title is centered (the class alone is not enough)

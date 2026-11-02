@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Block: Banner</title><style>:root{--bg:#f4f7fb;--panel:#fff;--panel2:#eef3f9;--line:#d9e1ec;--txt:#1a2432;--mut:#5c6b80;--brand:#1560bd;--accent:#1560bd;--hi:#c0392b;--me:#9a6a00;--lo:#1e8f5b}
+*{box-sizing:border-box}body{margin:0;font:14px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--txt)}
+a{color:var(--accent)}
+header{padding:20px 28px;background:linear-gradient(90deg,#0b3d91,#1560bd 55%,#2f80ed);color:#fff}
+header h1{margin:0;font-size:19px}header p{margin:6px 0 0;opacity:.92;font-size:13px}
+header .hbtn{flex:none;background:#fff;color:#0b3d91;text-decoration:none;font-weight:700;font-size:13px;padding:10px 16px;border-radius:8px}
+.crumbs{padding:12px 28px;background:var(--panel);border-bottom:1px solid var(--line);font-size:13px}
+.crumbs a{text-decoration:none}.crumbs span{color:var(--mut)}
+main{padding:24px 28px;max-width:1080px;margin:0 auto}
+main.wide{max-width:1240px}
+h2{font-size:16px;margin:26px 0 10px;border-left:3px solid var(--brand);padding-left:10px}
+h3{font-size:14px;margin:18px 0 6px}h4{font-size:13px;margin:14px 0 4px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:600}
+td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:hover td{background:var(--panel2)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}
+.card.warnbox{border-color:var(--me);background:rgba(154,106,0,.06)}
+.pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.High{background:rgba(192,57,43,.12);color:var(--hi)}.Medium{background:rgba(154,106,0,.14);color:var(--me)}.Low{background:rgba(30,143,91,.14);color:var(--lo)}
+.New{background:rgba(21,96,189,.12);color:var(--brand)}.Refactor{background:rgba(154,106,0,.14);color:var(--me)}.Keep{background:rgba(30,143,91,.14);color:var(--lo)}
+.st-migrate{background:rgba(30,143,91,.14);color:var(--lo)}.st-link-only{background:rgba(21,96,189,.12);color:var(--brand)}.st-not{background:rgba(92,107,128,.14);color:var(--mut)}
+.tag{font-family:ui-monospace,Menlo,monospace;font-size:11px;background:var(--panel2);padding:1px 6px;border-radius:4px;color:var(--accent)}
+code{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:var(--panel2);padding:1px 5px;border-radius:4px}
+pre{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto}pre code{background:none;padding:0}
+.muted{color:var(--mut)}.warn{color:var(--hi);font-weight:600}
+ul.f{margin:6px 0 12px;padding-left:18px}ul.f li{margin:4px 0}
+.chk{list-style:none;padding-left:0}.chk li{margin:6px 0;padding-left:26px;position:relative}.chk li:before{content:"\2610";position:absolute;left:0;color:var(--accent)}
+.varbox{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0}
+.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){.g4,.g3,.g2{grid-template-columns:1fr 1fr}}
+.stat{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+.stat .n{font-size:26px;font-weight:700}.stat .l{color:var(--mut);font-size:12px;margin-top:3px}
+.nav-blocks{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.nav-blocks a{font-size:12px;text-decoration:none;background:var(--panel2);border:1px solid var(--line);padding:4px 9px;border-radius:16px;color:var(--txt)}
+.nav-blocks a:hover{border-color:var(--accent)}
+footer{padding:18px 28px;color:var(--mut);font-size:12px;border-top:1px solid var(--line);margin-top:30px}
+nav#nav,nav.topnav{display:flex;gap:2px;background:var(--panel);border-bottom:1px solid var(--line);padding:0 12px;position:sticky;top:0;z-index:10;flex-wrap:wrap}
+nav#nav button,nav#nav a,nav.topnav a{background:none;border:none;color:var(--mut);padding:12px 16px;cursor:pointer;font-size:13px;border-bottom:2px solid transparent;text-decoration:none;display:inline-block}
+nav#nav button:hover,nav.topnav a:hover{color:var(--txt)}
+nav#nav button.active,nav.topnav a.active{color:var(--txt);border-bottom-color:var(--brand)}
+.view{display:none}.view.active{display:block}
+details{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:4px 14px}
+details summary{cursor:pointer;padding:10px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center}
+details summary::-webkit-details-marker{display:none}
+input.search{width:100%;padding:9px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--txt);margin-bottom:10px}
+select{padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--txt)}
+.bar{height:12px;border-radius:6px;background:var(--accent);min-width:2px}.barrow{display:flex;align-items:center;gap:10px;margin:6px 0}.barrow .lab{width:240px;font-size:12px;color:var(--mut);flex:none}.barrow .val{font-size:12px;width:50px;text-align:right}
+.bar.zero{background:var(--line)}
+.g2 .barrow .lab{width:170px}.g2 .card{overflow:hidden}
+.sw{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}.sw i{width:28px;height:28px;border-radius:6px;border:1px solid var(--line);flex:none}.sw b{font-size:12px}.sw span{font-size:11px;color:var(--mut);font-family:ui-monospace,Menlo,monospace}
+.chip{display:inline-block;width:14px;height:14px;border-radius:3px;border:1px solid var(--line);vertical-align:-2px;margin-right:6px}
+.report h2{scroll-margin-top:60px}.report table{background:var(--panel)}</style></head><body><header><h1>Block: Banner</h1><p>careers.blueshieldca.com + stellarus.com/careers → Edge Delivery Services (Document Authoring) · multi-theme (BSC, Stellarus, Ascendiun slot) · 2026-10-30</p></header><div class="crumbs"><a href="../dashboard.html">Dashboard</a> <span>›</span> <a href="index.html">Reports</a> <span>›</span> <a href="index.html#blocks">Blocks</a> <span>›</span> <span>Banner</span></div><main class="report"><p><span class="tag">banner</span> <span class="pill Low">Low</span> <span class="pill Refactor">Refactor</span> <span class="muted">3 pages</span></p><div class="card">Three full-width bands with text and a CTA.</div><h2>Variations (3)</h2><div class="varbox"><b>locations</b> <span class="muted">(1 page)</span> — home: navy band with California map, inverted white button</div><div class="varbox"><b>image-cta</b> <span class="muted">(1 page)</span> — Life at Blue Shield: full image, centered title + button</div><div class="varbox"><b>statement</b> <span class="muted">(1 page)</span> — Growth &amp; development: brand-blue band with large text</div><h2>Functionality</h2><ul class="f"><li>Background image behind the content (locations, image-cta)</li><li>Button colors come from tokens (inverted button on the locations band)</li></ul><h2>Acceptance criteria</h2><ul class="chk"><li>Text, image and CTA match the source</li></ul><h2>How to verify</h2><ul class="chk"><li>Compare all 3 at both widths</li></ul><h2>Used in templates</h2><div class="nav-blocks"><a href="template-homepage.html">Homepage (1)</a><a href="template-section-landing.html">Section landing (7)</a></div><p class="muted">Section-by-section mapping: <a href="full-report.html#4-block-mapping-page-by-page">full report §4</a>.</p></main><footer>Evidence-based analysis: every URL opened on the live sites at 1440px and 390px. <a href="../dashboard.html">Dashboard</a> · <a href="index.html">Reports hub</a></footer></body></html>

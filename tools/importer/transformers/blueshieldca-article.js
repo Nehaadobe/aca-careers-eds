@@ -2,24 +2,27 @@
 /* global WebImporter */
 
 /**
- * Blog article transformer for careers.blueshieldca.com ("blog-article" template only).
+ * Story article transformer for careers.blueshieldca.com ("story-article" import template only;
+ * pages get Template metadata "blog-article", which the article-header auto-block and CSS use).
  *
  * The article header (categories, title, date, authors, hero) is rebuilt at runtime by the
  * article-header auto-block from page metadata, and the share bar and "More Stories" row are
  * generated at runtime, so this transformer:
  *
  * beforeTransform:
- *   - collects page metadata into payload.extraMetadata: Template, Role, Topic,
- *     Publication Date (ISO yyyy-mm-dd), Author, Author Title
+ *   - collects page metadata into payload.extraMetadata: Template, Roles, Topics,
+ *     Publication Date (ISO yyyy-mm-dd), Author, Author Title, Author Image
  *   - replaces the article header with default content: H1 + full-size hero image (if any)
- *   - removes the share bar and the "More Stories" related row
+ *   - removes the share bar (the "More Stories" row is parsed into an article-list block)
  *   - splits paragraphs that the source joins with <br><br>
- *   - turns captioned inline images (.textImage) into image + italic caption paragraph
+ *   - turns floated images (.textImage-left/-right) into Image (left|right) blocks and
+ *     other captioned inline images (.textImage) into image + italic caption paragraph
  *   - wraps single-cell callout tables in a "Table" block
  *   - puts highlighted boxes (.simplebox) in a "light-blue" section
  */
 
-const TEMPLATE = 'blog-article';
+const TEMPLATE = 'blog-article'; // page Template metadata
+const IMPORT_TEMPLATE = 'story-article'; // page-templates.json name
 const ROLES = ['Commercial Markets', 'Consumer Markets', 'Customer Experience', 'Finance', 'Foundation',
   'Health Solutions', 'Information Technology', 'Innovation', 'Law', 'Marketing', 'Medi-Cal', 'Operations',
   'People and Engagement', 'Promise Medical Clinics', 'Transformation'];
@@ -70,21 +73,43 @@ function highlightBoxes(body, doc) {
 }
 
 function collectMetadata(article, extra) {
+  // page image = the 1200x630 "_thmb" rendition the source story cards and hero use
+  // (og:image is a 3:1 "_hero" crop); feeds social sharing and the story cards
+  const root = article.closest('#site_content') || article.parentElement || article;
+  const heroImg = root.querySelector('figure.article-hero img');
+  if (heroImg && heroImg.getAttribute('src')) {
+    const img = article.ownerDocument.createElement('img');
+    img.setAttribute('src', heroImg.getAttribute('src'));
+    img.setAttribute('alt', clean(heroImg.getAttribute('alt')));
+    extra.Image = img;
+  }
   extra.Template = TEMPLATE;
   const cats = [...article.querySelectorAll('.article-categories a')].map((a) => clean(a.textContent)).filter(Boolean);
   const roles = cats.filter((c) => ROLES.includes(c));
   const topics = cats.filter((c) => TOPICS.includes(c));
-  if (roles.length) extra.Role = roles.join(', ');
-  if (topics.length) extra.Topic = topics.join(', ');
+  // Roles / Topics match the library options keys and the query-index columns.
+  if (roles.length) extra.Roles = roles.join(', ');
+  if (topics.length) extra.Topics = topics.join(', ');
   const date = isoDate(article.querySelector('.article-date') && article.querySelector('.article-date').textContent);
   if (date) extra['Publication Date'] = date;
   const authors = [...article.querySelectorAll('.article-authors .author')]
-    .map((a) => ({ name: clean(a.querySelector('.author-title') && a.querySelector('.author-title').textContent), title: clean(a.querySelector('.author-position') && a.querySelector('.author-position').textContent) }))
+    .map((a) => {
+      const photo = a.querySelector('.author-avatar, .author-photo img');
+      return {
+        name: clean(a.querySelector('.author-title') && a.querySelector('.author-title').textContent),
+        title: clean(a.querySelector('.author-position') && a.querySelector('.author-position').textContent),
+        photo: photo ? photo.getAttribute('src') : '',
+      };
+    })
     .filter((a) => a.name);
   if (authors.length) {
-    extra.Author = authors.map((a) => a.name).join(', ');
+    // One entry per author, in order, semicolon-separated (names such as
+    // "Jen Brenner, PMP" and titles contain commas).
+    extra.Author = authors.map((a) => a.name).join('; ');
     const titles = authors.map((a) => a.title).filter(Boolean);
     if (titles.length) extra['Author Title'] = titles.join('; ');
+    const photos = authors.map((a) => a.photo).filter(Boolean);
+    if (photos.length) extra['Author Image'] = photos.join('; ');
   }
 }
 
@@ -155,10 +180,15 @@ function splitParagraphs(body, doc) {
   });
 }
 
+// floated images (.textImage-left / -right) become an "Image (left|right)" block with the
+// caption inside; centered and inline images become default content + italic caption
 function captionedImages(body, doc) {
   body.querySelectorAll('.textImage').forEach((box) => {
     const img = box.querySelector('img');
     if (!img) { box.remove(); return; }
+    let side = '';
+    if (box.classList.contains('textImage-left')) side = 'left';
+    else if (box.classList.contains('textImage-right')) side = 'right';
     const out = [];
     const ip = doc.createElement('p');
     const ni = doc.createElement('img');
@@ -173,6 +203,11 @@ function captionedImages(body, doc) {
       em.textContent = clean(cap.textContent);
       cp.append(em);
       out.push(cp);
+    }
+    if (side) {
+      const block = WebImporter.Blocks.createBlock(doc, { name: 'Image', variants: [side], cells: [[out]] });
+      out.length = 0;
+      out.push(block);
     }
     // an inline box inside a paragraph must not nest block content in <p>
     const host = box.closest('p');
@@ -200,19 +235,38 @@ function calloutTables(body, doc) {
 }
 
 export default function transform(hookName, element, payload) {
-  if (!payload || !payload.template || payload.template.name !== TEMPLATE) return;
+  if (!payload || !payload.template || payload.template.name !== IMPORT_TEMPLATE) return;
   const doc = element.ownerDocument || payload.document;
   if (hookName !== 'beforeTransform') return;
   const article = element.querySelector('#site_content .article') || element.querySelector('.article');
   if (!article) return;
   if (payload.extraMetadata) collectMetadata(article, payload.extraMetadata);
   // body first: calloutTables must only see source tables, not block tables created below
-  const body = article.querySelector('.article-body') || article;
+  // .article-body is inside .article on most stories and beside it on others
+  const root = article.closest('#site_content') || element;
+  const body = article.querySelector('.article-body') || root.querySelector('.article-body') || article;
+  // protocol-relative embeds (//www.youtube.com/embed/...) would otherwise be dropped
+  // video iframes become a plain link (auto-embedded at runtime); untitled iframes would
+  // otherwise produce an empty link that the importer drops
+  body.querySelectorAll('iframe[src]').forEach((f) => {
+    let src = f.getAttribute('src');
+    if (src.startsWith('//')) src = `https:${src}`;
+    if (!/youtube\.com|youtu\.be|vimeo\.com/.test(src)) return;
+    const a = doc.createElement('a');
+    a.setAttribute('href', src);
+    a.textContent = src;
+    const p = doc.createElement('p');
+    p.append(a);
+    const host = f.closest('p');
+    if (host && host !== f) host.after(p); else f.before(p);
+    f.remove();
+  });
   splitParagraphs(body, doc);
+  calloutTables(body, doc); // before captionedImages, which creates Image block tables
   captionedImages(body, doc);
-  calloutTables(body, doc);
   highlightBoxes(body, doc);
-  buttonLinks(article.closest('#site_content') || element, doc);
+  buttonLinks(root, doc);
   rebuildHeader(article, doc);
-  element.querySelectorAll('.article-share, .content-share, section.contentSection.blue_bottom').forEach((el) => el.remove());
+  // "More Stories" stays: the article-list parser turns its cards into the block.
+  element.querySelectorAll('.article-share, .content-share').forEach((el) => el.remove());
 }

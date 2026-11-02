@@ -10,13 +10,13 @@ Single block table. Content: one row per card; optional image cell, then a body 
 
 ## Supported variations
 
+Story cards are not a Cards option: use the **Article List** block.
+
 | Variation | Option class |
 | --- | --- |
 | Feature links | `feature-links` |
 | Icon Tiles | `icon-tiles` |
-| Story Grid | `story-grid` |
 | Video Tiles | `video-tiles` |
-| Related | `related` |
 
 ## Universal Editor fields
 

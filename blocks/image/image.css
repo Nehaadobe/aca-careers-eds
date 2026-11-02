@@ -1,0 +1,69 @@
+/*
+ * Image block: inline story image (source .textImage-left / .textImage-right).
+ * Options: left | right float a 400px image (as on the source, at every width) so the
+ * following text wraps beside it; no option = full width. Tokens only (multi-brand).
+ */
+
+.image .image-figure {
+  margin: 0 0 20px;
+}
+
+.image picture {
+  display: block;
+}
+
+.image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.image .image-figure > picture + picture {
+  margin-top: 10px;
+}
+
+.image .image-caption {
+  padding-top: 20px;
+  font-size: var(--body-font-size-s);
+  font-style: italic;
+  line-height: 21px;
+}
+
+.image .image-caption > * {
+  margin: 0;
+}
+
+.image .image-caption > * + * {
+  margin-top: 5px;
+}
+
+/* source .textImage-left / -right: the authored 400px image floats at every width
+   (full width when the column is narrower) and the text that follows wraps beside it */
+.image.left,
+.image.right {
+  box-sizing: border-box;
+  width: 400px;
+  max-width: 100%;
+}
+
+.image.right {
+  float: right;
+  margin: 0 0 10px 20px;
+}
+
+.image.left {
+  float: left;
+  margin: 0 20px 10px 0;
+}
+
+.image.left .image-figure,
+.image.right .image-figure {
+  margin: 0;
+}
+
+/* keep the floated image inside its section */
+main .section:has(.image.left, .image.right)::after {
+  content: '';
+  display: table;
+  clear: both;
+}

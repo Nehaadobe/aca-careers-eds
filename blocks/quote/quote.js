@@ -41,7 +41,7 @@ export default function decorate(block) {
     attributionCell.querySelectorAll('picture').forEach((p) => p.remove());
     attributionCell.querySelectorAll('em').forEach((em) => {
       const cite = document.createElement('cite');
-      cite.innerHTML = em.innerHTML;
+      cite.append(...em.childNodes);
       em.replaceWith(cite);
     });
     caption.append(...attributionCell.childNodes);

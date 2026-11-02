@@ -1,6 +1,10 @@
+import fs from 'node:fs';
+
 /**
- * Page inventory: one representative page per template, chosen because the same content
- * exists on LIVE and on the migrated site. Full-page screenshots.
+ * Page inventory: every migrated page (generated list in pages-inventory.json: 10 BSC pages and
+ * the Stellarus page at all viewports, 76 stories at mobile-390 and desktop-1440). Full-page
+ * screenshots. The site under test is served from /drafts-preview/<path>.html (pages assembled
+ * from content/<path>.plain.html with their metadata), so each case has an actualPath.
  *
  * Case fields
  *   id, tags          stable unique id; tags for --grep (e.g. @home)
@@ -27,57 +31,6 @@ export const DEFAULT_MASKS = {
   actual: [],
 };
 
-export const PAGES = [
-  {
-    id: 'home',
-    tags: ['@home'],
-    path: '/',
-  },
-  {
-    id: 'total-rewards',
-    tags: ['@total-rewards', '@landing'],
-    path: '/total-rewards',
-  },
-  {
-    id: 'life-at-blue-shield',
-    tags: ['@life', '@landing'],
-    path: '/life-at-blue-shield',
-  },
-  {
-    id: 'how-to-get-hired',
-    tags: ['@hiring', '@landing'],
-    path: '/how-to-get-hired',
-  },
-  {
-    id: 'growth-development',
-    tags: ['@growth', '@landing'],
-    path: '/growth-development',
-  },
-  {
-    id: 'why-relocate',
-    tags: ['@why-relocate', '@content'],
-    path: '/why-relocate',
-  },
-  {
-    id: 'story-interns-2026',
-    tags: ['@story'],
-    path: '/blog/reflections-from-our-2026-interns',
-    reference: {
-      masks: [
-        {
-          selector: 'section.contentSection.blue_bottom',
-          reason: '"More Stories" band lists the latest stories, which change as stories are published',
-        },
-      ],
-    },
-    actual: {
-      masks: [
-        {
-          selector: '.section.related-stories',
-          reason: '"More Stories" band (same as LIVE); filled from the site index, empty without it',
-          optional: true,
-        },
-      ],
-    },
-  },
-];
+export const PAGES = JSON.parse(
+  fs.readFileSync(new URL('./pages-inventory.json', import.meta.url), 'utf8'),
+);

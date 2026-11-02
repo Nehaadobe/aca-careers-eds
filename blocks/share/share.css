@@ -3,7 +3,7 @@
 .share {
   display: flex;
   align-items: center;
-  color: var(--text-color);
+  color: var(--color-text);
   font-size: var(--body-font-size-m);
   line-height: 24px;
 }
@@ -37,8 +37,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #37414a;
-  color: #fff;
+  background-color: var(--color-share);
+  color: var(--color-on-share);
   text-align: center;
   text-decoration: none;
   transition: transform 0.3s;
@@ -46,25 +46,25 @@
 
 .share .share-link:hover,
 .share .share-link:focus {
-  color: #fff;
+  color: var(--color-on-share);
   transform: translateY(-5px);
 }
 
 .share .share-link:focus-visible {
-  outline: 1px auto var(--text-color);
+  outline: 1px auto var(--color-text);
   outline-offset: 1px;
 }
 
 .share .share-linkedin {
-  background-color: #007bb6;
+  background-color: var(--color-share-linkedin);
 }
 
 .share .share-facebook {
-  background-color: #3b5998;
+  background-color: var(--color-share-facebook);
 }
 
 .share .share-x {
-  background-color: #00aced;
+  background-color: var(--color-share-x);
 }
 
 .share .share-icon {

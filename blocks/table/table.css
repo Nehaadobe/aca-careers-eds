@@ -8,7 +8,7 @@
 }
 
 .table .table-scroll:focus-visible {
-  outline: 2px solid var(--link-color);
+  outline: 2px solid var(--color-link);
   outline-offset: 2px;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .table tbody tr {
-  border-bottom: 1px solid #dadada;
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .table th,
@@ -48,7 +48,7 @@
 }
 
 .table.no-header tbody tr:first-child {
-  border-top: 1px solid #dadada;
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 /*
@@ -63,8 +63,8 @@
 
 .table .table-callout {
   padding: 0;
-  border: 1px solid rgb(128 128 128);
-  color: var(--text-color);
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text);
 }
 
 .table .table-callout > * {

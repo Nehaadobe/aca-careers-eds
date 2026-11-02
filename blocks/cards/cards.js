@@ -1,9 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { bindVideoLink, getYouTubeId } from '../../scripts/video-modal.js';
-import {
-  isSameOrigin, loadStories, normalizeText, sortStories, splitList,
-} from '../../scripts/story-index.js';
-import { getPageMetadata } from '../../scripts/scripts.js';
 
 /**
  * Cards block: one row per card; an optional image cell, then a body cell.
@@ -11,9 +7,10 @@ import { getPageMetadata } from '../../scripts/scripts.js';
  * Options (block classes):
  *   - `feature-links` - text-only tiles with a chevron CTA link.
  *   - `icon-tiles` - small centered icon, title and rich description; 3-column grid.
- *   - `story-grid` - image, title, short description; the whole card follows its link.
  *   - `video-tiles` - square thumbnail with a play icon and a title bar; the card's
  *     YouTube link opens the video in a modal dialog.
+ *
+ * Story cards are not a cards option: use the article-list block.
  */
 
 const HEADINGS = 'h1, h2, h3, h4, h5, h6';
@@ -30,20 +27,6 @@ function removeIfEmpty(el) {
   if (el && el.tagName === 'P' && el.textContent.trim() === '' && !el.querySelector('img, picture')) el.remove();
 }
 
-/**
- * Picks the link the whole card should follow: a link in the title, otherwise
- * the last text link, otherwise a link wrapping the image.
- * @param {Element} li
- * @returns {HTMLAnchorElement|undefined}
- */
-function primaryLink(li) {
-  const inHeading = li.querySelector(`:is(${HEADINGS}) a[href]`);
-  if (inHeading) return inHeading;
-  const links = [...li.querySelectorAll('a[href]')];
-  const textLinks = links.filter((a) => !a.querySelector('picture, img'));
-  return textLinks[textLinks.length - 1] || links[0];
-}
-
 function decorateFeatureLinks(ul) {
   // Mark the trailing lone link as the tile CTA.
   ul.querySelectorAll('.cards-card-body').forEach((body) => {
@@ -55,16 +38,6 @@ function decorateFeatureLinks(ul) {
       p.classList.add('cards-card-cta');
       unbutton(cta);
     }
-  });
-}
-
-function decorateStoryGrid(ul) {
-  ul.querySelectorAll(':scope > li').forEach((li) => {
-    const link = primaryLink(li);
-    if (!link) return;
-    unbutton(link);
-    link.classList.add('cards-card-link');
-    li.classList.add('cards-card-linked');
   });
 }
 
@@ -134,109 +107,7 @@ function decorateVideoTiles(ul) {
   });
 }
 
-/** Builds one story card in the authored story-grid shape (image cell + body cell). */
-function buildStoryCard(story) {
-  const li = document.createElement('li');
-  if (story.image) {
-    const imageCell = document.createElement('div');
-    imageCell.className = 'cards-card-image';
-    if (isSameOrigin(story.image)) {
-      imageCell.append(createOptimizedPicture(story.image, story.imageAlt, false, [{ width: '750' }]));
-    } else {
-      const img = document.createElement('img');
-      img.src = story.image;
-      img.alt = story.imageAlt;
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      imageCell.append(img);
-    }
-    li.append(imageCell);
-  }
-  const body = document.createElement('div');
-  body.className = 'cards-card-body';
-  const heading = document.createElement('h3');
-  const link = document.createElement('a');
-  link.href = story.url;
-  link.textContent = story.title;
-  heading.append(link);
-  body.append(heading);
-  if (story.description) {
-    const p = document.createElement('p');
-    p.textContent = story.description;
-    body.append(p);
-  }
-  // Visual "read more" cue like the source tiles; the stretched title link is the real link.
-  const more = document.createElement('p');
-  more.className = 'cards-card-more';
-  more.setAttribute('aria-hidden', 'true');
-  more.textContent = 'View highlights';
-  body.append(more);
-  li.append(body);
-  return li;
-}
-
-/**
- * Picks related stories for the current page: stories sharing a Role or Topic
- * first, then the rest, each group newest first; the current page is excluded.
- * @param {number} count
- * @returns {Promise<object[]>}
- */
-async function pickRelatedStories(count) {
-  const stories = await loadStories();
-  const here = window.location.pathname.replace(/\/+$/, '');
-  const canonical = document.querySelector('link[rel="canonical"]')?.href;
-  const canonicalPath = canonical ? new URL(canonical).pathname.replace(/\/+$/, '') : '';
-  const isCurrent = (story) => {
-    const path = story.path.replace(/\/+$/, '');
-    // endsWith also covers local previews served under a path prefix (/content/blog/...)
-    return path && (path === canonicalPath || here === path || here.endsWith(path));
-  };
-  const own = new Set([
-    ...splitList(getPageMetadata('role')),
-    ...splitList(getPageMetadata('topic')),
-  ].map(normalizeText));
-  const related = (story) => [...story.roles, ...story.topics]
-    .some((value) => own.has(normalizeText(value)));
-
-  const sorted = sortStories(stories.filter((story) => !isCurrent(story)), 'newest');
-  return [...sorted.filter(related), ...sorted.filter((story) => !related(story))].slice(0, count);
-}
-
-/**
- * Option `related`: header rows (a heading only) become the block title and
- * story cards are filled from the query index. Without stories the block (and
- * its section, when left empty) is removed so no empty band remains.
- */
-async function decorateRelated(block, ul) {
-  block.classList.add('story-grid');
-  const headingRows = [...ul.children].filter((li) => li.querySelector(HEADINGS)
-    && !li.querySelector('picture, img, a[href]') && li.children.length === 1);
-  const headings = headingRows.map((li) => {
-    li.remove();
-    const header = li.firstElementChild;
-    header.className = 'cards-related-heading';
-    return header;
-  });
-
-  if (!ul.children.length) {
-    const stories = await pickRelatedStories(3);
-    stories.forEach((story) => ul.append(buildStoryCard(story)));
-  }
-
-  if (!ul.children.length) {
-    const wrapper = block.parentElement;
-    const section = block.closest('.section');
-    (wrapper && wrapper !== section ? wrapper : block).remove();
-    if (section && ![...section.children].some((child) => child.textContent.trim() || child.querySelector('img'))) {
-      section.remove();
-    }
-    return;
-  }
-  decorateStoryGrid(ul);
-  block.prepend(...headings);
-}
-
-export default async function decorate(block) {
+export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
@@ -250,13 +121,10 @@ export default async function decorate(block) {
   });
 
   if (block.classList.contains('feature-links')) decorateFeatureLinks(ul);
-  if (block.classList.contains('story-grid')) decorateStoryGrid(ul);
   if (block.classList.contains('video-tiles')) decorateVideoTiles(ul);
 
   const isIcons = block.classList.contains('icon-tiles');
   const breakpoints = isIcons ? [{ width: '240' }] : [{ width: '750' }];
   ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, breakpoints)));
   block.replaceChildren(ul);
-
-  if (block.classList.contains('related')) await decorateRelated(block, ul);
 }

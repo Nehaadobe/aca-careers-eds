@@ -34,6 +34,9 @@ const BLOCK_OPTIONS_MAP = {
   accordion: 'Accordion',
   // content-page template
   'story-listing': 'Story Listing',
+  // stellarus-landing template
+  'hero-centered': 'Hero (centered)',
+  'article-list': 'Article List',
 };
 
 // Normalize "Hero Home", "hero-home", "hero_home" -> "hero-home".

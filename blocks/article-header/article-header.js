@@ -6,8 +6,9 @@ import { splitList, parseDate } from '../../scripts/story-index.js';
  * on `Template: blog-article` pages; it can also be authored.
  *
  * Rows, in any order:
- *   - key/value rows: Role, Topic (comma-separated), Publication Date
- *     (yyyy-mm-dd), Author (comma-separated for several), Author Title
+ *   - key/value rows: Roles, Topics (comma-separated), Publication Date
+ *     (yyyy-mm-dd), Author, Author Title and Author Image (semicolon-separated,
+ *     one entry per author in the same order; names may contain commas)
  *   - a row holding the H1 title
  *   - a row holding the hero: a picture or a nested embed block
  *   - a row holding a nested share block
@@ -28,6 +29,9 @@ const FIELDS = {
   author: 'author',
   authors: 'author',
   'author title': 'authorTitle',
+  'author titles': 'authorTitle',
+  'author image': 'authorImage',
+  'author images': 'authorImage',
 };
 
 function el(tag, className, ...children) {
@@ -89,16 +93,35 @@ function buildCategories(config) {
   return list;
 }
 
-function joinNames(names) {
-  if (names.length < 2) return names.join('');
-  return `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
+/** Splits a semicolon-separated value (entries may contain commas). */
+function splitEntries(value) {
+  return String(value || '').split(';').map((item) => item.trim()).filter(Boolean);
 }
 
+/** One entry per author: name, title and photo matched by position. */
 function buildByline(config) {
-  const names = splitList(config.author);
+  const names = splitEntries(config.author);
   if (!names.length) return null;
-  const byline = el('div', 'article-header-byline', el('p', 'article-header-author', joinNames(names)));
-  if (config.authorTitle) byline.append(el('p', 'article-header-author-title', config.authorTitle));
+  const titles = splitEntries(config.authorTitle);
+  const photos = splitEntries(config.authorImage);
+  const byline = el('ul', 'article-header-byline');
+  if (names.length > 1) byline.classList.add('article-header-byline-multiple');
+  names.forEach((name, i) => {
+    const text = el('div', 'article-header-author-text', el('p', 'article-header-author', name));
+    if (titles[i]) text.append(el('p', 'article-header-author-title', titles[i]));
+    const item = el('li', 'article-header-author-item');
+    if (photos[i]) {
+      const img = el('img', 'article-header-author-photo');
+      img.src = photos[i];
+      img.alt = '';
+      img.loading = 'lazy';
+      img.width = 48;
+      img.height = 48;
+      item.append(img);
+    }
+    item.append(text);
+    byline.append(item);
+  });
   return byline;
 }
 

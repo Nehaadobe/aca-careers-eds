@@ -1,8 +1,8 @@
 /**
- * Header block: builds the site header from the nav fragment (content/nav.plain.html).
+ * Header block: builds the site header from the nav fragment (page metadata `nav`, default /nav).
  *
  * Fragment sections, in order (all copy, links and images live in the fragment):
- *   1. utility links (list)
+ *   1. utility links (list) - optional: with 3 sections the fragment has no utility row
  *   2. brand: logo link + site name link
  *   3. main navigation (list; a nested list makes that item a dropdown)
  *   4. tools: call-to-action link
@@ -11,17 +11,38 @@
  * hover or keyboard focus as a full-width bar. Mobile: a menu button toggles the nav.
  */
 
-const DESKTOP_QUERY = window.matchMedia('(width >= 1200px)');
+import { getMetadata } from '../../scripts/aem.js';
+
+// desktop navigation breakpoint: theme token --nav-desktop-min-width (default 1200px)
+let DESKTOP_QUERY = window.matchMedia('(width >= 1200px)');
+
+function desktopQuery() {
+  const min = getComputedStyle(document.body).getPropertyValue('--nav-desktop-min-width').trim();
+  return /^\d+(\.\d+)?px$/.test(min) ? window.matchMedia(`(width >= ${min})`) : DESKTOP_QUERY;
+}
+
+/** Marks the link to the current page (e.g. the active "Careers" pill). */
+function markCurrentPage(root) {
+  const clean = (p) => p.replace(/(\.plain)?\.html$/, '').replace(/\/$/, '');
+  const here = clean(window.location.pathname);
+  root.querySelectorAll('a[href]').forEach((a) => {
+    const url = new URL(a.href, window.location.href);
+    const path = clean(url.pathname);
+    if (url.origin === window.location.origin && path && path === here) a.setAttribute('aria-current', 'page');
+  });
+}
 const SECTION_NAMES = ['utility', 'brand', 'sections', 'tools'];
 let dropdownCount = 0;
 
 /**
- * Fetches the nav fragment: /content first (local preview), then the site root (DA/EDS).
+ * Fetches the nav fragment named by the page's `nav` metadata (default /nav),
+ * so each brand folder can use its own (e.g. /stellarus/nav).
  * @returns {Promise<{html: string, url: string}|null>}
  */
 async function fetchNavFragment() {
-  let resp = await fetch('/content/nav.plain.html');
-  if (!resp.ok) resp = await fetch('/nav.plain.html');
+  const metaPath = getMetadata('nav');
+  const path = metaPath ? new URL(metaPath, window.location.href).pathname : '/nav';
+  const resp = await fetch(`${path.replace(/(\.plain)?\.html$/, '')}.plain.html`);
   if (!resp.ok) return null;
   return { html: await resp.text(), url: resp.url };
 }
@@ -58,6 +79,8 @@ function setupDropdown(item) {
   const trigger = item.querySelector(':scope > a, :scope > p > a');
   const panel = item.querySelector(':scope > ul');
   if (!trigger || !panel) return;
+  // a nested list wraps the item text in a paragraph; unwrap it to style it like its siblings
+  if (trigger.parentElement.tagName === 'P') trigger.parentElement.replaceWith(trigger);
   item.classList.add('nav-drop');
   panel.classList.add('nav-dropdown');
   trigger.classList.add('nav-drop-trigger');
@@ -145,6 +168,7 @@ function buildHamburger(nav) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  DESKTOP_QUERY = desktopQuery();
   const fragment = await fetchNavFragment();
   block.textContent = '';
   if (!fragment) return;
@@ -158,8 +182,11 @@ export default async function decorate(block) {
   nav.id = 'nav';
   nav.setAttribute('aria-label', 'Main');
   const parts = {};
+  // 4 sections: utility, brand, sections, tools; 3 sections (no utility row, e.g. Stellarus):
+  // brand, sections, tools
+  const names = sections.length === 3 ? SECTION_NAMES.slice(1) : SECTION_NAMES;
   sections.forEach((section, i) => {
-    const name = SECTION_NAMES[i];
+    const name = names[i];
     if (!name) return;
     section.className = `nav-${name}`;
     parts[name] = section;
@@ -172,6 +199,16 @@ export default async function decorate(block) {
 
   // brand: logo link + site-name link
   if (parts.brand) {
+    // a logo authored without a link links to the home page (as on the source site)
+    const loosePicture = [...parts.brand.querySelectorAll('picture')].find((pic) => !pic.closest('a'));
+    if (loosePicture) {
+      const home = document.createElement('a');
+      home.href = parts.brand.querySelector('a[href]')?.getAttribute('href') || '/';
+      home.setAttribute('aria-label', loosePicture.querySelector('img')?.alt || 'Home');
+      loosePicture.replaceWith(home);
+      home.append(loosePicture);
+      parts.brand.prepend(home);
+    }
     const links = [...parts.brand.querySelectorAll('a')];
     links.forEach((a) => {
       a.classList.add(a.querySelector('img') ? 'nav-logo' : 'nav-site-name');
@@ -221,6 +258,7 @@ export default async function decorate(block) {
   overlay.className = 'nav-overlay';
 
   nav.append(utility, main, overlay);
+  markCurrentPage(nav);
   nav.setAttribute('aria-expanded', 'false');
   closeDropdowns(nav);
 

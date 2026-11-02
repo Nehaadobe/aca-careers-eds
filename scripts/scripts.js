@@ -42,40 +42,18 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
 }
 
 /**
- * load fonts.css and set a session storage flag
+ * Brands. Page metadata `theme` selects one (normally set per folder through bulk
+ * metadata); without it, or with an unknown value, the page is BSC.
+ * - css: loads styles/themes/<theme>.css (token overrides). BSC is the token default.
+ * - adobeFonts: loads styles/fonts.css (Adobe Fonts kit wcg8bju).
+ * - consent: OneTrust by default; page metadata `consent: on|off` overrides it.
  */
-async function loadFonts() {
-  await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
-  try {
-    if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
-  } catch (e) {
-    // do nothing
-  }
-}
-
-/**
- * Turns `/widgets/...` links into widget blocks.
- * @param {Element} main The container element
- */
-function buildWidgetAutoBlocks(main) {
-  const widgetLinks = [...main.querySelectorAll('a[href*="/widgets/"]')];
-  widgetLinks.forEach((link) => {
-    if (link.closest('.widget')) return;
-    const newLink = link.cloneNode(true);
-    const widgetBlock = buildBlock('widget', { elems: [newLink] });
-    const p = link.closest('p');
-    if (
-      p
-      && p.querySelectorAll('a').length === 1
-      && p.querySelector('a') === link
-      && p.textContent.trim() === link.textContent.trim()
-    ) {
-      p.replaceWith(widgetBlock);
-    } else {
-      link.replaceWith(widgetBlock);
-    }
-  });
-}
+const THEMES = {
+  bsc: { css: false, adobeFonts: true, consent: true },
+  stellarus: { css: true, adobeFonts: false, consent: false },
+  ascendiun: { css: true, adobeFonts: true, consent: true },
+};
+const DEFAULT_THEME = 'bsc';
 
 /**
  * Reads page metadata by name, tolerating authored casing and spacing
@@ -95,13 +73,64 @@ export function getPageMetadata(name, doc = document) {
     .join(', ');
 }
 
+/**
+ * The page's theme name: the first `theme` metadata value if it is a known theme.
+ * @returns {string}
+ */
+function getTheme() {
+  const theme = toClassName(getPageMetadata('theme').split(',')[0]);
+  return THEMES[theme] ? theme : DEFAULT_THEME;
+}
+
+/**
+ * Loads the theme's token overrides (aem.live multi-brand sites, option 2).
+ * A missing or failing file leaves the BSC defaults in place.
+ * @param {string} theme
+ */
+async function loadTheme(theme) {
+  document.body.classList.add(theme);
+  if (!THEMES[theme].css) return;
+  try {
+    await loadCSS(`${window.hlx.codeBasePath}/styles/themes/${theme}.css`);
+  } catch {
+    // eslint-disable-next-line no-console
+    console.warn(`Theme "${theme}" could not be loaded; using the default tokens`);
+  }
+}
+
+/**
+ * Whether OneTrust runs on this page: metadata `consent` (on/off) wins over the theme default.
+ * @param {string} theme
+ * @returns {boolean}
+ */
+function isConsentEnabled(theme) {
+  const value = toClassName(getPageMetadata('consent'));
+  if (['off', 'false', 'no'].includes(value)) return false;
+  if (['on', 'true', 'yes'].includes(value)) return true;
+  return THEMES[theme].consent;
+}
+
+/**
+ * load fonts.css (brands on the Adobe Fonts kit only) and set a session storage flag
+ */
+async function loadFonts() {
+  if (!THEMES[getTheme()].adobeFonts) return;
+  await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
+  try {
+    if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
+  } catch (e) {
+    // do nothing
+  }
+}
+
 /** Metadata shown in the blog-article header, as [row label, metadata name]. */
 const ARTICLE_HEADER_FIELDS = [
-  ['Role', 'role'],
-  ['Topic', 'topic'],
+  ['Roles', 'roles'],
+  ['Topics', 'topics'],
   ['Publication Date', 'publication-date'],
   ['Author', 'author'],
   ['Author Title', 'author-title'],
+  ['Author Image', 'author-image'],
 ];
 
 /**
@@ -142,21 +171,19 @@ function buildArticleHeader(main) {
 }
 
 /**
- * Blog articles: appends a "More Stories" section with related story cards.
- * The cards block (related option) fills itself from the query index and
- * removes the section when there is nothing to show.
+ * Turns a paragraph that holds only a bare YouTube or Vimeo link (link text = URL) into an
+ * embed block, so authors can paste a video URL on its own line.
  * @param {Element} main The container element
  */
-function buildRelatedStories(main) {
-  if (main.querySelector('.cards.related')) return;
-  const heading = document.createElement('h2');
-  heading.textContent = 'More Stories';
-  const cards = buildBlock('cards', [[heading]]);
-  cards.classList.add('related');
-  const section = document.createElement('div');
-  section.classList.add('related-stories');
-  section.append(cards);
-  main.append(section);
+function buildVideoEmbeds(main) {
+  main.querySelectorAll('p > a[href]').forEach((a) => {
+    const p = a.parentElement;
+    if (p.closest('.embed') || p.children.length !== 1) return;
+    const text = a.textContent.trim();
+    if (p.textContent.trim() !== text || text.replace(/\/$/, '') !== a.href.replace(/\/$/, '')) return;
+    if (!/^https:\/\/(www\.)?(youtube\.com|youtu\.be|vimeo\.com)\//.test(a.href)) return;
+    p.replaceWith(buildBlock('embed', [[a]]));
+  });
 }
 
 /**
@@ -169,8 +196,9 @@ function buildAutoBlocks(main) {
     const isPageMain = main === document.querySelector('body > main');
     if (isPageMain && toClassName(getPageMetadata('template')) === 'blog-article') {
       buildArticleHeader(main);
-      buildRelatedStories(main);
     }
+    // "More Stories" is an authored article-list block (no auto-built related cards)
+    buildVideoEmbeds(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Blog article auto blocking failed', error);
@@ -193,7 +221,6 @@ function buildAutoBlocks(main) {
         });
       });
     }
-    buildWidgetAutoBlocks(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -269,7 +296,6 @@ function decorateSectionMetadata(main) {
  * Decorates the main element.
  * @param {Element} main The main element
  */
-// eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
@@ -290,9 +316,12 @@ async function loadEager(doc) {
   // so add the template class through the case-insensitive lookup as well
   const template = toClassName(getPageMetadata('template'));
   if (template) document.body.classList.add(template);
+  // theme tokens load in parallel with decoration and are applied before the first paint
+  const themeLoaded = loadTheme(getTheme());
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    await themeLoaded;
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }
@@ -328,12 +357,14 @@ async function loadLazy(doc) {
 }
 
 /**
- * Loads everything that happens a lot later,
- * without impacting the user experience.
+ * Loads everything that happens a lot later (3s after the lazy phase, as in the
+ * boilerplate), without impacting the user experience: third-party scripts go here.
  */
 function loadDelayed() {
-  import('./consent-check.js');
-  // load anything that can be postponed to the latest here
+  window.setTimeout(() => {
+    const enabled = isConsentEnabled(getTheme());
+    import('./consent.js').then(({ default: initConsent }) => initConsent({ enabled }));
+  }, 3000);
 }
 
 async function loadPage() {

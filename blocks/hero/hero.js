@@ -9,6 +9,8 @@
  *   - `home` - full-bleed, centered headline and CTA over the image.
  *   - `page` - page header: H1 and subtitle paragraph(s) on the left, photo with a
  *     rounded corner on the right; stacks on mobile.
+ *   - `centered` - centered text intro, usually without an image: optional eyebrow
+ *     paragraph before the H1, body copy, then CTA buttons side by side.
  */
 
 /**
@@ -25,6 +27,55 @@ function buttonizeLoneLinks(container) {
     a.title = a.title || a.textContent.trim();
     p.classList.add('button-wrapper');
   });
+}
+
+/**
+ * Centered option: marks the eyebrow (text paragraphs before the heading), groups
+ * consecutive button paragraphs into one row, and flattens the block to
+ * [media?, content] so an empty image row leaves no gap.
+ * @param {Element} block
+ * @param {Element|null} picture
+ * @param {Element|undefined} contentCell
+ */
+function decorateCentered(block, picture, contentCell) {
+  const children = [];
+  if (picture) {
+    const media = document.createElement('div');
+    media.className = 'hero-media-wrap';
+    media.append(picture);
+    children.push(media);
+  }
+  if (contentCell) {
+    buttonizeLoneLinks(contentCell);
+    contentCell.querySelectorAll(':scope > p').forEach((p) => {
+      if (p.textContent.trim() === '' && !p.querySelector('img, picture, a')) p.remove();
+    });
+
+    const heading = contentCell.querySelector(':scope > :is(h1, h2, h3)');
+    if (heading) {
+      let prev = heading.previousElementSibling;
+      while (prev) {
+        if (prev.matches('p') && !prev.classList.contains('button-wrapper')) prev.classList.add('hero-eyebrow');
+        prev = prev.previousElementSibling;
+      }
+    }
+
+    let actions = null;
+    [...contentCell.children].forEach((child) => {
+      if (!child.classList.contains('button-wrapper')) {
+        actions = null;
+        return;
+      }
+      if (!actions) {
+        actions = document.createElement('div');
+        actions.className = 'hero-actions';
+        child.before(actions);
+      }
+      actions.append(child);
+    });
+    children.push(contentCell);
+  }
+  block.replaceChildren(...children);
 }
 
 export default function decorate(block) {
@@ -46,6 +97,11 @@ export default function decorate(block) {
 
   if (block.classList.contains('home') && contentCell) {
     buttonizeLoneLinks(contentCell);
+  }
+
+  if (block.classList.contains('centered') && !block.classList.contains('page')) {
+    decorateCentered(block, picture, contentCell);
+    return;
   }
 
   if (block.classList.contains('page')) {

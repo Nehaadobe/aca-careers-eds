@@ -37,11 +37,23 @@
   object-fit: contain;
 }
 
+/* third-party player box: the source's 560x315 iframe keeps 315px of height in
+   columns narrower than 560px; dark until the poster (or the player) loads */
+.embed:not(.embed-video) .embed-frame {
+  min-height: 315px;
+  background-color: var(--color-media-background);
+}
+
 .embed .embed-frame > picture img {
   object-fit: cover;
 }
 
-/* facade play button: the site's 60px brand-blue play circle (columns/cards video posters) */
+/* provider thumbnail: letterboxed like the provider's own player */
+.embed .embed-frame > .embed-thumbnail img {
+  object-fit: contain;
+}
+
+/* facade play button: the site's 60px primary-color play circle (columns/cards video posters) */
 .embed .embed-play {
   position: absolute;
   top: 50%;
@@ -52,7 +64,7 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background-color: var(--brand-blue);
+  background-color: var(--color-primary);
   transform: translate(-50%, -50%);
   cursor: pointer;
   transition: background-color var(--transition-fast);
@@ -62,11 +74,11 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23fff' d='M47.538 28.875 19.846 12c-.461 0-.923 0-1.154.225-.461.225-.692.45-.692.9v33.75c0 .45.23.675.692.9 0 .225.231.225.462.225s.461 0 .692-.225L47.538 30.9c.231-.225.462-.675.462-.9 0-.45-.23-.9-.462-1.125ZM20.308 44.85v-29.7L44.769 30l-24.461 14.85Z'/%3E%3C/svg%3E") center / 60px 60px no-repeat;
+  background: var(--icon-play-solid) center / 60px 60px no-repeat;
 }
 
 .embed .embed-play:hover {
-  background-color: var(--brand-blue-hover);
+  background-color: var(--color-primary-hover);
 }
 
 .embed .embed-play:focus-visible {

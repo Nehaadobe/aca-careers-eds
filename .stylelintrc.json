@@ -1,3 +1,26 @@
 {
-  "extends": ["stylelint-config-standard"]
+  "extends": ["stylelint-config-standard"],
+  "overrides": [
+    {
+      "files": ["blocks/**/*.css", "styles/*.css"],
+      "rules": {
+        "color-no-hex": true,
+        "color-named": "never",
+        "function-disallowed-list": ["rgb", "rgba", "hsl", "hsla", "hwb", "lab", "lch", "oklab", "oklch", "color"],
+        "declaration-property-value-allowed-list": {
+          "font-family": ["/^var\\(--[\\w-]+\\)$/", "inherit"],
+          "font": ["inherit", "/var\\(--[\\w-]+\\)$/"]
+        }
+      }
+    },
+    {
+      "files": ["styles/brand.css", "styles/themes/*.css"],
+      "rules": {
+        "color-no-hex": null,
+        "color-named": null,
+        "function-disallowed-list": null,
+        "declaration-property-value-allowed-list": null
+      }
+    }
+  ]
 }
