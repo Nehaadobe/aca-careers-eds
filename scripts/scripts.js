@@ -47,10 +47,15 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
  * - css: loads styles/themes/<theme>.css (token overrides). BSC is the token default.
  * - adobeFonts: loads styles/fonts.css (Adobe Fonts kit wcg8bju).
  * - consent: OneTrust by default; page metadata `consent: on|off` overrides it.
+ * - favicon: the brand's icon (head.html links the BSC one); none keeps the BSC icon.
  */
 const THEMES = {
-  bsc: { css: false, adobeFonts: true, consent: true },
-  stellarus: { css: true, adobeFonts: false, consent: false },
+  bsc: {
+    css: false, adobeFonts: true, consent: true, favicon: '/favicons/bsc.png',
+  },
+  stellarus: {
+    css: true, adobeFonts: false, consent: false, favicon: '/favicons/stellarus.png',
+  },
   ascendiun: { css: true, adobeFonts: true, consent: true },
 };
 const DEFAULT_THEME = 'bsc';
@@ -89,6 +94,9 @@ function getTheme() {
  */
 async function loadTheme(theme) {
   document.body.classList.add(theme);
+  const { favicon } = THEMES[theme];
+  const icon = document.head.querySelector('link[rel="icon"]');
+  if (favicon && icon) icon.href = `${window.hlx.codeBasePath}${favicon}`;
   if (!THEMES[theme].css) return;
   try {
     await loadCSS(`${window.hlx.codeBasePath}/styles/themes/${theme}.css`);
