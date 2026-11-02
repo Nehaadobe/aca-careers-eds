@@ -6,10 +6,10 @@ Site **header** block. Purpose: utility links, logo, main navigation with a drop
 
 Model: `fragment` (loaded automatically on every page; not placed in page content)
 
-The header is built from the `nav` document (local preview: `content/nav.plain.html`; site: `/nav`). The block fetches `/content/nav.plain.html` first and falls back to `/nav.plain.html`. The document has four sections, in this order:
+The header is built from the document named by the page's `nav` metadata, by default `/nav` (shared by all brands; each theme recolors it). The document has four sections, in this order (with three sections, the utility row is left out):
 
 1. **Utility links:** a bulleted list of links (e.g. Pay my premium, Employers, Brokers, Providers).
-2. **Brand:** a paragraph with the logo image linked to `/`, then a paragraph with the site name link ("Careers").
+2. **Brand:** a paragraph with the logo image (linked to `/` automatically when authored without a link), then a paragraph with the site name link ("Careers").
 3. **Main navigation:** a bulleted list of links. A nested list under an item makes that item a dropdown (e.g. Life at Blue Shield → Our people, Our workplace model, Awards & recognition).
 4. **Call to action:** one link (shown as a pill button).
 

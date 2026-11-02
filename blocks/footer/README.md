@@ -6,7 +6,7 @@ Site **footer** block. Purpose: logo, fair hiring notice, company and legal link
 
 Model: `fragment` (loaded automatically on every page; not placed in page content)
 
-The footer is built from the `footer` document (local preview: `content/footer.plain.html`; site: `/footer`). The block fetches `/content/footer.plain.html` first and falls back to `/footer.plain.html`. The document has six sections, in this order:
+The footer is built from the document named by the page's `footer` metadata, by default `/footer` (shared by all brands; each theme recolors it). The document has six sections, in this order:
 
 1. **Brand:** a paragraph with the white logo image, linked.
 2. **Notice:** a heading (e.g. "Fair hiring practices") and paragraphs with links.

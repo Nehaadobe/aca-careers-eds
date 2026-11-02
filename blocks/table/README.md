@@ -10,7 +10,11 @@ Single block table. Content: one block row per table row, one cell per column; t
 
 ## Supported variations
 
-No variations.
+| Variation | Option class |
+| --- | --- |
+| No header row | `no-header` |
+
+A single-cell block renders as a callout without an option.
 
 ## Universal Editor fields
 
