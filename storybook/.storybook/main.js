@@ -31,6 +31,10 @@ const config = {
     '../public',
   ],
   core: { disableTelemetry: true, disableWhatsNewNotifications: true },
+  // browser tab icon: the Blue Shield favicon instead of Storybook's
+  managerHead: (head) => `${head}
+    <script>document.querySelectorAll('link[rel~="icon"]').forEach((link) => link.remove());</script>
+    <link rel="icon" type="image/png" href="./favicons/bsc.png" />`,
 };
 
 export default config;
