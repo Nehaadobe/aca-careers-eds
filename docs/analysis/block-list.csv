@@ -1,0 +1,50 @@
+﻿#,Block Name,Variation (how many),URLs (LIVE pages where this block is),Notes (for authors / changed from LIVE)
+1,Hero,"3: home, page, centered","home: https://careers.blueshieldca.com/
+page: https://careers.blueshieldca.com/a-culture-of-belonging
+https://careers.blueshieldca.com/blog
+https://careers.blueshieldca.com/events
+https://careers.blueshieldca.com/growth-development
+https://careers.blueshieldca.com/how-to-get-hired
+https://careers.blueshieldca.com/life-at-blue-shield
+https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model
+https://careers.blueshieldca.com/total-rewards
+centered: https://www.stellarus.com/careers","Row 1 = background image (empty for centered); row 2 = H1, text and a button. ""centered"" is new for Stellarus (text only, no image)."
+2,Banner,"3: locations, statement, image-cta","locations: https://careers.blueshieldca.com/
+statement: https://careers.blueshieldca.com/growth-development
+image-cta: https://careers.blueshieldca.com/life-at-blue-shield","Row 1 = image; row 2 = H2, text and a button. The image-cta band on LIVE is 26px taller on mobile (layout bug); not copied."
+3,Cards,"3: feature-links, icon-tiles, video-tiles","feature-links: https://careers.blueshieldca.com/
+icon-tiles: https://careers.blueshieldca.com/how-to-get-hired
+https://careers.blueshieldca.com/total-rewards
+video-tiles: https://careers.blueshieldca.com/life-at-blue-shield","One row per card. Video tiles play in a pop-up; the LIVE video tiles overflow their row at 1440px (bug, not copied). Story cards are not Cards: use Article List."
+4,Columns,1: alternating,"https://careers.blueshieldca.com/growth-development
+https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model",Image and text rows whose sides alternate. A YouTube link after the image makes it a video.
+5,Accordion,1: default,https://careers.blueshieldca.com/how-to-get-hired,"FAQ: question in cell 1, answer in cell 2."
+6,Quote,1: default,https://careers.blueshieldca.com/,"Row 1 = portrait (optional), row 2 = quotation, row 3 = name and role."
+7,Gallery,1: default,"https://careers.blueshieldca.com/a-culture-of-belonging
+https://careers.blueshieldca.com/growth-development
+https://careers.blueshieldca.com/
+https://careers.blueshieldca.com/total-rewards","CHANGED FROM LIVE: photos are display-only, no click-to-enlarge (client decision). Links in cells are ignored."
+8,Article List (new),"1, configured by options: Columns 2/3/4, Ground Light/Tinted/Dark, Display Article date, Display Short description, Link Label","https://careers.blueshieldca.com/growth-development
++ 76 stories (see sheet ""Usage""), e.g. https://careers.blueshieldca.com/blog/a-day-in-the-life-of-a-blue-shield-actuarial-analyst","NEW block replacing the hard-coded ""More Stories"" row of LIVE. One story link per row; type / in an option cell for values. Cards come from the story index: a story shows only after it is PUBLISHED. Link Label is not in the / menu (type it)."
+9,Story Listing,1: default,https://careers.blueshieldca.com/blog,"Search, Roles and Topics filters, sorting, 9 per page with pagination. 76 migrated stories + 39 off-site stories (/blog/external-stories sheet). Filter values come from the library option lists. Old ?c= category links still work; filtered views can be shared by URL."
+10,Article Header (automatic),1: automatic,"+ 76 stories (see sheet ""Usage""), e.g. https://careers.blueshieldca.com/blog/a-day-in-the-life-of-a-blue-shield-actuarial-analyst","Not authored: built on pages with Template = blog-article from the metadata (Roles, Topics, date, author), the H1 and the image or video after it. Several authors: separate with ;"
+11,Share (automatic),1: automatic,"+ 76 stories (see sheet ""Usage""), e.g. https://careers.blueshieldca.com/blog/a-day-in-the-life-of-a-blue-shield-actuarial-analyst","LinkedIn, Facebook and X share links, added inside the Article Header."
+12,Image (new),"2: left, right","left: + 13 stories (see sheet ""Usage""), e.g. https://careers.blueshieldca.com/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist
+right: + 21 stories (see sheet ""Usage""), e.g. https://careers.blueshieldca.com/blog/a-day-in-the-life-of-a-blue-shield-actuarial-analyst","NEW block for story images that text wraps around (LIVE floated images), with an optional italic caption. LIVE image widths were not imported."
+13,Embed,"2: video (MP4), default (YouTube / Vimeo)","video: + 12 stories (see sheet ""Usage""), e.g. https://careers.blueshieldca.com/blog/asian-american-and-pacific-islander-heritage-month
+YouTube: + 13 stories (see sheet ""Usage""), e.g. https://careers.blueshieldca.com/blog/a-tribute-to-our-black-employee-network",A YouTube or Vimeo link alone on its line becomes a video automatically. YouTube shows a thumbnail until cookies are accepted. The 12 MP4 hero videos still load from the old host until the client copies them into Document Authoring.
+14,Table,"2: default (header row), no-header; a single-cell table becomes a callout box",https://careers.blueshieldca.com/blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities,"A one-cell table is drawn as a bordered callout box, as on LIVE."
+15,Fragment,1: default,Not used on LIVE pages (library example only),"Reuses another document, e.g. /drafts/fragments/find-your-next-role. A link to a /fragments/ path on its own line also works."
+16,Section Metadata,"4 styles: centered, light-blue, blue, two-up (combinable, e.g. light-blue, centered)","centered: https://careers.blueshieldca.com/a-culture-of-belonging
+https://careers.blueshieldca.com/growth-development
+https://careers.blueshieldca.com/how-to-get-hired
+https://careers.blueshieldca.com/
+https://careers.blueshieldca.com/total-rewards
+light-blue: + 9 stories (see sheet ""Usage""), e.g. https://careers.blueshieldca.com/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist
+light-blue, centered: https://careers.blueshieldca.com/life-at-blue-shield
+blue: https://careers.blueshieldca.com/growth-development
+centered, two-up: https://careers.blueshieldca.com/","Goes at the end of a section. ""two-up"" is offered in the library but has no styling yet."
+17,Header,1: shared by all brands,"Every page (BSC and Stellarus), see sheet ""Usage""",Edited in /nav. CHANGED FROM LIVE: the Stellarus page uses the careers header in Stellarus colors (logo shown white) instead of the stellarus.com header.
+18,Footer,1: shared by all brands,"Every page (BSC and Stellarus), see sheet ""Usage""","Edited in /footer. Same Stellarus change as the header. ""Cookie preferences"" opens the consent settings."
+19,Metadata,1: default,Every page,"Title, Description, Image (share image; authors can replace it); for stories Template = blog-article, Roles, Topics, Publication Date, Author. The ""Hero video"" field in the / menu does nothing: use an Embed (video) block after the title."
+20,Library Metadata,1: default,None (authoring library only),Name and description shown in the Library panel; renders nothing on the page.
