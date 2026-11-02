@@ -1,0 +1,113 @@
+{
+  "total": 15,
+  "offset": 0,
+  "limit": 15,
+  "data": [
+    {
+      "key": "Columns",
+      "blocks": "article-list",
+      "values": "2 | 3 | 4",
+      "type": "",
+      "label": "Columns"
+    },
+    {
+      "key": "Ground",
+      "blocks": "article-list",
+      "values": "Light | Tinted | Dark",
+      "type": "",
+      "label": "Ground"
+    },
+    {
+      "key": "Display Article date",
+      "blocks": "article-list",
+      "values": "Yes | No",
+      "type": "",
+      "label": "Display Article date"
+    },
+    {
+      "key": "Display Short description",
+      "blocks": "article-list",
+      "values": "Yes | No",
+      "type": "",
+      "label": "Display Short description"
+    },
+    {
+      "key": "style",
+      "blocks": "section-metadata",
+      "values": "centered | light-blue | blue | two-up",
+      "type": "multi",
+      "label": "Section style"
+    },
+    {
+      "key": "template",
+      "blocks": "metadata",
+      "values": "Story article=blog-article",
+      "type": "",
+      "label": "Template"
+    },
+    {
+      "key": "theme",
+      "blocks": "metadata",
+      "values": "Blue Shield=bsc | Stellarus=stellarus | Ascendiun=ascendiun",
+      "type": "",
+      "label": "Theme"
+    },
+    {
+      "key": "roles",
+      "blocks": "metadata",
+      "values": "Commercial Markets | Consumer Markets | Customer Experience | Finance | Foundation | Health Solutions | Information Technology | Innovation | Law | Marketing | Medi-Cal | Operations | People and Engagement | Promise Medical Clinics | Transformation",
+      "type": "multi",
+      "label": "Roles"
+    },
+    {
+      "key": "topics",
+      "blocks": "metadata",
+      "values": "Awards and Recognition | Blue Shield Foundation | Corporate Citizenship | Culture of Belonging | Employee Resource Groups | Growth and Development | Growth and Development Programs | Life at Blue Shield",
+      "type": "multi",
+      "label": "Topics"
+    },
+    {
+      "key": "publication date",
+      "blocks": "metadata",
+      "values": "",
+      "type": "",
+      "label": "Publication date (yyyy-mm-dd)"
+    },
+    {
+      "key": "author",
+      "blocks": "metadata",
+      "values": "",
+      "type": "",
+      "label": "Author (several separated by ;)"
+    },
+    {
+      "key": "author title",
+      "blocks": "metadata",
+      "values": "",
+      "type": "",
+      "label": "Author title (one per author, ;)"
+    },
+    {
+      "key": "author image",
+      "blocks": "metadata",
+      "values": "",
+      "type": "",
+      "label": "Author photo URL (one per author, ;)"
+    },
+    {
+      "key": "hero-video",
+      "blocks": "metadata",
+      "values": "",
+      "type": "",
+      "label": "Hero video (MP4 URL)"
+    },
+    {
+      "key": "description",
+      "blocks": "metadata",
+      "values": "",
+      "type": "",
+      "label": "Short description"
+    }
+  ],
+  ":type": "sheet"
+}

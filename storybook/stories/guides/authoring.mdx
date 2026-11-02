@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Authoring blocks" />
+
+# Authoring blocks
+
+Authors build pages in Document Authoring (da.live, `nehaadobe/aca-careers-eds`). The full author guide
+is `docs/authoring/README.md` in the code repository; this page is the short version.
+
+## A block is a table
+
+The first row holds the block name, with the variation in brackets; the other rows hold the content.
+
+| Hero (page) | |
+| --- | --- |
+| *background image* | |
+| **Life at Blue Shield** (H1), intro paragraphs, a button link | |
+
+- Spelling of the name and variation matters; capitals and spaces do not.
+- Optional rows and cells can be left out; blocks are built to cope with missing content.
+- Insert blocks from the **Library** panel (Blocks tab) instead of typing them. Each story under
+  **Blocks** is one entry of that library.
+- In option rows, type `/` in the value cell to pick an allowed value (for example the Article List
+  `Columns` 2 / 3 / 4, or a story's Roles). The lists live in the `options` tab of `/tools/library/blocks`.
+
+## Sections and page settings
+
+| Element | How |
+| --- | --- |
+| Section | Everything between two `---` lines |
+| Section style | A **Section Metadata** block at the end of the section, row `style` (see Foundations → Section styles) |
+| Page settings | A **Metadata** block at the bottom: Title, Description, Image, and for stories Template `blog-article`, Roles, Topics, Publication Date, Author |
+| Buttons | A link alone in its paragraph, formatted bold (solid), italic (outline) or both (high-impact) |
+
+## Built automatically
+
+| Block | Built from |
+| --- | --- |
+| Article Header | Story pages (Template `blog-article`): metadata, the H1 and the image or video after it |
+| Share | Inside the Article Header |
+| Embed | A YouTube or Vimeo URL alone on its own line |
+| Header, Footer | The shared `/nav` and `/footer` documents |

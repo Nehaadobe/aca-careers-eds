@@ -1,0 +1,27 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Adding a block" />
+
+# Adding a block
+
+1. **Code:** create `blocks/<name>/<name>.js` (a default `decorate(block)` export) and
+   `blocks/<name>/<name>.css` with selectors scoped to `.<name>`, using tokens only. Add
+   `blocks/<name>/README.md` (purpose, authoring, variations): it becomes the block's docs page here.
+2. **Library page:** in Document Authoring, create `/tools/library/blocks/<name>` with one section per
+   variation: the block example, then a **Library Metadata** block with `name` (e.g. `Cards (icon-tiles)`)
+   and `description`. Add a row for it to the `data` tab of `/tools/library/blocks`, and any option values
+   to the `options` tab.
+3. **Stories:** export the library page to the local content folder (`content/tools/library/blocks/<name>.plain.html`),
+   then run
+
+   ```bash
+   cd storybook && npm run fixtures
+   ```
+
+   Each section of the library page becomes one story under **Blocks**, named after its Library Metadata
+   `name`, with its `description` as the story text.
+4. **Check every brand:** open the stories and switch the **Brand** toolbar and the viewport.
+5. **Lint:** `npm run lint` in the repository root.
+
+Generated files (`stories/blocks/*`, `stories/templates/*`, `public/fixtures/blocks|templates|pages`) are
+overwritten by `npm run fixtures`; do not edit them by hand.

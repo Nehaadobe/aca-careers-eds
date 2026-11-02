@@ -13,3 +13,4 @@ docs/*
 migration-work/*
 tools/importer/*
 default-query.yaml
+storybook/*

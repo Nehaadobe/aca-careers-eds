@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Intro" />
+
+# Careers sites Storybook
+
+The design system of the careers sites: **Blue Shield of California** (careers.blueshieldca.com),
+**Stellarus** (the Stellarus careers page) and **Ascendiun** (theme slot, no pages yet). The sites run on
+AEM Edge Delivery Services; content is written in Document Authoring.
+
+Everything here is rendered with the **real site code**: each story builds a page from saved content
+and runs the site's scripts, styles, themes and blocks, exactly as a visitor's browser does.
+
+## Using it
+
+| Toolbar | What it does |
+| --- | --- |
+| **Brand** | Renders every story with a brand theme. *Page default* uses the page's own theme (Blue Shield, or Stellarus for the Stellarus pages). |
+| **Viewport** | Shows a story at mobile, tablet, laptop or desktop width (the header switches to the mobile menu below 1200px). |
+
+A brand can be shared in the address: add `&globals=brand:stellarus` (or `bsc`, `ascendiun`).
+
+| Section | Contents |
+| --- | --- |
+| **Guides** | How blocks are authored, how brands and themes work, how to add a block or a brand |
+| **Foundations** | Colors, typography, spacing and shapes, buttons and section styles of the selected brand |
+| **Blocks** | Every block and each of its variations, with the authoring notes from its README |
+| **Page templates** | The authoring library templates and real pages, with the header and footer |
+
+## Running it
+
+```bash
+cd storybook
+npm install
+npm run storybook        # http://localhost:6006
+npm run build-storybook  # static site in storybook/storybook-static
+npm run fixtures         # refresh the saved content from the local content export (../content)
+```
+
+The static build uses absolute paths (`/blocks/...`, `/nav.plain.html`), so host it at the root of a
+domain or subdomain. The Storybook is not part of the careers site and is not published with it.
+
+## Where the content comes from
+
+The stories use copies of the authoring library pages (`/tools/library/blocks/*` and
+`/tools/library/templates/*`) and of real pages, saved in `storybook/public/fixtures`. The blog listing
+and story cards read saved copies of the story indexes, built from all 76 stories. Images still load from
+their original addresses, so an internet connection is needed for photos.

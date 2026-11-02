@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Brands and themes" />
+
+# Brands and themes
+
+All brands share one site, one block library, one header and one footer. A brand only changes
+**design token values**, following the aem.live multi-brand approach (one code base, per-brand CSS).
+
+| Brand | Theme value | Pages | Theme file | Favicon |
+| --- | --- | --- | --- | --- |
+| Blue Shield of California | `bsc` (default) | everything outside the brand folders | none: the defaults in `styles/brand.css` | `favicons/bsc.png` |
+| Stellarus | `stellarus` | `/stellarus/**` | `styles/themes/stellarus.css` | `favicons/stellarus.png` |
+| Ascendiun | `ascendiun` | `/ascendiun/**` (not created yet) | `styles/themes/ascendiun.css` | Blue Shield icon until it has its own |
+
+## How a page gets its theme
+
+1. The `/metadata` sheet sets `theme` per folder (`/**` → `bsc`, `/stellarus/**` → `stellarus`). A page
+   can override it with a `Theme` row in its own Metadata block.
+2. `scripts/scripts.js` reads the theme, adds it as a class on `<body>`, swaps the favicon and loads
+   `styles/themes/<theme>.css` before the first section is shown.
+3. The theme file overrides token values on `body`; blocks and `styles/styles.css` only use tokens, so
+   they restyle without any brand-specific code.
+
+## The token contract
+
+`styles/brand.css` defines every token with the Blue Shield value. A theme overrides only what differs.
+Groups (see Foundations): page and surfaces, text, links, primary action, bands, accents, borders, media,
+header and footer, buttons, fonts, body and heading sizes, spacing and widths, shapes, shadows, motion.
+
+Rules, enforced by stylelint (`npm run lint:css`):
+
+- Block CSS and `styles/styles.css` contain **no** hex, `rgb()` / `hsl()`, named colors or font stacks.
+- Raw values are allowed only in `styles/brand.css` and `styles/themes/*.css`.
+- A new visual need gets a new token in `brand.css` (with the Blue Shield value), then theme overrides.
+
+## Per-brand behavior in scripts
+
+`THEMES` in `scripts/scripts.js` holds the non-CSS differences: whether the theme loads a CSS file, uses
+the Adobe Fonts kit, runs OneTrust (Stellarus: off) and which favicon it shows.

@@ -1,0 +1,23 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Adding a brand" />
+
+# Adding a brand
+
+Example: turning the Ascendiun slot into a live brand.
+
+1. **Tokens:** fill `styles/themes/ascendiun.css` with the brand's values for the tokens that differ from
+   Blue Shield (colors, fonts, radii, shadows …). Self-hosted fonts go in `fonts/` with their
+   `@font-face` rules in the theme file.
+2. **Scripts:** in `THEMES` (`scripts/scripts.js`), set `css: true`, whether it uses the Adobe Fonts kit,
+   whether OneTrust runs, and `favicon: '/favicons/ascendiun.png'` (add the icon to `favicons/`).
+3. **Content:** create the `/ascendiun/` folder in Document Authoring and add a row to `/metadata`:
+   `URL` `/ascendiun/**`, `theme` `ascendiun`. Preview and publish the sheet.
+4. **Library:** add the value to the `theme` row of the `options` tab in `/tools/library/blocks`, so it
+   appears in the Metadata slash menu.
+5. **Storybook:** the toolbar already lists Ascendiun. A new brand needs an entry in `globalTypes.brand` in
+   `storybook/.storybook/preview.js`. Then review **Foundations** and **Blocks** with the new brand.
+6. **Lint:** `npm run lint` (raw values are allowed only in the theme file).
+
+The header and footer are shared: the new theme recolors them through the header, footer and button
+tokens. If the logo needs another color on the brand's background, set `--nav-logo-filter`.

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Story frame</title>
+  <!-- same as head.html (without the Content-Security-Policy, which the dev server would break) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="icon" type="image/png" href="/favicons/bsc.png"/>
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin/>
+  <link rel="preconnect" href="https://p.typekit.net" crossorigin/>
+  <link rel="preload" href="/styles/brand.css" as="style"/>
+  <link rel="stylesheet" href="/styles/styles.css"/>
+  <style>
+    /* block stories: the header and footer still load (the site scripts expect them) but stay hidden */
+    body.sb-no-chrome > header, body.sb-no-chrome > footer { display: none; }
+    body.sb-frame-error main { padding: 24px; font: 16px/1.5 sans-serif; color: #b00020; }
+  </style>
+  <script type="module" src="/sb-frame.js"></script>
+</head>
+<body>
+  <header></header>
+  <main></main>
+  <footer></footer>
+</body>
+</html>
