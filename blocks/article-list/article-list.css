@@ -83,7 +83,7 @@ body main > .section > div.article-list-wrapper {
   color: var(--color-link);
   font-family: var(--font-heading);
   font-size: var(--heading-font-size-l);
-  font-weight: 600;
+  font-weight: var(--font-weight-heading);
   line-height: 30px;
 }
 

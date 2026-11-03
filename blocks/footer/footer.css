@@ -41,12 +41,12 @@ footer .footer-band-main {
 }
 
 footer .footer-band-main a:any-link {
-  color: var(--footer-text);
-  text-decoration: none;
+  color: var(--footer-link-color);
+  text-decoration: var(--footer-link-decoration);
 }
 
 footer .footer-band-main a:hover {
-  color: var(--footer-text);
+  color: var(--footer-link-hover-color);
   text-decoration: underline;
 }
 
@@ -71,6 +71,7 @@ footer .footer-brand img {
   display: block;
   width: 142px;
   height: auto;
+  filter: var(--footer-logo-filter);
 }
 
 footer .footer-notice h2 {
@@ -128,6 +129,7 @@ footer .footer-social img {
   display: block;
   width: auto;
   height: 24px;
+  filter: var(--footer-icon-filter);
 }
 
 /* utility bar */
@@ -153,12 +155,12 @@ footer .footer-utility li:not(:last-child)::after {
 }
 
 footer .footer-band-utility .footer-utility a:any-link {
-  color: var(--footer-utility-text);
-  text-decoration: none;
+  color: var(--footer-utility-link-color);
+  text-decoration: var(--footer-link-decoration);
 }
 
 footer .footer-band-utility .footer-utility a:hover {
-  color: var(--footer-utility-text);
+  color: var(--footer-link-hover-color);
 }
 
 /* legal band */

@@ -99,7 +99,7 @@
 .cards.feature-links .cards-card-body h3 {
   margin: 0 0 16px;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: var(--font-weight-heading);
   line-height: 36px;
 }
 
@@ -187,7 +187,7 @@ main .cards.feature-links .cards-card-cta a:any-link {
 .cards.icon-tiles .cards-card-body h3 {
   margin: 0 0 30px;
   font-size: var(--heading-font-size-m);
-  font-weight: 600;
+  font-weight: var(--font-weight-heading);
   line-height: 21.6px;
 }
 
@@ -260,7 +260,7 @@ main .cards.feature-links .cards-card-cta a:any-link {
 .cards.video-tiles .cards-card-body h3 {
   color: var(--color-on-band-accent);
   font-size: var(--heading-font-size-l);
-  font-weight: 600;
+  font-weight: var(--font-weight-heading);
   line-height: 28.8px;
 }
 

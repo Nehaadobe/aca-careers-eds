@@ -18,7 +18,7 @@
   background-color: var(--color-surface-muted);
   color: var(--color-accent-strong);
   font-size: var(--heading-font-size-m);
-  font-weight: 500;
+  font-weight: var(--font-weight-display);
   line-height: 27px;
   list-style: none;
   cursor: pointer;

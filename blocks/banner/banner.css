@@ -8,6 +8,14 @@ main > .section > .banner-wrapper {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+
+  /* buttons here use the theme's on-dark button colors */
+  --button-primary-color: var(--button-on-dark-primary-color);
+  --button-primary-hover-color: var(--button-on-dark-primary-hover-color);
+  --button-secondary-color: var(--button-on-dark-secondary-color);
+  --button-secondary-hover-color: var(--button-on-dark-secondary-hover-color);
+  --button-secondary-border-color: var(--button-on-dark-secondary-border-color);
+  --button-secondary-hover-border-color: var(--button-on-dark-secondary-hover-border-color);
 }
 
 .banner .banner-media {
@@ -117,7 +125,7 @@ main > .section > .banner-wrapper {
   color: inherit;
   font-family: var(--font-heading);
   font-size: var(--heading-font-size-l);
-  font-weight: 600;
+  font-weight: var(--font-weight-heading);
   line-height: 1.2;
 }
 

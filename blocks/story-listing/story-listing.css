@@ -248,7 +248,7 @@
   margin: 0 0 30px;
   color: var(--color-link);
   font-size: var(--heading-font-size-l);
-  font-weight: 600;
+  font-weight: var(--font-weight-heading);
   line-height: 30px;
 }
 

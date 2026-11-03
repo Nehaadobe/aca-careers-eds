@@ -25,6 +25,14 @@ main .section > .hero-wrapper {
   overflow: hidden;
   isolation: isolate;
   color: var(--color-text);
+
+  /* buttons here use the theme's on-dark button colors */
+  --button-primary-color: var(--button-on-dark-primary-color);
+  --button-primary-hover-color: var(--button-on-dark-primary-hover-color);
+  --button-secondary-color: var(--button-on-dark-secondary-color);
+  --button-secondary-hover-color: var(--button-on-dark-secondary-hover-color);
+  --button-secondary-border-color: var(--button-on-dark-secondary-border-color);
+  --button-secondary-hover-border-color: var(--button-on-dark-secondary-hover-border-color);
 }
 
 .hero:not(.page, .centered) picture {
@@ -42,7 +50,7 @@ main .section > .hero-wrapper {
 }
 
 .hero:not(.page, .centered) .hero-content {
-  max-width: 450px;
+  max-width: var(--hero-title-max-width);
   margin: 0 auto;
   padding: 30px 0;
   text-align: center;
@@ -50,13 +58,13 @@ main .section > .hero-wrapper {
 
 .hero:not(.page, .centered) .hero-content h1,
 .hero:not(.page, .centered) .hero-content h2 {
-  max-width: 450px;
+  max-width: var(--hero-title-max-width);
   margin: 0;
   color: var(--color-on-media);
   font-family: var(--font-display);
   font-size: var(--heading-font-size-xxl);
-  font-weight: 500;
-  line-height: 48px;
+  font-weight: var(--font-weight-display);
+  line-height: var(--hero-title-line-height);
   letter-spacing: var(--display-tracking);
   text-transform: var(--display-transform);
   text-shadow: var(--shadow-text-on-media);
@@ -197,7 +205,7 @@ main .section > .hero-wrapper {
 .hero.centered:not(.page) .hero-eyebrow {
   margin: 0 0 14px;
   color: var(--color-text-muted);
-  font-family: var(--font-mono);
+  font-family: var(--hero-eyebrow-font);
   font-size: 11px;
   font-weight: 500;
   line-height: 1.65;
@@ -210,8 +218,8 @@ main .section > .hero-wrapper {
   margin: 0 auto 48px;
   color: var(--color-text);
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3.4vw, 2.7rem);
-  font-weight: 700;
+  font-size: var(--hero-centered-title-size);
+  font-weight: var(--hero-centered-title-weight);
   line-height: 1.08;
   letter-spacing: var(--display-tracking);
   text-transform: var(--display-transform);
@@ -257,10 +265,10 @@ main .section > .hero-wrapper {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: var(--button-arrow-gap);
   height: 54px;
   margin: 0;
-  padding: 15px 30px;
+  padding: var(--button-primary-padding);
   border: 1px solid transparent;
   border-radius: var(--radius-button);
   font-family: var(--font-body);
@@ -270,7 +278,7 @@ main .section > .hero-wrapper {
   letter-spacing: 0.005em;
   text-decoration: none;
   white-space: nowrap;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent):any-link {
@@ -282,20 +290,11 @@ main .section > .hero-wrapper {
 .hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent):hover {
   background-color: var(--button-primary-hover-background);
   box-shadow: var(--shadow-button-hover);
-  color: var(--button-primary-color);
-}
-
-/* arrow icon (source: 18px stroke arrow), drawn in the text color */
-.hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent)::after {
-  content: '';
-  flex: 0 0 auto;
-  width: 18px;
-  height: 18px;
-  background-color: currentcolor;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+  color: var(--button-primary-hover-color);
 }
 
 .hero.centered:not(.page) .hero-actions a.button.secondary:any-link {
+  padding: var(--button-secondary-padding);
   border-color: var(--button-secondary-border-color);
   background-color: var(--button-secondary-background);
   color: var(--button-secondary-color);
@@ -304,7 +303,7 @@ main .section > .hero-wrapper {
 .hero.centered:not(.page) .hero-actions a.button.secondary:hover {
   border-color: var(--button-secondary-hover-border-color);
   background-color: var(--button-secondary-hover-background);
-  color: var(--button-secondary-color);
+  color: var(--button-secondary-hover-color);
 }
 
 .hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent, .secondary):focus-visible {

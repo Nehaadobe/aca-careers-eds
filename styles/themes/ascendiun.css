@@ -1,125 +1,210 @@
 /*
- * Theme: Ascendiun (page metadata `theme: ascendiun`, set per folder through bulk metadata).
- * TODO(ascendiun): placeholder. There is no Ascendiun design yet (docs/analysis/README.md §7.4),
- * so every value below is a copy of the BSC defaults in styles/brand.css. Replace the values
- * (and add self-hosted fonts with metric-matched fallbacks, as in themes/stellarus.css) once the
- * design exists. Override token values only. --nav-height is left to brand.css on purpose
- * (it changes at 992px); set it here only if Ascendiun uses one height at all widths.
+ * Theme: Ascendiun (page metadata `theme: ascendiun`, set per folder through bulk metadata:
+ * /ascendiun/** -> ascendiun). Loaded by scripts/scripts.js in loadEager.
+ * Overrides token values only; the contract and BSC defaults are in styles/brand.css.
+ * Values: measured on https://www.ascendiun.com/ascendiun/ (November 2026): Fieldwork Geo Light,
+ * Chicago Black #000 text, CTA Blue #0071bc links and calls to action (navy #162c55 on hover),
+ * #f7f7f7 footer, a black statement band, square corners, no shadows. The source has no buttons:
+ * calls to action are bold arrow links ("Explore … ->"), so buttons are arrow links here (client
+ * decision). Tokens the source has no equivalent for keep the BSC value (marked "BSC").
  */
+
+/* Fieldwork Geo Light (Hoftype; the client's web font license covers the careers site).
+   The source declares one face at the normal weight and lets the browser embolden it for
+   the 500 / 600 calls to action; this face does the same. */
+@font-face {
+  font-family: Fieldwork;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url('../../fonts/fieldwork-geo-light.woff2') format('woff2');
+}
+
+/* metric-matched fallback (width on English text and ascent / descent measured against Arial),
+   so the swap does not shift the layout */
+@font-face {
+  font-family: fieldwork-fallback;
+  size-adjust: 90.94%;
+  ascent-override: 91.27%;
+  descent-override: 21.99%;
+  line-gap-override: 0%;
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo Regular');
+}
 
 body {
   --color-scheme: light;
 
   /* page and surfaces */
   --color-background: #fff;
-  --color-surface: #fff; /* cards, panels */
-  --color-surface-tint: #edf6f9; /* tinted bands and panels */
-  --color-surface-muted: #f4f4f4; /* image placeholders, FAQ rows */
-  --page-background-image: none; /* decorative page background (themes) */
+  --color-surface: #f7f7f7; /* source: the only boxes (footer, media contact) are flat grey */
+  --color-surface-tint: #f7f7f7;
+  --color-surface-muted: #f7f7f7;
+  --page-background-image: none;
 
-  /* text */
-  --color-text: #25282a;
-  --color-text-strong: #000; /* current page in pagination */
-  --color-text-muted: #767676; /* captions, dates, eyebrows, utility links */
-  --color-text-subtle: #6c757d; /* placeholders, disabled controls */
+  /* text (source: Chicago Black; #333 for secondary copy) */
+  --color-text: #000;
+  --color-text-strong: #000;
+  --color-text-secondary: #000;
+  --color-text-muted: #333;
+  --color-text-subtle: #6c757d; /* BSC: placeholders, disabled controls */
 
-  /* links */
+  /* links (source: CTA Blue, navy on hover) */
   --color-link: #0071bc;
-  --color-link-hover: #005a96;
+  --color-link-hover: #162c55;
 
   /* primary action */
   --color-primary: #0071bc;
-  --color-primary-hover: #0060a0;
-  --color-primary-press: #005a96; /* hover border, focus ring */
+  --color-primary-hover: #162c55;
+  --color-primary-press: #162c55;
   --color-on-primary: #fff;
 
-  /* bands: full-width colored sections */
-  --color-band: #014d83; /* navy: locations banner */
+  /* bands (source: the black statement band under the hero) */
+  --color-band: #000;
   --color-on-band: #fff;
 
   /* strong accent: FAQ question text and open/hover rows */
-  --color-accent-strong: #003b5c;
+  --color-accent-strong: #162c55;
   --color-on-accent-strong: #fff;
 
-  /* borders */
-  --color-border: #ccc; /* inputs and selects */
-  --color-border-subtle: #dadada; /* card frames, table rows */
-  --color-border-strong: rgb(128 128 128); /* framed callout tables */
-  --color-focus: #005a96;
+  /* borders (BSC: the source has no inputs or framed boxes) and focus (source: 2px CTA Blue) */
+  --color-border: #ccc;
+  --color-border-subtle: #dadada;
+  --color-border-strong: rgb(128 128 128);
+  --color-focus: #0071bc;
 
-  /* media: text and controls over photos and video */
+  /* media: text and controls over photos and video (BSC) */
   --color-on-media: #fff;
   --color-media-background: #000;
-  --color-scrim: rgb(0 0 0 / 50%); /* darkens a photo behind text */
-  --color-scrim-strong: rgb(0 0 0 / 70%); /* page dim behind the mobile menu */
-  --color-backdrop: rgb(0 0 0 / 80%); /* modal backdrop */
+  --color-scrim: rgb(0 0 0 / 50%);
+  --color-scrim-strong: rgb(0 0 0 / 70%);
+  --color-backdrop: rgb(0 0 0 / 80%);
 
-  /* third-party brand colors (share block) */
-  --color-share: #37414a;
-  --color-share-linkedin: #007bb6;
-  --color-share-facebook: #3b5998;
-  --color-share-x: #00aced;
-  --color-on-share: #fff;
+  /* header (source: white bar, no rule under it) and footer (source: #f7f7f7, #333 text,
+     underlined CTA Blue links, black wordmark) */
+  --header-background: #fff;
+  --header-border-color: transparent;
+  --header-button-background: #f7f7f7;
+  --footer-background: #f7f7f7;
+  --footer-text: #333;
+  --footer-utility-background: #f7f7f7;
+  --footer-utility-text: #333;
+  --footer-link-color: #0071bc;
+  --footer-link-hover-color: #162c55;
+  --footer-utility-link-color: #0071bc;
+  --footer-link-decoration: underline;
+  --footer-logo-filter: brightness(0); /* the white careers logo shown black, like the source wordmark */
+  --footer-icon-filter: brightness(0);
 
-  /* header and footer */
-  --header-border-color: #f4f4f4;
-  --header-button-background: #f8f9fa;
-  --footer-background: #25282a;
-  --footer-text: #fff;
-  --footer-utility-background: #000;
-  --footer-utility-text: #fff;
+  /* buttons as the source's arrow links: bold CTA Blue label, 16px arrow 8px after it,
+     navy on hover with the arrow moving 10px right; the outline button uses the source's
+     8px 12px link box with a CTA Blue border */
+  --button-padding: 8px 12px;
+  --button-primary-padding: 0;
+  --button-border-color: transparent;
+  --button-hover-border-color: transparent;
+  --button-primary-background: transparent;
+  --button-primary-hover-background: transparent;
+  --button-primary-color: #0071bc;
+  --button-primary-hover-color: #162c55;
+  --button-secondary-background: transparent;
+  --button-secondary-hover-background: transparent;
+  --button-secondary-color: #0071bc;
+  --button-secondary-hover-color: #162c55;
+  --button-secondary-border-color: #0071bc;
+  --button-secondary-hover-border-color: #162c55;
+  --button-arrow-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M15 7.52L8.5 1.02C8.24 0.76 7.81 0.76 7.54 1.02C7.28 1.28 7.28 1.71 7.54 1.98L12.89 7.33H1.52C1.15 7.33 0.85 7.63 0.85 8C0.85 8.37 1.15 8.67 1.52 8.67H12.89L7.55 14.01C7.29 14.27 7.29 14.7 7.55 14.97C7.68 15.1 7.85 15.17 8.03 15.17C8.21 15.17 8.38 15.1 8.51 14.97L15.01 8.47C15.27 8.21 15.27 7.78 15.01 7.51L15 7.52Z'/%3E%3C/svg%3E"); /* source _Arrow.svg */
+  --button-arrow-size: 16px;
+  --button-arrow-gap: 8px;
+  --button-arrow-hover-shift: 10px;
 
-  /* buttons */
-  --button-secondary-background: #fff;
+  /* on photos and dark bands (source: white type on the hero photo and the black band) */
+  --button-on-dark-primary-color: #fff;
+  --button-on-dark-primary-hover-color: #fff;
+  --button-on-dark-secondary-color: #fff;
+  --button-on-dark-secondary-hover-color: #fff;
+  --button-on-dark-secondary-border-color: #fff;
+  --button-on-dark-secondary-hover-border-color: #fff;
 
-  /* icons drawn with data URIs (colors are part of the image) */
-  --icon-select-chevron: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-  --icon-play-outline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M24 19.5v21l17-10.5z' fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E"); /* video tiles */
-  --icon-play-solid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23fff' d='M47.538 28.875 19.846 12c-.461 0-.923 0-1.154.225-.461.225-.692.45-.692.9v33.75c0 .45.23.675.692.9 0 .225.231.225.462.225s.461 0 .692-.225L47.538 30.9c.231-.225.462-.675.462-.9 0-.45-.23-.9-.462-1.125ZM20.308 44.85v-29.7L44.769 30l-24.461 14.85Z'/%3E%3C/svg%3E"); /* video facades */
+  /* heroes (source: 906px wide 64px / 72px headline over the photo) */
+  --hero-title-max-width: 906px;
+  --hero-title-line-height: 1.125;
+  --hero-centered-title-size: var(--heading-font-size-xxl);
+  --hero-centered-title-weight: 300;
+  --hero-eyebrow-font: var(--font-body);
 
-  /* fonts */
-  --font-body: proxima-nova, proxima-nova-fallback, sans-serif;
-  --font-heading: proxima-nova, proxima-nova-fallback, sans-serif;
-  --font-display: trade-gothic-next-condensed, trade-gothic-next-condensed-fallback, sans-serif;
-  --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
+  /* fonts (source: Fieldwork everywhere, light, ligatures off) */
+  --font-body: fieldwork, fieldwork-fallback, sans-serif;
+  --font-heading: fieldwork, fieldwork-fallback, sans-serif;
+  --font-display: fieldwork, fieldwork-fallback, sans-serif;
+  --font-weight-body: 300;
+  --font-weight-heading: 300;
+  --font-weight-display: 300;
+  --font-ligatures: no-common-ligatures;
+  --heading-line-height: 1.1; /* source: 40px / 44px section heading */
+  --display-tracking: -1px; /* source hero headline */
+  --display-transform: none;
 
-  /* body sizes (source uses the same sizes on mobile and desktop) */
+  /* body sizes (source, from 768px: 20px intro copy, 18px body; smaller below, see below) */
   --body-font-size-l: 20px;
-  --body-font-size-m: 16px;
-  --body-font-size-s: 14px;
-  --body-font-size-xs: 12px;
-  --body-line-height: 1.5;
+  --body-font-size-m: 18px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 14px;
+  --body-line-height: 1.34; /* 24px on 18px */
 
-  /* heading sizes */
-  --heading-font-size-xxl: 42px; /* h1 page title (display font) */
-  --heading-font-size-xl: 32px; /* h2 section title */
-  --heading-font-size-l: 24px; /* h3 card title */
-  --heading-font-size-m: 18px; /* h4 / tile title */
-  --heading-font-size-s: 16px;
-  --heading-font-size-xs: 14px;
-  --article-title-font-size: 36px;
-  --display-tracking: 1.3333px;
-  --display-transform: uppercase;
+  /* heading sizes (source, from 1440px: 64px hero, 40px section heading, 24px company name) */
+  --heading-font-size-xxl: 64px;
+  --heading-font-size-xl: 40px;
+  --heading-font-size-l: 24px;
+  --heading-font-size-m: 20px;
+  --heading-font-size-s: 18px;
+  --heading-font-size-xs: 16px;
+  --article-title-font-size: 40px;
 
-  /* spacing */
-  --section-spacing: 60px;
-  --content-padding: 15px;
-  --article-max-width: 960px;
+  /* spacing (source: 80px below the statement band, 32px side gutters) */
+  --section-spacing: 80px;
+  --content-padding: 32px;
 
-  /* shapes */
-  --radius-button: 22.56px;
-  --radius-card: 20px;
-  --radius-panel: 20px 0; /* top-left + bottom-right rounded corners */
-  --radius-media: 0 0 0 80px; /* page hero photo */
+  /* shapes (source: square corners everywhere) */
+  --radius-button: 0;
+  --radius-card: 0;
+  --radius-panel: 0;
+  --radius-media: 0;
 
-  /* shadows */
-  --shadow-card: 0 0 10px 0 rgb(0 0 0 / 16%);
-  --shadow-tile: 0 0 10px 0 rgb(0 0 0 / 15%); /* feature-link tiles */
-  --shadow-raised: 0 4px 16px -4px rgb(0 0 0 / 16%); /* FAQ answer panel */
+  /* shadows (source: none; white text sits on photos without a shadow) */
+  --shadow-card: none;
+  --shadow-tile: none;
+  --shadow-raised: none;
   --shadow-button: none;
-  --shadow-media-control: inset 0 0 0 2px #fff, 0 0 2px rgb(0 0 0 / 40%); /* play ring */
-  --shadow-text-on-media: 0 0 1px #000; /* headline over photos */
+  --shadow-button-hover: none;
+  --shadow-text-on-media: none;
 
-  /* motion */
-  --transition-fast: 0.15s ease-in-out;
+  /* motion (source: hover changes are instant) */
+  --transition-fast: 0s;
+}
+
+/* breakpoint-exception: source sizes between 1024 and 1439px (56px hero, 32px headings) */
+@media (width < 1440px) {
+  body {
+    --heading-font-size-xxl: 56px;
+    --heading-font-size-xl: 32px;
+  }
+}
+
+/* breakpoint-exception: source sizes between 768 and 1023px */
+@media (width < 1024px) {
+  body {
+    --heading-font-size-xxl: 40px;
+    --body-font-size-m: 16px;
+    --body-line-height: 1.5; /* 24px on 16px */
+  }
+}
+
+/* breakpoint-exception: source sizes below 768px */
+@media (width < 768px) {
+  body {
+    --heading-font-size-xl: 24px;
+    --heading-font-size-l: 20px;
+    --body-font-size-l: 18px;
+    --section-spacing: 40px;
+  }
 }

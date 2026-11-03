@@ -56,7 +56,10 @@ const THEMES = {
   stellarus: {
     css: true, adobeFonts: false, consent: false, favicon: '/favicons/stellarus.png',
   },
-  ascendiun: { css: true, adobeFonts: true, consent: true },
+  // Fieldwork is self-hosted in the theme file; OneTrust stays on for the careers domain
+  ascendiun: {
+    css: true, adobeFonts: false, consent: true, favicon: '/favicons/ascendiun.png',
+  },
 };
 const DEFAULT_THEME = 'bsc';
 

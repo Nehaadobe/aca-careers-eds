@@ -170,6 +170,12 @@ body {
   --button-secondary-color: #f7f9fd;
   --button-secondary-border-color: rgb(255 255 255 / 14%);
 
+  /* button size and arrow (source: 15px 30px pills, 18px stroke arrow 10px after the label) */
+  --button-padding: 15px 30px;
+  --button-arrow-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E");
+  --button-arrow-size: 18px;
+  --button-arrow-gap: 10px;
+
   /* hover (source): stronger glow on the primary, lighter fill and blue border on the secondary */
   --shadow-button-hover: 0 0 32px rgb(59 130 246 / 45%);
   --button-secondary-hover-background: rgb(255 255 255 / 7%);
