@@ -112,6 +112,11 @@
   --font-display: trade-gothic-next-condensed, trade-gothic-next-condensed-fallback, sans-serif;
   --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
 
+  /* text rendering (BSC source: browser defaults) */
+  --font-smoothing: auto; /* -webkit-font-smoothing (macOS Chrome / Safari) */
+  --font-smoothing-moz: auto; /* -moz-osx-font-smoothing (macOS Firefox) */
+  --text-rendering: auto;
+
   /* body sizes (source uses the same sizes on mobile and desktop) */
   --body-font-size-l: 20px;
   --body-font-size-m: 16px;

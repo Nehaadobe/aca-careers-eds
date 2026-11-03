@@ -190,6 +190,11 @@ body {
   --display-tracking: -0.03em;
   --display-transform: none;
 
+  /* text rendering (source html rule): thinner, crisper text on macOS, kerning at every size */
+  --font-smoothing: antialiased;
+  --font-smoothing-moz: grayscale;
+  --text-rendering: optimizelegibility;
+
   /* layout */
   --content-max-width: 1280px;
   --content-padding: 24px;
