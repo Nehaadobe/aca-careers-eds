@@ -83,7 +83,9 @@ Columns `2 | 3 | 4`, or the Roles list on a story). These lists live in the `opt
 A block is a table. The first row holds the block name, with the variation in brackets:
 `Cards (icon-tiles)`, `Image (left)`. The other rows hold the content. Rules that apply to every block:
 
-- Spelling of the block name and variation matters; capitals and spaces do not (`Hero (Page)` = `hero (page)`).
+- In the editor every block is a plain table; its design (photos, icons, layout) appears only on the
+  preview or live page. Blocks built by code, such as Share, show just their text in the editor.
+- Spelling of the block name and variation matters; capitals and spaces do not (`Columns (Curve)` = `columns (curve)`).
 - Optional rows and cells can be left out.
 - Buttons: put the link alone in its own paragraph and format it. **Bold** = solid button, _italic_ =
   outline button, **_bold and italic_** = high-impact button. An unformatted link stays a text link.
@@ -95,7 +97,7 @@ A block is a table. The first row holds the block name, with the variation in br
 
 | Block | Purpose | Variations | How to author |
 | --- | --- | --- | --- |
-| **Hero** | Page-opening image with a headline and button | `home` (home page, full image with headline), `page` (section pages: image band with H1 and intro), `centered` (centered text without an image, used on Stellarus) | Row 1: background image (leave empty for `centered`). Row 2: H1 heading, optional paragraphs, and an optional button link in its own paragraph |
+| **Hero** | Page-opening image with a headline and button | `home` (home page, full image with headline), `centered` (centered text without an image, used on Stellarus). Section page headers are **Columns (curve)** | Row 1: background image (leave empty for `centered`). Row 2: H1 heading, optional paragraphs, and an optional button link in its own paragraph |
 | **Banner** | Heading, text and button over a background image | `locations` (navy band, office locations), `statement` (large statement text over an image), `image-cta` ("View our job opportunities" band) | Row 1: background image. Row 2: H2 heading, paragraphs, and a button link in its own paragraph |
 | **Gallery** | Edge-to-edge row of photos; the middle one is wider | none | One row per image; the cell holds the image and an optional caption. Photos are display-only: links are ignored (client decision) |
 
@@ -104,7 +106,7 @@ A block is a table. The first row holds the block name, with the variation in br
 | Block | Purpose | Variations | How to author |
 | --- | --- | --- | --- |
 | **Cards** | Grid of repeating tiles | `icon-tiles` (icon + title + text), `feature-links` (linked feature tiles), `video-tiles` (video thumbnails that play in a pop-up) | One row per card: optional image cell, then a text cell with a heading, a short paragraph and a link in its own paragraph. For story cards use **Article List** instead |
-| **Columns** | Side-by-side content | `alternating` (image/text rows whose sides alternate) | One row per line, one cell per column. With `alternating`: an image cell (optionally followed by a YouTube link for a video) and a text cell, in either order |
+| **Columns** | Side-by-side content | `alternating` (image/text rows whose sides alternate), `curve` (page header of the section pages: H1 and intro beside a photo with a curved corner; formerly Hero (page)) | One row per line, one cell per column. With `alternating`: an image cell (optionally followed by a YouTube link for a video) and a text cell, in either order. With `curve`: a text cell (H1 and intro) and a photo cell; **the cell order sets the side**: text first = photo right, photo first = photo left, and the curved corner always faces the text |
 | **Accordion** | Expandable questions and answers (FAQ) | none | One row per item: question (plain text) in the first cell, answer (paragraphs, lists, links) in the second |
 | **Quote** | Employee quotation with a round portrait | none | Row 1: portrait (optional). Row 2: the quotation. Row 3: name and role |
 | **Table** | Data table, or a bordered callout box | `no-header` (no header row). A table with a **single cell** becomes a callout box | One block row per table row, one cell per column. The first row is the header unless `no-header` is set |
@@ -119,7 +121,7 @@ A block is a table. The first row holds the block name, with the variation in br
 | **Article List** | Curated cards for chosen stories ("More Stories" on every story, "Growth & development stories") | Set by option rows (below) | One row per story with a single cell: a story link (`/blog/<name>`), any other site page (e.g. `/how-to-get-hired`), or an off-site story URL listed in the `external-stories` sheet. Add option rows as needed |
 | **Story Listing** | The searchable, filterable, paginated story grid on `/blog` | none | Settings only, as key / value rows (below). Cards, filters and paging are built automatically |
 | **Article Header** | Story header: Roles/Topics links, title, date, author line, share links and hero | none | **Not authored.** Built automatically on pages with Template `blog-article` from the page metadata, the H1 and the image or video right after it |
-| **Share** | Share links (LinkedIn, Facebook, X) | none | Added automatically inside the Article Header. If authored on another page: an empty block, or one cell whose text replaces the "Share" label |
+| **Share** | Share links (LinkedIn, Facebook, X) | none | Added automatically inside the Article Header. If authored on another page: one cell with the label ("Share"), or an empty cell for the default label. The icons are drawn when the page is previewed or published, so in the editor the block shows only its label |
 
 **Article List options** (two-cell rows; type `/` in the value cell for the allowed values):
 
@@ -179,7 +181,7 @@ Insert a template from **Library** → **Templates**, then replace the sample co
 | Template | Use for | Contains | Required metadata |
 | --- | --- | --- | --- |
 | **Story article** | A new employee story in `/blog/` | H1, hero image (or an Embed (video) block) right after the H1, story text, "More Stories" heading and an Article List | Title, Description, **Template = blog-article**, Roles, Topics, Publication Date, Author, Author Title, Image |
-| **Section landing page** | Pages like Life at Blue Shield or How to Get Hired | Hero (page), a centered intro section, content sections, Banner (image-cta) | Title, Description, Image |
+| **Section landing page** | Pages like Life at Blue Shield or How to Get Hired | Columns (curve) page header, a centered intro section, content sections, Banner (image-cta) | Title, Description, Image |
 | **Text page** | Simple text pages (e.g. Why Relocate) | H1, paragraphs, lists | Title, Description |
 | **Stellarus landing page** | Pages in `/stellarus/` | Hero (centered) with the two buttons | Title, Description (the theme comes from the folder) |
 

@@ -165,7 +165,8 @@
   --radius-button: 22.56px;
   --radius-card: 20px;
   --radius-panel: 20px 0; /* top-left + bottom-right rounded corners */
-  --radius-media: 0 0 0 80px; /* page hero photo */
+  --radius-media: 0 0 0 80px; /* page header photo (Columns curve, photo right): bottom-left */
+  --radius-media-mirror: 0 0 80px; /* photo left: bottom-right */
 
   /* shadows */
   --shadow-card: 0 0 10px 0 rgb(0 0 0 / 16%);

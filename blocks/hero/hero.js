@@ -7,8 +7,8 @@
  *
  * Options (block classes):
  *   - `home` - full-bleed, centered headline and CTA over the image.
- *   - `page` - page header: H1 and subtitle paragraph(s) on the left, photo with a
- *     rounded corner on the right; stacks on mobile.
+ *   (Page headers - H1 and intro beside a photo with a curved corner - are the
+ *   Columns (curve) block.)
  *   - `centered` - centered text intro, usually without an image: optional eyebrow
  *     paragraph before the H1, body copy, then CTA buttons side by side.
  */
@@ -99,27 +99,5 @@ export default function decorate(block) {
     buttonizeLoneLinks(contentCell);
   }
 
-  if (block.classList.contains('centered') && !block.classList.contains('page')) {
-    decorateCentered(block, picture, contentCell);
-    return;
-  }
-
-  if (block.classList.contains('page')) {
-    // Flatten to [media, content] so the two can sit side by side.
-    const children = [];
-    if (picture) {
-      const media = document.createElement('div');
-      media.className = 'hero-media-wrap';
-      media.append(picture);
-      children.push(media);
-    }
-    if (contentCell) {
-      // The picture may have shared the content cell; drop the empty paragraph it left.
-      contentCell.querySelectorAll(':scope > p').forEach((p) => {
-        if (p.textContent.trim() === '' && !p.querySelector('img, picture, a')) p.remove();
-      });
-      children.push(contentCell);
-    }
-    block.replaceChildren(...children);
-  }
+  if (block.classList.contains('centered')) decorateCentered(block, picture, contentCell);
 }

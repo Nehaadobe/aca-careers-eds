@@ -41,7 +41,7 @@ var CustomImportScript = (() => {
     default: () => import_story_listing_default
   });
 
-  // tools/importer/parsers/hero-page.js
+  // tools/importer/parsers/columns-curve.js
   var BLOCK_TAGS = /^(P|UL|OL|H[1-6]|BLOCKQUOTE|TABLE|DIV)$/;
   var isBlank = (s) => s.replace(/[\s​ ]+/g, "") === "";
   function toParagraphs(container, document) {
@@ -72,9 +72,6 @@ var CustomImportScript = (() => {
     return out;
   }
   function parse(element, { document }) {
-    const cells = [];
-    const img = element.querySelector(".page-hero img, .page-figure img");
-    if (img) cells.push([img]);
     const content = [];
     const title = element.querySelector(".page-title");
     if (title) {
@@ -84,8 +81,10 @@ var CustomImportScript = (() => {
     }
     const subtitle = element.querySelector(".page-subtitle");
     if (subtitle) content.push(...toParagraphs(subtitle, document));
-    if (content.length) cells.push([content]);
-    const block = WebImporter.Blocks.createBlock(document, { name: "hero-page", cells });
+    const img = element.querySelector(".page-hero img, .page-figure img");
+    const row = [content];
+    if (img) row.push(img);
+    const block = WebImporter.Blocks.createBlock(document, { name: "columns-curve", cells: [row] });
     element.replaceWith(block);
   }
 
@@ -783,7 +782,8 @@ var CustomImportScript = (() => {
     gallery: "Gallery",
     quote: "Quote",
     // landing template
-    "hero-page": "Hero (page)",
+    "columns-curve": "Columns (curve)",
+    // page header (formerly Hero (page))
     "cards-icon-tiles": "Cards (icon-tiles)",
     "cards-story-grid": "Cards (story-grid)",
     "cards-video-tiles": "Cards (video-tiles)",
@@ -839,7 +839,7 @@ var CustomImportScript = (() => {
     "urlPattern": "/blog",
     "blocks": [
       {
-        "name": "hero-page",
+        "name": "columns-curve",
         "instances": [
           "#site_content > div.page > div.page-header",
           "div.page-header"
@@ -863,7 +863,7 @@ var CustomImportScript = (() => {
         ],
         "style": null,
         "blocks": [
-          "hero-page"
+          "columns-curve"
         ],
         "defaultContent": []
       },
@@ -882,7 +882,7 @@ var CustomImportScript = (() => {
     ]
   };
   var parsers = {
-    "hero-page": parse,
+    "columns-curve": parse,
     "story-listing": parse2
   };
   var transformers = [transform, transform2, transform3, transform4, transform5];

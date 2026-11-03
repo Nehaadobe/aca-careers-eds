@@ -169,6 +169,7 @@ body {
   --radius-card: 0;
   --radius-panel: 0;
   --radius-media: 0;
+  --radius-media-mirror: 0;
 
   /* shadows (source: none; white text sits on photos without a shadow) */
   --shadow-card: none;

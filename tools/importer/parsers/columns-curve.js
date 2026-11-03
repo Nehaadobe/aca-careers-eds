@@ -2,11 +2,13 @@
 /* global WebImporter */
 
 /**
- * Parser for hero-page (renamed to "Hero (page)" by block-options transformer).
+ * Parser for columns-curve (renamed to "Columns (curve)" by block-options transformer): the page
+ * header, formerly Hero (page).
  * Source: div.page-header:not(.no_hero) on careers.blueshieldca.com landing pages.
- * Block structure (Hero convention: 1 column; blocks/hero/README.md, option "page"):
- *   row 1: background image (photo)
- *   row 2: title (H1) + subheading paragraph(s)
+ * Block structure (blocks/columns/README.md, option "curve"): one row, two cells:
+ *   cell 1: title (H1) + subheading paragraph(s)
+ *   cell 2: photo
+ * Text cell first = photo on the right, as on the source.
  *
  * The subtitle mixes bare text with <p> elements (e.g. /life-at-blue-shield), so it is
  * normalized into paragraphs: runs of text/inline nodes become one <p>, existing block
@@ -45,13 +47,7 @@ function toParagraphs(container, document) {
 }
 
 export default function parse(element, { document }) {
-  const cells = [];
-
-  // Row 1: background image
-  const img = element.querySelector('.page-hero img, .page-figure img');
-  if (img) cells.push([img]);
-
-  // Row 2: title + subheading
+  // Text cell: title + subheading
   const content = [];
   const title = element.querySelector('.page-title');
   if (title) {
@@ -62,8 +58,11 @@ export default function parse(element, { document }) {
   const subtitle = element.querySelector('.page-subtitle');
   if (subtitle) content.push(...toParagraphs(subtitle, document));
 
-  if (content.length) cells.push([content]);
+  // Photo cell, after the text: photo on the right
+  const img = element.querySelector('.page-hero img, .page-figure img');
+  const row = [content];
+  if (img) row.push(img);
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'hero-page', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'columns-curve', cells: [row] });
   element.replaceWith(block);
 }

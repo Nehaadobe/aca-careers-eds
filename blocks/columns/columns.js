@@ -8,6 +8,10 @@ import { bindVideoLink, getYouTubeId } from '../../scripts/video-modal.js';
  *     right; rows stack (image first) on mobile. A media cell holding a poster
  *     image and a YouTube link becomes a play button that opens the video in a
  *     modal dialog.
+ *   - `curve` - page header rows: a text cell (H1 and intro) and a photo cell
+ *     with one curved corner. The authored cell order sets the side: photo cell
+ *     first = photo left, text cell first = photo right; the curve faces the text.
+ *     Rows stack (photo first) on mobile; a row without a photo is title only.
  */
 
 /**
@@ -65,6 +69,28 @@ function decorateAlternating(block) {
   });
 }
 
+function decorateCurve(block) {
+  // page header spacing (styles.css) applies to the section that holds it
+  block.closest('.section')?.classList.add('columns-curve-container');
+  [...block.children].forEach((row) => {
+    const cells = [...row.children];
+    const media = cells.find(isMediaCell);
+    cells.filter((c) => c !== media).forEach((c) => c.classList.add('columns-text'));
+    if (!media) {
+      row.classList.add('columns-curve-no-image');
+      return;
+    }
+    // a picture authored inside a paragraph: keep the picture only
+    const picture = media.querySelector('picture');
+    const p = picture.closest('p');
+    if (p && p.textContent.trim() === '' && p.children.length === 1) p.replaceWith(picture);
+    media.classList.add('columns-media');
+    row.classList.add(cells.indexOf(media) === 0 ? 'columns-curve-image-left' : 'columns-curve-image-right');
+    // photo first in the DOM so it stacks above the text on mobile; CSS sets the side
+    if (row.firstElementChild !== media) row.prepend(media);
+  });
+}
+
 export default function decorate(block) {
   const cols = [...(block.firstElementChild?.children || [])];
   block.classList.add(`columns-${cols.length}-cols`);
@@ -84,4 +110,5 @@ export default function decorate(block) {
   });
 
   if (block.classList.contains('alternating')) decorateAlternating(block);
+  if (block.classList.contains('curve')) decorateCurve(block);
 }

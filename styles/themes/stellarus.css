@@ -210,6 +210,7 @@ body {
   --radius-card: 1rem;
   --radius-panel: 1rem;
   --radius-media: 1rem;
+  --radius-media-mirror: 1rem;
 
   /* shadows */
   --shadow-card: 0 4px 16px rgb(0 0 0 / 45%);

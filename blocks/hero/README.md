@@ -13,8 +13,9 @@ Single block table. Content: row 1: background image; row 2: heading (H1 or H2) 
 | Variation | Option class |
 | --- | --- |
 | Home | `home` |
-| Page | `page` |
 | Centered | `centered` |
+
+Page headers (H1 and intro text beside a photo with a curved corner) are the **Columns (curve)** block, formerly Hero (page).
 
 ## Universal Editor fields
 

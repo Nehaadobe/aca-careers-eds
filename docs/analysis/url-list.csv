@@ -1,17 +1,17 @@
 ﻿#,LIVE URL,New page path,Page type,Template,Brand theme,Page title,Publication date,Roles,Topics,Blocks used,Edit in Document Authoring,EDS preview (develop),EDS live (main),Status,Notes (for authors / changed from LIVE)
-1,https://careers.blueshieldca.com/a-culture-of-belonging,/a-culture-of-belonging,BSC page,Section landing page,bsc,A Culture of Belonging,,,,"Hero (page)
+1,https://careers.blueshieldca.com/a-culture-of-belonging,/a-culture-of-belonging,BSC page,Section landing page,bsc,A Culture of Belonging,,,,"Columns (curve)
 Gallery
 Section styles: centered",https://da.live/edit#/nehaadobe/aca-careers-eds/a-culture-of-belonging,https://develop--aca-careers-eds--nehaadobe.aem.page/a-culture-of-belonging,https://main--aca-careers-eds--nehaadobe.aem.live/a-culture-of-belonging,"Uploaded to Document Authoring, previewed, published","Gallery photos are display-only (no click-to-enlarge, client decision)."
-2,https://careers.blueshieldca.com/blog,/blog,BSC page,Story listing (blog),bsc,Our people,,,,"Hero (page)
+2,https://careers.blueshieldca.com/blog,/blog,BSC page,Story listing (blog),bsc,Our people,,,,"Columns (curve)
 Story Listing",https://da.live/edit#/nehaadobe/aca-careers-eds/blog,https://develop--aca-careers-eds--nehaadobe.aem.page/blog,https://main--aca-careers-eds--nehaadobe.aem.live/blog,"Uploaded to Document Authoring, previewed, published","Listing shows the 76 migrated stories + 39 off-site stories (sheet /blog/external-stories); search, Roles/Topics filters, sort, 9 per page."
-3,https://careers.blueshieldca.com/events,/events,BSC page,Section landing page,bsc,Upcoming events,,,,Hero (page),https://da.live/edit#/nehaadobe/aca-careers-eds/events,https://develop--aca-careers-eds--nehaadobe.aem.page/events,https://main--aca-careers-eds--nehaadobe.aem.live/events,"Uploaded to Document Authoring, previewed, published",
-4,https://careers.blueshieldca.com/growth-development,/growth-development,BSC page,Section landing page,bsc,Growth & development programs,,,,"Hero (page)
+3,https://careers.blueshieldca.com/events,/events,BSC page,Section landing page,bsc,Upcoming events,,,,Columns (curve),https://da.live/edit#/nehaadobe/aca-careers-eds/events,https://develop--aca-careers-eds--nehaadobe.aem.page/events,https://main--aca-careers-eds--nehaadobe.aem.live/events,"Uploaded to Document Authoring, previewed, published",
+4,https://careers.blueshieldca.com/growth-development,/growth-development,BSC page,Section landing page,bsc,Growth & development programs,,,,"Columns (curve)
 Banner (statement)
 Gallery
 Columns (alternating)
 Article List
 Section styles: blue; centered",https://da.live/edit#/nehaadobe/aca-careers-eds/growth-development,https://develop--aca-careers-eds--nehaadobe.aem.page/growth-development,https://main--aca-careers-eds--nehaadobe.aem.live/growth-development,"Uploaded to Document Authoring, previewed, published","Gallery photos are display-only (no click-to-enlarge, client decision). YouTube video: shows a thumbnail until cookies are accepted. Story cards (Article List) appear only for published stories."
-5,https://careers.blueshieldca.com/how-to-get-hired,/how-to-get-hired,BSC page,Section landing page,bsc,Our Hiring Process,,,,"Hero (page)
+5,https://careers.blueshieldca.com/how-to-get-hired,/how-to-get-hired,BSC page,Section landing page,bsc,Our Hiring Process,,,,"Columns (curve)
 Cards (icon-tiles)
 Accordion
 Section styles: centered",https://da.live/edit#/nehaadobe/aca-careers-eds/how-to-get-hired,https://develop--aca-careers-eds--nehaadobe.aem.page/how-to-get-hired,https://main--aca-careers-eds--nehaadobe.aem.live/how-to-get-hired,"Uploaded to Document Authoring, previewed, published",
@@ -21,13 +21,13 @@ Cards (feature-links)
 Quote
 Banner (locations)
 Section styles: centered; centered, two-up",https://da.live/edit#/nehaadobe/aca-careers-eds/index,https://develop--aca-careers-eds--nehaadobe.aem.page/,https://main--aca-careers-eds--nehaadobe.aem.live/,"Uploaded to Document Authoring, previewed, published","The ""[+] Feedback"" poll is out of scope (not migrated). Gallery photos are display-only (no click-to-enlarge, client decision)."
-7,https://careers.blueshieldca.com/life-at-blue-shield,/life-at-blue-shield,BSC page,Section landing page,bsc,Life at Blue Shield,,,,"Hero (page)
+7,https://careers.blueshieldca.com/life-at-blue-shield,/life-at-blue-shield,BSC page,Section landing page,bsc,Life at Blue Shield,,,,"Columns (curve)
 Cards (video-tiles)
 Banner (image-cta)
 Section styles: light-blue, centered",https://da.live/edit#/nehaadobe/aca-careers-eds/life-at-blue-shield,https://develop--aca-careers-eds--nehaadobe.aem.page/life-at-blue-shield,https://main--aca-careers-eds--nehaadobe.aem.live/life-at-blue-shield,"Uploaded to Document Authoring, previewed, published",YouTube video: shows a thumbnail until cookies are accepted.
-8,https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model,/life-at-blue-shield/our-workplace-model,BSC page,Section landing page,bsc,Our workplace model,,,,"Hero (page)
+8,https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model,/life-at-blue-shield/our-workplace-model,BSC page,Section landing page,bsc,Our workplace model,,,,"Columns (curve)
 Columns (alternating)",https://da.live/edit#/nehaadobe/aca-careers-eds/life-at-blue-shield/our-workplace-model,https://develop--aca-careers-eds--nehaadobe.aem.page/life-at-blue-shield/our-workplace-model,https://main--aca-careers-eds--nehaadobe.aem.live/life-at-blue-shield/our-workplace-model,"Uploaded to Document Authoring, previewed, published",
-9,https://careers.blueshieldca.com/total-rewards,/total-rewards,BSC page,Section landing page,bsc,Total rewards,,,,"Hero (page)
+9,https://careers.blueshieldca.com/total-rewards,/total-rewards,BSC page,Section landing page,bsc,Total rewards,,,,"Columns (curve)
 Cards (icon-tiles)
 Gallery
 Section styles: centered",https://da.live/edit#/nehaadobe/aca-careers-eds/total-rewards,https://develop--aca-careers-eds--nehaadobe.aem.page/total-rewards,https://main--aca-careers-eds--nehaadobe.aem.live/total-rewards,"Uploaded to Document Authoring, previewed, published","Gallery photos are display-only (no click-to-enlarge, client decision)."

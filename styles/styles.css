@@ -339,20 +339,21 @@ main > .section:first-of-type {
 }
 
 /* source rhythm: 30px below the page hero, 90px between icon-tile groups and
-   hero/photo strips, 30px between plain centered text and a photo strip */
-main > .section.hero-container {
+   hero/photo strips, 30px between plain centered text and a photo strip; the page header
+   is a Columns (curve) block, whose section columns.js marks with .columns-curve-container */
+main > .section:is(.hero-container, .columns-curve-container) {
   margin-bottom: 0;
 }
 
-main > .section.hero-container + .section {
+main > .section:is(.hero-container, .columns-curve-container) + .section {
   margin-top: 30px;
 }
 
-main > .section.hero-container + .gallery-container {
+main > .section:is(.hero-container, .columns-curve-container) + .gallery-container {
   margin-top: var(--section-spacing);
 }
 
-main > .section.hero-container + .section.centered.cards-container,
+main > .section:is(.hero-container, .columns-curve-container) + .section.centered.cards-container,
 main > .section.gallery-container + .section.centered.cards-container,
 main > .section.centered.cards-container + .gallery-container {
   margin-top: 90px;

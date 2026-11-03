@@ -133,7 +133,7 @@
       "urlPattern": "/*",
       "blocks": [
         {
-          "name": "hero-page",
+          "name": "columns-curve",
           "instances": [
             "#site_content > div.page > div.page-header:not(.no_hero)",
             ".page-header:not(.no_hero)"
@@ -209,7 +209,7 @@
           ],
           "style": null,
           "blocks": [
-            "hero-page"
+            "columns-curve"
           ],
           "defaultContent": []
         },
@@ -462,7 +462,7 @@
       "urlPattern": "/blog",
       "blocks": [
         {
-          "name": "hero-page",
+          "name": "columns-curve",
           "instances": [
             "#site_content > div.page > div.page-header",
             "div.page-header"
@@ -486,7 +486,7 @@
           ],
           "style": null,
           "blocks": [
-            "hero-page"
+            "columns-curve"
           ],
           "defaultContent": []
         },
