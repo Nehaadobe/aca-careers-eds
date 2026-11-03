@@ -4,8 +4,9 @@ import { bindVideoLink, getYouTubeId } from '../../scripts/video-modal.js';
  * Columns block: one row per line of columns, one cell per column.
  *
  * Options (block classes):
- *   - `alternating` - image/text rows; odd rows show the image left, even rows
- *     right; rows stack (image first) on mobile. A media cell holding a poster
+ *   - `alternating` - image/text rows; the authored cell order sets the side (image
+ *     cell first = image left, text cell first = image right); rows stack (image
+ *     first) on mobile. A media cell holding a poster
  *     image and a YouTube link becomes a play button that opens the video in a
  *     modal dialog.
  *   - `curve` - page header rows: a text cell (H1 and intro) and a photo cell
@@ -62,8 +63,9 @@ function decorateAlternating(block) {
     if (!media) return;
     media.classList.add('columns-media');
     cells.filter((c) => c !== media).forEach((c) => c.classList.add('columns-text'));
+    row.classList.add(cells.indexOf(media) === 0 ? 'columns-alternating-image-left' : 'columns-alternating-image-right');
     // Image first in the DOM so it stacks above the text on mobile;
-    // CSS alternates the sides on wide screens.
+    // CSS puts it on the authored side on wide screens.
     if (row.firstElementChild !== media) row.prepend(media);
     decorateVideo(media);
   });

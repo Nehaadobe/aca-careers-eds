@@ -34,9 +34,9 @@
 
 /*
  * Option: alternating - image/text rows (source .ipr_indexChess).
- * Mobile: image stacked above text. Desktop: 50/50 rows, odd rows image left,
- * even rows image right; the image fills the row height (object-fit: cover)
- * and the text is vertically centred.
+ * Mobile: image stacked above text. Desktop: 50/50 rows; the authored cell order sets the
+ * side (image cell first = image left, text cell first = image right); the image fills the
+ * row height (object-fit: cover) and the text is vertically centred.
  */
 .columns.alternating {
   display: flex;
@@ -156,7 +156,7 @@ main .columns.alternating a.button:hover {
     min-width: 0;
   }
 
-  .columns.alternating > div:nth-child(even) {
+  .columns.alternating > div.columns-alternating-image-right {
     flex-direction: row-reverse;
   }
 
@@ -165,7 +165,7 @@ main .columns.alternating a.button:hover {
     padding: 20px 60px;
   }
 
-  .columns.alternating > div:nth-child(even) > .columns-text {
+  .columns.alternating > div.columns-alternating-image-right > .columns-text {
     padding: 20px 100px 20px 40px;
   }
 

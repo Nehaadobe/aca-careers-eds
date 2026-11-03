@@ -17,7 +17,7 @@ https://careers.blueshieldca.com/growth-development
 https://careers.blueshieldca.com/how-to-get-hired
 https://careers.blueshieldca.com/life-at-blue-shield
 https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model
-https://careers.blueshieldca.com/total-rewards","Image and text rows whose sides alternate. A YouTube link after the image makes it a video. ""curve"" (NEW, formerly Hero (page)): page header with H1 and intro beside a photo with one curved corner; the cell order sets the side (text first = photo right, photo first = photo left) and the curve faces the text."
+https://careers.blueshieldca.com/total-rewards","Image and text rows; the image goes on the side of the cell put first (image cell first = image left), so swap the cells on every other row for a zigzag. A YouTube link after the image makes it a video. ""curve"" (NEW, formerly Hero (page)): page header with H1 and intro beside a photo with one curved corner; the cell order sets the side (text first = photo right, photo first = photo left) and the curve faces the text."
 5,Accordion,1: default,https://careers.blueshieldca.com/how-to-get-hired,"FAQ: question in cell 1, answer in cell 2."
 6,Quote,1: default,https://careers.blueshieldca.com/,"Row 1 = portrait (optional), row 2 = quotation, row 3 = name and role."
 7,Gallery,1: default,"https://careers.blueshieldca.com/a-culture-of-belonging
