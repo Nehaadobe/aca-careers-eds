@@ -207,6 +207,7 @@ header .nav-tools .nav-cta {
 header .nav-tools .nav-cta:hover {
   border-color: var(--button-hover-border-color);
   background-color: var(--button-primary-hover-background);
+  box-shadow: var(--shadow-button-hover);
   color: var(--button-primary-color);
 }
 

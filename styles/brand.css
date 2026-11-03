@@ -155,6 +155,13 @@
 
   /* motion */
   --transition-fast: 0.15s ease-in-out;
+
+  /* page decoration layers (none for BSC; Stellarus: starfield, film grain, constellation) */
+  --page-stars-image: none; /* fixed layer behind the content */
+  --page-grain-image: none; /* fixed texture over the content */
+  --page-grain-opacity: 0;
+  --hero-decoration-image: none; /* drawing behind the centered hero heading */
+  --hero-decoration-scale: 1; /* its size relative to the eyebrow + heading block */
 }
 
 /* content width steps like the source's Bootstrap container (540/720/960/1140/1320px);
@@ -209,4 +216,9 @@ body {
   --button-primary-color: var(--color-on-primary);
   --button-secondary-color: var(--color-band);
   --button-secondary-border-color: var(--color-primary);
+
+  /* hover states: by default the same as the resting look, apart from the border color */
+  --shadow-button-hover: var(--shadow-button);
+  --button-secondary-hover-background: var(--button-secondary-background);
+  --button-secondary-hover-border-color: var(--button-hover-border-color);
 }

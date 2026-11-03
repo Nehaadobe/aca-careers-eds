@@ -28,6 +28,28 @@ body.appear {
   display: block;
 }
 
+/* theme decoration layers fixed to the viewport (none unless a theme sets the tokens):
+   ::before sits behind the content (e.g. a starfield), ::after over it (e.g. film grain) */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+body::before {
+  z-index: -1;
+  background-image: var(--page-stars-image);
+}
+
+body::after {
+  z-index: 60;
+  background-image: var(--page-grain-image);
+  opacity: var(--page-grain-opacity);
+  mix-blend-mode: overlay;
+}
+
 header {
   height: var(--nav-height);
 }
@@ -223,6 +245,7 @@ button.button.primary:hover,
 button.button.accent:hover {
   border-color: var(--button-hover-border-color);
   background-color: var(--button-primary-hover-background);
+  box-shadow: var(--shadow-button-hover);
   color: var(--button-primary-color);
 }
 
@@ -236,7 +259,8 @@ button.button.secondary {
 
 main a.button.secondary:hover,
 button.button.secondary:hover {
-  border-color: var(--button-hover-border-color);
+  border-color: var(--button-secondary-hover-border-color);
+  background-color: var(--button-secondary-hover-background);
   color: var(--button-secondary-color);
 }
 

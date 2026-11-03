@@ -215,6 +215,20 @@ main .section > .hero-wrapper {
   line-height: 1.08;
   letter-spacing: var(--display-tracking);
   text-transform: var(--display-transform);
+  position: relative;
+  isolation: isolate;
+}
+
+/* theme drawing behind the eyebrow and heading (source: constellation, scaled from the heading
+   block by --hero-decoration-scale); none unless the theme sets --hero-decoration-image */
+.hero.centered:not(.page) .hero-content :is(h1, h2, h3)::before {
+  content: '';
+  position: absolute;
+  inset: calc(-11px * 1.65 - 14px) 0 0; /* up to the top of the eyebrow line */
+  z-index: -1;
+  background: var(--hero-decoration-image) center / contain no-repeat;
+  transform: scale(var(--hero-decoration-scale));
+  pointer-events: none;
 }
 
 .hero.centered:not(.page) .hero-content > p:not(.hero-eyebrow) {
@@ -256,6 +270,7 @@ main .section > .hero-wrapper {
   letter-spacing: 0.005em;
   text-decoration: none;
   white-space: nowrap;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent):any-link {
@@ -266,6 +281,7 @@ main .section > .hero-wrapper {
 
 .hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent):hover {
   background-color: var(--button-primary-hover-background);
+  box-shadow: var(--shadow-button-hover);
   color: var(--button-primary-color);
 }
 
@@ -286,6 +302,8 @@ main .section > .hero-wrapper {
 }
 
 .hero.centered:not(.page) .hero-actions a.button.secondary:hover {
+  border-color: var(--button-secondary-hover-border-color);
+  background-color: var(--button-secondary-hover-background);
   color: var(--button-secondary-color);
 }
 
