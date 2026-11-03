@@ -1,13 +1,15 @@
 import { loadCSS, loadScript } from './aem.js';
 
 /**
- * Consent (OneTrust) and analytics (Adobe Launch for CJA), started early in loadEager by
- * scripts.js without blocking rendering, as on the live site (client head.html snippet).
- *
- * Order: OtAutoBlock.js, so it can hold back tags that need consent; then Adobe Launch and
- * the OneTrust SDK stub, which pulls in the banner. Launch runs only where OneTrust runs
- * (Blue Shield and Ascendiun pages; not Stellarus), so tracking always follows consent: its
- * rules listen for the `analyticsConsentReady` event sent by scripts/onetrust.js.
+ * Consent (OneTrust) and analytics (Adobe Launch for CJA), kept off the critical path as the
+ * aem.live performance guidance asks for third-party tools (FAQ, "Keeping it 100"):
+ * - initConsent: OneTrust (OtAutoBlock.js, then the SDK stub, which pulls in the banner),
+ *   started by scripts.js after the page has loaded (end of loadLazy), not before LCP;
+ * - loadAnalytics: Adobe Launch, started by scripts.js in the delayed phase (3s after load),
+ *   after OneTrust and only where OneTrust runs (Blue Shield and Ascendiun; not Stellarus).
+ * Loading Launch late loses no consent: its OneTrust rule opts in when the
+ * `analyticsConsentReady` cookie (scripts/onetrust.js) exists and otherwise waits for the
+ * `analyticsConsentReady` event.
  *
  * The OneTrust domain script is the production one on *.aem.live and *.blueshieldca.com, and
  * the `-test` one elsewhere (aem.page previews, localhost), as in the client snippet.
@@ -58,14 +60,18 @@ function onOneTrustUpdate() {
   });
 }
 
+/** Settles once OneTrust has started (or was skipped); resolves to whether it runs. */
+let consentStarted;
+
 /**
- * Starts consent management and analytics for the page.
- * @param {{enabled: boolean}} options `enabled: false` skips OneTrust and Launch entirely
+ * Starts consent management (OneTrust) for the page.
+ * @param {{enabled: boolean}} options `enabled: false` skips OneTrust (and so Launch)
+ * @returns {Promise<boolean>} whether OneTrust runs on the page
  */
-export default async function initConsent({ enabled }) {
+async function startConsent({ enabled }) {
   if (!enabled) {
     publish({ managed: false, consented: true, groups: [] });
-    return;
+    return false;
   }
   // Blue Shield OneTrust wrapper: defines window.OptanonWrapper before the SDK loads
   await import('./onetrust.js');
@@ -79,10 +85,6 @@ export default async function initConsent({ enabled }) {
   loadCSS(`${window.hlx.codeBasePath}/styles/onetrust.css`);
   try {
     await loadScript(AUTO_BLOCK_URL, { type: 'text/javascript' });
-    loadScript(LAUNCH_URL, { async: '' }).catch((error) => {
-      // eslint-disable-next-line no-console
-      console.warn('Adobe Launch failed to load', error);
-    });
     await loadScript(SDK_STUB_URL, {
       type: 'text/javascript',
       charset: 'UTF-8',
@@ -93,5 +95,27 @@ export default async function initConsent({ enabled }) {
     // blocked or offline: consent stays declined (third-party media shows its notice)
     // eslint-disable-next-line no-console
     console.warn('OneTrust failed to load', error);
+  }
+  return true;
+}
+
+/**
+ * Starts consent management (OneTrust) once per page.
+ * @param {{enabled: boolean}} options
+ * @returns {Promise<boolean>} whether OneTrust runs on the page
+ */
+export default function initConsent(options) {
+  consentStarted = consentStarted || startConsent(options);
+  return consentStarted;
+}
+
+/** Loads Adobe Launch (CJA) after OneTrust, on pages where OneTrust runs. */
+export async function loadAnalytics() {
+  if (!consentStarted || !(await consentStarted)) return;
+  try {
+    await loadScript(LAUNCH_URL, { async: '' });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn('Adobe Launch failed to load', error);
   }
 }

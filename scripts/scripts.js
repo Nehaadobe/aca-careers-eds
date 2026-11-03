@@ -365,10 +365,6 @@ async function loadEager(doc) {
   if (template) document.body.classList.add(template);
   // theme tokens load in parallel with decoration and are applied before the first paint
   const themeLoaded = loadTheme(getTheme());
-  // consent (OneTrust) and analytics (Adobe Launch for CJA) start now, as on the live site,
-  // without blocking rendering; Launch runs only where OneTrust runs (scripts/consent.js)
-  const consentEnabled = isConsentEnabled(getTheme());
-  import('./consent.js').then(({ default: initConsent }) => initConsent({ enabled: consentEnabled }));
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
@@ -405,11 +401,25 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+
+  // third-party tools stay off the critical path (scripts/consent.js): OneTrust after load
+  const enabled = isConsentEnabled(getTheme());
+  import('./consent.js').then(({ default: initConsent }) => initConsent({ enabled }));
+}
+
+/**
+ * Loads everything that happens a while after the page has loaded: Adobe Launch (CJA).
+ */
+function loadDelayed() {
+  window.setTimeout(() => {
+    import('./consent.js').then(({ loadAnalytics }) => loadAnalytics());
+  }, 3000);
 }
 
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
+  loadDelayed();
 }
 
 loadPage();
