@@ -67,6 +67,14 @@ footer .footer-band-main .footer-brand a {
   line-height: 0;
 }
 
+/* :logo: and social icons: the box takes the image size (not the 24px icon square) */
+footer .footer-brand .icon,
+footer .footer-social .icon {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
 footer .footer-brand img {
   display: block;
   width: 142px;

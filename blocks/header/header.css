@@ -112,6 +112,13 @@ header .nav-brand .nav-logo {
   line-height: 0;
 }
 
+/* a :logo: icon: the box takes the logo's size (not the 24px icon square) */
+header .nav-brand .nav-logo .icon {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
 header .nav-brand .nav-logo img {
   display: block;
   width: 125px;

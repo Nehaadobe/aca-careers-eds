@@ -99,7 +99,7 @@
   --footer-utility-text: #fff;
   --footer-link-decoration: none; /* footer and utility links (underline on hover) */
   --footer-logo-filter: none; /* recolors the footer logo image on light footers */
-  --footer-icon-filter: none; /* recolors the social icon images */
+  --footer-icon-filter: brightness(0) invert(1); /* social icons (/icons/*.svg, black) shown white */
 
   /* buttons */
   --button-secondary-background: #fff;

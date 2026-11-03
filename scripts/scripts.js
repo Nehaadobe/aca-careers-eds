@@ -303,6 +303,42 @@ function decorateSectionMetadata(main) {
   });
 }
 
+/** Accessible names for links that hold only an icon (`:icon-name:` in Document Authoring). */
+const ICON_LABELS = {
+  'bsc-logo': 'Blue Shield of California',
+  'bsc-logo-white': 'Blue Shield of California',
+  'stellarus-logo': 'Stellarus',
+  'ascendiun-logo': 'Ascendiun',
+  'ascendiun-logo-white': 'Ascendiun',
+  facebook: 'Facebook',
+  twitter: 'Twitter',
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+  glassdoor: 'Glassdoor',
+  search: 'Search',
+};
+
+/**
+ * Turns `:icon-name:` icons (span.icon) in a fragment such as the nav or footer into images
+ * from /icons. Logos keep their own proportions (no 16x16 default size), and a link that
+ * holds only an icon gets an accessible name: its title, a known label, or the icon name.
+ * @param {Element} root
+ */
+export function decorateFragmentIcons(root) {
+  decorateIcons(root);
+  root.querySelectorAll('span.icon > img[data-icon-name]').forEach((img) => {
+    const name = img.dataset.iconName;
+    if (name.includes('logo')) {
+      img.removeAttribute('width');
+      img.removeAttribute('height');
+    }
+    const link = img.closest('a');
+    if (link && !link.textContent.trim() && !link.getAttribute('aria-label')) {
+      link.setAttribute('aria-label', link.title || ICON_LABELS[name] || name.replace(/-/g, ' '));
+    }
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element

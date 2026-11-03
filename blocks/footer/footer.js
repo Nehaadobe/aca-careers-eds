@@ -12,6 +12,7 @@
  */
 
 import { getMetadata } from '../../scripts/aem.js';
+import { decorateFragmentIcons } from '../../scripts/scripts.js';
 
 const SECTION_NAMES = ['brand', 'notice', 'links', 'social', 'utility', 'legal'];
 // sections whose off-site links open in a new tab (as on the source site)
@@ -129,6 +130,7 @@ export default async function decorate(block) {
 
   const source = document.createElement('div');
   source.innerHTML = fragment.html;
+  decorateFragmentIcons(source); // :icon-name: logos and icons
   resolveImages(source, fragment.url);
 
   const parts = {};

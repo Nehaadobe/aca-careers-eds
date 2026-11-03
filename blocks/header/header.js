@@ -12,6 +12,7 @@
  */
 
 import { getMetadata } from '../../scripts/aem.js';
+import { decorateFragmentIcons } from '../../scripts/scripts.js';
 
 // desktop navigation breakpoint: theme token --nav-desktop-min-width (default 1200px)
 let DESKTOP_QUERY = window.matchMedia('(width >= 1200px)');
@@ -173,6 +174,7 @@ export default async function decorate(block) {
 
   const source = document.createElement('div');
   source.innerHTML = fragment.html;
+  decorateFragmentIcons(source); // :icon-name: logos and icons
   resolveImages(source, fragment.url);
   const sections = [...source.children].filter((el) => el.tagName === 'DIV');
 
@@ -198,14 +200,17 @@ export default async function decorate(block) {
   // brand: logo link + site-name link
   if (parts.brand) {
     // a logo authored without a link links to the home page (as on the source site)
-    const loosePicture = [...parts.brand.querySelectorAll('picture')].find((pic) => !pic.closest('a'));
+    const loosePicture = [...parts.brand.querySelectorAll('picture, span.icon')].find((pic) => !pic.closest('a'));
     if (loosePicture) {
       const home = document.createElement('a');
       home.href = parts.brand.querySelector('a[href]')?.getAttribute('href') || '/';
-      home.setAttribute('aria-label', loosePicture.querySelector('img')?.alt || 'Home');
+      const alt = loosePicture.querySelector('img')?.alt;
+      if (alt) home.setAttribute('aria-label', alt);
       loosePicture.replaceWith(home);
       home.append(loosePicture);
       parts.brand.prepend(home);
+      if (!home.getAttribute('aria-label')) decorateFragmentIcons(parts.brand);
+      if (!home.getAttribute('aria-label')) home.setAttribute('aria-label', 'Home');
     }
     const links = [...parts.brand.querySelectorAll('a')];
     links.forEach((a) => {
