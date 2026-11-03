@@ -73,32 +73,59 @@ function groupLinkLists(section) {
   section.replaceChildren(...groups);
 }
 
+/** Text of the "Cookie preferences" footer item (client cookieprefs.js). */
+const CONSENT_LABEL = 'cookie preferences';
+
 /**
- * Is this the "Cookie preferences" link? Authored as `#cookie-preferences`; the source
- * uses `javascript:void(0)` with that text.
+ * Is this the "Cookie preferences" link? Authored as `#cookie-preferences` or with that text;
+ * the source uses `javascript:void(0)`.
  * @param {HTMLAnchorElement} a
  * @returns {boolean}
  */
 function isConsentLink(a) {
   const href = a.getAttribute('href') || '';
   return href.endsWith('#cookie-preferences')
-    || (/^javascript:/i.test(href) && /cookie preferences/i.test(a.textContent));
+    || a.textContent.trim().toLowerCase() === CONSENT_LABEL;
+}
+
+/** Opens the OneTrust preference center (any of the SDK globals, as in cookieprefs.js). */
+function openConsentPreferences() {
+  const sdk = [window.Optanon, window.OneTrust, window.Onetrust]
+    .find((candidate) => typeof candidate?.ToggleInfoDisplay === 'function');
+  sdk?.ToggleInfoDisplay();
 }
 
 /**
- * Wires "Cookie preferences" links to the OneTrust preference center (loaded in the
- * delayed phase by scripts/consent.js). Does nothing while OneTrust is absent.
+ * Wires "Cookie preferences" to the OneTrust preference center, as the client cookieprefs.js
+ * does: a list item with that text and no link gets one; the link gets the OneTrust id,
+ * classes and data-text. The click is handled here only (stopImmediatePropagation), so the
+ * SDK's own `.ot-sdk-show-settings` handler cannot toggle the center closed again.
+ * Pages without OneTrust (Stellarus) hide the item: there is no preference center to open.
  * @param {Element} root
  */
 function wireConsentLinks(root) {
-  root.querySelectorAll('a[href]').forEach((a) => {
+  root.querySelectorAll('li').forEach((li) => {
+    if (li.querySelector('a') || li.textContent.trim().toLowerCase() !== CONSENT_LABEL) return;
+    const a = document.createElement('a');
+    a.textContent = li.textContent.trim();
+    li.replaceChildren(a);
+  });
+  root.querySelectorAll('a').forEach((a) => {
     if (!isConsentLink(a)) return;
     a.setAttribute('href', '#cookie-preferences'); // never navigate to a javascript: URL
     a.setAttribute('role', 'button');
+    a.id = 'ot-cookie-pref';
+    a.classList.add('ot-link', 'ot-sdk-show-settings');
+    a.dataset.text = 'cookie-preferences';
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      window.OneTrust?.ToggleInfoDisplay?.();
+      e.stopImmediatePropagation();
+      openConsentPreferences();
     });
+    const item = a.closest('li') || a;
+    const update = (state) => { item.hidden = state?.managed === false; };
+    update(window.consentState);
+    window.addEventListener('consent.update', (e) => update(e.detail));
   });
 }
 
