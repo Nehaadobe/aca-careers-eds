@@ -5,6 +5,7 @@
 import crypto from 'node:crypto';
 import { PAGES, DEFAULT_MASKS } from './pages.js';
 import { BLOCKS } from './blocks.js';
+import { getRunConfig } from './config.js';
 
 const SIDES = ['reference', 'actual'];
 const CAPTURES = ['element', 'union', 'viewport'];
@@ -97,10 +98,16 @@ export function skipReason(c, viewport) {
   return null;
 }
 
-/** Path for one side of a case. */
+/**
+ * Path for one side of a case. `actualPath` (`<path>.html`) addresses the pages assembled
+ * for the local preview under VISUAL_ACTUAL_PATH_PREFIX (e.g. /drafts-preview); a deployed
+ * preview (no prefix) serves the clean path.
+ */
 export function sidePath(c, side) {
   if (side === 'reference') return c.referencePath || c.path;
-  return c.actualPath || c.path;
+  const actual = c.actualPath || c.path;
+  if (getRunConfig().actualPathPrefix) return actual;
+  return actual.replace(/(^|\/)index\.html$/, '$1').replace(/\.html$/, '');
 }
 
 /** Masks for one side: page defaults + case masks. */

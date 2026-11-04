@@ -85,7 +85,7 @@ const ORIGINAL_CASES = [
     path: '/',
     capture: 'element',
     reference: { target: { selector: '#site_content > .hero' } },
-    actual: { target: { selector: 'main .hero.home' } },
+    actual: { target: { selector: 'main .hero' } },
   },
   {
     id: 'icon-tiles',
