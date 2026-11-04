@@ -89,7 +89,7 @@ header .nav-hamburger-icon::after {
   content: '';
   position: absolute;
   left: 0;
-  transition: transform 0.3s linear, top 0.3s linear;
+  transition: transform var(--transition-duration-medium) linear, top var(--transition-duration-medium) linear;
 }
 
 header .nav-hamburger-icon::before {

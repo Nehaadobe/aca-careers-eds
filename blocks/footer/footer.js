@@ -11,49 +11,16 @@
  *   6. legal: copyright / disclaimer text
  */
 
-import { getMetadata } from '../../scripts/aem.js';
-import { decorateFragmentIcons } from '../../scripts/scripts.js';
+import {
+  decorateFragmentIcons,
+  fetchLayoutFragment,
+  openExternalLinksInNewTab,
+  resolveFragmentMedia,
+} from '../../scripts/scripts.js';
 
 const SECTION_NAMES = ['brand', 'notice', 'links', 'social', 'utility', 'legal'];
 // sections whose off-site links open in a new tab (as on the source site)
 const NEW_TAB_SECTIONS = ['notice', 'social'];
-
-/**
- * Fetches the footer fragment named by the page's `footer` metadata (default /footer),
- * so each brand folder can use its own (e.g. /stellarus/footer).
- * @returns {Promise<{html: string, url: string}|null>}
- */
-async function fetchFooterFragment() {
-  const metaPath = getMetadata('footer');
-  const path = metaPath ? new URL(metaPath, window.location.href).pathname : '/footer';
-  const resp = await fetch(`${path.replace(/(\.plain)?\.html$/, '')}.plain.html`);
-  if (!resp.ok) return null;
-  return { html: await resp.text(), url: resp.url };
-}
-
-/**
- * Resolves relative image sources against the fragment URL, so they work on any page depth.
- * @param {Element} root
- * @param {string} baseUrl
- */
-function resolveImages(root, baseUrl) {
-  root.querySelectorAll('img[src]').forEach((img) => {
-    img.src = new URL(img.getAttribute('src'), baseUrl).href;
-    img.loading = 'lazy';
-  });
-}
-
-/**
- * Opens off-site links in a new tab.
- * @param {Element} root
- */
-function openExternalInNewTab(root) {
-  root.querySelectorAll('a[href]').forEach((a) => {
-    if (new URL(a.href, window.location.href).origin === window.location.origin) return;
-    a.target = '_blank';
-    a.rel = 'noopener';
-  });
-}
 
 /**
  * Groups each "label paragraph + following list" pair into its own column.
@@ -151,14 +118,14 @@ function buildBand(name, children, tag = 'div') {
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  const fragment = await fetchFooterFragment();
+  const fragment = await fetchLayoutFragment('footer', '/footer');
   block.textContent = '';
   if (!fragment) return;
 
   const source = document.createElement('div');
   source.innerHTML = fragment.html;
   decorateFragmentIcons(source); // :icon-name: logos and icons
-  resolveImages(source, fragment.url);
+  resolveFragmentMedia(source, fragment.url, 'lazy');
 
   const parts = {};
   const sections = [...source.children].filter((el) => el.tagName === 'DIV');
@@ -171,7 +138,7 @@ export default async function decorate(block) {
     parts[name] = section;
   });
 
-  NEW_TAB_SECTIONS.forEach((name) => { if (parts[name]) openExternalInNewTab(parts[name]); });
+  NEW_TAB_SECTIONS.forEach((name) => { if (parts[name]) openExternalLinksInNewTab(parts[name]); });
   if (parts.links) groupLinkLists(parts.links);
   parts.social?.querySelector('ul')?.setAttribute('aria-label', 'Social media');
 

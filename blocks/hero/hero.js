@@ -1,3 +1,5 @@
+import { decorateLoneLinkButtons, unwrapPicture } from '../../scripts/scripts.js';
+
 /**
  * Hero block.
  *
@@ -12,22 +14,6 @@
  *   - `centered` - centered text intro, usually without an image: optional eyebrow
  *     paragraph before the H1, body copy, then CTA buttons side by side.
  */
-
-/**
- * Turns a link that sits alone in its paragraph into a button, for authors who
- * did not bold/italicise it (decorateButtons only handles formatted links).
- * @param {Element} container
- */
-function buttonizeLoneLinks(container) {
-  container.querySelectorAll('p > a[href]').forEach((a) => {
-    const p = a.parentElement;
-    if (a.classList.contains('button') || a.querySelector('img')) return;
-    if (p.textContent.trim() !== a.textContent.trim()) return;
-    a.classList.add('button', 'primary');
-    a.title = a.title || a.textContent.trim();
-    p.classList.add('button-wrapper');
-  });
-}
 
 /**
  * Centered option: marks the eyebrow (text paragraphs before the heading), groups
@@ -46,7 +32,7 @@ function decorateCentered(block, picture, contentCell) {
     children.push(media);
   }
   if (contentCell) {
-    buttonizeLoneLinks(contentCell);
+    decorateLoneLinkButtons(contentCell);
     contentCell.querySelectorAll(':scope > p').forEach((p) => {
       if (p.textContent.trim() === '' && !p.querySelector('img, picture, a')) p.remove();
     });
@@ -87,8 +73,7 @@ export default function decorate(block) {
 
   if (picture) {
     // Unwrap a picture that the author placed inside a paragraph.
-    const p = picture.closest('p');
-    if (p && p.textContent.trim() === '' && p.children.length === 1) p.replaceWith(picture);
+    unwrapPicture(picture);
     picture.classList.add('hero-media');
   }
 
@@ -96,7 +81,7 @@ export default function decorate(block) {
   if (!picture) block.classList.add('no-image');
 
   if (block.classList.contains('home') && contentCell) {
-    buttonizeLoneLinks(contentCell);
+    decorateLoneLinkButtons(contentCell);
   }
 
   if (block.classList.contains('centered')) decorateCentered(block, picture, contentCell);

@@ -124,16 +124,8 @@ main .columns.alternating a.button:hover {
   display: block;
 }
 
+/* the shared .video-play circle (styles.css) */
 .columns.alternating .columns-video-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: var(--icon-play-solid) center / 60px no-repeat;
-  background-color: var(--color-primary);
-  transform: translate(-50%, -50%);
   pointer-events: none;
 }
 

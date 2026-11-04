@@ -78,7 +78,7 @@
   margin: 0 0 15px;
   padding: 40px;
   border: 0;
-  border-radius: 16px;
+  border-radius: var(--radius-large);
   background-color: var(--color-surface);
   box-shadow: var(--shadow-tile);
   color: var(--color-text);
@@ -140,7 +140,7 @@ main .cards.feature-links .cards-card-cta a:any-link {
   border-top: 2px solid currentcolor;
   border-right: 2px solid currentcolor;
   transform: translateY(-2px) rotate(45deg);
-  transition: transform 0.3s;
+  transition: transform var(--transition-duration-medium);
 }
 
 .cards.feature-links .cards-card-cta a:hover::after,
@@ -226,23 +226,11 @@ main .cards.feature-links .cards-card-cta a:any-link {
   object-fit: cover;
 }
 
+/* the shared .video-play circle (styles.css), as an outlined ring */
 .cards.video-tiles .cards-video-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
+  background: var(--icon-play-outline) center / var(--video-play-size) no-repeat;
   box-shadow: var(--shadow-media-control);
-  transform: translate(-50%, -50%);
   pointer-events: none;
-}
-
-.cards.video-tiles .cards-video-play::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--icon-play-outline) center / 60px 60px no-repeat;
 }
 
 .cards.video-tiles .cards-card-body {

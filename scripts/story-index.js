@@ -1,13 +1,28 @@
 /**
  * Story index helper: fetches EDS sheet JSON (the site query index and the
  * external-stories sheet), normalises rows into story objects, and offers
- * filter/sort utilities. Used by the story-listing block; meant to be reused
- * by related-stories cards on blog articles.
+ * filter/sort utilities, plus the story card image and date builders. Used by the
+ * story-listing, article-list and article-header blocks.
  *
  * Every loader resolves (never rejects): a missing or broken source yields [].
  */
+import { createOptimizedPicture } from './aem.js';
 
 const MAX_PAGES = 50;
+
+/** Default story sources: the blog index, the external-stories sheet and the listing paths. */
+export const STORY_SOURCES = {
+  index: '/blog/query-index.json',
+  external: '/blog/external-stories.json',
+  pathPrefix: '/blog/',
+  exclude: ['/blog', '/blog/authors', '/blog/search'],
+};
+
+/** The story listing page and its URL filter parameter per story field. */
+export const STORY_LISTING = {
+  path: '/blog',
+  params: { roles: 'role', topics: 'topic' },
+};
 const sheetCache = new Map();
 
 /**
@@ -196,10 +211,10 @@ function trimSlash(path) {
  * @returns {Promise<object[]>}
  */
 export async function loadStories({
-  index = '/blog/query-index.json',
+  index = STORY_SOURCES.index,
   external = '',
-  pathPrefix = '/blog/',
-  exclude = ['/blog', '/blog/authors', '/blog/search'],
+  pathPrefix = STORY_SOURCES.pathPrefix,
+  exclude = STORY_SOURCES.exclude,
 } = {}) {
   const indexes = Array.isArray(index) ? index : [index];
   const [externalRows, ...indexSheets] = await Promise.all(
@@ -311,9 +326,53 @@ export function sortStories(stories, sort = 'newest') {
  * @param {string} [locale]
  * @returns {string}
  */
+const dateFormats = new Map();
+
 export function formatStoryDate(date, locale = 'en-US') {
   if (!date) return '';
-  return new Intl.DateTimeFormat(locale, {
-    month: 'long', day: '2-digit', year: 'numeric', timeZone: 'UTC',
-  }).format(new Date(date));
+  if (!dateFormats.has(locale)) {
+    dateFormats.set(locale, new Intl.DateTimeFormat(locale, {
+      month: 'long', day: '2-digit', year: 'numeric', timeZone: 'UTC',
+    }));
+  }
+  return dateFormats.get(locale).format(new Date(date));
+}
+
+/**
+ * A <time> element for a story date: "March 07, 2024", datetime yyyy-mm-dd.
+ * @param {number|string|Date} date
+ * @returns {HTMLTimeElement|null}
+ */
+export function buildStoryTime(date) {
+  if (!date) return null;
+  const time = document.createElement('time');
+  time.dateTime = new Date(date).toISOString().slice(0, 10);
+  time.textContent = formatStoryDate(date);
+  return time;
+}
+
+/**
+ * The image of a story card in a wrapper div: an optimized picture for images on this site,
+ * a plain lazy image otherwise (other hosts, and SVG, which createOptimizedPicture cannot
+ * transcode).
+ * @param {{image: string, imageAlt: string}} story
+ * @param {string} className wrapper class
+ * @returns {HTMLDivElement|null} null when the story has no image
+ */
+export function buildStoryImage(story, className) {
+  if (!story.image) return null;
+  const wrapper = document.createElement('div');
+  wrapper.className = className;
+  const svg = /\.svg($|[?#])/i.test(story.image);
+  if (isSameOrigin(story.image) && !svg) {
+    wrapper.append(createOptimizedPicture(story.image, story.imageAlt, false, [{ width: '750' }]));
+  } else {
+    const img = document.createElement('img');
+    img.src = story.image;
+    img.alt = story.imageAlt;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    wrapper.append(img);
+  }
+  return wrapper;
 }

@@ -170,6 +170,9 @@ body {
   --radius-panel: 0;
   --radius-media: 0;
   --radius-media-mirror: 0;
+  --radius-small: 0;
+  --radius-large: 0;
+  --radius-control: 0;
 
   /* shadows (source: none; white text sits on photos without a shadow) */
   --shadow-card: none;
@@ -181,6 +184,7 @@ body {
 
   /* motion (source: hover changes are instant) */
   --transition-fast: 0s;
+  --transition-duration-medium: 0s;
 }
 
 /* breakpoint-exception: source sizes between 1024 and 1439px (56px hero, 32px headings) */

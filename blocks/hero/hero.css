@@ -23,14 +23,6 @@ main .section > .hero-wrapper {
   overflow: hidden;
   isolation: isolate;
   color: var(--color-text);
-
-  /* buttons here use the theme's on-dark button colors */
-  --button-primary-color: var(--button-on-dark-primary-color);
-  --button-primary-hover-color: var(--button-on-dark-primary-hover-color);
-  --button-secondary-color: var(--button-on-dark-secondary-color);
-  --button-secondary-hover-color: var(--button-on-dark-secondary-hover-color);
-  --button-secondary-border-color: var(--button-on-dark-secondary-border-color);
-  --button-secondary-hover-border-color: var(--button-on-dark-secondary-hover-border-color);
 }
 
 .hero:not(.centered) picture {
@@ -158,52 +150,11 @@ main .section > .hero-wrapper {
   margin: 0;
 }
 
+/* the global button styles (styles.css), as fixed-height single-line pills */
 .hero.centered .hero-actions a.button:any-link {
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--button-arrow-gap);
   height: 54px;
-  margin: 0;
-  padding: var(--button-primary-padding);
-  border: 1px solid transparent;
-  border-radius: var(--radius-button);
-  font-family: var(--font-body);
   font-size: 16px;
-  font-weight: 600;
   line-height: 1;
   letter-spacing: 0.005em;
-  text-decoration: none;
   white-space: nowrap;
-  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.hero.centered .hero-actions a.button:is(.primary, .accent):any-link {
-  background-color: var(--button-primary-background);
-  box-shadow: var(--shadow-button);
-  color: var(--button-primary-color);
-}
-
-.hero.centered .hero-actions a.button:is(.primary, .accent):hover {
-  background-color: var(--button-primary-hover-background);
-  box-shadow: var(--shadow-button-hover);
-  color: var(--button-primary-hover-color);
-}
-
-.hero.centered .hero-actions a.button.secondary:any-link {
-  padding: var(--button-secondary-padding);
-  border-color: var(--button-secondary-border-color);
-  background-color: var(--button-secondary-background);
-  color: var(--button-secondary-color);
-}
-
-.hero.centered .hero-actions a.button.secondary:hover {
-  border-color: var(--button-secondary-hover-border-color);
-  background-color: var(--button-secondary-hover-background);
-  color: var(--button-secondary-hover-color);
-}
-
-.hero.centered .hero-actions a.button:is(.primary, .accent, .secondary):focus-visible {
-  box-shadow: var(--focus-ring);
 }

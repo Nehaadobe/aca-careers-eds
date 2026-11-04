@@ -1,4 +1,5 @@
-import { bindVideoLink, getYouTubeId } from '../../scripts/video-modal.js';
+import { getYouTubeId, unwrapPicture } from '../../scripts/scripts.js';
+import { bindVideoLink } from '../../scripts/video-modal.js';
 
 /**
  * Columns block: one row per line of columns, one cell per column.
@@ -48,7 +49,7 @@ function decorateVideo(cell) {
   play.className = 'columns-video';
   play.setAttribute('aria-label', title ? `Play video: ${title}` : 'Play video');
   const icon = document.createElement('span');
-  icon.className = 'columns-video-play';
+  icon.className = 'columns-video-play video-play';
   icon.setAttribute('aria-hidden', 'true');
   play.append(picture, icon);
 
@@ -83,9 +84,7 @@ function decorateCurve(block) {
       return;
     }
     // a picture authored inside a paragraph: keep the picture only
-    const picture = media.querySelector('picture');
-    const p = picture.closest('p');
-    if (p && p.textContent.trim() === '' && p.children.length === 1) p.replaceWith(picture);
+    unwrapPicture(media.querySelector('picture'));
     media.classList.add('columns-media');
     row.classList.add(cells.indexOf(media) === 0 ? 'columns-curve-image-left' : 'columns-curve-image-right');
     // photo first in the DOM so it stacks above the text on mobile; CSS sets the side

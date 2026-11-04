@@ -159,7 +159,7 @@ pre {
 
 pre {
   padding: 16px;
-  border-radius: 8px;
+  border-radius: var(--radius-small);
   background-color: var(--color-surface-tint);
   overflow-x: auto;
   white-space: pre;
@@ -190,10 +190,6 @@ a:focus-visible {
 }
 
 /* buttons: EDS reset, then source pill variants */
-main .button-container {
-  display: inline;
-}
-
 main a.button:any-link {
   background: none;
   border: none;
@@ -242,6 +238,7 @@ main a.button.accent:any-link,
 button.button.primary,
 button.button.accent {
   background-color: var(--button-primary-background);
+  box-shadow: var(--shadow-button);
   color: var(--button-primary-color);
 }
 
@@ -286,7 +283,7 @@ button.button.secondary:hover {
   color: var(--button-secondary-hover-color);
 }
 
-main a.button:focus-visible,
+main a.button:is(.primary, .accent, .secondary):focus-visible,
 button.button:focus-visible {
   outline-offset: 1px;
   box-shadow: var(--focus-ring);
@@ -385,14 +382,99 @@ main .section.blue {
   padding: 30px 0;
   background-color: var(--color-band-accent);
   color: var(--color-on-band-accent);
+}
 
-  /* buttons here use the theme's on-dark button colors */
+/* dark grounds (blue section, banner, hero over a photo): buttons use the on-dark colors */
+:is(main .section.blue, .banner, .hero:not(.centered)) {
   --button-primary-color: var(--button-on-dark-primary-color);
   --button-primary-hover-color: var(--button-on-dark-primary-hover-color);
   --button-secondary-color: var(--button-on-dark-secondary-color);
   --button-secondary-hover-color: var(--button-on-dark-secondary-hover-color);
   --button-secondary-border-color: var(--button-on-dark-secondary-border-color);
   --button-secondary-hover-border-color: var(--button-on-dark-secondary-hover-border-color);
+}
+
+/*
+ * Story cards: the tile shared by the article-list and story-listing blocks (source .tiles).
+ * The blocks add these classes and keep only their own layout differences.
+ */
+.story-card-grid {
+  display: grid;
+  gap: 30px;
+  margin: 0;
+  padding: 10px 0 20px;
+  list-style: none;
+}
+
+.story-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-fast);
+}
+
+.story-card:hover {
+  box-shadow: 0 0 0 1px var(--color-link), var(--shadow-card);
+}
+
+/* keyboard focus on the card link (article-list) or on the title link inside (story-listing) */
+.story-card:is(:focus-visible, :has(:focus-visible)) {
+  outline: none;
+  box-shadow: var(--focus-ring), var(--shadow-card);
+}
+
+.story-card-image {
+  line-height: 0;
+}
+
+.story-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 25 / 14;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.story-card-body {
+  padding: 40px;
+}
+
+.story-card-title {
+  margin: 0 0 30px;
+  color: var(--color-link);
+  font-family: var(--font-heading);
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-heading);
+  line-height: 30px;
+}
+
+.story-card-date {
+  color: var(--color-text-muted);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+.story-card-description {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+/* round video play control centered on a poster (embed facade, columns and cards videos) */
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--video-play-size);
+  height: var(--video-play-size);
+  border-radius: 50%;
+  background: var(--icon-play-solid) center / var(--video-play-size) no-repeat var(--color-primary);
+  transform: translate(-50%, -50%);
 }
 
 main .section.blue h1,
@@ -512,12 +594,6 @@ body.blog-article main > .section.article-list-container > .default-content-wrap
   text-align: center;
 }
 
-/* blog articles: auto-built "More Stories" band; the light-blue fill starts 40% down */
-main .section.related-stories {
-  margin: var(--section-spacing) 0 0;
-  padding: 0 0 40px;
-  background: linear-gradient(to bottom, transparent 40%, var(--color-surface-tint) 40%);
-}
 
 /* honor the OS "reduce motion" setting site-wide (hover zooms, slides, smooth scroll) */
 @media (prefers-reduced-motion: reduce) {

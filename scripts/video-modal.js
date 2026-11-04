@@ -9,43 +9,37 @@
  *   returns to the element that opened it.
  * - Links keep their real href, so they still work without JS, with
  *   modifier keys (new tab) or middle click.
+ * - Like the embed block, the player only opens once consent is granted
+ *   (see hasMediaConsent); without it the link opens the video on YouTube.
+ *
+ * Also hasMediaConsent, shared with the embed block (video URL helpers: scripts.js).
  */
 import { loadCSS } from './aem.js';
+// eslint-disable-next-line import/no-cycle
+import { getYouTubeId } from './scripts.js';
 
 let dialog;
 let opener;
 let cssLoaded;
 
-function loadStyles() {
-  if (!cssLoaded) cssLoaded = loadCSS(`${window.hlx?.codeBasePath || ''}/styles/video-modal.css`);
-  return cssLoaded;
-}
+let consented = Boolean(window.consentState?.consented);
+window.addEventListener('consent.update', (event) => {
+  consented = Boolean(event.detail?.consented);
+});
 
 /**
- * Returns the YouTube video id for a youtube.com/watch, youtu.be, /embed/ or
- * /shorts/ URL, or null when the URL is not a YouTube video.
- * @param {string} href
- * @returns {string|null}
+ * Whether third-party video players may load: scripts/consent.js publishes
+ * `window.consentState` and `consent.update` (pages without OneTrust report
+ * consent as granted). Until consent is known, players do not load.
+ * @returns {boolean}
  */
-export function getYouTubeId(href) {
-  let url;
-  try {
-    url = new URL(href, window.location.href);
-  } catch {
-    return null;
-  }
-  const host = url.hostname.replace(/^(www\.|m\.)/, '');
-  let id = null;
-  if (host === 'youtu.be') {
-    [, id] = url.pathname.split('/');
-  } else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
-    if (url.pathname === '/watch') id = url.searchParams.get('v');
-    else {
-      const match = url.pathname.match(/^\/(?:embed|shorts|live)\/([^/?#]+)/);
-      if (match) [, id] = match;
-    }
-  }
-  return id && /^[\w-]{6,}$/.test(id) ? id : null;
+export function hasMediaConsent() {
+  return consented;
+}
+
+function loadStyles() {
+  if (!cssLoaded) cssLoaded = loadCSS(`${window.hlx.codeBasePath}/styles/video-modal.css`);
+  return cssLoaded;
 }
 
 /**
@@ -148,6 +142,8 @@ export function bindVideoLink(link, title) {
   link.addEventListener('click', (e) => {
     const modified = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
     if (e.defaultPrevented || e.button !== 0 || modified) return;
+    // without consent the link opens the video on YouTube, as the embed block offers
+    if (!hasMediaConsent()) return;
     if (openVideoModal(link.href, { title: label, trigger: link })) e.preventDefault();
   });
   return true;

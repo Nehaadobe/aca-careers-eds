@@ -62,7 +62,7 @@
   margin: 0;
   padding: 10.56px 40px 10.56px 16px;
   border: 1px solid var(--color-border);
-  border-radius: 6px 0 0 6px;
+  border-radius: var(--radius-control) 0 0 var(--radius-control);
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: inherit;
@@ -82,7 +82,7 @@
 
 .story-listing .story-listing-select {
   padding-right: 48px;
-  border-radius: 6px;
+  border-radius: var(--radius-control);
   background-image: var(--icon-select-chevron);
   background-position: calc(100% - 16px) 50%;
   background-repeat: no-repeat;
@@ -111,7 +111,7 @@
   margin: 0;
   padding: 0;
   border: 1px solid var(--button-border-color);
-  border-radius: 0 6px 6px 0;
+  border-radius: 0 var(--radius-control) var(--radius-control) 0;
   background-color: var(--button-primary-background);
   color: var(--button-primary-color);
   cursor: pointer;
@@ -191,14 +191,9 @@
   white-space: normal;
 }
 
-/* Story grid (same tile treatment as cards.story-grid / source .tiles) */
+/* Story grid: card tiles are the shared .story-card rules in styles.css (source .tiles) */
 .story-listing .story-listing-grid {
-  display: grid;
   grid-template-columns: 1fr;
-  gap: 30px;
-  margin: 0;
-  padding: 10px 0 20px;
-  list-style: none;
 }
 
 .story-listing .story-listing-grid:focus {
@@ -211,45 +206,12 @@
 
 .story-listing .story-listing-card {
   position: relative;
-  display: flex;
-  flex-direction: column;
   margin: 0;
-  overflow: hidden;
-  border-radius: var(--radius-card);
-  background-color: var(--color-surface);
-  box-shadow: var(--shadow-card);
-  transition: box-shadow var(--transition-fast);
-}
-
-.story-listing .story-listing-card:where(:hover, :focus-within) {
-  box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-card);
-}
-
-.story-listing .story-listing-card-image {
-  line-height: 0;
-}
-
-.story-listing .story-listing-card-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 25 / 14;
-  object-fit: cover;
-  object-position: 50% 50%;
 }
 
 .story-listing .story-listing-card-body {
   flex: 1 1 auto;
-  padding: 40px;
   background-color: var(--color-surface);
-}
-
-.story-listing .story-listing-card-title {
-  margin: 0 0 30px;
-  color: var(--color-link);
-  font-size: var(--heading-font-size-l);
-  font-weight: var(--font-weight-heading);
-  line-height: 30px;
 }
 
 .story-listing .story-listing-card-link:any-link,
@@ -272,16 +234,6 @@
 
 .story-listing .story-listing-card-date {
   margin: 10px 0;
-  color: var(--color-text-muted);
-  font-size: var(--body-font-size-m);
-  line-height: 24px;
-}
-
-.story-listing .story-listing-card-description {
-  margin: 0;
-  color: var(--color-text);
-  font-size: var(--body-font-size-m);
-  line-height: 24px;
 }
 
 /* Pagination */
