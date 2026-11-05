@@ -351,6 +351,7 @@ function decorateSectionMetadata(main) {
 const ICON_LABELS = {
   'bsc-logo': 'Blue Shield of California',
   'bsc-logo-white': 'Blue Shield of California',
+  'bsc-shield': 'Blue Shield of California',
   'stellarus-logo': 'Stellarus',
   'ascendiun-logo': 'Ascendiun',
   'ascendiun-logo-white': 'Ascendiun',
