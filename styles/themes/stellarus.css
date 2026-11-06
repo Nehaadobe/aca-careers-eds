@@ -155,7 +155,12 @@ body {
   --color-share: #1e283f;
 
   /* header and footer: the careers site nav and footer (/nav, /footer) in Stellarus colors */
-  --nav-logo-filter: brightness(0) invert(1); /* blue careers logo shown white on the dark page */
+
+  /* logos: the stellarus.com lockup (red star + white wordmark, scripts.js THEMES.stellarus.logos),
+     130px in the source nav, about 114px in its footer */
+  --nav-logo-filter: none;
+  --nav-logo-width: 130px;
+  --footer-logo-width: 114px;
   --header-background: transparent;
   --header-border-color: transparent; /* source: 1px transparent line under the nav */
   --header-button-background: rgb(255 255 255 / 4%);

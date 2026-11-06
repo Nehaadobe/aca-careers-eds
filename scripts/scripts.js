@@ -56,7 +56,12 @@ const THEMES = {
     css: false, adobeFonts: true, consent: true, favicon: '/favicons/bsc.png',
   },
   stellarus: {
-    css: true, adobeFonts: false, consent: false, favicon: '/favicons/stellarus.png',
+    css: true,
+    adobeFonts: false,
+    consent: false,
+    favicon: '/favicons/stellarus.png',
+    logos: { 'bsc-logo': 'stellarus-logo-full', 'bsc-logo-white': 'stellarus-logo-full' },
+    logoHome: 'https://www.stellarus.com/',
   },
   // Fieldwork is self-hosted in the theme file; OneTrust stays on for the careers domain
   ascendiun: {
@@ -365,6 +370,7 @@ const ICON_LABELS = {
   'bsc-logo-white': 'Blue Shield of California',
   'bsc-shield': 'Blue Shield of California',
   'stellarus-logo': 'Stellarus',
+  'stellarus-logo-full': 'Stellarus',
   'ascendiun-logo': 'Ascendiun',
   'ascendiun-logo-white': 'Ascendiun',
   facebook: 'Facebook',
