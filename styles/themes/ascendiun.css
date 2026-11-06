@@ -92,7 +92,12 @@ body {
   --footer-link-hover-color: #162c55;
   --footer-utility-link-color: #0071bc;
   --footer-link-decoration: underline;
-  --footer-logo-filter: brightness(0); /* the white careers logo shown black, like the source wordmark */
+
+  /* logos: the black Ascendiun wordmark (scripts.js THEMES.ascendiun.logos), 288x26 on the source */
+  --footer-logo-filter: none;
+  --nav-logo-width: 216px;
+  --footer-logo-width: 216px;
+  --footer-brand-width: 246px;
   --footer-icon-filter: brightness(0);
 
   /* buttons as the source's arrow links: bold CTA Blue label, 16px arrow 8px after it,
@@ -211,5 +216,6 @@ body {
     --heading-font-size-l: 20px;
     --body-font-size-l: 18px;
     --section-spacing: 40px;
+    --nav-logo-width: 150px; /* leaves room for the site name beside the menu button */
   }
 }

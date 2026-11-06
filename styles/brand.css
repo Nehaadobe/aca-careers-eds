@@ -91,6 +91,7 @@
 
   /* header and footer */
   --nav-logo-filter: none; /* themes on a dark page recolor the nav logo image */
+  --nav-logo-width: 125px;
   --header-border-color: #f4f4f4;
   --header-button-background: #f8f9fa;
   --footer-background: #25282a;
@@ -99,6 +100,8 @@
   --footer-utility-text: #fff;
   --footer-link-decoration: none; /* footer and utility links (underline on hover) */
   --footer-logo-filter: none; /* recolors the footer logo image on light footers */
+  --footer-logo-width: 142px;
+  --footer-brand-width: 150px; /* desktop logo column */
   --footer-icon-filter: brightness(0) invert(1); /* social icons (/icons/*.svg, black) shown white */
 
   /* buttons */

@@ -48,6 +48,8 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
  * - adobeFonts: loads styles/fonts.css (Adobe Fonts kit wcg8bju).
  * - consent: OneTrust by default; page metadata `consent: on|off` overrides it.
  * - favicon: the brand's icon (head.html links the BSC one); none keeps the BSC icon.
+ * - logos: brand logo icons shown instead of the careers ones in the shared nav and footer
+ *   (`:bsc-logo:` -> `:ascendiun-logo:`); `logoHome` is where an off-site logo link goes.
  */
 const THEMES = {
   bsc: {
@@ -58,7 +60,12 @@ const THEMES = {
   },
   // Fieldwork is self-hosted in the theme file; OneTrust stays on for the careers domain
   ascendiun: {
-    css: true, adobeFonts: false, consent: true, favicon: '/favicons/ascendiun.png',
+    css: true,
+    adobeFonts: false,
+    consent: true,
+    favicon: '/favicons/ascendiun.png',
+    logos: { 'bsc-logo': 'ascendiun-logo', 'bsc-logo-white': 'ascendiun-logo' },
+    logoHome: 'https://www.ascendiun.com/',
   },
 };
 const DEFAULT_THEME = 'bsc';
@@ -370,6 +377,17 @@ const ICON_LABELS = {
  * @param {Element} root
  */
 export function decorateFragmentIcons(root) {
+  // brand logos: the theme's logo replaces the careers logo (same nav/footer for every brand)
+  const { logos = {}, logoHome } = THEMES[getTheme()];
+  root.querySelectorAll('span.icon').forEach((span) => {
+    const name = [...span.classList].find((c) => c.startsWith('icon-'))?.slice(5);
+    if (!logos[name]) return;
+    span.classList.replace(`icon-${name}`, `icon-${logos[name]}`);
+    const link = span.closest('a');
+    if (link && logoHome && new URL(link.href).origin !== window.location.origin) {
+      link.href = logoHome;
+    }
+  });
   decorateIcons(root);
   root.querySelectorAll('span.icon > img[data-icon-name]').forEach((img) => {
     const name = img.dataset.iconName;

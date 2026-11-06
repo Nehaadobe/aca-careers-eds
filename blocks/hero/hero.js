@@ -8,7 +8,8 @@ import { decorateLoneLinkButtons, unwrapPicture } from '../../scripts/scripts.js
  *   - a single cell holding the image followed by the heading/CTA (boilerplate shape)
  *
  * Options (block classes):
- *   - `home` - full-bleed, centered headline and CTA over the image.
+ *   - `home` - full-bleed, centered headline and CTA over the image (the same look as no
+ *     option: authors may use Hero or Hero (home)).
  *   (Page headers - H1 and intro beside a photo with a curved corner - are the
  *   Columns (curve) block.)
  *   - `centered` - centered text intro, usually without an image: optional eyebrow
@@ -80,7 +81,8 @@ export default function decorate(block) {
   if (contentCell) contentCell.classList.add('hero-content');
   if (!picture) block.classList.add('no-image');
 
-  if (block.classList.contains('home') && contentCell) {
+  // photo heroes (default and home): a link alone in its paragraph is the CTA button
+  if (!block.classList.contains('centered') && contentCell) {
     decorateLoneLinkButtons(contentCell);
   }
 

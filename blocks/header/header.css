@@ -121,7 +121,7 @@ header .nav-brand .nav-logo .icon {
 
 header .nav-brand .nav-logo img {
   display: block;
-  width: 125px;
+  width: var(--nav-logo-width);
   height: auto;
   filter: var(--nav-logo-filter);
 }
