@@ -71,7 +71,7 @@ the cursor.
 | --- | --- |
 | **Blocks** | Every block with each of its variations (source: `/tools/library/blocks/`) |
 | **Templates** | Section landing page, Text page, Story article, Stellarus landing page |
-| **Icons** | Logos: bsc-logo, bsc-logo-white, bsc-shield (the shield on its own), stellarus-logo, ascendiun-logo, ascendiun-logo-white. Social and UI: facebook, twitter, instagram, linkedin, glassdoor, search. Inserted as `:name:` (e.g. `:bsc-shield:`) |
+| **Icons** | Logos: bsc-logo, bsc-logo-white, bsc-shield (the shield on its own), stellarus-logo (the star), stellarus-logo-full (star + Stellarus wordmark), ascendiun-logo, ascendiun-logo-white. Social and UI: facebook, twitter, instagram, linkedin, glassdoor, search. Inserted as `:name:` (e.g. `:bsc-shield:`) |
 | **Media** | Images already uploaded to Document Authoring |
 
 **Slash menu:** inside a block table, type `/` in a value cell to pick from the allowed values (for example
