@@ -94,7 +94,12 @@ export function getPageMetadata(name, doc = document) {
  */
 function getTheme() {
   const theme = toClassName(getPageMetadata('theme').split(',')[0]);
-  return THEMES[theme] ? theme : DEFAULT_THEME;
+  if (THEMES[theme]) return theme;
+  // no theme metadata (e.g. a local preview, which drops it): the brand folder in the path
+  // (/ascendiun/careers, /stellarus/careers)
+  const folder = window.location.pathname.split('/').map(toClassName)
+    .find((segment) => segment !== DEFAULT_THEME && THEMES[segment]);
+  return folder || DEFAULT_THEME;
 }
 
 /**
