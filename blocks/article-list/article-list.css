@@ -14,13 +14,9 @@ body main > .section > div.article-list-wrapper {
   max-width: var(--content-max-width);
 }
 
+/* card tile: the shared .story-card rules in styles.css; layout differences only here */
 .article-list .article-list-items {
-  display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 30px;
-  margin: 0;
-  padding: 10px 0 20px;
-  list-style: none;
 }
 
 /* Light = source plain content-section tiles, nested one container deeper (30px inset) */
@@ -33,72 +29,26 @@ body main > .section > div.article-list-wrapper {
   margin: 0;
 }
 
+/* the whole card is the link */
 .article-list .article-list-card {
-  display: flex;
   flex: 1 1 auto;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: var(--radius-card);
-  background-color: var(--color-surface);
-  box-shadow: var(--shadow-card);
   color: var(--color-link);
   text-decoration: none;
-  transition: box-shadow var(--transition-fast);
-}
-
-.article-list .article-list-card:hover,
-.article-list .article-list-card:focus-visible {
-  box-shadow: 0 0 0 1px var(--color-link), var(--shadow-card);
-}
-
-.article-list .article-list-card:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring), var(--shadow-card);
-}
-
-.article-list .article-list-card-image {
-  line-height: 0;
-  background-color: var(--color-surface-muted);
 }
 
 /* source .tiles-figure: padding-top 56% box, image object-fit cover, centered */
-.article-list .article-list-card-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 25 / 14;
-  object-fit: cover;
-  object-position: 50% 50%;
+.article-list .article-list-card-image {
+  background-color: var(--color-surface-muted);
 }
 
 .article-list .article-list-card-body {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  padding: 40px;
-}
-
-.article-list .article-list-card-title {
-  margin: 0 0 30px;
-  color: var(--color-link);
-  font-family: var(--font-heading);
-  font-size: var(--heading-font-size-l);
-  font-weight: 600;
-  line-height: 30px;
 }
 
 .article-list .article-list-card-date {
   margin: 0 0 10px;
-  color: var(--color-text-muted);
-  font-size: var(--body-font-size-m);
-  line-height: 24px;
-}
-
-.article-list .article-list-card-description {
-  margin: 0;
-  color: var(--color-text);
-  font-size: var(--body-font-size-m);
-  line-height: 24px;
 }
 
 /* More Stories band (source .blue_bottom): tighter title, label right under the text */

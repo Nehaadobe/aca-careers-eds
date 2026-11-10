@@ -2,8 +2,6 @@
  * Hero block. Values from the source computed styles (migration-work/hero-extracted.css).
  * Options:
  *   home          - full-bleed photo, headline + CTA centered at the bottom
- *   page          - page header: title/subtitle left, photo right (rounded bottom-left)
- *   page no-image - title only (no-image is added by hero.js when no picture is authored)
  *   centered      - centered text intro: eyebrow, H1, copy, CTAs side by side (Stellarus careers)
  */
 
@@ -14,7 +12,7 @@ main .section > .hero-wrapper {
 }
 
 /* ---------- default + home: full-bleed photo with overlaid headline ---------- */
-.hero:not(.page, .centered) {
+.hero:not(.centered) {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -27,148 +25,48 @@ main .section > .hero-wrapper {
   color: var(--color-text);
 }
 
-.hero:not(.page, .centered) picture {
+.hero:not(.centered) picture {
   position: absolute;
   inset: 0;
   z-index: -1;
   background-color: var(--color-surface-muted);
 }
 
-.hero:not(.page, .centered) img {
+.hero:not(.centered) img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.hero:not(.page, .centered) .hero-content {
-  max-width: 450px;
+.hero:not(.centered) .hero-content {
+  max-width: var(--hero-title-max-width);
   margin: 0 auto;
   padding: 30px 0;
   text-align: center;
 }
 
-.hero:not(.page, .centered) .hero-content h1,
-.hero:not(.page, .centered) .hero-content h2 {
-  max-width: 450px;
+.hero:not(.centered) .hero-content h1,
+.hero:not(.centered) .hero-content h2 {
+  max-width: var(--hero-title-max-width);
   margin: 0;
   color: var(--color-on-media);
   font-family: var(--font-display);
   font-size: var(--heading-font-size-xxl);
-  font-weight: 500;
-  line-height: 48px;
+  font-weight: var(--font-weight-display);
+  line-height: var(--hero-title-line-height);
   letter-spacing: var(--display-tracking);
   text-transform: var(--display-transform);
   text-shadow: var(--shadow-text-on-media);
 }
 
-.hero:not(.page, .centered) .hero-content p {
+.hero:not(.centered) .hero-content p {
   margin: 20px 0 0;
-}
-
-/* ---------- page: page header with text and photo ---------- */
-.hero.page {
-  color: var(--color-text);
-}
-
-.hero.page .hero-media-wrap {
-  overflow: hidden;
-  line-height: 0;
-}
-
-.hero.page picture {
-  display: block;
-}
-
-.hero.page img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.hero.page .hero-content {
-  padding: 0 var(--content-padding);
-  text-align: center;
-}
-
-.hero.page .hero-content h1 {
-  margin: 0 0 20px;
-  padding: 40px 0 0;
-}
-
-.hero.page .hero-content p {
-  margin: 0 0 20px;
-  font-size: var(--body-font-size-l);
-  line-height: 30px;
-}
-
-.hero.page .hero-content h1 + p {
-  padding-top: 40px;
-}
-
-.hero.page .hero-content > p:last-child {
-  margin-bottom: 0;
-}
-
-@media (width >= 900px) {
-  .hero.page {
-    display: flex;
-    align-items: stretch;
-    box-sizing: border-box;
-    max-width: var(--content-max-width);
-    min-height: 320px;
-    margin: 0 auto;
-    padding: 0 var(--content-padding) 40px;
-  }
-
-  .hero.page .hero-content {
-    flex: 0 0 40%;
-    box-sizing: border-box;
-    padding: 40px 0 0;
-    text-align: start;
-  }
-
-  .hero.page .hero-content h1 {
-    padding: 0 40px 0 0;
-  }
-
-  .hero.page .hero-content p,
-  .hero.page .hero-content h1 + p {
-    padding: 0 40px 0 0;
-  }
-
-  .hero.page .hero-media-wrap {
-    flex: 0 0 60%;
-    order: 1;
-    border-radius: var(--radius-media);
-  }
-
-  /* fill the column when the text is taller than the photo */
-  .hero.page picture,
-  .hero.page img {
-    height: 100%;
-  }
-
-  /* title only: no reserved height or bottom spacing */
-  .hero.page.no-image {
-    min-height: 0;
-    padding-bottom: 0;
-  }
-}
-
-/* source caps title/subtitle measure on wide screens (.page-title, .page-subtitle) */
-@media (width >= 1400px) {
-  .hero.page .hero-content h1,
-  .hero.page .hero-content p {
-    box-sizing: border-box;
-    max-width: calc(645px - 10vw);
-  }
 }
 
 /* ---------- centered: text-only intro (eyebrow, H1, copy, CTAs) ----------
    Source: stellarus.com/careers (fluid padding and H1 size, measured at 390-1440px). */
-.hero.centered:not(.page) {
+.hero.centered {
   box-sizing: border-box;
   max-width: var(--content-max-width);
   margin: 0 auto;
@@ -177,27 +75,27 @@ main .section > .hero-wrapper {
   text-align: center;
 }
 
-.hero.centered:not(.page) .hero-media-wrap {
+.hero.centered .hero-media-wrap {
   max-width: 760px;
   margin: 0 auto 40px;
   line-height: 0;
 }
 
-.hero.centered:not(.page) .hero-media-wrap img {
+.hero.centered .hero-media-wrap img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.hero.centered:not(.page) .hero-content {
+.hero.centered .hero-content {
   max-width: 760px;
   margin: 0 auto;
 }
 
-.hero.centered:not(.page) .hero-eyebrow {
+.hero.centered .hero-eyebrow {
   margin: 0 0 14px;
   color: var(--color-text-muted);
-  font-family: var(--font-mono);
+  font-family: var(--hero-eyebrow-font);
   font-size: 11px;
   font-weight: 500;
   line-height: 1.65;
@@ -205,19 +103,33 @@ main .section > .hero-wrapper {
   text-transform: uppercase;
 }
 
-.hero.centered:not(.page) .hero-content :is(h1, h2, h3) {
+.hero.centered .hero-content :is(h1, h2, h3) {
   max-width: 680px;
   margin: 0 auto 48px;
   color: var(--color-text);
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3.4vw, 2.7rem);
-  font-weight: 700;
+  font-size: var(--hero-centered-title-size);
+  font-weight: var(--hero-centered-title-weight);
   line-height: 1.08;
   letter-spacing: var(--display-tracking);
   text-transform: var(--display-transform);
+  position: relative;
+  isolation: isolate;
 }
 
-.hero.centered:not(.page) .hero-content > p:not(.hero-eyebrow) {
+/* theme drawing behind the eyebrow and heading (source: constellation, scaled from the heading
+   block by --hero-decoration-scale); none unless the theme sets --hero-decoration-image */
+.hero.centered .hero-content :is(h1, h2, h3)::before {
+  content: '';
+  position: absolute;
+  inset: calc(-11px * 1.65 - 14px) 0 0; /* up to the top of the eyebrow line */
+  z-index: -1;
+  background: var(--hero-decoration-image) center / contain no-repeat;
+  transform: scale(var(--hero-decoration-scale));
+  pointer-events: none;
+}
+
+.hero.centered .hero-content > p:not(.hero-eyebrow) {
   margin: 0 0 18px;
   color: var(--color-text-secondary);
   font-size: 18px;
@@ -226,7 +138,7 @@ main .section > .hero-wrapper {
 }
 
 /* buttons wrap onto a second centered row when they do not fit (source: 14px gaps) */
-.hero.centered:not(.page) .hero-actions {
+.hero.centered .hero-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -234,61 +146,15 @@ main .section > .hero-wrapper {
   margin-top: 34px; /* collapses with the paragraph margin: 34px below the copy */
 }
 
-.hero.centered:not(.page) .hero-actions p.button-wrapper {
+.hero.centered .hero-actions p.button-wrapper {
   margin: 0;
 }
 
-.hero.centered:not(.page) .hero-actions a.button:any-link {
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+/* the global button styles (styles.css), as fixed-height single-line pills */
+.hero.centered .hero-actions a.button:any-link {
   height: 54px;
-  margin: 0;
-  padding: 15px 30px;
-  border: 1px solid transparent;
-  border-radius: var(--radius-button);
-  font-family: var(--font-body);
   font-size: 16px;
-  font-weight: 600;
   line-height: 1;
   letter-spacing: 0.005em;
-  text-decoration: none;
   white-space: nowrap;
-}
-
-.hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent):any-link {
-  background-color: var(--button-primary-background);
-  box-shadow: var(--shadow-button);
-  color: var(--button-primary-color);
-}
-
-.hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent):hover {
-  background-color: var(--button-primary-hover-background);
-  color: var(--button-primary-color);
-}
-
-/* arrow icon (source: 18px stroke arrow), drawn in the text color */
-.hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent)::after {
-  content: '';
-  flex: 0 0 auto;
-  width: 18px;
-  height: 18px;
-  background-color: currentcolor;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
-}
-
-.hero.centered:not(.page) .hero-actions a.button.secondary:any-link {
-  border-color: var(--button-secondary-border-color);
-  background-color: var(--button-secondary-background);
-  color: var(--button-secondary-color);
-}
-
-.hero.centered:not(.page) .hero-actions a.button.secondary:hover {
-  color: var(--button-secondary-color);
-}
-
-.hero.centered:not(.page) .hero-actions a.button:is(.primary, .accent, .secondary):focus-visible {
-  box-shadow: var(--focus-ring);
 }

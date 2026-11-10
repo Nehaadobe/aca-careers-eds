@@ -1,4 +1,5 @@
-import { getYouTubeId } from '../../scripts/video-modal.js';
+import { getVimeoId, getYouTubeId } from '../../scripts/scripts.js';
+import { hasMediaConsent } from '../../scripts/video-modal.js';
 
 /**
  * Embed block.
@@ -13,29 +14,12 @@ import { getYouTubeId } from '../../scripts/video-modal.js';
  *   source's 560x315 iframes). Without an authored poster, a YouTube facade
  *   shows the video thumbnail (i.ytimg.com), requested only once consent is
  *   granted. The third-party iframe (youtube-nocookie / Vimeo dnt) is only
- *   created on click, and only when consent has been granted (scripts/consent.js
- *   sets `window.consentState` and dispatches `consent.update` with
- *   `detail.consented`; pages without OneTrust report consent as granted).
+ *   created on click, and only when consent has been granted (hasMediaConsent in
+ *   scripts/video-modal.js; pages without OneTrust report consent as granted).
  *   Without consent, a notice with a link to watch the video on the provider
  *   site is shown instead.
  * - Any other link is left as an ordinary link.
  */
-
-let consented = Boolean(window.consentState?.consented);
-window.addEventListener('consent.update', (event) => {
-  consented = Boolean(event.detail?.consented);
-});
-
-function getVimeoId(href) {
-  try {
-    const url = new URL(href, window.location.href);
-    if (!/(^|\.)vimeo\.com$/.test(url.hostname)) return null;
-    const match = url.pathname.match(/\/(\d{5,})(?:\/|$)/);
-    return match ? match[1] : null;
-  } catch {
-    return null;
-  }
-}
 
 function isMp4(href) {
   try {
@@ -117,7 +101,7 @@ function addThumbnail(container, provider) {
     picture.append(img);
     container.prepend(picture);
   };
-  if (consented) {
+  if (hasMediaConsent()) {
     show();
     return;
   }
@@ -133,7 +117,7 @@ function renderFacade(block, link, picture, provider, title) {
   const label = title || `${provider.name} video`;
   const button = document.createElement('button');
   button.type = 'button';
-  button.className = 'embed-play';
+  button.className = 'embed-play video-play';
   button.setAttribute('aria-label', `Play video: ${label}`);
 
   const container = frame(...[picture, button].filter(Boolean));
@@ -143,7 +127,7 @@ function renderFacade(block, link, picture, provider, title) {
   if (!picture) addThumbnail(container, provider);
 
   button.addEventListener('click', () => {
-    if (consented) {
+    if (hasMediaConsent()) {
       const iframe = document.createElement('iframe');
       iframe.src = provider.src;
       iframe.title = label;

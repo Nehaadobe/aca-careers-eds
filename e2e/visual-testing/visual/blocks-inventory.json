@@ -20,7 +20,7 @@
   },
   "actual": {
    "target": {
-    "selector": "main .hero.page"
+    "selector": "main .columns.curve"
    }
   },
   "actualPath": "/life-at-blue-shield.html"

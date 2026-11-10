@@ -1,5 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
-import { bindVideoLink, getYouTubeId } from '../../scripts/video-modal.js';
+import { getYouTubeId } from '../../scripts/scripts.js';
+import { bindVideoLink } from '../../scripts/video-modal.js';
 
 /**
  * Cards block: one row per card; an optional image cell, then a body cell.
@@ -60,7 +61,7 @@ function decorateVideoTiles(ul) {
       });
       if (video) {
         const play = document.createElement('span');
-        play.className = 'cards-video-play';
+        play.className = 'cards-video-play video-play';
         play.setAttribute('aria-hidden', 'true');
         imageCell.append(play);
       }

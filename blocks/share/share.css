@@ -41,7 +41,7 @@
   color: var(--color-on-share);
   text-align: center;
   text-decoration: none;
-  transition: transform 0.3s;
+  transition: transform var(--transition-duration-medium);
 }
 
 .share .share-link:hover,
@@ -72,8 +72,3 @@
   flex: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .share .share-link {
-    transition: none;
-  }
-}

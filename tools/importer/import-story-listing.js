@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* global WebImporter */
 
-import heroPageParser from './parsers/hero-page.js';
+import columnsCurveParser from './parsers/columns-curve.js';
 import storyListingParser from './parsers/story-listing.js';
 import blueshieldcaCleanupTransformer from './transformers/blueshieldca-cleanup.js';
 import blueshieldcaArticleTransformer from './transformers/blueshieldca-article.js';
@@ -19,7 +19,7 @@ const PAGE_TEMPLATE = {
   "urlPattern": "/blog",
   "blocks": [
     {
-      "name": "hero-page",
+      "name": "columns-curve",
       "instances": [
         "#site_content > div.page > div.page-header",
         "div.page-header"
@@ -43,7 +43,7 @@ const PAGE_TEMPLATE = {
       ],
       "style": null,
       "blocks": [
-        "hero-page"
+        "columns-curve"
       ],
       "defaultContent": []
     },
@@ -63,7 +63,7 @@ const PAGE_TEMPLATE = {
 };
 
 const parsers = {
-  'hero-page': heroPageParser,
+  'columns-curve': columnsCurveParser,
   'story-listing': storyListingParser,
 };
 

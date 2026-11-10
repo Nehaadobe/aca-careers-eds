@@ -11,48 +11,16 @@
  *   6. legal: copyright / disclaimer text
  */
 
-import { getMetadata } from '../../scripts/aem.js';
+import {
+  decorateFragmentIcons,
+  fetchLayoutFragment,
+  openExternalLinksInNewTab,
+  resolveFragmentMedia,
+} from '../../scripts/scripts.js';
 
 const SECTION_NAMES = ['brand', 'notice', 'links', 'social', 'utility', 'legal'];
 // sections whose off-site links open in a new tab (as on the source site)
 const NEW_TAB_SECTIONS = ['notice', 'social'];
-
-/**
- * Fetches the footer fragment named by the page's `footer` metadata (default /footer),
- * so each brand folder can use its own (e.g. /stellarus/footer).
- * @returns {Promise<{html: string, url: string}|null>}
- */
-async function fetchFooterFragment() {
-  const metaPath = getMetadata('footer');
-  const path = metaPath ? new URL(metaPath, window.location.href).pathname : '/footer';
-  const resp = await fetch(`${path.replace(/(\.plain)?\.html$/, '')}.plain.html`);
-  if (!resp.ok) return null;
-  return { html: await resp.text(), url: resp.url };
-}
-
-/**
- * Resolves relative image sources against the fragment URL, so they work on any page depth.
- * @param {Element} root
- * @param {string} baseUrl
- */
-function resolveImages(root, baseUrl) {
-  root.querySelectorAll('img[src]').forEach((img) => {
-    img.src = new URL(img.getAttribute('src'), baseUrl).href;
-    img.loading = 'lazy';
-  });
-}
-
-/**
- * Opens off-site links in a new tab.
- * @param {Element} root
- */
-function openExternalInNewTab(root) {
-  root.querySelectorAll('a[href]').forEach((a) => {
-    if (new URL(a.href, window.location.href).origin === window.location.origin) return;
-    a.target = '_blank';
-    a.rel = 'noopener';
-  });
-}
 
 /**
  * Groups each "label paragraph + following list" pair into its own column.
@@ -72,32 +40,59 @@ function groupLinkLists(section) {
   section.replaceChildren(...groups);
 }
 
+/** Text of the "Cookie preferences" footer item (client cookieprefs.js). */
+const CONSENT_LABEL = 'cookie preferences';
+
 /**
- * Is this the "Cookie preferences" link? Authored as `#cookie-preferences`; the source
- * uses `javascript:void(0)` with that text.
+ * Is this the "Cookie preferences" link? Authored as `#cookie-preferences` or with that text;
+ * the source uses `javascript:void(0)`.
  * @param {HTMLAnchorElement} a
  * @returns {boolean}
  */
 function isConsentLink(a) {
   const href = a.getAttribute('href') || '';
   return href.endsWith('#cookie-preferences')
-    || (/^javascript:/i.test(href) && /cookie preferences/i.test(a.textContent));
+    || a.textContent.trim().toLowerCase() === CONSENT_LABEL;
+}
+
+/** Opens the OneTrust preference center (any of the SDK globals, as in cookieprefs.js). */
+function openConsentPreferences() {
+  const sdk = [window.Optanon, window.OneTrust, window.Onetrust]
+    .find((candidate) => typeof candidate?.ToggleInfoDisplay === 'function');
+  sdk?.ToggleInfoDisplay();
 }
 
 /**
- * Wires "Cookie preferences" links to the OneTrust preference center (loaded in the
- * delayed phase by scripts/consent.js). Does nothing while OneTrust is absent.
+ * Wires "Cookie preferences" to the OneTrust preference center, as the client cookieprefs.js
+ * does: a list item with that text and no link gets one; the link gets the OneTrust id,
+ * classes and data-text. The click is handled here only (stopImmediatePropagation), so the
+ * SDK's own `.ot-sdk-show-settings` handler cannot toggle the center closed again.
+ * Pages without OneTrust (Stellarus) hide the item: there is no preference center to open.
  * @param {Element} root
  */
 function wireConsentLinks(root) {
-  root.querySelectorAll('a[href]').forEach((a) => {
+  root.querySelectorAll('li').forEach((li) => {
+    if (li.querySelector('a') || li.textContent.trim().toLowerCase() !== CONSENT_LABEL) return;
+    const a = document.createElement('a');
+    a.textContent = li.textContent.trim();
+    li.replaceChildren(a);
+  });
+  root.querySelectorAll('a').forEach((a) => {
     if (!isConsentLink(a)) return;
     a.setAttribute('href', '#cookie-preferences'); // never navigate to a javascript: URL
     a.setAttribute('role', 'button');
+    a.id = 'ot-cookie-pref';
+    a.classList.add('ot-link', 'ot-sdk-show-settings');
+    a.dataset.text = 'cookie-preferences';
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      window.OneTrust?.ToggleInfoDisplay?.();
+      e.stopImmediatePropagation();
+      openConsentPreferences();
     });
+    const item = a.closest('li') || a;
+    const update = (state) => { item.hidden = state?.managed === false; };
+    update(window.consentState);
+    window.addEventListener('consent.update', (e) => update(e.detail));
   });
 }
 
@@ -123,13 +118,14 @@ function buildBand(name, children, tag = 'div') {
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  const fragment = await fetchFooterFragment();
+  const fragment = await fetchLayoutFragment('footer', '/footer');
   block.textContent = '';
   if (!fragment) return;
 
   const source = document.createElement('div');
   source.innerHTML = fragment.html;
-  resolveImages(source, fragment.url);
+  decorateFragmentIcons(source); // :icon-name: logos and icons
+  resolveFragmentMedia(source, fragment.url, 'lazy');
 
   const parts = {};
   const sections = [...source.children].filter((el) => el.tagName === 'DIV');
@@ -142,7 +138,7 @@ export default async function decorate(block) {
     parts[name] = section;
   });
 
-  NEW_TAB_SECTIONS.forEach((name) => { if (parts[name]) openExternalInNewTab(parts[name]); });
+  NEW_TAB_SECTIONS.forEach((name) => { if (parts[name]) openExternalLinksInNewTab(parts[name]); });
   if (parts.links) groupLinkLists(parts.links);
   parts.social?.querySelector('ul')?.setAttribute('aria-label', 'Social media');
 

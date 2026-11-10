@@ -1,9 +1,11 @@
-import { createOptimizedPicture, toClassName } from '../../scripts/aem.js';
+import { toClassName } from '../../scripts/aem.js';
 import {
+  buildStoryImage,
+  buildStoryTime,
   createStoryLookup,
-  formatStoryDate,
   loadStories,
   splitList,
+  STORY_SOURCES,
 } from '../../scripts/story-index.js';
 
 /**
@@ -24,8 +26,8 @@ import {
  * /blog/external-stories.json. Unresolved links are skipped with a console warning.
  */
 
-const INDEX_URL = ['/blog/query-index.json', '/sitemap.json'];
-const EXTERNAL_URL = '/blog/external-stories.json';
+const INDEX_URL = [STORY_SOURCES.index, '/sitemap.json'];
+const EXTERNAL_URL = STORY_SOURCES.external;
 const COLUMNS = ['2', '3', '4'];
 const GROUNDS = ['light', 'tinted', 'dark'];
 
@@ -56,52 +58,31 @@ function readContent(block) {
   return { links, options };
 }
 
-function buildImage(story) {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'article-list-card-image';
-  let url = null;
-  try {
-    url = new URL(story.image, window.location.href);
-  } catch (e) { /* treated as external */ }
-  // createOptimizedPicture keeps only the pathname and cannot transcode SVG
-  if (url && url.origin === window.location.origin && !/\.svg$/i.test(url.pathname)) {
-    wrapper.append(createOptimizedPicture(story.image, story.imageAlt, false, [{ width: '750' }]));
-  } else {
-    const img = document.createElement('img');
-    img.src = story.image;
-    img.alt = story.imageAlt;
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    wrapper.append(img);
-  }
-  return wrapper;
-}
-
 function buildCard(story, { showDate, showDescription, linkLabel }) {
   const li = document.createElement('li');
   const link = document.createElement('a');
-  link.className = 'article-list-card';
+  link.className = 'article-list-card story-card';
   link.href = story.url;
   if (story.external) link.rel = 'noopener';
 
-  if (story.image) link.append(buildImage(story));
+  if (story.image) link.append(buildStoryImage(story, 'article-list-card-image story-card-image'));
 
   const body = document.createElement('div');
-  body.className = 'article-list-card-body';
+  body.className = 'article-list-card-body story-card-body';
   const title = document.createElement('h3');
-  title.className = 'article-list-card-title';
+  title.className = 'article-list-card-title story-card-title';
   title.textContent = story.title;
   body.append(title);
 
   if (showDate && story.date) {
     const date = document.createElement('p');
-    date.className = 'article-list-card-date';
-    date.textContent = formatStoryDate(story.date);
+    date.className = 'article-list-card-date story-card-date';
+    date.append(buildStoryTime(story.date));
     body.append(date);
   }
   if (showDescription && story.description) {
     const description = document.createElement('p');
-    description.className = 'article-list-card-description';
+    description.className = 'article-list-card-description story-card-description';
     description.textContent = story.description;
     body.append(description);
   }
@@ -135,7 +116,7 @@ export default async function decorate(block) {
   };
 
   const list = document.createElement('ul');
-  list.className = 'article-list-items';
+  list.className = 'article-list-items story-card-grid';
   block.replaceChildren(list);
 
   if (!links.length) return;

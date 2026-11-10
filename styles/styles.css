@@ -21,11 +21,38 @@ body {
   color-scheme: var(--color-scheme);
   font-family: var(--font-body);
   font-size: var(--body-font-size-m);
+  font-weight: var(--font-weight-body);
   line-height: var(--body-line-height);
+  font-variant-ligatures: var(--font-ligatures);
+  -webkit-font-smoothing: var(--font-smoothing);
+  -moz-osx-font-smoothing: var(--font-smoothing-moz);
+  text-rendering: var(--text-rendering);
 }
 
 body.appear {
   display: block;
+}
+
+/* theme decoration layers fixed to the viewport (none unless a theme sets the tokens):
+   ::before sits behind the content (e.g. a starfield), ::after over it (e.g. film grain) */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+body::before {
+  z-index: -1;
+  background-image: var(--page-stars-image);
+}
+
+body::after {
+  z-index: 60;
+  background-image: var(--page-grain-image);
+  opacity: var(--page-grain-opacity);
+  mix-blend-mode: overlay;
 }
 
 header {
@@ -53,8 +80,8 @@ h6 {
   margin-bottom: 30px;
   color: var(--color-text);
   font-family: var(--font-heading);
-  font-weight: 600;
-  line-height: 1.2;
+  font-weight: var(--font-weight-heading);
+  line-height: var(--heading-line-height);
   scroll-margin: 40px;
 }
 
@@ -62,8 +89,8 @@ h1 {
   margin-bottom: 20px;
   font-family: var(--font-display);
   font-size: var(--heading-font-size-xxl);
-  font-weight: 500;
-  line-height: 1.2;
+  font-weight: var(--font-weight-display);
+  line-height: var(--heading-line-height);
   letter-spacing: var(--display-tracking);
   text-transform: var(--display-transform);
 }
@@ -132,7 +159,7 @@ pre {
 
 pre {
   padding: 16px;
-  border-radius: 8px;
+  border-radius: var(--radius-small);
   background-color: var(--color-surface-tint);
   overflow-x: auto;
   white-space: pre;
@@ -163,10 +190,6 @@ a:focus-visible {
 }
 
 /* buttons: EDS reset, then source pill variants */
-main .button-container {
-  display: inline;
-}
-
 main a.button:any-link {
   background: none;
   border: none;
@@ -196,7 +219,8 @@ button.button {
   margin: 0;
   border: 1px solid var(--button-border-color);
   border-radius: var(--radius-button);
-  padding: 10.56px 40px;
+  padding: var(--button-primary-padding);
+  gap: var(--button-arrow-gap);
   font-family: var(--font-body);
   font-size: var(--body-font-size-m);
   font-weight: 600;
@@ -214,7 +238,23 @@ main a.button.accent:any-link,
 button.button.primary,
 button.button.accent {
   background-color: var(--button-primary-background);
+  box-shadow: var(--shadow-button);
   color: var(--button-primary-color);
+}
+
+/* theme arrow after the primary label, drawn in the text color (none unless a theme sets it) */
+main a.button:is(.primary, .accent)::after {
+  content: '';
+  flex: 0 0 auto;
+  width: var(--button-arrow-size);
+  height: var(--button-arrow-size);
+  background-color: currentcolor;
+  mask: var(--button-arrow-image) center / contain no-repeat;
+  transition: transform var(--transition-fast);
+}
+
+main a.button:is(.primary, .accent):hover::after {
+  transform: translateX(var(--button-arrow-hover-shift));
 }
 
 main a.button.primary:hover,
@@ -223,12 +263,14 @@ button.button.primary:hover,
 button.button.accent:hover {
   border-color: var(--button-hover-border-color);
   background-color: var(--button-primary-hover-background);
-  color: var(--button-primary-color);
+  box-shadow: var(--shadow-button-hover);
+  color: var(--button-primary-hover-color);
 }
 
 /* secondary: white fill, navy text (used on dark bands) */
 main a.button.secondary:any-link,
 button.button.secondary {
+  padding: var(--button-secondary-padding);
   border-color: var(--button-secondary-border-color);
   background-color: var(--button-secondary-background);
   color: var(--button-secondary-color);
@@ -236,11 +278,12 @@ button.button.secondary {
 
 main a.button.secondary:hover,
 button.button.secondary:hover {
-  border-color: var(--button-hover-border-color);
-  color: var(--button-secondary-color);
+  border-color: var(--button-secondary-hover-border-color);
+  background-color: var(--button-secondary-hover-background);
+  color: var(--button-secondary-hover-color);
 }
 
-main a.button:focus-visible,
+main a.button:is(.primary, .accent, .secondary):focus-visible,
 button.button:focus-visible {
   outline-offset: 1px;
   box-shadow: var(--focus-ring);
@@ -293,20 +336,21 @@ main > .section:first-of-type {
 }
 
 /* source rhythm: 30px below the page hero, 90px between icon-tile groups and
-   hero/photo strips, 30px between plain centered text and a photo strip */
-main > .section.hero-container {
+   hero/photo strips, 30px between plain centered text and a photo strip; the page header
+   is a Columns (curve) block, whose section columns.js marks with .columns-curve-container */
+main > .section:is(.hero-container, .columns-curve-container) {
   margin-bottom: 0;
 }
 
-main > .section.hero-container + .section {
+main > .section:is(.hero-container, .columns-curve-container) + .section {
   margin-top: 30px;
 }
 
-main > .section.hero-container + .gallery-container {
+main > .section:is(.hero-container, .columns-curve-container) + .gallery-container {
   margin-top: var(--section-spacing);
 }
 
-main > .section.hero-container + .section.centered.cards-container,
+main > .section:is(.hero-container, .columns-curve-container) + .section.centered.cards-container,
 main > .section.gallery-container + .section.centered.cards-container,
 main > .section.centered.cards-container + .gallery-container {
   margin-top: 90px;
@@ -338,6 +382,99 @@ main .section.blue {
   padding: 30px 0;
   background-color: var(--color-band-accent);
   color: var(--color-on-band-accent);
+}
+
+/* dark grounds (blue section, banner, hero over a photo): buttons use the on-dark colors */
+:is(main .section.blue, .banner, .hero:not(.centered)) {
+  --button-primary-color: var(--button-on-dark-primary-color);
+  --button-primary-hover-color: var(--button-on-dark-primary-hover-color);
+  --button-secondary-color: var(--button-on-dark-secondary-color);
+  --button-secondary-hover-color: var(--button-on-dark-secondary-hover-color);
+  --button-secondary-border-color: var(--button-on-dark-secondary-border-color);
+  --button-secondary-hover-border-color: var(--button-on-dark-secondary-hover-border-color);
+}
+
+/*
+ * Story cards: the tile shared by the article-list and story-listing blocks (source .tiles).
+ * The blocks add these classes and keep only their own layout differences.
+ */
+.story-card-grid {
+  display: grid;
+  gap: 30px;
+  margin: 0;
+  padding: 10px 0 20px;
+  list-style: none;
+}
+
+.story-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-fast);
+}
+
+.story-card:hover {
+  box-shadow: 0 0 0 1px var(--color-link), var(--shadow-card);
+}
+
+/* keyboard focus on the card link (article-list) or on the title link inside (story-listing) */
+.story-card:is(:focus-visible, :has(:focus-visible)) {
+  outline: none;
+  box-shadow: var(--focus-ring), var(--shadow-card);
+}
+
+.story-card-image {
+  line-height: 0;
+}
+
+.story-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 25 / 14;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.story-card-body {
+  padding: 40px;
+}
+
+.story-card-title {
+  margin: 0 0 30px;
+  color: var(--color-link);
+  font-family: var(--font-heading);
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-heading);
+  line-height: 30px;
+}
+
+.story-card-date {
+  color: var(--color-text-muted);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+.story-card-description {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--body-font-size-m);
+  line-height: 24px;
+}
+
+/* round video play control centered on a poster (embed facade, columns and cards videos) */
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--video-play-size);
+  height: var(--video-play-size);
+  border-radius: 50%;
+  background: var(--icon-play-solid) center / var(--video-play-size) no-repeat var(--color-primary);
+  transform: translate(-50%, -50%);
 }
 
 main .section.blue h1,
@@ -457,12 +594,6 @@ body.blog-article main > .section.article-list-container > .default-content-wrap
   text-align: center;
 }
 
-/* blog articles: auto-built "More Stories" band; the light-blue fill starts 40% down */
-main .section.related-stories {
-  margin: var(--section-spacing) 0 0;
-  padding: 0 0 40px;
-  background: linear-gradient(to bottom, transparent 40%, var(--color-surface-tint) 40%);
-}
 
 /* honor the OS "reduce motion" setting site-wide (hover zooms, slides, smooth scroll) */
 @media (prefers-reduced-motion: reduce) {

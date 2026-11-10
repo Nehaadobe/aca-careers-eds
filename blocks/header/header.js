@@ -11,7 +11,12 @@
  * hover or keyboard focus as a full-width bar. Mobile: a menu button toggles the nav.
  */
 
-import { getMetadata } from '../../scripts/aem.js';
+import {
+  decorateFragmentIcons,
+  fetchLayoutFragment,
+  openExternalLinksInNewTab,
+  resolveFragmentMedia,
+} from '../../scripts/scripts.js';
 
 // desktop navigation breakpoint: theme token --nav-desktop-min-width (default 1200px)
 let DESKTOP_QUERY = window.matchMedia('(width >= 1200px)');
@@ -35,43 +40,6 @@ const SECTION_NAMES = ['utility', 'brand', 'sections', 'tools'];
 let dropdownCount = 0;
 
 /**
- * Fetches the nav fragment named by the page's `nav` metadata (default /nav),
- * so each brand folder can use its own (e.g. /stellarus/nav).
- * @returns {Promise<{html: string, url: string}|null>}
- */
-async function fetchNavFragment() {
-  const metaPath = getMetadata('nav');
-  const path = metaPath ? new URL(metaPath, window.location.href).pathname : '/nav';
-  const resp = await fetch(`${path.replace(/(\.plain)?\.html$/, '')}.plain.html`);
-  if (!resp.ok) return null;
-  return { html: await resp.text(), url: resp.url };
-}
-
-/**
- * Resolves relative image sources against the fragment URL, so they work on any page depth.
- * @param {Element} root
- * @param {string} baseUrl
- */
-function resolveImages(root, baseUrl) {
-  root.querySelectorAll('img[src]').forEach((img) => {
-    img.src = new URL(img.getAttribute('src'), baseUrl).href;
-    img.loading = 'eager';
-  });
-}
-
-/**
- * Opens off-site links in a new tab (source: dropdown and CTA links do; utility links don't).
- * @param {Element} root
- */
-function openExternalInNewTab(root) {
-  root.querySelectorAll('a[href]').forEach((a) => {
-    if (new URL(a.href, window.location.href).origin === window.location.origin) return;
-    a.target = '_blank';
-    a.rel = 'noopener';
-  });
-}
-
-/**
  * Marks a list item with a nested list as a dropdown and wires open/close behavior.
  * @param {Element} item the top-level <li>
  */
@@ -91,14 +59,20 @@ function setupDropdown(item) {
   };
   item.addEventListener('mouseenter', () => { if (DESKTOP_QUERY.matches) setOpen(true); });
   item.addEventListener('mouseleave', () => { if (DESKTOP_QUERY.matches) setOpen(false); });
-  item.addEventListener('focusin', () => { if (DESKTOP_QUERY.matches) setOpen(true); });
+  // Esc returns focus to the trigger; that focus must not reopen the dropdown
+  let closingByKey = false;
+  item.addEventListener('focusin', () => {
+    if (DESKTOP_QUERY.matches && !closingByKey) setOpen(true);
+  });
   item.addEventListener('focusout', (e) => {
     if (DESKTOP_QUERY.matches && !item.contains(e.relatedTarget)) setOpen(false);
   });
   item.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && item.classList.contains('is-open')) {
       setOpen(false);
+      closingByKey = true;
       trigger.focus();
+      closingByKey = false;
     }
   });
 }
@@ -167,13 +141,14 @@ function buildHamburger(nav) {
  */
 export default async function decorate(block) {
   DESKTOP_QUERY = desktopQuery();
-  const fragment = await fetchNavFragment();
+  const fragment = await fetchLayoutFragment('nav', '/nav');
   block.textContent = '';
   if (!fragment) return;
 
   const source = document.createElement('div');
   source.innerHTML = fragment.html;
-  resolveImages(source, fragment.url);
+  decorateFragmentIcons(source); // :icon-name: logos and icons
+  resolveFragmentMedia(source, fragment.url, 'eager');
   const sections = [...source.children].filter((el) => el.tagName === 'DIV');
 
   const nav = document.createElement('nav');
@@ -198,14 +173,17 @@ export default async function decorate(block) {
   // brand: logo link + site-name link
   if (parts.brand) {
     // a logo authored without a link links to the home page (as on the source site)
-    const loosePicture = [...parts.brand.querySelectorAll('picture')].find((pic) => !pic.closest('a'));
+    const loosePicture = [...parts.brand.querySelectorAll('picture, span.icon')].find((pic) => !pic.closest('a'));
     if (loosePicture) {
       const home = document.createElement('a');
       home.href = parts.brand.querySelector('a[href]')?.getAttribute('href') || '/';
-      home.setAttribute('aria-label', loosePicture.querySelector('img')?.alt || 'Home');
+      const alt = loosePicture.querySelector('img')?.alt;
+      if (alt) home.setAttribute('aria-label', alt);
       loosePicture.replaceWith(home);
       home.append(loosePicture);
       parts.brand.prepend(home);
+      if (!home.getAttribute('aria-label')) decorateFragmentIcons(parts.brand);
+      if (!home.getAttribute('aria-label')) home.setAttribute('aria-label', 'Home');
     }
     const links = [...parts.brand.querySelectorAll('a')];
     links.forEach((a) => {
@@ -234,7 +212,7 @@ export default async function decorate(block) {
       if (para) para.replaceWith(...para.childNodes);
       setupDropdown(li);
     });
-    list?.querySelectorAll('.nav-dropdown').forEach(openExternalInNewTab);
+    list?.querySelectorAll('.nav-dropdown').forEach(openExternalLinksInNewTab);
     menu.append(parts.sections);
   }
   if (parts.tools) {
@@ -242,7 +220,7 @@ export default async function decorate(block) {
     if (cta) {
       cta.classList.add('nav-cta');
       parts.tools.replaceChildren(cta);
-      openExternalInNewTab(parts.tools);
+      openExternalLinksInNewTab(parts.tools);
     }
     menu.append(parts.tools);
   }

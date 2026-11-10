@@ -13,26 +13,27 @@
  * Values: careers.blueshieldca.com computed styles (docs/analysis/README.md §7.2, §7.5).
  */
 
-/* BSC fonts come from the Adobe Fonts kit (styles/fonts.css). Fallbacks: Arial (or a
-   metric-compatible clone) scaled to the kit's text widths, so lines wrap the same before
-   and after the swap (no layout shift). */
+/* The BSC (and Ascendiun) font is Fieldwork, self-hosted in styles/fonts.css. Fallback until
+   it loads: Arial (or a metric-compatible clone) scaled to Fieldwork's English text widths and
+   line box (measured against Arimo: Light 103.31% of Arial, DemiBold 95.20% of Arial Bold;
+   ascent 1708 / descent 400 per 2048 em), so lines wrap the same before and after the swap. */
 @font-face {
-  font-family: proxima-nova-fallback;
-  size-adjust: 99%;
+  font-family: fieldwork-fallback;
+  size-adjust: 103.31%;
+  ascent-override: 80.73%;
+  descent-override: 18.91%;
+  line-gap-override: 0%;
   src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo Regular');
 }
 
 @font-face {
-  font-family: proxima-nova-fallback;
+  font-family: fieldwork-fallback;
   font-weight: 600 900;
-  size-adjust: 94%;
+  size-adjust: 95.2%;
+  ascent-override: 87.6%;
+  descent-override: 20.52%;
+  line-gap-override: 0%;
   src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('Arimo Bold');
-}
-
-@font-face {
-  font-family: trade-gothic-next-condensed-fallback;
-  size-adjust: 74%;
-  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo Regular');
 }
 
 :root {
@@ -91,26 +92,52 @@
 
   /* header and footer */
   --nav-logo-filter: none; /* themes on a dark page recolor the nav logo image */
+  --nav-logo-width: 125px;
   --header-border-color: #f4f4f4;
   --header-button-background: #f8f9fa;
   --footer-background: #25282a;
   --footer-text: #fff;
   --footer-utility-background: #000;
   --footer-utility-text: #fff;
+  --footer-link-decoration: none; /* footer and utility links (underline on hover) */
+  --footer-logo-filter: none; /* recolors the footer logo image on light footers */
+  --footer-logo-width: 142px;
+  --footer-brand-width: 150px; /* desktop logo column */
+  --footer-icon-filter: brightness(0) invert(1); /* social icons (/icons/*.svg, black) shown white */
 
   /* buttons */
   --button-secondary-background: #fff;
+  --button-padding: 10.56px 40px;
+
+  /* arrow after primary button labels (none for BSC; themes set an SVG mask image) */
+  --button-arrow-image: none;
+  --button-arrow-size: 0;
+  --button-arrow-gap: 0;
+  --button-arrow-hover-shift: 0; /* moves the arrow on hover */
 
   /* icons drawn with data URIs (colors are part of the image) */
   --icon-select-chevron: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   --icon-play-outline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M24 19.5v21l17-10.5z' fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E"); /* video tiles */
+  --video-play-size: 60px; /* round play control on video posters */
   --icon-play-solid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23fff' d='M47.538 28.875 19.846 12c-.461 0-.923 0-1.154.225-.461.225-.692.45-.692.9v33.75c0 .45.23.675.692.9 0 .225.231.225.462.225s.461 0 .692-.225L47.538 30.9c.231-.225.462-.675.462-.9 0-.45-.23-.9-.462-1.125ZM20.308 44.85v-29.7L44.769 30l-24.461 14.85Z'/%3E%3C/svg%3E"); /* video facades */
 
   /* fonts */
-  --font-body: proxima-nova, proxima-nova-fallback, sans-serif;
-  --font-heading: proxima-nova, proxima-nova-fallback, sans-serif;
-  --font-display: trade-gothic-next-condensed, trade-gothic-next-condensed-fallback, sans-serif;
+  --font-body: fieldwork, fieldwork-fallback, sans-serif;
+  --font-heading: fieldwork, fieldwork-fallback, sans-serif;
+  --font-display: fieldwork, fieldwork-fallback, sans-serif;
   --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
+
+  /* font weights */
+  --font-weight-body: 300; /* Fieldwork Light */
+  --font-weight-heading: 600; /* section and card headings: Fieldwork DemiBold */
+  --font-weight-display: 600; /* page titles (h1), large hero headings, FAQ questions */
+  --font-ligatures: normal; /* font-variant-ligatures */
+  --heading-line-height: 1.2;
+
+  /* text rendering (BSC source: browser defaults) */
+  --font-smoothing: auto; /* -webkit-font-smoothing (macOS Chrome / Safari) */
+  --font-smoothing-moz: auto; /* -moz-osx-font-smoothing (macOS Firefox) */
+  --text-rendering: auto;
 
   /* body sizes (source uses the same sizes on mobile and desktop) */
   --body-font-size-l: 20px;
@@ -143,7 +170,11 @@
   --radius-button: 22.56px;
   --radius-card: 20px;
   --radius-panel: 20px 0; /* top-left + bottom-right rounded corners */
-  --radius-media: 0 0 0 80px; /* page hero photo */
+  --radius-media: 0 0 0 80px; /* page header photo (Columns curve, photo right): bottom-left */
+  --radius-media-mirror: 0 0 80px; /* photo left: bottom-right */
+  --radius-small: 8px; /* FAQ question row, code blocks */
+  --radius-large: 16px; /* FAQ answer panel, feature-link tiles */
+  --radius-control: 6px; /* form controls (story search and filters) */
 
   /* shadows */
   --shadow-card: 0 0 10px 0 rgb(0 0 0 / 16%);
@@ -155,6 +186,22 @@
 
   /* motion */
   --transition-fast: 0.15s ease-in-out;
+  --transition-duration-medium: 0.3s; /* chevrons, share hover lift, menu icon */
+
+  /* page decoration layers (none for BSC; Stellarus: starfield, film grain, constellation) */
+  --page-stars-image: none; /* fixed layer behind the content */
+  --page-grain-image: none; /* fixed texture over the content */
+  --page-grain-opacity: 0;
+  --hero-decoration-image: none; /* drawing behind the centered hero heading */
+  --hero-decoration-scale: 1; /* its size relative to the eyebrow + heading block */
+
+  /* centered hero heading (default: the Stellarus measurements) */
+  --hero-centered-title-size: clamp(1.8rem, 3.4vw, 2.7rem);
+  --hero-centered-title-weight: 700;
+
+  /* home hero headline over the photo */
+  --hero-title-max-width: 450px;
+  --hero-title-line-height: 48px;
 }
 
 /* content width steps like the source's Bootstrap container (540/720/960/1140/1320px);
@@ -209,4 +256,30 @@ body {
   --button-primary-color: var(--color-on-primary);
   --button-secondary-color: var(--color-band);
   --button-secondary-border-color: var(--color-primary);
+  --button-primary-padding: var(--button-padding);
+  --button-secondary-padding: var(--button-padding);
+  --button-primary-hover-color: var(--button-primary-color);
+  --button-secondary-hover-color: var(--button-secondary-color);
+
+  /* buttons on dark bands and photos (hero, banner, section style blue): by default the same
+     colors; light-page themes with link-style buttons set white */
+  --button-on-dark-primary-color: var(--button-primary-color);
+  --button-on-dark-primary-hover-color: var(--button-primary-hover-color);
+  --button-on-dark-secondary-color: var(--button-secondary-color);
+  --button-on-dark-secondary-hover-color: var(--button-secondary-hover-color);
+  --button-on-dark-secondary-border-color: var(--button-secondary-border-color);
+  --button-on-dark-secondary-hover-border-color: var(--button-secondary-hover-border-color);
+
+  /* centered hero eyebrow line */
+  --hero-eyebrow-font: var(--font-mono);
+
+  /* footer link colors */
+  --footer-link-color: var(--footer-text);
+  --footer-link-hover-color: var(--footer-text);
+  --footer-utility-link-color: var(--footer-utility-text);
+
+  /* hover states: by default the same as the resting look, apart from the border color */
+  --shadow-button-hover: var(--shadow-button);
+  --button-secondary-hover-background: var(--button-secondary-background);
+  --button-secondary-hover-border-color: var(--button-hover-border-color);
 }

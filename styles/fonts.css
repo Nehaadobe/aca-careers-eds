@@ -1,7 +1,39 @@
 /*
- * Brand fonts: proxima-nova (body) and trade-gothic-next-condensed (display H1)
- * are served by the site's Adobe Fonts kit wcg8bju (same kit as careers.blueshieldca.com).
- * Note: Adobe Fonts kits are domain-restricted; the kit must allow the EDS hosts
- * (*.aem.page, *.aem.live, localhost) or the metric-matched fallbacks in styles.css apply.
+ * Brand font: Fieldwork (Hoftype), used by the Blue Shield careers site and Ascendiun.
+ * Files in /fonts: the client's web fonts as delivered (.otf: Geo Light, Italic Light and Geo
+ * DemiBold, the same files www.blueshieldca.com serves) and their WOFF2 compressions, which
+ * browsers load first (the .otf is the fallback source). The client's web font license covers
+ * the careers sites.
+ * Loaded by scripts.js loadFonts() for themes with `webFonts` (after the LCP section on
+ * mobile); until then the metric-matched fieldwork-fallback in styles/brand.css shows.
+ * Only Light (300) and DemiBold (600) exist: text up to 500 renders Light, 600+ DemiBold.
  */
-@import url('https://use.typekit.net/wcg8bju.css');
+@font-face {
+  font-family: Fieldwork;
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src:
+    url('../fonts/fieldwork-geo-light.woff2') format('woff2'),
+    url('../fonts/fieldwork-geo-light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: Fieldwork;
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src:
+    url('../fonts/fieldwork-italic-light.woff2') format('woff2'),
+    url('../fonts/fieldwork-italic-light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: Fieldwork;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    url('../fonts/fieldwork-geo-demibold.woff2') format('woff2'),
+    url('../fonts/fieldwork-geo-demibold.otf') format('opentype');
+}

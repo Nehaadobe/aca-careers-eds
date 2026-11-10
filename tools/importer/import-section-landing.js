@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* global WebImporter */
 
-import heroPageParser from './parsers/hero-page.js';
+import columnsCurveParser from './parsers/columns-curve.js';
 import cardsIconTilesParser from './parsers/cards-icon-tiles.js';
 import galleryParser from './parsers/gallery.js';
 import bannerStatementParser from './parsers/banner-statement.js';
@@ -32,7 +32,7 @@ const PAGE_TEMPLATE = {
   "urlPattern": "/*",
   "blocks": [
     {
-      "name": "hero-page",
+      "name": "columns-curve",
       "instances": [
         "#site_content > div.page > div.page-header:not(.no_hero)",
         ".page-header:not(.no_hero)"
@@ -108,7 +108,7 @@ const PAGE_TEMPLATE = {
       ],
       "style": null,
       "blocks": [
-        "hero-page"
+        "columns-curve"
       ],
       "defaultContent": []
     },
@@ -327,7 +327,7 @@ const PAGE_TEMPLATE = {
 };
 
 const parsers = {
-  'hero-page': heroPageParser,
+  'columns-curve': columnsCurveParser,
   'cards-icon-tiles': cardsIconTilesParser,
   'gallery': galleryParser,
   'banner-statement': bannerStatementParser,

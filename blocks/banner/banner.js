@@ -1,3 +1,5 @@
+import { decorateLoneLinkButtons, unwrapPicture } from '../../scripts/scripts.js';
+
 /**
  * Banner block: heading, copy and a call to action over a background image.
  *
@@ -18,25 +20,16 @@ export default function decorate(block) {
   const content = document.createElement('div');
   content.className = 'banner-content';
   if (contentCell) {
-    contentCell.querySelectorAll('picture').forEach((pic) => {
-      if (pic !== picture) return;
-      const p = pic.closest('p');
-      if (p && p.textContent.trim() === '' && p.children.length === 1) p.remove();
-      else pic.remove();
-    });
+    // the image moves to the media wrapper (with its paragraph when it has nothing else)
+    if (picture && contentCell.contains(picture)) {
+      unwrapPicture(picture);
+      picture.remove();
+    }
     content.append(...contentCell.childNodes);
 
     // A link alone in its paragraph is the CTA, even without bold/italic formatting.
     // The dark locations band uses the white (secondary) pill, like the source.
-    const buttonStyle = block.classList.contains('locations') ? 'secondary' : 'primary';
-    content.querySelectorAll('p > a[href]').forEach((a) => {
-      const p = a.parentElement;
-      if (a.classList.contains('button') || a.querySelector('img')) return;
-      if (p.textContent.trim() !== a.textContent.trim()) return;
-      a.classList.add('button', buttonStyle);
-      a.title = a.title || a.textContent.trim();
-      p.classList.add('button-wrapper');
-    });
+    decorateLoneLinkButtons(content, block.classList.contains('locations') ? 'secondary' : 'primary');
   }
 
   const children = [];

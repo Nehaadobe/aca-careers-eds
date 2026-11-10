@@ -687,7 +687,8 @@ var CustomImportScript = (() => {
     gallery: "Gallery",
     quote: "Quote",
     // landing template
-    "hero-page": "Hero (page)",
+    "columns-curve": "Columns (curve)",
+    // page header (formerly Hero (page))
     "cards-icon-tiles": "Cards (icon-tiles)",
     "cards-story-grid": "Cards (story-grid)",
     "cards-video-tiles": "Cards (video-tiles)",

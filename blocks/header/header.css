@@ -89,7 +89,7 @@ header .nav-hamburger-icon::after {
   content: '';
   position: absolute;
   left: 0;
-  transition: transform 0.3s linear, top 0.3s linear;
+  transition: transform var(--transition-duration-medium) linear, top var(--transition-duration-medium) linear;
 }
 
 header .nav-hamburger-icon::before {
@@ -112,9 +112,16 @@ header .nav-brand .nav-logo {
   line-height: 0;
 }
 
+/* a :logo: icon: the box takes the logo's size (not the 24px icon square) */
+header .nav-brand .nav-logo .icon {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
 header .nav-brand .nav-logo img {
   display: block;
-  width: 125px;
+  width: var(--nav-logo-width);
   height: auto;
   filter: var(--nav-logo-filter);
 }
@@ -207,7 +214,8 @@ header .nav-tools .nav-cta {
 header .nav-tools .nav-cta:hover {
   border-color: var(--button-hover-border-color);
   background-color: var(--button-primary-hover-background);
-  color: var(--button-primary-color);
+  box-shadow: var(--shadow-button-hover);
+  color: var(--button-primary-hover-color);
 }
 
 header .nav-tools .nav-cta:focus-visible {

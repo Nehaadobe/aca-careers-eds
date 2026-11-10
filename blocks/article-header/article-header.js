@@ -1,5 +1,11 @@
 import { decorateBlock, loadBlock } from '../../scripts/aem.js';
-import { splitList, parseDate } from '../../scripts/story-index.js';
+import { createTag as el } from '../../scripts/scripts.js';
+import {
+  buildStoryTime,
+  parseDate,
+  splitList,
+  STORY_LISTING,
+} from '../../scripts/story-index.js';
 
 /**
  * Article header for blog stories. Auto-built by scripts.js (buildAutoBlocks)
@@ -17,8 +23,6 @@ import { splitList, parseDate } from '../../scripts/story-index.js';
  * title, formatted date, byline, the share block, then the full-width hero.
  */
 
-const LISTING_PATH = '/blog';
-
 const FIELDS = {
   role: 'role',
   roles: 'role',
@@ -33,13 +37,6 @@ const FIELDS = {
   'author image': 'authorImage',
   'author images': 'authorImage',
 };
-
-function el(tag, className, ...children) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  node.append(...children.filter((child) => child !== null && child !== undefined));
-  return node;
-}
 
 /** Splits rows into config values and content elements. */
 function readRows(block) {
@@ -68,26 +65,20 @@ function readRows(block) {
 
 function formatDate(value) {
   const time = parseDate(value);
-  if (!time) return null;
-  const label = new Intl.DateTimeFormat('en-US', {
-    // source format: "March 07, 2024"
-    month: 'long', day: '2-digit', year: 'numeric', timeZone: 'UTC',
-  }).format(new Date(time));
-  const node = el('time', null, label);
-  node.dateTime = new Date(time).toISOString().slice(0, 10);
-  return el('p', 'article-header-date', node);
+  // source format: "March 07, 2024"
+  return time ? el('p', { className: 'article-header-date' }, buildStoryTime(time)) : null;
 }
 
 function buildCategories(config) {
   const items = [
-    ...splitList(config.role).map((value) => ['role', value]),
-    ...splitList(config.topic).map((value) => ['topic', value]),
+    ...splitList(config.role).map((value) => [STORY_LISTING.params.roles, value]),
+    ...splitList(config.topic).map((value) => [STORY_LISTING.params.topics, value]),
   ];
   if (!items.length) return null;
-  const list = el('ul', 'article-header-categories');
+  const list = el('ul', { className: 'article-header-categories' });
   items.forEach(([param, value]) => {
     const link = el('a', null, value);
-    link.href = `${LISTING_PATH}?${new URLSearchParams({ [param]: value })}`;
+    link.href = `${STORY_LISTING.path}?${new URLSearchParams({ [param]: value })}`;
     list.append(el('li', null, link));
   });
   return list;
@@ -104,14 +95,14 @@ function buildByline(config) {
   if (!names.length) return null;
   const titles = splitEntries(config.authorTitle);
   const photos = splitEntries(config.authorImage);
-  const byline = el('ul', 'article-header-byline');
+  const byline = el('ul', { className: 'article-header-byline' });
   if (names.length > 1) byline.classList.add('article-header-byline-multiple');
   names.forEach((name, i) => {
-    const text = el('div', 'article-header-author-text', el('p', 'article-header-author', name));
-    if (titles[i]) text.append(el('p', 'article-header-author-title', titles[i]));
-    const item = el('li', 'article-header-author-item');
+    const text = el('div', { className: 'article-header-author-text' }, el('p', { className: 'article-header-author' }, name));
+    if (titles[i]) text.append(el('p', { className: 'article-header-author-title' }, titles[i]));
+    const item = el('li', { className: 'article-header-author-item' });
     if (photos[i]) {
-      const img = el('img', 'article-header-author-photo');
+      const img = el('img', { className: 'article-header-author-photo' });
       img.src = photos[i];
       img.alt = '';
       img.loading = 'lazy';
@@ -134,7 +125,7 @@ async function loadNested(nested) {
 export default async function decorate(block) {
   const { config, content } = readRows(block);
 
-  const inner = el('div', 'article-header-content');
+  const inner = el('div', { className: 'article-header-content' });
   inner.append(...[buildCategories(config), content.title].filter(Boolean));
   if (content.title) content.title.classList.add('article-header-title');
   const date = formatDate(config.date);
@@ -144,12 +135,12 @@ export default async function decorate(block) {
   if (byline || content.share) {
     // the share block gets its own wrapper (decorateBlock marks the parent as `share-wrapper`)
     const share = content.share ? el('div', null, content.share) : null;
-    inner.append(el('div', 'article-header-meta', byline, share));
+    inner.append(el('div', { className: 'article-header-meta' }, byline, share));
   }
 
   const parts = [inner];
   if (content.hero) {
-    const hero = el('div', 'article-header-hero', content.hero);
+    const hero = el('div', { className: 'article-header-hero' }, content.hero);
     const img = hero.querySelector('picture > img');
     if (img && content.hero.tagName === 'PICTURE') {
       // The hero is the LCP candidate on article pages.

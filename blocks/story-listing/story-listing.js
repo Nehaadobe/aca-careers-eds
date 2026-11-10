@@ -1,12 +1,15 @@
-import { createOptimizedPicture, readBlockConfig, toClassName } from '../../scripts/aem.js';
+import { readBlockConfig, toClassName } from '../../scripts/aem.js';
+import { createTag as el } from '../../scripts/scripts.js';
 import {
+  buildStoryImage,
+  buildStoryTime,
   filterStories,
-  formatStoryDate,
-  isSameOrigin,
   loadOptionValues,
   loadStories,
   sortStories,
   splitList,
+  STORY_LISTING,
+  STORY_SOURCES,
 } from '../../scripts/story-index.js';
 
 /**
@@ -38,9 +41,6 @@ const SORTS = [
   { value: 'title-z-a', label: 'Title Z-A' },
 ];
 
-/** URL parameter for each facet (story field). */
-const FACET_PARAMS = { roles: 'role', topics: 'topic' };
-
 let instance = 0;
 
 /** First value of a config cell (cells with several paragraphs become arrays). */
@@ -49,23 +49,12 @@ function text(value, fallback = '') {
   return v === undefined || v === null || String(v).trim() === '' ? fallback : String(v).trim();
 }
 
-function el(tag, attrs = {}, ...children) {
-  const node = document.createElement(tag);
-  Object.entries(attrs).forEach(([key, value]) => {
-    if (value === undefined || value === null || value === false) return;
-    if (key === 'className') node.className = value;
-    else node.setAttribute(key, value === true ? '' : value);
-  });
-  node.append(...children.filter((child) => child !== undefined && child !== null));
-  return node;
-}
-
 function readConfig(block) {
   const raw = readBlockConfig(block);
   const facetNames = splitList(raw.filters ?? 'Roles, Topics').map(toClassName).filter(Boolean);
   const facets = facetNames.map((key) => ({
     key,
-    param: FACET_PARAMS[key] || key.replace(/s$/, ''),
+    param: STORY_LISTING.params[key] || key.replace(/s$/, ''),
     label: text(raw[`${key}-label`], key.charAt(0).toUpperCase() + key.slice(1).replace(/-/g, ' ')),
     options: splitList(raw[key]),
   }));
@@ -75,11 +64,11 @@ function readConfig(block) {
     facets,
     pageSize: pageSize > 0 ? pageSize : 9,
     defaultSort: SORTS.some((s) => s.value === sort) ? sort : 'newest',
-    index: text(raw.index, '/blog/query-index.json'),
-    external: text(raw['external-stories'], '/blog/external-stories.json'),
+    index: text(raw.index, STORY_SOURCES.index),
+    external: text(raw['external-stories'], STORY_SOURCES.external),
     optionsSheet: text(raw['filter-values'], '/tools/library/blocks.json?sheet=options'),
-    pathPrefix: text(raw.path, '/blog/'),
-    exclude: raw.exclude ? splitList(raw.exclude) : ['/blog', '/blog/authors', '/blog/search'],
+    pathPrefix: text(raw.path, STORY_SOURCES.pathPrefix),
+    exclude: raw.exclude ? splitList(raw.exclude) : STORY_SOURCES.exclude,
     labels: {
       search: text(raw['search-label'], 'Search Blogs'),
       placeholder: text(raw['search-placeholder'], 'Search Blog'),
@@ -168,39 +157,21 @@ function pageList(current, total) {
   return list;
 }
 
-function buildImage(story) {
-  if (!story.image) return null;
-  const wrapper = el('div', { className: 'story-listing-card-image' });
-  if (isSameOrigin(story.image)) {
-    wrapper.append(createOptimizedPicture(story.image, story.imageAlt, false, [{ width: '750' }]));
-  } else {
-    wrapper.append(el('img', {
-      src: story.image, alt: story.imageAlt, loading: 'lazy', decoding: 'async',
-    }));
-  }
-  return wrapper;
-}
-
 function buildCard(story) {
   const link = el('a', { className: 'story-listing-card-link', href: story.url }, story.title);
   if (story.external) link.rel = 'noopener';
   const body = el(
     'div',
-    { className: 'story-listing-card-body' },
-    el('h3', { className: 'story-listing-card-title' }, link),
+    { className: 'story-listing-card-body story-card-body' },
+    el('h3', { className: 'story-listing-card-title story-card-title' }, link),
   );
   if (story.date) {
-    const iso = new Date(story.date).toISOString().slice(0, 10);
-    body.append(el(
-      'p',
-      { className: 'story-listing-card-date' },
-      el('time', { datetime: iso }, formatStoryDate(story.date)),
-    ));
+    body.append(el('p', { className: 'story-listing-card-date story-card-date' }, buildStoryTime(story.date)));
   }
   if (story.description) {
-    body.append(el('p', { className: 'story-listing-card-description' }, story.description));
+    body.append(el('p', { className: 'story-listing-card-description story-card-description' }, story.description));
   }
-  const card = el('li', { className: 'story-listing-card' }, buildImage(story), body);
+  const card = el('li', { className: 'story-listing-card story-card' }, buildStoryImage(story, 'story-listing-card-image story-card-image'), body);
   if (story.external) card.classList.add('story-listing-card-external');
   return card;
 }
@@ -316,7 +287,7 @@ export default async function decorate(block) {
   const config = readConfig(block);
   const controls = buildControls(config, id);
   const status = el('p', { className: 'story-listing-count', role: 'status', 'aria-live': 'polite' }, 'Loading stories…');
-  const grid = el('ul', { className: 'story-listing-grid', id: `${id}-results`, tabindex: '-1' });
+  const grid = el('ul', { className: 'story-listing-grid story-card-grid', id: `${id}-results`, tabindex: '-1' });
   const nav = el('nav', { className: 'story-listing-pagination', 'aria-label': 'Pagination', hidden: true });
   block.replaceChildren(controls.form, status, grid, nav);
   block.classList.add('story-listing-loading');
@@ -412,16 +383,12 @@ export default async function decorate(block) {
 
   syncControls();
 
-  try {
-    stories = await loadStories({
-      index: config.index,
-      external: config.external,
-      pathPrefix: config.pathPrefix,
-      exclude: config.exclude,
-    });
-  } catch (e) {
-    stories = [];
-  }
+  stories = await loadStories({
+    index: config.index,
+    external: config.external,
+    pathPrefix: config.pathPrefix,
+    exclude: config.exclude,
+  });
 
   // Facets without authored options use the library options sheet (authored order,
   // so values without stories are listed too); failing that, the stories' values.

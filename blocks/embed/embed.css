@@ -53,28 +53,13 @@
   object-fit: contain;
 }
 
-/* facade play button: the site's 60px primary-color play circle (columns/cards video posters) */
+/* facade play button: the shared .video-play circle (styles.css) as a button */
 .embed .embed-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 60px;
-  height: 60px;
   margin: 0;
   padding: 0;
   border: 0;
-  border-radius: 50%;
-  background-color: var(--color-primary);
-  transform: translate(-50%, -50%);
   cursor: pointer;
   transition: background-color var(--transition-fast);
-}
-
-.embed .embed-play::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--icon-play-solid) center / 60px 60px no-repeat;
 }
 
 .embed .embed-play:hover {

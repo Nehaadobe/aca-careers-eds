@@ -41,12 +41,12 @@ footer .footer-band-main {
 }
 
 footer .footer-band-main a:any-link {
-  color: var(--footer-text);
-  text-decoration: none;
+  color: var(--footer-link-color);
+  text-decoration: var(--footer-link-decoration);
 }
 
 footer .footer-band-main a:hover {
-  color: var(--footer-text);
+  color: var(--footer-link-hover-color);
   text-decoration: underline;
 }
 
@@ -67,10 +67,19 @@ footer .footer-band-main .footer-brand a {
   line-height: 0;
 }
 
+/* :logo: and social icons: the box takes the image size (not the 24px icon square) */
+footer .footer-brand .icon,
+footer .footer-social .icon {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
 footer .footer-brand img {
   display: block;
-  width: 142px;
+  width: var(--footer-logo-width);
   height: auto;
+  filter: var(--footer-logo-filter);
 }
 
 footer .footer-notice h2 {
@@ -128,6 +137,7 @@ footer .footer-social img {
   display: block;
   width: auto;
   height: 24px;
+  filter: var(--footer-icon-filter);
 }
 
 /* utility bar */
@@ -153,12 +163,12 @@ footer .footer-utility li:not(:last-child)::after {
 }
 
 footer .footer-band-utility .footer-utility a:any-link {
-  color: var(--footer-utility-text);
-  text-decoration: none;
+  color: var(--footer-utility-link-color);
+  text-decoration: var(--footer-link-decoration);
 }
 
 footer .footer-band-utility .footer-utility a:hover {
-  color: var(--footer-utility-text);
+  color: var(--footer-link-hover-color);
 }
 
 /* legal band */
@@ -207,7 +217,7 @@ footer .footer-band-legal {
 
   /* the 142px logo overflows its 120px column, as on the source */
   footer .footer-brand {
-    flex: 0 0 150px;
+    flex: 0 0 var(--footer-brand-width);
     min-width: 0;
     margin: 0;
     padding: 0 15px;

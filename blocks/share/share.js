@@ -1,3 +1,5 @@
+import { getMetadata } from '../../scripts/aem.js';
+
 /**
  * Share block: a "Share" label and LinkedIn, Facebook and X share links for
  * the current page. Auto-built inside the article-header on blog articles;
@@ -42,9 +44,11 @@ function shareUrl() {
 }
 
 function shareTitle() {
-  const og = document.querySelector('meta[property="og:title"], meta[name="og:title"]')?.content;
+  const og = getMetadata('og:title');
   return (og || document.querySelector('main h1')?.textContent || document.title || '').trim();
 }
+
+let shareCount = 0;
 
 export default function decorate(block) {
   const authored = block.textContent.trim();
@@ -53,7 +57,8 @@ export default function decorate(block) {
 
   const label = document.createElement('p');
   label.className = 'share-label';
-  label.id = `share-label-${Math.random().toString(36).slice(2, 8)}`;
+  shareCount += 1;
+  label.id = `share-label-${shareCount}`;
   label.textContent = authored || 'Share';
 
   const list = document.createElement('ul');

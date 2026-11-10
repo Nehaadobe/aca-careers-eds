@@ -1,3 +1,5 @@
+import { decorateLoneLinkButtons, unwrapPicture } from '../../scripts/scripts.js';
+
 /**
  * Hero block.
  *
@@ -6,28 +8,13 @@
  *   - a single cell holding the image followed by the heading/CTA (boilerplate shape)
  *
  * Options (block classes):
- *   - `home` - full-bleed, centered headline and CTA over the image.
- *   - `page` - page header: H1 and subtitle paragraph(s) on the left, photo with a
- *     rounded corner on the right; stacks on mobile.
+ *   - `home` - full-bleed, centered headline and CTA over the image (the same look as no
+ *     option: authors may use Hero or Hero (home)).
+ *   (Page headers - H1 and intro beside a photo with a curved corner - are the
+ *   Columns (curve) block.)
  *   - `centered` - centered text intro, usually without an image: optional eyebrow
  *     paragraph before the H1, body copy, then CTA buttons side by side.
  */
-
-/**
- * Turns a link that sits alone in its paragraph into a button, for authors who
- * did not bold/italicise it (decorateButtons only handles formatted links).
- * @param {Element} container
- */
-function buttonizeLoneLinks(container) {
-  container.querySelectorAll('p > a[href]').forEach((a) => {
-    const p = a.parentElement;
-    if (a.classList.contains('button') || a.querySelector('img')) return;
-    if (p.textContent.trim() !== a.textContent.trim()) return;
-    a.classList.add('button', 'primary');
-    a.title = a.title || a.textContent.trim();
-    p.classList.add('button-wrapper');
-  });
-}
 
 /**
  * Centered option: marks the eyebrow (text paragraphs before the heading), groups
@@ -46,7 +33,7 @@ function decorateCentered(block, picture, contentCell) {
     children.push(media);
   }
   if (contentCell) {
-    buttonizeLoneLinks(contentCell);
+    decorateLoneLinkButtons(contentCell);
     contentCell.querySelectorAll(':scope > p').forEach((p) => {
       if (p.textContent.trim() === '' && !p.querySelector('img, picture, a')) p.remove();
     });
@@ -87,39 +74,17 @@ export default function decorate(block) {
 
   if (picture) {
     // Unwrap a picture that the author placed inside a paragraph.
-    const p = picture.closest('p');
-    if (p && p.textContent.trim() === '' && p.children.length === 1) p.replaceWith(picture);
+    unwrapPicture(picture);
     picture.classList.add('hero-media');
   }
 
   if (contentCell) contentCell.classList.add('hero-content');
   if (!picture) block.classList.add('no-image');
 
-  if (block.classList.contains('home') && contentCell) {
-    buttonizeLoneLinks(contentCell);
+  // photo heroes (default and home): a link alone in its paragraph is the CTA button
+  if (!block.classList.contains('centered') && contentCell) {
+    decorateLoneLinkButtons(contentCell);
   }
 
-  if (block.classList.contains('centered') && !block.classList.contains('page')) {
-    decorateCentered(block, picture, contentCell);
-    return;
-  }
-
-  if (block.classList.contains('page')) {
-    // Flatten to [media, content] so the two can sit side by side.
-    const children = [];
-    if (picture) {
-      const media = document.createElement('div');
-      media.className = 'hero-media-wrap';
-      media.append(picture);
-      children.push(media);
-    }
-    if (contentCell) {
-      // The picture may have shared the content cell; drop the empty paragraph it left.
-      contentCell.querySelectorAll(':scope > p').forEach((p) => {
-        if (p.textContent.trim() === '' && !p.querySelector('img, picture, a')) p.remove();
-      });
-      children.push(contentCell);
-    }
-    block.replaceChildren(...children);
-  }
+  if (block.classList.contains('centered')) decorateCentered(block, picture, contentCell);
 }
