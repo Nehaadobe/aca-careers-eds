@@ -76,3 +76,8 @@ export const StellarusCareers = {
   ...frameStory("pages/stellarus/careers", undefined, { chrome: true, minHeight: 900 }),
   name: "Stellarus careers",
 };
+
+export const AscendiunCareers = {
+  ...frameStory("pages/ascendiun/careers", undefined, { chrome: true, minHeight: 900 }),
+  name: "Ascendiun careers",
+};

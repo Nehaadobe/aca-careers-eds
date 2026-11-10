@@ -7,8 +7,8 @@ export default {
   parameters: { docs: { description: { component: "Custom **accordion** block. Purpose: Expandable question and answer list (FAQ).\n\n## Authoring (Document Authoring)\n\nModel: `standalone`\n\nSingle block table. Content: one row per item: question cell (plain text) and answer cell (rich text: paragraphs, lists, links including mailto).\n\n## Supported variations\n\nNo variations.\n\n## Universal Editor fields\n\nN/A (Document Authoring project)\n" } } },
 };
 
-export const Accordion = {
+export const FAQAccordion = {
   ...frameStory("blocks/accordion", 0),
-  name: "Accordion",
+  name: "FAQ Accordion",
   parameters: { docs: { description: { story: "Questions and answers (FAQ). One row per question: question in the first cell, answer in the second. Only one answer is open at a time." } } },
 };

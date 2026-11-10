@@ -4,11 +4,23 @@ import { frameStory } from '../../src/frame.js';
 export default {
   title: "Blocks/Columns",
   tags: ['autodocs'],
-  parameters: { docs: { description: { component: "Custom **columns** block. Purpose: Side-by-side columns of content; with 'alternating', image/text rows whose sides alternate.\n\n## Authoring (Document Authoring)\n\nModel: `standalone`\n\nSingle block table. Content: one row per line of columns, one cell per column. With 'alternating': each row has a media cell (image, optionally followed by a youtube.com/watch link for a video) and a text cell (optional H3, paragraphs, lists, links); author the cells in either order.\n\n## Supported variations\n\n| Variation | Option class |\n| --- | --- |\n| Alternating | `alternating` |\n\n## Universal Editor fields\n\nN/A (Document Authoring project)\n" } } },
+  parameters: { docs: { description: { component: "Custom **columns** block. Purpose: Side-by-side columns of content; with 'alternating', image/text rows whose image side follows the cell order; with 'curve', the page header (H1 and intro beside a photo with a curved corner).\n\n## Authoring (Document Authoring)\n\nModel: `standalone`\n\nSingle block table. Content: one row per line of columns, one cell per column. With 'alternating': each row has a media cell (image, optionally followed by a youtube.com/watch link for a video) and a text cell (optional H3, paragraphs, lists, links); the cell order sets the side: image cell first = image left, text cell first = image right (to zigzag, swap the cell order on every other row).\n\nWith 'curve' (page header, formerly Hero (page)): each row has a text cell (H1 and intro paragraphs) and a photo cell. **The cell order sets the side:** text cell first = photo on the right (curve on its bottom-left corner); photo cell first = photo on the left (curve on its bottom-right corner). The curve always faces the text. On mobile the photo stacks above centered text. A row without a photo shows the title only. Usually the first block on the page; the section below it starts 30px lower, as on the source.\n\n## Supported variations\n\n| Variation | Option class |\n| --- | --- |\n| Alternating (image side set by cell order) | `alternating` |\n| Curve (page header; photo side set by cell order) | `curve` |\n\n## Universal Editor fields\n\nN/A (Document Authoring project)\n" } } },
 };
 
 export const ColumnsAlternating = {
   ...frameStory("blocks/columns", 0),
   name: "Columns (alternating)",
-  parameters: { docs: { description: { story: "Image and text rows that swap sides on every row. A linked image (for example to YouTube) opens the video." } } },
+  parameters: { docs: { description: { story: "Image and text rows. The image goes on the side of the cell you put first (image cell first = image left); swap the cells on the next row for a zigzag, as in this example. A linked image (for example to YouTube) opens the video." } } },
+};
+
+export const ColumnsCurvePhotoRight = {
+  ...frameStory("blocks/columns", 1),
+  name: "Columns (curve) - photo right",
+  parameters: { docs: { description: { story: "Page header: H1 and intro beside a photo with a curved corner facing the text. Text cell first = photo on the right. Formerly Hero (page)." } } },
+};
+
+export const ColumnsCurvePhotoLeft = {
+  ...frameStory("blocks/columns", 2),
+  name: "Columns (curve) - photo left",
+  parameters: { docs: { description: { story: "Same page header with the photo on the left: put the photo cell first. The curve moves to the corner facing the text." } } },
 };

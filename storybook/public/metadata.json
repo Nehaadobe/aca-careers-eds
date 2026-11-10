@@ -1,0 +1,43 @@
+{
+  "total": 5,
+  "offset": 0,
+  "limit": 5,
+  "data": [
+    {
+      "URL": "/**",
+      "theme": "bsc",
+      "nav": "",
+      "footer": "",
+      "robots": ""
+    },
+    {
+      "URL": "/stellarus/**",
+      "theme": "stellarus",
+      "nav": "/stellarus/nav",
+      "footer": "/stellarus/footer",
+      "robots": ""
+    },
+    {
+      "URL": "/ascendiun/**",
+      "theme": "ascendiun",
+      "nav": "",
+      "footer": "",
+      "robots": ""
+    },
+    {
+      "URL": "/drafts/**",
+      "theme": "",
+      "nav": "",
+      "footer": "",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "URL": "/tools/**",
+      "theme": "",
+      "nav": "",
+      "footer": "",
+      "robots": "noindex, nofollow"
+    }
+  ],
+  ":type": "sheet"
+}

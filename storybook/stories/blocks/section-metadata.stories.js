@@ -28,5 +28,5 @@ export const SectionMetadataBlue = {
 export const SectionMetadataTwoUp = {
   ...frameStory("blocks/section-metadata", 3),
   name: "Section Metadata (two-up)",
-  parameters: { docs: { description: { story: "Shows two blocks of the section side by side (for example two quotes)." } } },
+  parameters: { docs: { description: { story: "Reserved: no styling yet (the home page quotes sit side by side on their own). Combine with other styles, e.g. centered, two-up." } } },
 };

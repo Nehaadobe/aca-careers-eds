@@ -9,6 +9,8 @@
  *   public/fixtures/templates/*   authoring library page templates
  *   public/fixtures/pages/**      real pages shown under "Page templates"
  *   public/nav.plain.html, public/footer.plain.html, public/media-da/**   header and footer
+ *   public/stellarus/nav.plain.html, public/stellarus/footer.plain.html   Stellarus header and footer
+ *   public/metadata.json   bulk metadata (the frame applies a brand's nav / footer rows)
  *   public/drafts/fragments/**    shared fragments
  *   public/blog/query-index.json, public/sitemap.json   story indexes (from all story pages)
  *   public/blog/external-stories.json, public/tools/library/blocks*.json  sheets
@@ -41,6 +43,7 @@ const PAGES = [
   ['blog/asian-american-and-pacific-islander-heritage-month', 'Story with video hero'],
   ['blog/blue-shield-of-california-internship-program-2024', 'Story with floated images'],
   ['stellarus/careers', 'Stellarus careers'],
+  ['ascendiun/careers', 'Ascendiun careers'],
 ];
 
 const TEMPLATE_NAMES = {
@@ -63,6 +66,11 @@ const clearDir = (dir) => {
   fs.mkdirSync(dir, { recursive: true });
   fs.readdirSync(dir).forEach((entry) => fs.rmSync(path.join(dir, entry), { recursive: true, force: true }));
 };
+/**
+ * The server turns `:icon-name:` in text into an icon span (decorateIcons loads /icons/icon-name.svg);
+ * the content export keeps the raw syntax, so the fixtures do the same conversion.
+ */
+const withIcons = (html) => html.replace(/(^|[\s>]):([a-z][a-z0-9-]*):(?=[\s<]|$)/g, '$1<span class="icon icon-$2"></span>');
 const textOf = (html) => html.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 
 /** Splits a .plain.html file into its top-level section HTML strings. */
@@ -101,7 +109,7 @@ function metadata(html) {
 
 /** Page fixture: relative media (./media/x.png) points at the copied fixture media. */
 function copyPage(rel, toDir) {
-  const html = read(path.join(CONTENT, `${rel}.plain.html`));
+  const html = withIcons(read(path.join(CONTENT, `${rel}.plain.html`)));
   const dir = path.posix.dirname(rel) === '.' ? '' : `/${path.posix.dirname(rel)}`;
   const fixed = html.replace(/(src|srcset)="\.\/media\//g, `$1="/fixtures/${toDir}${dir}/media/`);
   write(path.join(PUBLIC, 'fixtures', toDir, `${rel}.plain.html`), fixed);
@@ -156,7 +164,9 @@ function storiesFile({
 }
 
 // --- shared documents and media -------------------------------------------------------------
-['nav', 'footer'].forEach((doc) => write(path.join(PUBLIC, `${doc}.plain.html`), read(path.join(CONTENT, `${doc}.plain.html`))));
+['nav', 'footer', 'stellarus/nav', 'stellarus/footer'].forEach((doc) => write(path.join(PUBLIC, `${doc}.plain.html`), withIcons(read(path.join(CONTENT, `${doc}.plain.html`)))));
+// bulk metadata: brand folders with their own header and footer (e.g. /stellarus/** -> /stellarus/nav)
+write(path.join(PUBLIC, 'metadata.json'), read(path.join(CONTENT, 'metadata.json')));
 copyDir(path.join(CONTENT, 'media-da'), path.join(PUBLIC, 'media-da'));
 // shared fragments, at their site paths (the Fragment block example includes one)
 copyDir(path.join(CONTENT, 'drafts/fragments'), path.join(PUBLIC, 'drafts/fragments'));
@@ -211,13 +221,13 @@ const blockDir = path.join(CONTENT, 'tools/library/blocks');
 let blockStories = 0;
 fs.readdirSync(blockDir).filter((f) => f.endsWith('.plain.html')).sort().forEach((file) => {
   const block = file.replace('.plain.html', '');
-  const html = read(path.join(blockDir, file));
+  const html = withIcons(read(path.join(blockDir, file)));
   write(path.join(PUBLIC, 'fixtures/blocks', file), html);
   const stories = sections(html)
     .filter((s) => !s.includes('class="metadata"') && textOf(s))
     .map((s, i) => {
-      const name = s.match(/<div><div>name<\/div><div>([\s\S]*?)<\/div><\/div>/i);
-      const desc = s.match(/<div><div>description<\/div><div>([\s\S]*?)<\/div><\/div>/i);
+      const name = s.match(/<div><div>(?:<p>)?name(?:<\/p>)?<\/div><div>([\s\S]*?)<\/div><\/div>/i);
+      const desc = s.match(/<div><div>(?:<p>)?description(?:<\/p>)?<\/div><div>([\s\S]*?)<\/div><\/div>/i);
       return {
         name: name ? textOf(name[1]) : `Example ${i + 1}`, fixture: `blocks/${block}`, section: i, story: desc ? textOf(desc[1]) : '',
       };

@@ -1,7 +1,7 @@
 {
-  "total": 87,
+  "total": 88,
   "offset": 0,
-  "limit": 87,
+  "limit": 88,
   "data": [
     {
       "path": "/a-culture-of-belonging",
@@ -12,6 +12,16 @@
       "robots": "",
       "lastModified": "1793417274",
       "theme": ""
+    },
+    {
+      "path": "/ascendiun/careers",
+      "title": "A great place to do meaningful work",
+      "description": "Blue Shield is always looking for new, talented people to improve the lives of our members. We have career opportunities in the areas of Finance, Information Technology, Nursing, Legal, Customer Experience, Marketing, and more are currently available.",
+      "image": "https://iprsoftwaremedia.com/399/files/20222/622fa0f8b3aed30a89b12b48_bsc-hq-building/bsc-hq-building_hero.jpg?v=8175e54f-ec17-4350-a9f7-5ba532b5b031",
+      "template": "",
+      "robots": "",
+      "lastModified": "1793417274",
+      "theme": "ascendiun"
     },
     {
       "path": "/blog",

@@ -4,11 +4,11 @@ import { frameStory } from '../../src/frame.js';
 export default {
   title: "Blocks/Share",
   tags: ['autodocs'],
-  parameters: { docs: { description: { component: "Custom **share** block. Purpose: Social share links for the current page.\n\n## Authoring (Document Authoring)\n\nModel: `standalone`\n\nSingle block table. Content: Auto-built inside the article-header on blog-article pages. When authored: an empty block, or a single cell whose text replaces the 'Share' label.\n\n## Supported variations\n\nNo variations.\n\n## Universal Editor fields\n\nN/A (Document Authoring project)\n" } } },
+  parameters: { docs: { description: { component: "Custom **share** block. Purpose: Social share links for the current page.\n\n## Authoring (Document Authoring)\n\nModel: `standalone`\n\nSingle block table with one cell: the label shown before the icons (\"Share\"); leave it empty for the default label. Auto-built inside the article-header on blog-article pages. The LinkedIn, Facebook and X icons are drawn by share.js when the page renders, so Document Authoring shows only the label cell.\n\n## Supported variations\n\nNo variations.\n\n## Universal Editor fields\n\nN/A (Document Authoring project)\n" } } },
 };
 
 export const Share = {
   ...frameStory("blocks/share", 0),
   name: "Share",
-  parameters: { docs: { description: { story: "LinkedIn, Facebook and X share links for the current page. Added automatically to story headers; place it manually anywhere else." } } },
+  parameters: { docs: { description: { story: "Share label followed by LinkedIn, Facebook and X share links for the current page. The cell holds the label text; the icons appear on the preview and live page, not in the editor. Added automatically to story headers; place it manually anywhere else." } } },
 };

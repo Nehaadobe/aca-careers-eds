@@ -1,6 +1,6 @@
 # Careers sites Storybook
 
-Design system of the careers sites (Blue Shield of California, Stellarus, Ascendiun slot): guides, design
+Design system of the careers sites (Blue Shield of California, Stellarus, Ascendiun): guides, design
 tokens per brand, every block and variation, and page templates, all rendered with the site's own code.
 
 ## Commands
@@ -27,7 +27,8 @@ in the address with `&globals=brand:stellarus`.
   `/scripts/scripts.js`: the page is decorated exactly as on the site. The iframe grows to its content.
 - `public/sb-tokens.js` draws the Foundations token tables from `/styles/brand.css`, with the values
   resolved for the selected brand.
-- Mock data at site paths: `/nav.plain.html`, `/footer.plain.html`, `/blog/query-index.json`,
+- Mock data at site paths: `/nav.plain.html`, `/footer.plain.html`, `/stellarus/nav.plain.html`,
+  `/stellarus/footer.plain.html` (applied for the Stellarus brand from `/metadata.json`, as on the site), `/blog/query-index.json`,
   `/sitemap.json`, `/blog/external-stories.json`, `/tools/library/blocks.json` (one file per sheet:
   `blocks.options.json`, mapped by the frame's fetch shim).
 
@@ -46,7 +47,7 @@ committed, so run it on a machine that has the content export, then commit the r
 ## Notes
 
 - Photos load from their original addresses (internet connection needed).
-- Blue Shield fonts come from the Adobe Fonts kit; if the kit does not allow the Storybook's domain, the
-  metric-matched fallbacks are shown.
+- Fonts are self-hosted with the site (`fonts/`): Fieldwork for Blue Shield and Ascendiun (`styles/fonts.css`),
+  Inter, Space Grotesk and JetBrains Mono for Stellarus (its theme file). Until they load, the metric-matched fallbacks are shown.
 - The Storybook is kept out of the site: `storybook/*` is in `.hlxignore`, its packages and build output
   in `.gitignore`, and it has its own lint scope (root `.eslintignore`).

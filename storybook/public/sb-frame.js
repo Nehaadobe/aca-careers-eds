@@ -91,6 +91,25 @@ async function loadFixture(main) {
   main.append(...content);
 }
 
+/**
+ * Brand header and footer, as the bulk metadata sheet sets them on the site: a brand whose folder
+ * row names its own nav / footer (e.g. /stellarus/** -> /stellarus/nav) gets them here too.
+ */
+async function applyBrandFragments() {
+  const theme = document.head.querySelector('meta[name="theme"]')?.content || '';
+  if (!theme) return;
+  try {
+    const sheet = await (await fetch('/metadata.json')).json();
+    const row = (sheet.data || []).find((r) => r.theme === theme && (r.nav || r.footer));
+    if (!row) return;
+    ['nav', 'footer'].forEach((name) => {
+      if (row[name] && !document.head.querySelector(`meta[name="${name}"]`)) addMeta('name', name, row[name]);
+    });
+  } catch (e) {
+    // no sheet: the shared /nav and /footer are used
+  }
+}
+
 async function start() {
   const main = document.querySelector('main');
   const theme = params.get('theme') || 'auto';
@@ -108,6 +127,7 @@ async function start() {
     document.head.querySelectorAll('meta[name="theme"]').forEach((meta) => meta.remove());
     addMeta('name', 'theme', theme);
   }
+  await applyBrandFragments();
   // no cookie banner in stories
   addMeta('name', 'consent', 'off');
   await import('/scripts/scripts.js');

@@ -4,23 +4,17 @@ import { frameStory } from '../../src/frame.js';
 export default {
   title: "Blocks/Hero",
   tags: ['autodocs'],
-  parameters: { docs: { description: { component: "Custom **hero** block. Purpose: Page-opening image with a headline and call to action.\n\n## Authoring (Document Authoring)\n\nModel: `standalone`\n\nSingle block table. Content: row 1: background image; row 2: heading (H1 or H2) and an optional CTA link in its own paragraph.\n\n## Supported variations\n\n| Variation | Option class |\n| --- | --- |\n| Home | `home` |\n| Page | `page` |\n| Centered | `centered` |\n\n## Universal Editor fields\n\nN/A (Document Authoring project)\n" } } },
+  parameters: { docs: { description: { component: "Custom **hero** block. Purpose: Page-opening image with a headline and call to action.\n\n## Authoring (Document Authoring)\n\nModel: `standalone`\n\nSingle block table. Content: row 1: background image; row 2: heading (H1 or H2) and an optional CTA link in its own paragraph.\n\n## Supported variations\n\n| Variation | Option class |\n| --- | --- |\n| Home | `home` |\n| Centered | `centered` |\n\nPage headers (H1 and intro text beside a photo with a curved corner) are the **Columns (curve)** block, formerly Hero (page).\n\n## Universal Editor fields\n\nN/A (Document Authoring project)\n" } } },
 };
 
-export const HeroHome = {
+export const Hero = {
   ...frameStory("blocks/hero", 0),
-  name: "Hero (home)",
+  name: "Hero",
   parameters: { docs: { description: { story: "Full-width photo with a centered headline and a call-to-action button. Use once, at the top of the homepage." } } },
 };
 
-export const HeroPage = {
-  ...frameStory("blocks/hero", 1),
-  name: "Hero (page)",
-  parameters: { docs: { description: { story: "Page header: title and intro text on the left, photo with a rounded corner on the right. Use at the top of section pages." } } },
-};
-
 export const HeroCentered = {
-  ...frameStory("blocks/hero", 2),
+  ...frameStory("blocks/hero", 1),
   name: "Hero (centered)",
   parameters: { docs: { description: { story: "Centered text hero without an image (Stellarus): small eyebrow line, title, intro text and two buttons (bold link = primary, italic link = secondary)." } } },
 };
