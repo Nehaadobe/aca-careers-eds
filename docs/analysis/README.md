@@ -471,7 +471,7 @@ blocks/*/*.css          semantic tokens only — no hex, rgb(), hsl(), named col
 ```
 
 - **Theme selection:** page metadata `theme` (bsc | stellarus | ascendiun), set once per folder through a metadata sheet (`/stellarus/**` → stellarus). The default is bsc. The theme class is added to `<body>`, and the theme CSS loads in `loadEager` before the LCP, so the page renders in the right colors from the first paint.
-- **Fonts per theme:** BSC uses the Adobe Fonts kit `wcg8bju`. The kit must allow `*.aem.page`, `*.aem.live`, `localhost` and the production host. Stellarus fonts are self-hosted with `font-display: swap` and metric-matched fallbacks.
+- **Fonts per theme:** BSC and Ascendiun use Fieldwork (client decision, November 2026; it replaces the Adobe Fonts kit `wcg8bju` measured above): the client's Geo Light, Italic Light and Geo DemiBold files, self-hosted as WOFF2 in `/fonts` (`styles/fonts.css`). Stellarus fonts are self-hosted too. All use `font-display: swap` and metric-matched fallbacks.
 - **Semantic tokens (initial set), values per theme:**
 
 | Semantic token | BSC | Stellarus |
@@ -490,7 +490,7 @@ blocks/*/*.css          semantic tokens only — no hex, rgb(), hsl(), named col
 | `--color-accent-strong` (FAQ etc.) | `#003b5c` | `#C2D4F0` |
 | `--color-border` / `-strong` | `#ccc` / `#25282a` | `rgb(255 255 255 / 8%)` / `14%` |
 | `--focus-ring` | 2px white + 2px `#005a96` | 2px `#60A5FA` |
-| `--font-body` / `--font-heading` / `--font-display` / `--font-mono` | proxima-nova / proxima-nova / trade-gothic-next-condensed / — | Inter / Space Grotesk / Space Grotesk / JetBrains Mono |
+| `--font-body` / `--font-heading` / `--font-display` / `--font-mono` | fieldwork (all three; Light 300, DemiBold 600 for headings and titles) / — | Inter / Space Grotesk / Space Grotesk / JetBrains Mono |
 | `--display-transform` / `--display-tracking` | uppercase / 1.333px | none / −0.03em |
 | `--radius-button` / `--radius-card` / `--radius-panel` / `--radius-media` | 22.56px / 20px / 20px 0 / 0 0 0 80px | 9999px / 1rem / 1rem / 1rem |
 | `--shadow-card` / `--shadow-button` | `0 0 10px rgb(0 0 0 / 15%)` / none | `0 4px 16px rgb(0 0 0 / 45%)` / `0 0 20px rgb(59 130 246 / 30%)` |

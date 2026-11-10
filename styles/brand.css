@@ -13,26 +13,27 @@
  * Values: careers.blueshieldca.com computed styles (docs/analysis/README.md §7.2, §7.5).
  */
 
-/* BSC fonts come from the Adobe Fonts kit (styles/fonts.css). Fallbacks: Arial (or a
-   metric-compatible clone) scaled to the kit's text widths, so lines wrap the same before
-   and after the swap (no layout shift). */
+/* The BSC (and Ascendiun) font is Fieldwork, self-hosted in styles/fonts.css. Fallback until
+   it loads: Arial (or a metric-compatible clone) scaled to Fieldwork's English text widths and
+   line box (measured against Arimo: Light 103.31% of Arial, DemiBold 95.20% of Arial Bold;
+   ascent 1708 / descent 400 per 2048 em), so lines wrap the same before and after the swap. */
 @font-face {
-  font-family: proxima-nova-fallback;
-  size-adjust: 99%;
+  font-family: fieldwork-fallback;
+  size-adjust: 103.31%;
+  ascent-override: 80.73%;
+  descent-override: 18.91%;
+  line-gap-override: 0%;
   src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo Regular');
 }
 
 @font-face {
-  font-family: proxima-nova-fallback;
+  font-family: fieldwork-fallback;
   font-weight: 600 900;
-  size-adjust: 94%;
+  size-adjust: 95.2%;
+  ascent-override: 87.6%;
+  descent-override: 20.52%;
+  line-gap-override: 0%;
   src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('Arimo Bold');
-}
-
-@font-face {
-  font-family: trade-gothic-next-condensed-fallback;
-  size-adjust: 74%;
-  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo Regular');
 }
 
 :root {
@@ -121,15 +122,15 @@
   --icon-play-solid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23fff' d='M47.538 28.875 19.846 12c-.461 0-.923 0-1.154.225-.461.225-.692.45-.692.9v33.75c0 .45.23.675.692.9 0 .225.231.225.462.225s.461 0 .692-.225L47.538 30.9c.231-.225.462-.675.462-.9 0-.45-.23-.9-.462-1.125ZM20.308 44.85v-29.7L44.769 30l-24.461 14.85Z'/%3E%3C/svg%3E"); /* video facades */
 
   /* fonts */
-  --font-body: proxima-nova, proxima-nova-fallback, sans-serif;
-  --font-heading: proxima-nova, proxima-nova-fallback, sans-serif;
-  --font-display: trade-gothic-next-condensed, trade-gothic-next-condensed-fallback, sans-serif;
+  --font-body: fieldwork, fieldwork-fallback, sans-serif;
+  --font-heading: fieldwork, fieldwork-fallback, sans-serif;
+  --font-display: fieldwork, fieldwork-fallback, sans-serif;
   --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
 
   /* font weights */
-  --font-weight-body: 400;
-  --font-weight-heading: 600; /* section and card headings */
-  --font-weight-display: 500; /* page titles (h1), large hero headings, FAQ questions */
+  --font-weight-body: 300; /* Fieldwork Light */
+  --font-weight-heading: 600; /* section and card headings: Fieldwork DemiBold */
+  --font-weight-display: 600; /* page titles (h1), large hero headings, FAQ questions */
   --font-ligatures: normal; /* font-variant-ligatures */
   --heading-line-height: 1.2;
 

@@ -9,27 +9,8 @@
  * decision). Tokens the source has no equivalent for keep the BSC value (marked "BSC").
  */
 
-/* Fieldwork Geo Light (Hoftype; the client's web font license covers the careers site).
-   The source declares one face at the normal weight and lets the browser embolden it for
-   the 500 / 600 calls to action; this face does the same. */
-@font-face {
-  font-family: Fieldwork;
-  font-style: normal;
-  font-weight: normal;
-  font-display: swap;
-  src: url('../../fonts/fieldwork-geo-light.woff2') format('woff2');
-}
-
-/* metric-matched fallback (width on English text and ascent / descent measured against Arial),
-   so the swap does not shift the layout */
-@font-face {
-  font-family: fieldwork-fallback;
-  size-adjust: 90.94%;
-  ascent-override: 91.27%;
-  descent-override: 21.99%;
-  line-gap-override: 0%;
-  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Arimo Regular');
-}
+/* Fieldwork (Light, Light Italic, DemiBold) and its metric-matched fallback are shared with
+   BSC: styles/fonts.css and styles/brand.css. */
 
 body {
   --color-scheme: light;
@@ -197,6 +178,7 @@ body {
   body {
     --heading-font-size-xxl: 56px;
     --heading-font-size-xl: 32px;
+    --nav-logo-width: 150px; /* the wide wordmark leaves room for the nav links and CTA */
   }
 }
 

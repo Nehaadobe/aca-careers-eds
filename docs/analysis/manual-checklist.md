@@ -7,7 +7,7 @@ Use one row per item. Mark ✅ when it matches the live source at 1440px **and**
 | # | Check | BSC | Stellarus |
 | --- | --- | --- | --- |
 | A1 | The theme is right on first paint: no flash of the other brand's colors or fonts | ☐ | ☐ |
-| A2 | Fonts: BSC uses proxima-nova and trade-gothic-next-condensed from Adobe Fonts kit `wcg8bju` on aem.page and aem.live; Stellarus uses Inter, Space Grotesk and JetBrains Mono. Fallbacks don't shift the layout. | ☐ | ☐ |
+| A2 | Fonts: BSC and Ascendiun use Fieldwork (Light, Light Italic, DemiBold; self-hosted, client files; client decision November 2026, replacing the Adobe Fonts kit `wcg8bju`); Stellarus uses Inter, Space Grotesk and JetBrains Mono. Fallbacks don't shift the layout. | ☐ | ☐ |
 | A3 | Header (desktop): BSC has the utility row (Pay my premium, Employers, Brokers, Providers), logo + "Careers", 5 items, the "Life at Blue Shield" dropdown (Our people, Our workplace model, Awards & Recognition → external) and the "Find your next role" CTA. Stellarus has the logo, 7 pill links with Careers active, and the "Start the Conversation" CTA with a glow. | ☐ | ☐ |
 | A4 | Header (mobile, below 992px): burger, menu or drawer opens and closes, Escape closes it, focus returns to the burger, the dropdown is reachable | ☐ | ☐ |
 | A5 | Footer: BSC has the logo, fair-hiring text with 5 links, Our company (5), Legal notices (4, including "Cookie preferences", which opens OneTrust), 4 social icons, the black utility bar and the disclaimer. Stellarus has the blurb with the Ascendiun link, Platform (7), Company (5), Connect (2) and the copyright. | ☐ | ☐ |

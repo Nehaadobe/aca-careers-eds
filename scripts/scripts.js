@@ -45,7 +45,7 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
  * Brands. Page metadata `theme` selects one (normally set per folder through bulk
  * metadata); without it, or with an unknown value, the page is BSC.
  * - css: loads styles/themes/<theme>.css (token overrides). BSC is the token default.
- * - adobeFonts: loads styles/fonts.css (Adobe Fonts kit wcg8bju).
+ * - webFonts: loads styles/fonts.css (Fieldwork, self-hosted).
  * - consent: OneTrust by default; page metadata `consent: on|off` overrides it.
  * - favicon: the brand's icon (head.html links the BSC one); none keeps the BSC icon.
  * - logos: brand logo icons shown instead of the careers ones in the shared nav and footer
@@ -53,20 +53,20 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
  */
 const THEMES = {
   bsc: {
-    css: false, adobeFonts: true, consent: true, favicon: '/favicons/bsc.png',
+    css: false, webFonts: true, consent: true, favicon: '/favicons/bsc.png',
   },
   stellarus: {
     css: true,
-    adobeFonts: false,
+    webFonts: false,
     consent: false,
     favicon: '/favicons/stellarus.png',
     logos: { 'bsc-logo': 'stellarus-logo-full', 'bsc-logo-white': 'stellarus-logo-full' },
     logoHome: 'https://www.stellarus.com/',
   },
-  // Fieldwork is self-hosted in the theme file; OneTrust stays on for the careers domain
+  // OneTrust stays on for the careers domain
   ascendiun: {
     css: true,
-    adobeFonts: false,
+    webFonts: true,
     consent: true,
     favicon: '/favicons/ascendiun.png',
     logos: { 'bsc-logo': 'ascendiun-logo', 'bsc-logo-white': 'ascendiun-logo' },
@@ -139,10 +139,10 @@ function isConsentEnabled(theme) {
 }
 
 /**
- * load fonts.css (brands on the Adobe Fonts kit only) and set a session storage flag
+ * load fonts.css (brands using Fieldwork) and set a session storage flag
  */
 async function loadFonts() {
-  if (!THEMES[getTheme()].adobeFonts) return;
+  if (!THEMES[getTheme()].webFonts) return;
   await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
   try {
     if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
