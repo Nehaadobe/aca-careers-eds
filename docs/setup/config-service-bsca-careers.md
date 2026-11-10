@@ -12,13 +12,38 @@ Authoring, so the site runs at `https://{branch}--bsca-careers--blueshieldca.aem
 | Reference | The working site `nehaadobe/aca-careers-eds` has the same settings with the old names |
 
 The site already exists in the Config Service (it serves the Document Authoring content today,
-without code). Steps 2 to 4 update it; nothing has to be created from scratch.
+without code). Steps 2 to 4 update it. Step 1 is for an `aemsites` administrator.
 
-## 1. AEM Code Sync on the GitHub repository (an `aemsites` GitHub admin)
+## 1. Canonical site `aemsites/bsca-careers` (an `aemsites` Config Service admin)
 
-Install or extend the **AEM Code Sync** GitHub app (https://github.com/apps/aem-code-sync) so it
-includes the repository `aemsites/bsca-careers`. Without it no code reaches the site (every
-code request returns 404).
+`blueshieldca/bsca-careers` runs on code from another organization's repository (a "repoless"
+site, https://www.aem.live/docs/repoless). AEM Code Sync (installed for all `aemsites` repositories)
+copies a repository's code only to its **canonical site**: the site whose org and name are the
+GitHub owner and repository, here `aemsites/bsca-careers`. That site does not exist yet (the Admin
+API answers `config for site not found: aemsites/bsca-careers`), so no code reaches either site
+and every code request returns 404.
+
+Create it, signed in as an `admin` of the `aemsites` organization:
+
+```sh
+curl -X PUT https://admin.hlx.page/config/aemsites/sites/bsca-careers.json \
+  -H "x-auth-token: $AUTH_TOKEN" -H "Content-Type: application/json" \
+  --data '{
+    "code": {
+      "owner": "aemsites",
+      "repo": "bsca-careers",
+      "source": { "type": "github", "url": "https://github.com/aemsites/bsca-careers" }
+    },
+    "content": {
+      "source": { "type": "markup", "url": "https://content.da.live/blueshieldca/bsca-careers" }
+    }
+  }'
+```
+
+The content source can be the same Document Authoring folder; this site's main job is to receive
+the code. After it exists, the next push to the repository (any branch) syncs that branch, and
+`https://develop--bsca-careers--blueshieldca.aem.page/head.html` returns 200. The project team can
+push to trigger the first sync.
 
 ## 2. Code and content source
 
