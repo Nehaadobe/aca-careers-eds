@@ -181,6 +181,8 @@ body {
   --footer-text: #8794b4;
   --footer-utility-background: transparent;
   --footer-utility-text: #8794b4;
+  --footer-link-hover-color: #c2d4f0; /* source: lighter blue-grey, no underline */
+  --footer-link-hover-decoration: none;
   --footer-accent-line: linear-gradient(90deg, rgb(96 165 250 / 0%), rgb(96 165 250 / 50%), rgb(96 165 250 / 0%));
 
   /* buttons */
@@ -208,6 +210,8 @@ body {
 
   /* fonts */
   --font-body: inter, inter-fallback, sans-serif;
+  --font-weight-body: 400; /* source: Inter Regular (BSC default is Fieldwork Light 300) */
+  --font-weight-display: 500;
   --font-heading: 'Space Grotesk', space-grotesk-fallback, sans-serif;
   --font-display: 'Space Grotesk', space-grotesk-fallback, sans-serif;
   --font-mono: 'JetBrains Mono', jetbrains-mono-fallback, ui-monospace, monospace;

@@ -47,7 +47,7 @@ footer .footer-band-main a:any-link {
 
 footer .footer-band-main a:hover {
   color: var(--footer-link-hover-color);
-  text-decoration: underline;
+  text-decoration: var(--footer-link-hover-decoration);
 }
 
 footer .footer-band-main a:focus-visible {
@@ -62,7 +62,8 @@ footer .footer-brand {
   margin-bottom: 15px;
 }
 
-footer .footer-band-main .footer-brand a {
+/* the logo link (not a text link in the brand blurb, e.g. "Ascendiun" on Stellarus) */
+footer .footer-band-main .footer-brand a:where(:has(img)) {
   display: inline-block;
   line-height: 0;
 }

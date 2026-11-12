@@ -99,7 +99,8 @@
   --footer-text: #fff;
   --footer-utility-background: #000;
   --footer-utility-text: #fff;
-  --footer-link-decoration: none; /* footer and utility links (underline on hover) */
+  --footer-link-decoration: none; /* footer and utility links */
+  --footer-link-hover-decoration: underline;
   --footer-logo-filter: none; /* recolors the footer logo image on light footers */
   --footer-logo-width: 142px;
   --footer-brand-width: 150px; /* desktop logo column */
