@@ -168,6 +168,14 @@ body {
   --nav-desktop-min-width: 921px;
   --header-background: transparent;
   --header-border-color: transparent; /* source: 1px transparent line under the nav */
+
+  /* source: the nav sticks to the top; once scrolled (25px) it shrinks to 64px + 1px line and
+     gets a frosted background (rgba(7, 11, 20, .72), 16px blur, 8% white line), 0.25s */
+  --header-position: sticky;
+  --nav-height-scrolled: 65px;
+  --header-scrolled-background: rgb(7 11 20 / 72%);
+  --header-scrolled-backdrop: blur(16px);
+  --header-scrolled-border-color: rgb(255 255 255 / 8%);
   --header-button-background: rgb(255 255 255 / 4%);
   --footer-background: transparent;
   --footer-text: #8794b4;

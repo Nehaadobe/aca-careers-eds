@@ -139,8 +139,24 @@ function buildHamburger(nav) {
  * loads and decorates the header
  * @param {Element} block The header block element
  */
+/** Scroll distance after which the header shows its scrolled state (stellarus.com: 25px). */
+const SCROLLED_AFTER = 24;
+
+/**
+ * Marks the page header as scrolled (.is-scrolled) once the page is scrolled past
+ * SCROLLED_AFTER; themes with a sticky header style that state (header.css).
+ * @param {Element} header the page <header>
+ */
+function trackScroll(header) {
+  const update = () => header.classList.toggle('is-scrolled', window.scrollY > SCROLLED_AFTER);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
 export default async function decorate(block) {
   DESKTOP_QUERY = desktopQuery();
+  const pageHeader = block.closest('header');
+  if (pageHeader) trackScroll(pageHeader);
   const fragment = await fetchLayoutFragment('nav', '/nav');
   block.textContent = '';
   if (!fragment) return;

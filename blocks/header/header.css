@@ -20,6 +20,38 @@ header nav {
   position: relative;
 }
 
+/*
+ * Scrolled state (header.js: .is-scrolled once the page is scrolled past 24px), for themes with a
+ * sticky header (Stellarus: the stellarus.com bar shrinks from 81px to 65px and gets a frosted
+ * background). The header keeps the same room in the page (height + margin), so the content does
+ * not move. The background and blur sit on a layer behind the nav, so the fixed mobile drawer
+ * inside it still covers the viewport (a backdrop-filter on an ancestor would trap it).
+ */
+header.is-scrolled {
+  height: var(--nav-height-scrolled);
+  margin-bottom: calc(var(--nav-height) - var(--nav-height-scrolled));
+}
+
+header .nav-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: transparent;
+  backdrop-filter: none;
+  transition: background-color var(--transition-fast);
+  pointer-events: none;
+}
+
+header.is-scrolled .nav-wrapper {
+  border-bottom-color: var(--header-scrolled-border-color);
+}
+
+header.is-scrolled .nav-wrapper::before {
+  background-color: var(--header-scrolled-background);
+  backdrop-filter: var(--header-scrolled-backdrop);
+}
+
 header nav ul {
   margin: 0;
   padding: 0;
@@ -454,6 +486,11 @@ header .nav-row-utility:empty + .nav-row-main {
   min-height: calc(var(--nav-height) - 1px);
   margin: 0 auto;
   padding: 0 var(--content-padding);
+  transition: min-height var(--transition-fast);
+}
+
+header.is-scrolled .nav-row-utility:empty + .nav-row-main {
+  min-height: calc(var(--nav-height-scrolled) - 1px);
 }
 
 /* brand: 34px logo + site name, both above the open drawer */

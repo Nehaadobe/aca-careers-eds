@@ -56,6 +56,9 @@ body::after {
 }
 
 header {
+  position: var(--header-position);
+  top: 0;
+  z-index: 50;
   height: var(--nav-height);
 }
 

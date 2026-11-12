@@ -248,6 +248,14 @@ body {
   /* header */
   --header-background: var(--color-background);
 
+  /* header position and its state after the page is scrolled (header.js adds .is-scrolled);
+     BSC: scrolls with the page, so the scrolled state looks the same */
+  --header-position: static; /* sticky: stays at the top of the viewport */
+  --nav-height-scrolled: var(--nav-height); /* header height once scrolled */
+  --header-scrolled-background: var(--header-background);
+  --header-scrolled-backdrop: none; /* backdrop-filter behind the scrolled header */
+  --header-scrolled-border-color: var(--header-border-color);
+
   /* buttons */
   --button-border-color: var(--color-primary);
   --button-hover-border-color: var(--color-primary-press);
