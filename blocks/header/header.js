@@ -139,8 +139,24 @@ function buildHamburger(nav) {
  * loads and decorates the header
  * @param {Element} block The header block element
  */
+/** Scroll distance after which the header shows its scrolled state (stellarus.com: 25px). */
+const SCROLLED_AFTER = 24;
+
+/**
+ * Marks the page header as scrolled (.is-scrolled) once the page is scrolled past
+ * SCROLLED_AFTER; themes with a sticky header style that state (header.css).
+ * @param {Element} header the page <header>
+ */
+function trackScroll(header) {
+  const update = () => header.classList.toggle('is-scrolled', window.scrollY > SCROLLED_AFTER);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
 export default async function decorate(block) {
   DESKTOP_QUERY = desktopQuery();
+  const pageHeader = block.closest('header');
+  if (pageHeader) trackScroll(pageHeader);
   const fragment = await fetchLayoutFragment('nav', '/nav');
   block.textContent = '';
   if (!fragment) return;
@@ -164,6 +180,11 @@ export default async function decorate(block) {
     section.className = `nav-${name}`;
     parts[name] = section;
   });
+
+  // the brand's own website (the logo link, e.g. stellarus.com) counts as the same site: its links
+  // keep the tab, other sites open a new one (BSC: the logo links to this site)
+  const brandLink = parts.brand?.querySelector('a[href]');
+  const brandHost = new URL(brandLink?.href || window.location.href, window.location.href).host;
 
   // utility row
   const utility = document.createElement('div');
@@ -212,7 +233,8 @@ export default async function decorate(block) {
       if (para) para.replaceWith(...para.childNodes);
       setupDropdown(li);
     });
-    list?.querySelectorAll('.nav-dropdown').forEach(openExternalLinksInNewTab);
+    list?.querySelectorAll('.nav-dropdown')
+      .forEach((dropdown) => openExternalLinksInNewTab(dropdown, [brandHost]));
     menu.append(parts.sections);
   }
   if (parts.tools) {
@@ -220,7 +242,7 @@ export default async function decorate(block) {
     if (cta) {
       cta.classList.add('nav-cta');
       parts.tools.replaceChildren(cta);
-      openExternalLinksInNewTab(parts.tools);
+      openExternalLinksInNewTab(parts.tools, [brandHost]);
     }
     menu.append(parts.tools);
   }

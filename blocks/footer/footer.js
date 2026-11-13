@@ -138,7 +138,15 @@ export default async function decorate(block) {
     parts[name] = section;
   });
 
-  NEW_TAB_SECTIONS.forEach((name) => { if (parts[name]) openExternalLinksInNewTab(parts[name]); });
+  if (sections.length === 3) {
+    // brand footer (stellarus.com): links to other sites than the brand's own open in a new tab
+    const brandLink = parts.brand?.querySelector('a[href]');
+    const brandHost = brandLink ? new URL(brandLink.href, window.location.href).host : '';
+    Object.values(parts).forEach((part) => openExternalLinksInNewTab(part, [brandHost]));
+  } else {
+    NEW_TAB_SECTIONS.filter((name) => parts[name])
+      .forEach((name) => openExternalLinksInNewTab(parts[name]));
+  }
   if (parts.links) groupLinkLists(parts.links);
   parts.social?.querySelector('ul')?.setAttribute('aria-label', 'Social media');
 

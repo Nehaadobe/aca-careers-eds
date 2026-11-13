@@ -12,7 +12,7 @@ main > .section > .gallery-wrapper {
 }
 
 .gallery {
-  margin: 30px 0;
+  margin: var(--space-l) 0;
 }
 
 .gallery .gallery-list {
@@ -58,7 +58,7 @@ main > .section > .gallery-wrapper {
 }
 
 .gallery .gallery-caption {
-  margin: 8px 0 0;
+  margin: var(--space-2xs) 0 0;
   font-size: var(--body-font-size-s);
-  line-height: 1.5;
+  line-height: var(--body-line-height);
 }

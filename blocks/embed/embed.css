@@ -7,11 +7,11 @@
  */
 .embed {
   width: 100%;
-  margin: 0 0 20px;
+  margin: 0 0 var(--space-m);
 }
 
 .embed.video {
-  margin-bottom: 40px;
+  margin-bottom: var(--space-xl);
 }
 
 .embed .embed-frame {
@@ -40,7 +40,7 @@
 /* third-party player box: the source's 560x315 iframe keeps 315px of height in
    columns narrower than 560px; dark until the poster (or the player) loads */
 .embed:not(.embed-video) .embed-frame {
-  min-height: 315px;
+  min-height: var(--embed-min-height);
   background-color: var(--color-media-background);
 }
 
@@ -72,6 +72,6 @@
 }
 
 .embed .embed-consent {
-  margin: 12px 0 0;
+  margin: var(--embed-consent-gap) 0 0;
   font-size: var(--body-font-size-xs);
 }

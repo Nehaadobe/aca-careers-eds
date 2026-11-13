@@ -498,10 +498,14 @@ export function resolveFragmentMedia(root, baseUrl, loading) {
 /**
  * Opens off-site links in a new tab.
  * @param {Element} root
+ * @param {string[]} [sameSiteHosts] hosts treated as the same site (no new tab), e.g. the
+ *   brand's own website on a brand footer
  */
-export function openExternalLinksInNewTab(root) {
+export function openExternalLinksInNewTab(root, sameSiteHosts = []) {
   root.querySelectorAll('a[href]').forEach((a) => {
-    if (new URL(a.href, window.location.href).origin === window.location.origin) return;
+    const url = new URL(a.href, window.location.href);
+    const sameSite = Array.isArray(sameSiteHosts) && sameSiteHosts.includes(url.host);
+    if (url.origin === window.location.origin || sameSite) return;
     a.target = '_blank';
     a.rel = 'noopener';
   });

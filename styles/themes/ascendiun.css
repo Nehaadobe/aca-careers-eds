@@ -118,6 +118,9 @@ body {
   --hero-centered-title-weight: 300;
   --hero-eyebrow-font: var(--font-body);
 
+  /* card links (source: 18px DemiBold text links such as "Explore Stellarus", at every width) */
+  --card-cta-font-size: 18px;
+
   /* fonts (source: Fieldwork everywhere, light, ligatures off) */
   --font-body: fieldwork, fieldwork-fallback, sans-serif;
   --font-heading: fieldwork, fieldwork-fallback, sans-serif;
