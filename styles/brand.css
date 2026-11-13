@@ -1,9 +1,17 @@
 /*
  * Design token contract (multi-brand) — the defaults are Blue Shield of California (BSC).
  *
- * - Every color, font stack, radius and shadow used by styles/styles.css and blocks/ is a
- *   token from this file. Raw values live here and in styles/themes/*.css only; stylelint
- *   enforces that (see .stylelintrc.json).
+ * - Every design value used by styles/styles.css, styles/video-modal.css and blocks/ is a
+ *   token from this file: colors, font stacks, font sizes, line heights, font weights, letter
+ *   spacing, spacing (margin, padding, gap, offsets), radii, border and outline widths,
+ *   shadows, z-index and component sizes. Raw values live here and in styles/themes/*.css
+ *   only; stylelint enforces that (.stylelintrc.json: colors and fonts, plus
+ *   scale-unlimited/declaration-strict-value for the others). calc(), min(), max() and
+ *   clamp() are fine when every length in them is a token (100%, 50%, 100vw and 100vh aside).
+ * - Use a scale token when the role fits (--space-*, --body-font-size-*, --heading-font-size-*,
+ *   --font-weight-*, --line-height-*, --z-*), so a theme that restyles the scale restyles the
+ *   block too. For a one-off measurement, add a named component token (e.g. --card-gap) next
+ *   to the others of its block below, with a one-line comment; never a raw value in a block.
  * - A theme (page metadata `theme`) loads styles/themes/<theme>.css in loadEager, which
  *   overrides token values on `body`. BSC needs no theme file: these defaults are BSC.
  * - Tokens with a raw value are declared on :root. Tokens defined from other tokens
@@ -106,9 +114,139 @@
   --footer-brand-width: 150px; /* desktop logo column */
   --footer-icon-filter: brightness(0) invert(1); /* social icons (/icons/*.svg, black) shown white */
 
+  /* two-row nav (careers.blueshieldca.com header) */
+  --nav-row-height: 80px; /* logo row and menu button below 992px */
+  --nav-row-height-desktop: 83px;
+  --nav-icon-width: 30px; /* menu icon bars */
+  --nav-icon-stroke: 2px;
+  --nav-icon-bar-gap: 9px;
+  --nav-site-name-font-size: 21px; /* "Careers" next to the logo, from 576px */
+  --nav-site-name-line-height: 32px;
+  --nav-site-name-padding-block: 23px;
+  --nav-site-name-line-height-desktop: 30px;
+  --nav-site-name-padding-block-desktop: 13px;
+  --nav-utility-line-height: 17px;
+  --nav-drawer-max-width: 320px;
+  --nav-notch-width: 11px; /* notch under the open dropdown trigger (half width) */
+  --nav-notch-height: 12px;
+
+  /* single-row nav (stellarus.com header) */
+  --nav-bar-gap: 12px;
+  --nav-bar-brand-gap: 11px; /* logo to site name */
+  --nav-bar-logo-size: 34px;
+  --nav-bar-icon-width: 15px; /* menu icon bars */
+  --nav-bar-icon-stroke: 1.67px; /* source: 2px stroke on a 24px grid drawn at 20px */
+  --nav-bar-icon-bar-gap: 5px;
+  --nav-bar-drawer-padding-top: 88px; /* clears the bar */
+  --nav-bar-drawer-padding-bottom: 32px;
+  --nav-bar-drawer-backdrop: blur(16px);
+  --nav-bar-drawer-link-gap: 4px;
+  --nav-bar-drawer-link-padding: 14px 16px;
+  --nav-bar-drawer-tools-gap: 28px;
+  --nav-bar-drawer-tools-padding: 24px;
+  --nav-bar-cta-height: 44px;
+  --nav-bar-cta-padding: 11px 22px;
+  --nav-bar-cta-icon-size: 16px;
+  --nav-bar-cta-gap-desktop: 6px;
+  --nav-bar-cta-height-desktop: 36px;
+  --nav-bar-cta-icon-size-desktop: 15px;
+  --nav-bar-link-padding-inline: 16px;
+  --nav-bar-link-squeeze-width: 800px; /* link padding shrinks below ~1010px, from this width */
+
+  /* six-section footer (careers.blueshieldca.com) */
+  --footer-padding-block: 45px;
+  --footer-notice-padding-inline: 50px;
+  --footer-social-gap: 10.4px;
+  --footer-social-link-width: 33.6px;
+  --footer-social-link-height: 36px;
+  --footer-social-icon-size: 24px;
+  --footer-legal-line-height: 18px;
+
+  /* three-section footer (stellarus.com) */
+  --footer-simple-padding-top: 56px;
+  --footer-simple-padding-bottom: 44px;
+  --footer-simple-gap: 28px;
+  --footer-simple-gap-desktop: 36px;
+  --footer-simple-heading-gap: 14px;
+  --footer-simple-link-gap: 9px;
+  --footer-simple-logo-size: 28px;
+  --footer-simple-brand-max-width: 300px;
+  --footer-simple-legal-padding-top: 22px;
+  --footer-simple-legal-padding-bottom: 36px;
+  --footer-accent-inset: 20%; /* accent line inset from both sides */
+
+  /* hero */
+  --hero-min-height: 480px; /* photo heroes */
+  --hero-centered-padding-top: clamp(40px, 6vw, 80px);
+  --hero-centered-padding-bottom: clamp(48px, 7vw, 96px);
+  --hero-centered-max-width: 760px;
+  --hero-centered-title-max-width: 680px;
+  --hero-centered-title-line-height: 1.08;
+  --hero-centered-title-gap: 48px;
+  --hero-centered-copy-gap: 18px;
+  --hero-eyebrow-gap: 14px;
+  --hero-actions-gap: 14px;
+  --hero-actions-margin: 34px; /* collapses with the copy's bottom margin */
+  --hero-button-height: 54px;
+
+  /* banner */
+  --banner-content-max-width: 1200px;
+  --banner-padding: 48px 24px;
+  --banner-padding-desktop: 64px 32px; /* from 900px */
+  --banner-locations-padding-block: 150px;
+  --banner-text-max-width: 480px;
+  --banner-text-gap: 24px;
+
+  /* cards */
+  --card-min-width: 257px; /* default grid track */
+  --card-gap: 24px;
+  --card-spacing: 16px; /* card body inset, title and icon gaps */
+  --card-cta-min-height: 28px; /* the source chevron glyph makes the link 28px tall */
+  --card-cta-chevron-size: 6px;
+  --card-cta-chevron-margin: 0 1px 0 4px; /* keeps the source glyph's 13px advance */
+  --gallery-overlap: 140px; /* feature tiles that follow a gallery overlap its lower edge */
+
+  /* story cards and listing */
+  --story-card-padding-compact: 24px; /* 4-column article list */
+  --story-filters-padding-block: 25px;
+  --story-filters-clear-line-height: 30px;
+  --story-search-width: 253px; /* from 1400px */
+  --story-search-button-width: 45px;
+  --story-grid-loading-height: 200px;
+  --pagination-arrow-width: 28px;
+  --pagination-arrow-height: 30px;
+  --pagination-chevron-size: 7px;
+
+  /* columns */
+  --columns-gap: 24px;
+  --columns-alternating-gap: 60px; /* between alternating rows, from 900px */
+  --columns-text-padding-wide: 100px; /* alternating rows, photo right */
+  --columns-curve-min-height: 320px;
+  --columns-curve-text-max-width: calc(645px - 10vw); /* title measure from 1400px */
+
+  /* story byline and hero (article-header block) */
+  --avatar-size: 50px;
+  --article-hero-width-desktop: 90vw;
+
+  /* accordion, table, image, quote, embed, video modal */
+  --accordion-gap: 16px; /* between items; the answer panel overlaps its question by the same */
+  --accordion-label-padding-open: 38px;
+  --table-margin: 32px;
+  --table-cell-padding: 0.5em;
+  --table-paragraph-gap: 0.25em;
+  --image-float-width: 400px; /* left / right story images */
+  --quote-portrait-size: 94px;
+  --quote-paragraph-gap: 1em;
+  --embed-min-height: 315px; /* the source 560x315 player keeps its height in narrow columns */
+  --embed-consent-gap: 12px;
+  --modal-max-width: 1100px;
+  --modal-margin: 16px;
+  --modal-close-clearance: 48px; /* room above the video for the close button */
+
   /* buttons */
   --button-secondary-background: #fff;
   --button-padding: 10.56px 40px;
+  --button-padding-block: 10.56px; /* the vertical part, for controls sized like a button */
 
   /* arrow after primary button labels (none for BSC; themes set an SVG mask image) */
   --button-arrow-image: none;
@@ -128,12 +266,31 @@
   --font-display: fieldwork, fieldwork-fallback, sans-serif;
   --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
 
-  /* font weights */
+  /* font weights: text roles (themes restyle these) */
   --font-weight-body: 300; /* Fieldwork Light */
   --font-weight-heading: 600; /* section and card headings: Fieldwork DemiBold */
   --font-weight-display: 600; /* page titles (h1), large hero headings, FAQ questions */
+
+  /* UI font weights: fixed steps for labels, buttons, nav and bold copy */
+  --font-weight-regular: 400; /* drawer sub-links */
+  --font-weight-medium: 500; /* story subheads, single-row nav links, hero eyebrow */
+  --font-weight-strong: 600; /* bold text, buttons, labels, nav links */
+  --font-weight-bold: 700; /* footer headings, brand names, table headers */
   --font-ligatures: normal; /* font-variant-ligatures */
   --heading-line-height: 1.2;
+
+  /* line heights (unitless, so they follow the font size) */
+  --line-height-single: 1; /* one-line controls */
+  --line-height-tight: 1.1; /* footer column headings (stellarus.com) */
+  --line-height-snug: 1.25; /* h3, card titles, nav links */
+  --line-height-loose: 1.65; /* stellarus.com copy, brand names, eyebrows */
+  --line-height-relaxed: 1.7; /* stellarus.com blurbs and hero intro */
+
+  /* tracking (letter spacing) */
+  --tracking-tight: -0.02em; /* footer column headings (stellarus.com) */
+  --tracking-button: 0.005em; /* pill buttons (stellarus.com) */
+  --tracking-caps: 0.05em; /* uppercase mono copyright line */
+  --tracking-eyebrow: 0.18em; /* uppercase mono eyebrow over the centered hero */
 
   /* text rendering (BSC source: browser defaults) */
   --font-smoothing: auto; /* -webkit-font-smoothing (macOS Chrome / Safari) */
@@ -145,7 +302,13 @@
   --body-font-size-m: 16px;
   --body-font-size-s: 14px;
   --body-font-size-xs: 12px;
+  --body-font-size-xxs: 11px; /* mono eyebrow and copyright line */
   --body-line-height: 1.5;
+  --font-size-script: 0.75em; /* sup and sub */
+  --sup-offset: -0.5em;
+  --sub-offset: -0.25em;
+  --link-underline-offset: 0.15em; /* underlined links in running text */
+  --link-chevron-gap: 6px; /* "View More Stories" link to its chevron */
 
   /* heading sizes */
   --heading-font-size-xxl: 42px; /* h1 page title (display font) */
@@ -155,11 +318,32 @@
   --heading-font-size-s: 16px;
   --heading-font-size-xs: 14px;
   --article-title-font-size: 36px;
+  --article-subhead-font-size: min(calc(1.265rem + 0.18vw), 1.4rem); /* story h3: Bootstrap fluid h3, 22.4px from 1200px */
+  --article-title-line-height: 40px;
+  --lead-font-size: 18px; /* intro copy under the centered hero heading (stellarus.com) */
   --display-tracking: 1.3333px;
   --display-transform: uppercase;
 
-  /* spacing */
+  /* spacing scale (source: Bootstrap-style 5px steps) */
+  --space-4xs: 3px;
+  --space-3xs: 5px;
+  --space-2xs: 8px;
+  --space-xs: 10px;
+  --space-s: 15px;
+  --space-m: 20px;
+  --space-l: 30px;
+  --space-xl: 40px;
+  --space-2xl: 60px;
+  --space-3xl: 80px;
+  --gutter-wide: 45px; /* header and footer side gutters from 768px */
+  --list-indent: 2rem;
+  --list-item-gap: 4px;
+  --pre-padding: 16px;
+
+  /* spacing: layout */
   --section-spacing: 60px;
+  --section-spacing-wide: 90px; /* around icon-tile groups next to a hero or photo strip */
+  --article-list-spacing: 100px; /* "More Stories" below the story body */
   --content-max-width: 1320px;
   --content-padding: 15px;
   --footer-accent-line: none; /* decorative line above the footer (Stellarus) */
@@ -176,6 +360,37 @@
   --radius-small: 8px; /* FAQ question row, code blocks */
   --radius-large: 16px; /* FAQ answer panel, feature-link tiles */
   --radius-control: 6px; /* form controls (story search and filters) */
+  --radius-nav-item: 12px; /* single-row header: menu button and drawer links */
+  --radius-hairline: 1px; /* thin drawn lines (icon strokes) */
+
+  /* line widths: borders and focus outlines */
+  --border-width: 1px;
+  --border-width-strong: 2px; /* header rules, table rules, drawn chevrons */
+  --focus-outline-width: 2px;
+  --focus-outline-offset: 2px;
+  --focus-outline-offset-tight: 1px; /* pill buttons and share icons */
+  --focus-outline-width-thin: 1px; /* share icons */
+  --focus-outline-width-media: 3px; /* video posters */
+  --focus-outline-offset-media: 3px;
+
+  /* stacking order */
+  --z-below: -1; /* background layers behind their content */
+  --z-raised: 1; /* above siblings (card links, dropdowns) */
+  --z-raised-2: 2; /* above raised siblings (brand over the open drawer) */
+  --z-nav: 20; /* header bar */
+  --z-header: 50; /* sticky header over the page */
+  --z-decoration: 60; /* theme texture over the page */
+  --z-overlay: 100; /* page dim behind the mobile menu */
+  --z-drawer: 150; /* mobile menu drawer and its close button */
+
+  /* control and icon sizes */
+  --icon-size: 24px; /* :icon: images, social glyphs */
+  --control-size: 40px; /* square icon buttons */
+  --control-height: 47.0938px; /* story search input and filter selects */
+  --control-padding-inline: 16px;
+  --select-padding-end: 48px; /* room for the chevron */
+  --select-padding-end-wide: 120px; /* from 768px */
+  --select-chevron-size: 16px 12px;
 
   /* shadows */
   --shadow-card: 0 0 10px 0 rgb(0 0 0 / 16%);
@@ -245,6 +460,12 @@ body {
 
   /* two-tone ring: visible (3:1+) on white, light-blue and brand-blue backgrounds */
   --focus-ring: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-focus);
+
+  /* card CTA size: "Learn what we do" on feature-link cards (the h4 size on BSC) */
+  --card-cta-font-size: var(--heading-font-size-m);
+
+  /* 1px link-colored ring around a hovered story card */
+  --ring-hover: 0 0 0 1px var(--color-link);
 
   /* header */
   --header-background: var(--color-background);
