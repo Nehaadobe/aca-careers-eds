@@ -5,7 +5,9 @@ import { Meta } from '@storybook/addon-docs/blocks';
 # Adding a block
 
 1. **Code:** create `blocks/<name>/<name>.js` (a default `decorate(block)` export) and
-   `blocks/<name>/<name>.css` with selectors scoped to `.<name>`, using tokens only. Add
+   `blocks/<name>/<name>.css` with selectors scoped to `.<name>`, using tokens only (colors, fonts,
+   sizes, spacing, radii, borders, z-index: see Guides / Brands and themes; add a token to
+   `styles/brand.css` when none fits). Add
    `blocks/<name>/README.md` (purpose, authoring, variations): it becomes the block's docs page here.
 2. **Library page:** in Document Authoring, create `/tools/library/blocks/<name>` with one section per
    variation: the block example, then a **Library Metadata** block with `name` (e.g. `Cards (icon-tiles)`)

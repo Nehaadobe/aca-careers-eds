@@ -5,8 +5,9 @@
  */
 const VIEWS = {
   colors: ['page', 'text', 'link', 'primary', 'band', 'accent', 'border', 'media', 'third-party', 'header', 'button', 'ring'],
-  type: ['font', 'body size', 'heading'],
-  space: ['spacing', 'shape', 'shadow', 'motion', 'width'],
+  type: ['font', 'body size', 'heading', 'line height', 'tracking'],
+  space: ['spacing', 'shape', 'shadow', 'motion', 'width', 'stacking', 'control'],
+  components: ['two-row nav', 'single-row nav', 'six-section', 'three-section', 'hero', 'banner', 'card', 'story', 'columns', 'accordion'],
 };
 
 /**
@@ -41,7 +42,12 @@ function parseTokens(css) {
 function preview(name) {
   const box = document.createElement('div');
   const v = `var(${name})`;
-  if (/font-size|line-height/.test(name)) {
+  if (/^--z-|line-height|tracking|transform|transition|scheme|icon-(select|play)/.test(name)) {
+    box.textContent = '—';
+  } else if (/font-weight/.test(name)) {
+    box.textContent = 'Find your next role';
+    box.style.cssText = `font-weight:${v};font-size:20px;`;
+  } else if (/font-size/.test(name)) {
     box.textContent = 'Aa';
     box.style.cssText = `font-size:${v};line-height:1.1;font-weight:600;`;
   } else if (/^--font-/.test(name)) {
@@ -51,10 +57,8 @@ function preview(name) {
     box.style.cssText = `width:72px;height:40px;border-radius:8px;background:#fff;box-shadow:${v};`;
   } else if (/radius/.test(name)) {
     box.style.cssText = `width:72px;height:40px;border-radius:${v};background:var(--color-primary);`;
-  } else if (/spacing|padding|width|height|gap/.test(name)) {
+  } else if (/^--space-|spacing|padding|width|height|gap|size|indent|inset|clearance|offset|margin|overlap/.test(name)) {
     box.style.cssText = `width:min(${v}, 100%);max-width:240px;height:12px;background:var(--color-primary);`;
-  } else if (/tracking|transform|transition|scheme|icon/.test(name)) {
-    box.textContent = '—';
   } else {
     box.style.cssText = `width:72px;height:40px;border-radius:6px;border:1px solid #8888;background:${v};`;
   }

@@ -11,7 +11,7 @@ All brands share one site, one block library, one header and one footer. A brand
 | --- | --- | --- | --- | --- |
 | Blue Shield of California | `bsc` (default) | everything outside the brand folders | none: the defaults in `styles/brand.css` | `favicons/bsc.png` |
 | Stellarus | `stellarus` | `/stellarus/**` | `styles/themes/stellarus.css` | `favicons/stellarus.png` |
-| Ascendiun | `ascendiun` | `/ascendiun/**` (not created yet) | `styles/themes/ascendiun.css` | Blue Shield icon until it has its own |
+| Ascendiun | `ascendiun` | `/ascendiun/**` | `styles/themes/ascendiun.css` | Blue Shield icon until it has its own |
 
 ## How a page gets its theme
 
@@ -26,13 +26,22 @@ All brands share one site, one block library, one header and one footer. A brand
 
 `styles/brand.css` defines every token with the Blue Shield value. A theme overrides only what differs.
 Groups (see Foundations): page and surfaces, text, links, primary action, bands, accents, borders, media,
-header and footer, buttons, fonts, body and heading sizes, spacing and widths, shapes, shadows, motion.
+header and footer, buttons, fonts, font weights, line heights, tracking, body and heading sizes, the
+spacing scale, spacing and widths, shapes, line widths, stacking order, control sizes, shadows, motion,
+and named component tokens (Foundations / Component tokens).
 
 Rules, enforced by stylelint (`npm run lint:css`):
 
-- Block CSS and `styles/styles.css` contain **no** hex, `rgb()` / `hsl()`, named colors or font stacks.
+- Block CSS, `styles/styles.css` and `styles/video-modal.css` contain **no** raw design values: no hex,
+  `rgb()` / `hsl()`, named colors or font stacks, and no raw font sizes, line heights, font weights,
+  letter spacing, margins, paddings, gaps, offsets, radii, border or outline widths, z-index or shadows
+  (`scale-unlimited/declaration-strict-value`). `0`, `auto`, `none`, `100%` and `50%` are fine, and so is
+  a `calc()`, `min()`, `max()` or `clamp()` whose lengths are all tokens.
 - Raw values are allowed only in `styles/brand.css` and `styles/themes/*.css`.
-- A new visual need gets a new token in `brand.css` (with the Blue Shield value), then theme overrides.
+- Use a scale token when the role fits (`--space-*`, `--body-font-size-*`, `--heading-font-size-*`,
+  `--font-weight-*`, `--line-height-*`, `--z-*`): a theme that restyles the scale then restyles the block.
+- A one-off measurement gets a named component token in `brand.css` (with the Blue Shield value and a
+  one-line comment), which a theme can override. Never a raw value in a block.
 
 ## Per-brand behavior in scripts
 

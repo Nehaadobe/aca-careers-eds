@@ -6,7 +6,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: 'Section spacing, content widths, corner radii, shadows and motion of the selected brand. The content width steps with the viewport (540 / 720 / 960 / 1140 / 1320px for Blue Shield), so values here depend on the viewport toolbar.',
+        component: 'The spacing scale, section spacing, content widths, corner radii, border and outline widths, the stacking order (z-index), control sizes, shadows and motion of the selected brand. The content width steps with the viewport (540 / 720 / 960 / 1140 / 1320px for Blue Shield), so values here depend on the viewport toolbar.',
       },
     },
   },
