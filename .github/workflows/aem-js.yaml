@@ -1,0 +1,36 @@
+name: Vendored aem.js
+on: pull_request
+
+permissions:
+  contents: read
+  pull-requests: write # explain the failure on the pull request
+
+jobs:
+  aem-js:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - name: scripts/aem.js matches aem-boilerplate
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PR: ${{ github.event.pull_request.number }}
+        UPSTREAM: https://raw.githubusercontent.com/adobe/aem-boilerplate/main/scripts/aem.js
+      run: |
+        curl -fsSL "$UPSTREAM" -o "$RUNNER_TEMP/aem.js"
+        if cmp -s "$RUNNER_TEMP/aem.js" scripts/aem.js; then
+          echo "scripts/aem.js matches $UPSTREAM"
+          exit 0
+        fi
+        diff -u "$RUNNER_TEMP/aem.js" scripts/aem.js | head -100 || true
+        {
+          echo "**scripts/aem.js differs from aem-boilerplate.**"
+          echo ""
+          echo "\`scripts/aem.js\` is the vendored Edge Delivery core (see AGENTS.md and RULES.md): it must stay"
+          echo "byte-identical to [$UPSTREAM]($UPSTREAM)."
+          echo "Put project code in \`scripts/scripts.js\` or a block instead. If aem-boilerplate released a new"
+          echo "version, copy the upstream file as is (commit with \`ALLOW_AEM_JS=1\`)."
+        } > "$RUNNER_TEMP/comment.md"
+        gh pr comment "$PR" --repo "${{ github.repository }}" --body-file "$RUNNER_TEMP/comment.md" \
+          || echo "Could not comment on the pull request (e.g. from a fork)."
+        echo "::error file=scripts/aem.js::scripts/aem.js differs from aem-boilerplate main"
+        exit 1

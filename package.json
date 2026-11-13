@@ -4,7 +4,9 @@
   "version": "1.3.0",
   "description": "Starter project for Adobe Helix",
   "scripts": {
-    "lint:js": "eslint .",
+    "prepare": "git config core.hooksPath .githooks",
+    "hooks:install": "git config core.hooksPath .githooks",
+    "lint:js": "eslint . --ext .js,.mjs",
     "lint:css": "stylelint \"blocks/**/*.css\" \"styles/*.css\" \"styles/themes/*.css\"",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:fix": "npm run lint:js -- --fix && npm run lint:css -- --fix"
