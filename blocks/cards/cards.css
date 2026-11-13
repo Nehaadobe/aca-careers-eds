@@ -10,18 +10,18 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: var(--card-gap);
 }
 
 .cards > ul > li {
   margin: 0;
-  border: 1px solid var(--color-border-subtle);
+  border: var(--border-width) solid var(--color-border-subtle);
   background-color: var(--color-background);
 }
 
 .cards .cards-card-body {
-  margin: 16px;
+  margin: var(--card-spacing);
 }
 
 .cards .cards-card-image {
@@ -43,12 +43,12 @@
   content: '';
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: var(--z-raised);
 }
 
 .cards .cards-card-linked:focus-within {
-  outline: 2px solid currentcolor;
-  outline-offset: 2px;
+  outline: var(--focus-outline-width) solid currentcolor;
+  outline-offset: var(--focus-outline-offset);
 }
 
 .cards .cards-card-title,
@@ -75,8 +75,8 @@
 .cards.feature-links > ul > li {
   display: flex;
   flex-direction: column;
-  margin: 0 0 15px;
-  padding: 40px;
+  margin: 0 0 var(--space-s);
+  padding: var(--space-xl);
   border: 0;
   border-radius: var(--radius-large);
   background-color: var(--color-surface);
@@ -97,21 +97,21 @@
 }
 
 .cards.feature-links .cards-card-body h3 {
-  margin: 0 0 16px;
-  font-size: 24px;
+  margin: 0 0 var(--card-spacing);
+  font-size: var(--heading-font-size-l);
   font-weight: var(--font-weight-heading);
-  line-height: 36px;
+  line-height: var(--body-line-height);
 }
 
 .cards.feature-links .cards-card-body p {
   font-size: var(--body-font-size-m);
-  line-height: 24px;
+  line-height: var(--body-line-height);
 }
 
 /* source descriptions end in a blank line (24px) before the CTA */
 .cards.feature-links .cards-card-body > p:where(:not(.cards-card-cta)) {
   flex: 0 100 100%;
-  margin-bottom: 24px;
+  margin-bottom: calc(var(--body-font-size-m) * var(--body-line-height));
 }
 
 .cards.feature-links .cards-card-cta {
@@ -121,24 +121,24 @@
 /* min-height: the source chevron glyph (27px inline-block) makes the link 28px tall */
 main .cards.feature-links .cards-card-cta a:any-link {
   display: inline-block;
-  min-height: 28px;
+  min-height: var(--card-cta-min-height);
   color: var(--color-link);
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 27px;
+  font-size: var(--card-cta-font-size);
+  font-weight: var(--font-weight-strong);
+  line-height: var(--body-line-height);
   text-decoration: none;
 }
 
 .cards.feature-links .cards-card-cta a::after {
   content: '';
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: var(--card-cta-chevron-size);
+  height: var(--card-cta-chevron-size);
 
   /* source: 7px gap + 6px glyph; the drawn 8px chevron keeps the same 13px advance and visual position */
-  margin: 0 1px 0 4px;
-  border-top: 2px solid currentcolor;
-  border-right: 2px solid currentcolor;
+  margin: var(--card-cta-chevron-margin);
+  border-top: var(--border-width-strong) solid currentcolor;
+  border-right: var(--border-width-strong) solid currentcolor;
   transform: translateY(-2px) rotate(45deg);
   transition: transform var(--transition-duration-medium);
 }
@@ -156,7 +156,7 @@ main .cards.feature-links .cards-card-cta a:any-link {
 
 /* source columns carry the 30px gutter as 15px side padding (text column 330px at 390, 400px at 1440) */
 .cards.icon-tiles > ul > li {
-  padding: 30px 15px 0;
+  padding: var(--space-l) var(--space-s) 0;
   border: 0;
   background-color: transparent;
   color: var(--color-text);
@@ -164,7 +164,7 @@ main .cards.feature-links .cards-card-cta a:any-link {
 }
 
 .cards.icon-tiles .cards-card-image {
-  margin: 0 0 16px;
+  margin: 0 0 var(--card-spacing);
   text-align: center;
 }
 
@@ -185,16 +185,16 @@ main .cards.feature-links .cards-card-cta a:any-link {
 }
 
 .cards.icon-tiles .cards-card-body h3 {
-  margin: 0 0 30px;
+  margin: 0 0 var(--space-l);
   font-size: var(--heading-font-size-m);
   font-weight: var(--font-weight-heading);
-  line-height: 21.6px;
+  line-height: var(--heading-line-height);
 }
 
 .cards.icon-tiles .cards-card-body p {
-  margin: 0 0 20px;
+  margin: 0 0 var(--space-m);
   font-size: var(--body-font-size-m);
-  line-height: 24px;
+  line-height: var(--body-line-height);
 }
 
 /* Option: video-tiles - square thumbnail, play icon and a blue title bar (source .ipr_videoTiles) */
@@ -207,7 +207,7 @@ main .cards.feature-links .cards-card-cta a:any-link {
 .cards.video-tiles > ul > li {
   display: flex;
   flex-direction: column;
-  margin: 0 0 20px;
+  margin: 0 0 var(--space-m);
   border: 0;
 }
 
@@ -235,7 +235,7 @@ main .cards.feature-links .cards-card-cta a:any-link {
 
 .cards.video-tiles .cards-card-body {
   margin: 0;
-  padding: 20px;
+  padding: var(--space-m);
   background-color: var(--color-band-accent);
   color: var(--color-on-band-accent);
   text-align: center;
@@ -249,7 +249,7 @@ main .cards.feature-links .cards-card-cta a:any-link {
   color: var(--color-on-band-accent);
   font-size: var(--heading-font-size-l);
   font-weight: var(--font-weight-heading);
-  line-height: 28.8px;
+  line-height: var(--heading-line-height);
 }
 
 /* breakpoint-exception: the source tiles (Bootstrap col-lg-4) go to 3 columns at 992px */
@@ -261,7 +261,7 @@ main .cards.feature-links .cards-card-cta a:any-link {
   }
 
   .cards.feature-links > ul {
-    gap: 30px;
+    gap: var(--space-l);
   }
 
   .cards.feature-links > ul > li,
@@ -272,13 +272,13 @@ main .cards.feature-links .cards-card-cta a:any-link {
   /* source tiles are 33.33% wide plus 40px gaps and overflow the container;
      here they stay inside it (each tile ~27px narrower) */
   .cards.video-tiles > ul {
-    gap: 40px;
+    gap: var(--space-xl);
   }
 
   /* Tiles that follow a gallery in the same section overlap its lower edge */
   .gallery-wrapper + .cards-wrapper > .cards.feature-links {
     position: relative;
-    z-index: 1;
-    margin-top: -140px;
+    z-index: var(--z-raised);
+    margin-top: calc(-1 * var(--gallery-overlap));
   }
 }

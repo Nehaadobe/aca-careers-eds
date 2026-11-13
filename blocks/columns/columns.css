@@ -23,7 +23,7 @@
   .columns > div {
     align-items: center;
     flex-direction: unset;
-    gap: 24px;
+    gap: var(--columns-gap);
   }
 
   .columns > div > div {
@@ -41,8 +41,8 @@
 .columns.alternating {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 20px 0;
+  gap: var(--space-s);
+  padding: var(--space-m) 0;
   color: var(--color-text);
 }
 
@@ -59,7 +59,7 @@
 .columns.alternating > div > .columns-text {
   order: 1;
   box-sizing: border-box;
-  padding: 20px 15px;
+  padding: var(--space-m) var(--space-s);
 }
 
 .columns.alternating .columns-media picture {
@@ -78,14 +78,14 @@
 }
 
 .columns.alternating .columns-text h3 {
-  margin: 0 0 30px;
-  line-height: 1.2;
+  margin: 0 0 var(--space-l);
+  line-height: var(--heading-line-height);
 }
 
 .columns.alternating .columns-text p,
 .columns.alternating .columns-text ul,
 .columns.alternating .columns-text ol {
-  margin: 0 0 20px;
+  margin: 0 0 var(--space-m);
 }
 
 /* source lead-in line sits directly above its list */
@@ -106,7 +106,7 @@ main .columns.alternating a.button:any-link {
   background: none;
   color: var(--color-link);
   font-size: var(--body-font-size-m);
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
   line-height: inherit;
   text-align: left;
   text-decoration: none;
@@ -130,13 +130,13 @@ main .columns.alternating a.button:hover {
 }
 
 .columns.alternating .columns-video:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
+  outline: var(--focus-outline-width-media) solid var(--color-primary);
+  outline-offset: var(--focus-outline-offset-media);
 }
 
 @media (width >= 900px) {
   .columns.alternating {
-    gap: 60px;
+    gap: var(--columns-alternating-gap);
   }
 
   .columns.alternating > div {
@@ -154,11 +154,11 @@ main .columns.alternating a.button:hover {
 
   .columns.alternating > div > .columns-text {
     align-self: center;
-    padding: 20px 60px;
+    padding: var(--space-m) var(--space-2xl);
   }
 
   .columns.alternating > div.columns-alternating-image-right > .columns-text {
-    padding: 20px 100px 20px 40px;
+    padding: var(--space-m) var(--columns-text-padding-wide) var(--space-m) var(--space-xl);
   }
 
   /* image fills the full row height */
@@ -183,7 +183,7 @@ main .section > .columns-wrapper:has(> .columns.curve) {
 .columns.curve {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: var(--space-xl);
   color: var(--color-text);
 }
 
@@ -215,14 +215,14 @@ main .section > .columns-wrapper:has(> .columns.curve) {
 }
 
 .columns.curve > div > .columns-text h1 {
-  margin: 0 0 20px;
-  padding: 40px 0 0;
+  margin: 0 0 var(--space-m);
+  padding: var(--space-xl) 0 0;
 }
 
 .columns.curve > div > .columns-text p {
-  margin: 0 0 20px;
+  margin: 0 0 var(--space-m);
   font-size: var(--body-font-size-l);
-  line-height: 30px;
+  line-height: var(--body-line-height);
 }
 
 .columns.curve > div > .columns-text > p:where(:last-child) {
@@ -230,7 +230,7 @@ main .section > .columns-wrapper:has(> .columns.curve) {
 }
 
 .columns.curve > div > .columns-text h1 + p {
-  padding-top: 40px;
+  padding-top: var(--space-xl);
 }
 
 @media (width >= 900px) {
@@ -239,15 +239,15 @@ main .section > .columns-wrapper:has(> .columns.curve) {
     box-sizing: border-box;
     width: 100%;
     max-width: var(--content-max-width);
-    min-height: 320px;
+    min-height: var(--columns-curve-min-height);
     margin: 0 auto;
-    padding: 0 var(--content-padding) 40px;
+    padding: 0 var(--content-padding) var(--space-xl);
   }
 
   .columns.curve > div > .columns-text {
     flex: 0 0 40%;
     box-sizing: border-box;
-    padding: 40px 0 0;
+    padding: var(--space-xl) 0 0;
     text-align: start;
   }
 
@@ -271,7 +271,7 @@ main .section > .columns-wrapper:has(> .columns.curve) {
   }
 
   .columns.curve > div.columns-curve-image-right > .columns-text :is(h1, p) {
-    padding-right: 40px;
+    padding-right: var(--space-xl);
   }
 
   /* photo left (photo cell authored first): mirrored curve on the bottom-right corner */
@@ -285,7 +285,7 @@ main .section > .columns-wrapper:has(> .columns.curve) {
   }
 
   .columns.curve > div.columns-curve-image-left > .columns-text :is(h1, p) {
-    padding-left: 40px;
+    padding-left: var(--space-xl);
   }
 
   /* fill the row when the text is taller than the photo */
@@ -305,6 +305,6 @@ main .section > .columns-wrapper:has(> .columns.curve) {
 @media (width >= 1400px) {
   .columns.curve > div[class] > .columns-text :is(h1, p) {
     box-sizing: border-box;
-    max-width: calc(645px - 10vw);
+    max-width: var(--columns-curve-text-max-width);
   }
 }

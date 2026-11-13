@@ -5,22 +5,22 @@
   align-items: center;
   color: var(--color-text);
   font-size: var(--body-font-size-m);
-  line-height: 24px;
+  line-height: var(--body-line-height);
 }
 
 .share .share-label {
   display: flex;
   align-items: center;
   margin: 0;
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 
 .share .share-links {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-xs);
   margin: 0;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 var(--space-m);
   list-style: none;
   white-space: nowrap;
 }
@@ -34,8 +34,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: var(--control-size);
+  height: var(--control-size);
   border-radius: 50%;
   background-color: var(--color-share);
   color: var(--color-on-share);
@@ -51,8 +51,8 @@
 }
 
 .share .share-link:focus-visible {
-  outline: 1px auto var(--color-text);
-  outline-offset: 1px;
+  outline: var(--focus-outline-width-thin) auto var(--color-text);
+  outline-offset: var(--focus-outline-offset-tight);
 }
 
 .share .share-linkedin {

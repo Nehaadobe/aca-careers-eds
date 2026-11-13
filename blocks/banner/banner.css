@@ -13,7 +13,7 @@ main > .section > .banner-wrapper {
 .banner .banner-media {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: var(--z-below);
   line-height: 0;
 }
 
@@ -30,9 +30,9 @@ main > .section > .banner-wrapper {
 
 .banner .banner-content {
   box-sizing: border-box;
-  max-width: 1200px;
+  max-width: var(--banner-content-max-width);
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: var(--banner-padding);
 }
 
 .banner .banner-content > :first-child {
@@ -45,7 +45,7 @@ main > .section > .banner-wrapper {
 
 @media (width >= 900px) {
   .banner .banner-content {
-    padding: 64px 32px;
+    padding: var(--banner-padding-desktop);
   }
 }
 
@@ -71,17 +71,17 @@ main > .section > .banner-wrapper {
 
 .banner.locations .banner-content {
   max-width: var(--content-max-width);
-  padding: 150px var(--content-padding);
+  padding: var(--banner-locations-padding-block) var(--content-padding);
 }
 
 .banner.locations .banner-content :is(h1, h2, h3, h4) {
-  margin-bottom: 30px;
+  margin-bottom: var(--space-l);
   color: inherit;
 }
 
 .banner.locations .banner-content p {
-  max-width: 480px;
-  margin-bottom: 24px;
+  max-width: var(--banner-text-max-width);
+  margin-bottom: var(--banner-text-gap);
   color: inherit;
 }
 
@@ -108,17 +108,17 @@ main > .section > .banner-wrapper {
 
 /* source: section padding 30px 0; the lead keeps its 30px bottom margin inside the band */
 .banner.statement .banner-content {
-  max-width: min(calc(960px + 2 * var(--content-padding)), var(--content-max-width));
-  padding: 30px var(--content-padding);
+  max-width: min(calc(var(--article-max-width) + 2 * var(--content-padding)), var(--content-max-width));
+  padding: var(--space-l) var(--content-padding);
 }
 
 .banner.statement .banner-content :is(p, h1, h2, h3, h4, h5, h6) {
-  margin: 0 0 30px;
+  margin: 0 0 var(--space-l);
   color: inherit;
   font-family: var(--font-heading);
   font-size: var(--heading-font-size-l);
   font-weight: var(--font-weight-heading);
-  line-height: 1.2;
+  line-height: var(--heading-line-height);
 }
 
 .banner.statement .banner-content a:any-link {
@@ -139,11 +139,11 @@ main > .section > .banner-wrapper {
   justify-content: flex-end;
   max-width: none;
   aspect-ratio: 1920 / 787;
-  padding: 0 var(--content-padding) 20px;
+  padding: 0 var(--content-padding) var(--space-m);
 }
 
 .banner.image-cta .banner-content :is(h1, h2, h3) {
-  margin-bottom: 30px;
+  margin-bottom: var(--space-l);
   color: inherit;
 }
 
@@ -157,6 +157,6 @@ main > .section > .banner-wrapper {
 
 @media (width >= 768px) {
   .banner.image-cta .banner-content {
-    padding-bottom: 80px;
+    padding-bottom: var(--space-3xl);
   }
 }

@@ -9,8 +9,8 @@ footer {
 }
 
 footer .footer {
-  font-size: 14px;
-  line-height: 21px;
+  font-size: var(--body-font-size-s);
+  line-height: var(--body-line-height);
 }
 
 footer .footer p,
@@ -30,12 +30,12 @@ footer .footer li {
 
 footer .footer-band-inner {
   box-sizing: border-box;
-  padding: 0 15px;
+  padding: 0 var(--content-padding);
 }
 
 /* main band */
 footer .footer-band-main {
-  padding: 45px 0;
+  padding: var(--footer-padding-block) 0;
   background-color: var(--footer-background);
   color: var(--footer-text);
 }
@@ -59,7 +59,7 @@ footer .footer-band-utility a:focus-visible {
 }
 
 footer .footer-brand {
-  margin-bottom: 15px;
+  margin-bottom: var(--space-s);
 }
 
 /* the logo link (not a text link in the brand blurb, e.g. "Ascendiun" on Stellarus) */
@@ -84,50 +84,50 @@ footer .footer-brand img {
 }
 
 footer .footer-notice h2 {
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2xs);
   color: var(--footer-text);
   font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 16.8px;
+  font-size: var(--body-font-size-s);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--heading-line-height);
   letter-spacing: normal;
   text-transform: none;
 }
 
 footer .footer-notice {
-  padding: 30px 0;
+  padding: var(--space-l) 0;
 }
 
 footer .footer-notice p {
-  margin-bottom: 10px;
+  margin-bottom: var(--space-xs);
 }
 
 footer .footer-link-group > p {
-  margin-bottom: 10px;
+  margin-bottom: var(--space-xs);
 }
 
 footer .footer-link-group {
-  padding-bottom: 20px;
+  padding-bottom: var(--space-m);
 }
 
 footer .footer-link-group strong {
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 
-/* social icons: 34x36 boxes, 24px glyphs */
+/* Social link boxes and glyph sizing come from the brand tokens. */
 footer .footer-social ul {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 10.4px;
-  margin: 30px 0 10px;
+  column-gap: var(--footer-social-gap);
+  margin: var(--space-l) 0 var(--space-xs);
 }
 
 footer .footer-band-main .footer-social a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 33.6px;
-  height: 36px;
+  width: var(--footer-social-link-width);
+  height: var(--footer-social-link-height);
 }
 
 footer .footer-band-main .footer-social a:hover {
@@ -137,30 +137,30 @@ footer .footer-band-main .footer-social a:hover {
 footer .footer-social img {
   display: block;
   width: auto;
-  height: 24px;
+  height: var(--footer-social-icon-size);
   filter: var(--footer-icon-filter);
 }
 
 /* utility bar */
 footer .footer-band-utility {
-  padding: 20px 0;
+  padding: var(--space-m) 0;
   background-color: var(--footer-utility-background);
   color: var(--footer-utility-text);
 }
 
 /* stacked list on small screens */
 footer .footer .footer-utility ul {
-  margin-bottom: 20px;
+  margin-bottom: var(--space-m);
 }
 
 footer .footer-utility li {
-  padding-bottom: 10px;
+  padding-bottom: var(--space-xs);
 }
 
 footer .footer-utility li:not(:last-child)::after {
   content: '|';
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 var(--space-xs);
 }
 
 footer .footer-band-utility .footer-utility a:any-link {
@@ -174,16 +174,16 @@ footer .footer-band-utility .footer-utility a:hover {
 
 /* legal band */
 footer .footer-band-legal {
-  padding: 20px 0;
+  padding: var(--space-m) 0;
   background-color: var(--color-background);
   color: var(--color-text);
-  line-height: 18px;
+  line-height: var(--footer-legal-line-height);
 }
 
 /* breakpoint-exception: source widens gutters and puts utility links in one row at 768px */
 @media (width >= 768px) {
   footer .footer-band-inner {
-    padding: 0 45px;
+    padding: 0 var(--gutter-wide);
   }
 
   footer .footer-link-group {
@@ -209,7 +209,7 @@ footer .footer-band-legal {
   footer .footer-band-main .footer-band-inner {
     display: flex;
     align-items: flex-start;
-    padding: 0 30px;
+    padding: 0 var(--space-l);
   }
 
   footer .footer-band-main .footer-band-inner > * {
@@ -221,13 +221,13 @@ footer .footer-band-legal {
     flex: 0 0 var(--footer-brand-width);
     min-width: 0;
     margin: 0;
-    padding: 0 15px;
+    padding: 0 var(--space-s);
   }
 
   footer .footer-notice {
     flex: 1 1 0;
     min-width: 0;
-    padding: 0 50px;
+    padding: 0 var(--footer-notice-padding-inline);
   }
 
   footer .footer-links {
@@ -238,16 +238,16 @@ footer .footer-band-legal {
   footer .footer-link-group {
     flex: 1 1 50%;
     box-sizing: border-box;
-    padding: 0 15px;
+    padding: 0 var(--space-s);
   }
 
   footer .footer-social {
     flex: 0 0 calc(100% / 6);
-    padding: 0 15px;
+    padding: 0 var(--space-s);
   }
 
   footer .footer-social ul {
-    margin: 0 0 10px;
+    margin: 0 0 var(--space-xs);
   }
 }
 
@@ -259,18 +259,18 @@ footer .footer-band-legal {
  */
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-main {
   position: relative;
-  margin-top: 40px;
-  padding: 56px 0 44px;
-  border-top: 1px solid var(--color-border-subtle);
+  margin-top: var(--space-xl);
+  padding: var(--footer-simple-padding-top) 0 var(--footer-simple-padding-bottom);
+  border-top: var(--border-width) solid var(--color-border-subtle);
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-main::before {
   content: '';
   position: absolute;
-  top: -1px;
-  left: 20%;
-  right: 20%;
-  height: 1px;
+  top: calc(-1 * var(--border-width));
+  left: var(--footer-accent-inset);
+  right: var(--footer-accent-inset);
+  height: var(--border-width);
   background-image: var(--footer-accent-line, none);
 }
 
@@ -285,7 +285,7 @@ footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-mai
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: 28px;
+  gap: var(--footer-simple-gap);
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-links {
@@ -297,12 +297,12 @@ footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-gro
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group > p {
-  margin: 0 0 14px;
+  margin: 0 0 var(--footer-simple-heading-gap);
   color: var(--color-text);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: var(--body-font-size-s);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-tight);
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group strong {
@@ -312,16 +312,16 @@ footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-gro
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group ul {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: var(--footer-simple-link-gap);
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group li {
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: var(--body-font-size-m);
+  line-height: var(--line-height-loose);
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-link-group a {
-  font-size: 12px;
+  font-size: var(--body-font-size-xs);
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand {
@@ -334,31 +334,31 @@ footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand {
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand > p:has(img) {
   display: flex;
   align-items: center;
-  min-height: 29.7px; /* the 18px site name line */
-  margin-bottom: 14px;
+  min-height: calc(var(--heading-font-size-m) * var(--line-height-loose)); /* one site-name line */
+  margin-bottom: var(--footer-simple-heading-gap);
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-main .footer-brand a:has(img) {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-xs);
   color: var(--color-text);
   font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.65;
+  font-size: var(--heading-font-size-m);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-loose);
   text-decoration: none;
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand img {
-  width: 28px;
-  height: 28px;
+  width: var(--footer-simple-logo-size);
+  height: var(--footer-simple-logo-size);
   object-fit: contain;
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand > p:not(:has(img)) {
-  font-size: 12px;
-  line-height: 1.7;
+  font-size: var(--body-font-size-xs);
+  line-height: var(--line-height-relaxed);
   text-wrap: pretty;
 }
 
@@ -372,18 +372,18 @@ footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-uti
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-legal {
-  padding: 0 0 36px;
+  padding: 0 0 var(--footer-simple-legal-padding-bottom);
   background-color: transparent;
   color: var(--footer-text);
 }
 
 footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-legal {
-  padding-top: 22px;
-  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--footer-simple-legal-padding-top);
+  border-top: var(--border-width) solid var(--color-border-subtle);
   font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 1.65;
-  letter-spacing: 0.05em;
+  font-size: var(--body-font-size-xxs);
+  line-height: var(--line-height-loose);
+  letter-spacing: var(--tracking-caps);
   text-align: center;
   text-transform: uppercase;
 }
@@ -392,11 +392,11 @@ footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-legal {
 @media (width > 1040px) {
   footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-band-main .footer-band-inner {
     grid-template-columns: 2fr repeat(3, minmax(0, 1fr));
-    gap: 36px;
+    gap: var(--footer-simple-gap-desktop);
   }
 
   footer .footer-wrapper-inner:has(.footer-brand + .footer-links) .footer-brand {
     grid-column: auto;
-    max-width: 300px;
+    max-width: var(--footer-simple-brand-max-width);
   }
 }

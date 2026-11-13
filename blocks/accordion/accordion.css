@@ -5,7 +5,7 @@
 .accordion {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--accordion-gap);
   text-align: start;
   interpolate-size: allow-keywords;
 }
@@ -14,12 +14,12 @@
 .accordion .accordion-item-label {
   display: block;
   border-radius: var(--radius-small);
-  padding: 20px 30px;
+  padding: var(--space-m) var(--space-l);
   background-color: var(--color-surface-muted);
   color: var(--color-accent-strong);
   font-size: var(--heading-font-size-m);
   font-weight: var(--font-weight-display);
-  line-height: 27px;
+  line-height: var(--body-line-height);
   list-style: none;
   cursor: pointer;
 }
@@ -38,7 +38,7 @@
   content: '';
   float: right;
   width: 0.643em;
-  height: 27px;
+  height: 1lh;
   background-color: var(--color-text);
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 643 1000'%3E%3Cpath transform='matrix(1 0 0 -1 0 850)' d='M600 446q0-7-6-13l-260-260q-5-5-13-5t-12 5l-260 260q-6 6-6 13t6 13l28 28q5 5 12 5t13-5l219-220 220 220q5 5 13 5t12-5l28-28q6-6 6-13z'/%3E%3C/svg%3E") center / 100% 1em no-repeat;
   transition: var(--transition-duration-medium);
@@ -63,7 +63,7 @@
 }
 
 .accordion .accordion-item[open] > .accordion-item-label {
-  padding-bottom: 38px;
+  padding-bottom: var(--accordion-label-padding-open);
 }
 
 .accordion .accordion-item[open] > .accordion-item-label::before {
@@ -92,9 +92,9 @@
  */
 .accordion .accordion-item-body {
   position: relative;
-  margin: -16px 0 0;
+  margin: calc(-1 * var(--accordion-gap)) 0 0;
   border-radius: var(--radius-large);
-  padding: 40px;
+  padding: var(--space-xl);
   background-color: var(--color-surface);
   box-shadow: var(--shadow-raised);
 }

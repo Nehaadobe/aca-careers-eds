@@ -5,7 +5,7 @@
  */
 
 .image .image-figure {
-  margin: 0 0 20px;
+  margin: 0 0 var(--space-m);
 }
 
 .image picture {
@@ -19,14 +19,14 @@
 }
 
 .image .image-figure > picture + picture {
-  margin-top: 10px;
+  margin-top: var(--space-xs);
 }
 
 .image .image-caption {
-  padding-top: 20px;
+  padding-top: var(--space-m);
   font-size: var(--body-font-size-s);
   font-style: italic;
-  line-height: 21px;
+  line-height: var(--body-line-height);
 }
 
 .image .image-caption > * {
@@ -34,7 +34,7 @@
 }
 
 .image .image-caption > * + * {
-  margin-top: 5px;
+  margin-top: var(--space-3xs);
 }
 
 /* source .textImage-left / -right: the authored 400px image floats at every width
@@ -42,18 +42,18 @@
 .image.left,
 .image.right {
   box-sizing: border-box;
-  width: 400px;
+  width: var(--image-float-width);
   max-width: 100%;
 }
 
 .image.right {
   float: right;
-  margin: 0 0 10px 20px;
+  margin: 0 0 var(--space-xs) var(--space-m);
 }
 
 .image.left {
   float: left;
-  margin: 0 20px 10px 0;
+  margin: 0 var(--space-m) var(--space-xs) 0;
 }
 
 .image.left .image-figure,

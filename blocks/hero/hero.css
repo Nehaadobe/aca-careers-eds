@@ -18,7 +18,7 @@ main .section > .hero-wrapper {
   flex-direction: column;
   justify-content: flex-end;
   box-sizing: border-box;
-  min-height: 480px;
+  min-height: var(--hero-min-height);
   padding: 0 var(--content-padding);
   overflow: hidden;
   isolation: isolate;
@@ -28,7 +28,7 @@ main .section > .hero-wrapper {
 .hero:not(.centered) picture {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: var(--z-below);
   background-color: var(--color-surface-muted);
 }
 
@@ -42,7 +42,7 @@ main .section > .hero-wrapper {
 .hero:not(.centered) .hero-content {
   max-width: var(--hero-title-max-width);
   margin: 0 auto;
-  padding: 30px 0;
+  padding: var(--space-l) 0;
   text-align: center;
 }
 
@@ -61,7 +61,7 @@ main .section > .hero-wrapper {
 }
 
 .hero:not(.centered) .hero-content p {
-  margin: 20px 0 0;
+  margin: var(--space-m) 0 0;
 }
 
 /* ---------- centered: text-only intro (eyebrow, H1, copy, CTAs) ----------
@@ -70,14 +70,14 @@ main .section > .hero-wrapper {
   box-sizing: border-box;
   max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: clamp(40px, 6vw, 80px) var(--content-padding) clamp(48px, 7vw, 96px);
+  padding: var(--hero-centered-padding-top) var(--content-padding) var(--hero-centered-padding-bottom);
   color: var(--color-text);
   text-align: center;
 }
 
 .hero.centered .hero-media-wrap {
-  max-width: 760px;
-  margin: 0 auto 40px;
+  max-width: var(--hero-centered-max-width);
+  margin: 0 auto var(--space-xl);
   line-height: 0;
 }
 
@@ -88,29 +88,29 @@ main .section > .hero-wrapper {
 }
 
 .hero.centered .hero-content {
-  max-width: 760px;
+  max-width: var(--hero-centered-max-width);
   margin: 0 auto;
 }
 
 .hero.centered .hero-eyebrow {
-  margin: 0 0 14px;
+  margin: 0 0 var(--hero-eyebrow-gap);
   color: var(--color-text-muted);
   font-family: var(--hero-eyebrow-font);
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.65;
-  letter-spacing: 0.18em;
+  font-size: var(--body-font-size-xxs);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-loose);
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
 }
 
 .hero.centered .hero-content :is(h1, h2, h3) {
-  max-width: 680px;
-  margin: 0 auto 48px;
+  max-width: var(--hero-centered-title-max-width);
+  margin: 0 auto var(--hero-centered-title-gap);
   color: var(--color-text);
   font-family: var(--font-display);
   font-size: var(--hero-centered-title-size);
   font-weight: var(--hero-centered-title-weight);
-  line-height: 1.08;
+  line-height: var(--hero-centered-title-line-height);
   letter-spacing: var(--display-tracking);
   text-transform: var(--display-transform);
   position: relative;
@@ -122,18 +122,18 @@ main .section > .hero-wrapper {
 .hero.centered .hero-content :is(h1, h2, h3)::before {
   content: '';
   position: absolute;
-  inset: calc(-11px * 1.65 - 14px) 0 0; /* up to the top of the eyebrow line */
-  z-index: -1;
+  inset: calc(-1 * (var(--body-font-size-xxs) * var(--line-height-loose) + var(--hero-eyebrow-gap))) 0 0; /* up to the top of the eyebrow line */
+  z-index: var(--z-below);
   background: var(--hero-decoration-image) center / contain no-repeat;
   transform: scale(var(--hero-decoration-scale));
   pointer-events: none;
 }
 
 .hero.centered .hero-content > p:not(.hero-eyebrow) {
-  margin: 0 0 18px;
+  margin: 0 0 var(--hero-centered-copy-gap);
   color: var(--color-text-secondary);
-  font-size: 18px;
-  line-height: 1.7;
+  font-size: var(--lead-font-size);
+  line-height: var(--line-height-relaxed);
   text-wrap: pretty; /* source: no one-word last lines */
 }
 
@@ -142,8 +142,8 @@ main .section > .hero-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
-  margin-top: 34px; /* collapses with the paragraph margin: 34px below the copy */
+  gap: var(--hero-actions-gap);
+  margin-top: var(--hero-actions-margin); /* collapses with the paragraph margin: 34px below the copy */
 }
 
 .hero.centered .hero-actions p.button-wrapper {
@@ -152,9 +152,9 @@ main .section > .hero-wrapper {
 
 /* the global button styles (styles.css), as fixed-height single-line pills */
 .hero.centered .hero-actions a.button:any-link {
-  height: 54px;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: 0.005em;
+  height: var(--hero-button-height);
+  font-size: var(--body-font-size-m);
+  line-height: var(--line-height-single);
+  letter-spacing: var(--tracking-button);
   white-space: nowrap;
 }

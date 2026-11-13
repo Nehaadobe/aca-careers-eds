@@ -21,7 +21,7 @@ body main > .section > div.article-list-wrapper {
 
 /* Light = source plain content-section tiles, nested one container deeper (30px inset) */
 .article-list.ground-light .article-list-items {
-  padding-inline: 30px;
+  padding-inline: var(--space-l);
 }
 
 .article-list .article-list-items > li {
@@ -48,19 +48,19 @@ body main > .section > div.article-list-wrapper {
 }
 
 .article-list .article-list-card-date {
-  margin: 0 0 10px;
+  margin: 0 0 var(--space-xs);
 }
 
 /* More Stories band (source .blue_bottom): tighter title, label right under the text */
 .article-list.with-link-label .article-list-card-title,
 .article-list.with-link-label .article-list-card-description {
-  margin-bottom: 10px;
+  margin-bottom: var(--space-xs);
 }
 
 .article-list .article-list-card-more {
   color: var(--color-link);
   font-size: var(--body-font-size-m);
-  line-height: 24px;
+  line-height: var(--body-line-height);
 }
 
 .article-list .article-list-card:hover .article-list-card-more {
@@ -73,7 +73,7 @@ body main > .section > div.article-list-wrapper {
 .article-list.ground-dark {
   --article-list-band: var(--color-surface-tint);
 
-  padding-bottom: 40px;
+  padding-bottom: var(--space-xl);
   border-image: linear-gradient(to bottom, transparent calc(40% - 41px), var(--article-list-band) calc(40% - 41px)) fill 0 / 0 / 0 100vw;
 }
 
@@ -95,6 +95,6 @@ body main > .section > div.article-list-wrapper {
   }
 
   .article-list.columns-4 .article-list-card-body {
-    padding: 24px 24px 30px;
+    padding: var(--story-card-padding-compact) var(--story-card-padding-compact) var(--space-l);
   }
 }

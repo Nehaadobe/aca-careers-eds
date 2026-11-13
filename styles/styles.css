@@ -44,12 +44,12 @@ body::after {
 }
 
 body::before {
-  z-index: -1;
+  z-index: var(--z-below);
   background-image: var(--page-stars-image);
 }
 
 body::after {
-  z-index: 60;
+  z-index: var(--z-decoration);
   background-image: var(--page-grain-image);
   opacity: var(--page-grain-opacity);
   mix-blend-mode: overlay;
@@ -58,7 +58,7 @@ body::after {
 header {
   position: var(--header-position);
   top: 0;
-  z-index: 50;
+  z-index: var(--z-header);
   height: var(--nav-height);
 }
 
@@ -80,16 +80,16 @@ h4,
 h5,
 h6 {
   margin-top: 0;
-  margin-bottom: 30px;
+  margin-bottom: var(--space-l);
   color: var(--color-text);
   font-family: var(--font-heading);
   font-weight: var(--font-weight-heading);
   line-height: var(--heading-line-height);
-  scroll-margin: 40px;
+  scroll-margin: var(--space-xl);
 }
 
 h1 {
-  margin-bottom: 20px;
+  margin-bottom: var(--space-m);
   font-family: var(--font-display);
   font-size: var(--heading-font-size-xxl);
   font-weight: var(--font-weight-display);
@@ -101,13 +101,13 @@ h1 {
 h2 { font-size: var(--heading-font-size-xl); }
 
 h3 {
-  margin-bottom: 15px;
+  margin-bottom: var(--space-s);
   font-size: var(--heading-font-size-l);
-  line-height: 1.25;
+  line-height: var(--line-height-snug);
 }
 
 h4 {
-  margin-bottom: 10px;
+  margin-bottom: var(--space-xs);
   font-size: var(--heading-font-size-m);
 }
 
@@ -121,35 +121,35 @@ ul,
 pre,
 blockquote {
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-m);
 }
 
 ol,
 ul {
-  padding-left: 2rem;
+  padding-left: var(--list-indent);
 }
 
 li {
-  margin-bottom: 4px;
+  margin-bottom: var(--list-item-gap);
 }
 
 /* source bold is semibold (600), not the UA 700 */
 b,
 strong {
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 
 /* superscripts and subscripts do not open up the line (source reboot) */
 sub,
 sup {
   position: relative;
-  font-size: 0.75em;
+  font-size: var(--font-size-script);
   line-height: 0;
   vertical-align: baseline;
 }
 
-sup { top: -0.5em; }
-sub { bottom: -0.25em; }
+sup { top: var(--sup-offset); }
+sub { bottom: var(--sub-offset); }
 
 p em:only-child {
   font-size: var(--body-font-size-s);
@@ -161,7 +161,7 @@ pre {
 }
 
 pre {
-  padding: 16px;
+  padding: var(--pre-padding);
   border-radius: var(--radius-small);
   background-color: var(--color-surface-tint);
   overflow-x: auto;
@@ -188,8 +188,8 @@ a:hover {
 }
 
 a:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
+  outline: var(--focus-outline-width) solid var(--color-focus);
+  outline-offset: var(--focus-outline-offset);
 }
 
 /* buttons: EDS reset, then source pill variants */
@@ -207,7 +207,7 @@ main a.button:any-link {
 }
 
 p.button-wrapper {
-  margin: 20px 0;
+  margin: var(--space-m) 0;
 }
 
 main a.button.primary:any-link,
@@ -220,14 +220,14 @@ button.button {
   justify-content: center;
   max-width: 100%;
   margin: 0;
-  border: 1px solid var(--button-border-color);
+  border: var(--border-width) solid var(--button-border-color);
   border-radius: var(--radius-button);
   padding: var(--button-primary-padding);
   gap: var(--button-arrow-gap);
   font-family: var(--font-body);
   font-size: var(--body-font-size-m);
-  font-weight: 600;
-  line-height: 24px;
+  font-weight: var(--font-weight-strong);
+  line-height: var(--body-line-height);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -288,7 +288,7 @@ button.button.secondary:hover {
 
 main a.button:is(.primary, .accent, .secondary):focus-visible,
 button.button:focus-visible {
-  outline-offset: 1px;
+  outline-offset: var(--focus-outline-offset-tight);
   box-shadow: var(--focus-ring);
 }
 
@@ -307,8 +307,8 @@ main img {
 
 .icon {
   display: inline-block;
-  height: 24px;
-  width: 24px;
+  height: var(--icon-size);
+  width: var(--icon-size);
 }
 
 .icon img {
@@ -346,7 +346,7 @@ main > .section:is(.hero-container, .columns-curve-container) {
 }
 
 main > .section:is(.hero-container, .columns-curve-container) + .section {
-  margin-top: 30px;
+  margin-top: var(--space-l);
 }
 
 main > .section:is(.hero-container, .columns-curve-container) + .gallery-container {
@@ -356,17 +356,17 @@ main > .section:is(.hero-container, .columns-curve-container) + .gallery-contain
 main > .section:is(.hero-container, .columns-curve-container) + .section.centered.cards-container,
 main > .section.gallery-container + .section.centered.cards-container,
 main > .section.centered.cards-container + .gallery-container {
-  margin-top: 90px;
+  margin-top: var(--section-spacing-wide);
 }
 
 main > .section.centered:not([class*='-container']):has(+ .gallery-container),
 main > .section.gallery-container:has(+ .section.centered:not([class*='-container'])) {
-  margin-bottom: 30px;
+  margin-bottom: var(--space-l);
 }
 
 main > .section.centered:not([class*='-container']) + .gallery-container,
 main > .section.gallery-container + .section.centered:not([class*='-container']) {
-  margin-top: 30px;
+  margin-top: var(--space-l);
 }
 
 /* the locations banner closes the page flush against the footer */
@@ -382,7 +382,7 @@ main .section.centered .default-content-wrapper {
 /* blue: full-bleed accent band (BSC brand blue) with white text (source .ipr_textBanner / contentSection_blue) */
 main .section.blue {
   margin: 0 0 var(--section-spacing);
-  padding: 30px 0;
+  padding: var(--space-l) 0;
   background-color: var(--color-band-accent);
   color: var(--color-on-band-accent);
 }
@@ -403,9 +403,9 @@ main .section.blue {
  */
 .story-card-grid {
   display: grid;
-  gap: 30px;
+  gap: var(--space-l);
   margin: 0;
-  padding: 10px 0 20px;
+  padding: var(--space-xs) 0 var(--space-m);
   list-style: none;
 }
 
@@ -420,7 +420,7 @@ main .section.blue {
 }
 
 .story-card:hover {
-  box-shadow: 0 0 0 1px var(--color-link), var(--shadow-card);
+  box-shadow: var(--ring-hover), var(--shadow-card);
 }
 
 /* keyboard focus on the card link (article-list) or on the title link inside (story-listing) */
@@ -443,29 +443,29 @@ main .section.blue {
 }
 
 .story-card-body {
-  padding: 40px;
+  padding: var(--space-xl);
 }
 
 .story-card-title {
-  margin: 0 0 30px;
+  margin: 0 0 var(--space-l);
   color: var(--color-link);
   font-family: var(--font-heading);
   font-size: var(--heading-font-size-l);
   font-weight: var(--font-weight-heading);
-  line-height: 30px;
+  line-height: var(--line-height-snug);
 }
 
 .story-card-date {
   color: var(--color-text-muted);
   font-size: var(--body-font-size-m);
-  line-height: 24px;
+  line-height: var(--body-line-height);
 }
 
 .story-card-description {
   margin: 0;
   color: var(--color-text);
   font-size: var(--body-font-size-m);
-  line-height: 24px;
+  line-height: var(--body-line-height);
 }
 
 /* round video play control centered on a poster (embed facade, columns and cards videos) */
@@ -497,13 +497,13 @@ main .section.blue a:focus-visible {
    so color alone does not mark them as links */
 main :is(.default-content-wrapper, .table, .accordion, .quote, .columns) :is(p, li) a:any-link:not(.button) {
   text-decoration: underline;
-  text-underline-offset: 0.15em;
+  text-underline-offset: var(--link-underline-offset);
 }
 
 /* light-blue: rounded light-blue panel inside the content width (source .simplebox) */
 main .section.light-blue .default-content-wrapper {
   box-sizing: border-box;
-  padding: 40px;
+  padding: var(--space-xl);
   border-radius: var(--radius-panel);
   background-color: var(--color-surface-tint);
 }
@@ -517,7 +517,7 @@ main .section.light,
 main .section.highlight {
   background-color: var(--color-surface-tint);
   margin: 0;
-  padding: 40px 0;
+  padding: var(--space-xl) 0;
 }
 
 /* blog articles: narrower reading column, like the source (960px container, 930px text) */
@@ -528,10 +528,10 @@ body.blog-article main > .section > div {
 /* story body text: source subheads (Bootstrap h3: 22.4px from 1200px, fluid below),
    paragraphs, list items and italics */
 body.blog-article main > .section:not(.article-list-container) .default-content-wrapper h3 {
-  margin-bottom: 8px;
-  font-size: min(calc(1.265rem + 0.18vw), 1.4rem);
-  font-weight: 500;
-  line-height: 1.2;
+  margin-bottom: var(--space-2xs);
+  font-size: var(--article-subhead-font-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--heading-line-height);
 }
 
 body.blog-article main .default-content-wrapper li {
@@ -560,14 +560,14 @@ body.blog-article main .default-content-wrapper p:has(> picture) + p:has(> em:on
 /* "Find Your Next Role" (source .article-action): centered, 20px padding above and
    below, so 40px under a paragraph and 20px under a table */
 body.blog-article main .default-content-wrapper > p.button-wrapper:last-child {
-  margin: 0 0 20px;
-  padding-top: 20px;
+  margin: 0 0 var(--space-m);
+  padding-top: var(--space-m);
   text-align: center;
 }
 
 /* story highlight box (source .simplebox): text-column wide, in the flow of the article */
 body.blog-article main > .section.light-blue {
-  margin: 0 0 20px;
+  margin: 0 0 var(--space-m);
 }
 
 body.blog-article main > .section.light-blue + .section {
@@ -581,12 +581,12 @@ body.blog-article main > .section:has(+ .section.light-blue) {
 body.blog-article main > .section.light-blue > .default-content-wrapper {
   width: calc(100% - 2 * var(--content-padding));
   max-width: calc(var(--article-max-width) - 2 * var(--content-padding));
-  padding-bottom: 60px; /* 40px + the last paragraph's 20px, as on the source */
+  padding-bottom: var(--space-2xl); /* 40px + the last paragraph's 20px, as on the source */
 }
 
 /* "More Stories": content-wide, centered title, 120px below the last body element */
 body.blog-article main > .section.article-list-container {
-  margin-top: 100px;
+  margin-top: var(--article-list-spacing);
 }
 
 body.blog-article main > .section.article-list-container > div {
@@ -617,8 +617,8 @@ main .section.article-list-container > .default-content-wrapper:has(> h2 + p:las
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 0 20px;
-  margin-bottom: 30px;
+  gap: 0 var(--space-m);
+  margin-bottom: var(--space-l);
 }
 
 main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) > * {
@@ -626,13 +626,13 @@ main .section.article-list-container > .default-content-wrapper:has(> h2 + p:las
 }
 
 main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) > p > a {
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 27px;
+  font-size: var(--heading-font-size-m);
+  font-weight: var(--font-weight-strong);
+  line-height: var(--body-line-height);
   text-decoration: none;
 }
 
 main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) > p > a::after {
   content: '\203A';
-  margin-left: 6px;
+  margin-left: var(--link-chevron-gap);
 }
