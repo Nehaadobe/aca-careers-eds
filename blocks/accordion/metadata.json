@@ -1,0 +1,34 @@
+{
+  "variantName": "accordion",
+  "baseBlock": "accordion",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Expandable question and answer list (FAQ)",
+    "layout": "Stacked light-grey (#f4f4f4) rounded rows with a chevron on the right; the answer opens below the question. Native <details>/<summary>, keyboard accessible",
+    "sources": [
+      "https://careers.blueshieldca.com/how-to-get-hired"
+    ],
+    "sections": [
+      "Frequently asked questions"
+    ]
+  },
+  "contentPattern": {
+    "structure": "one row per item: question cell (plain text) and answer cell (rich text: paragraphs, lists, links including mailto)",
+    "example": "11 FAQ items, e.g. 'What's the best way to apply for a position at Blue Shield of California?' | 'Search and apply for a job on our careers site...'"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "accordion"
+  ],
+  "usage": {
+    "notes": [
+      "How to get hired FAQ: authored as 'Accordion'"
+    ],
+    "pagesUsing": [
+      "/how-to-get-hired"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-26"
+  },
+  "reuseGuidance": "Use 'Accordion' for FAQ-style question/answer lists. Keep the question in the first cell as plain text; anything after it goes in the answer."
+}

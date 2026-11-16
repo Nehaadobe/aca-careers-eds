@@ -1,19 +1,27 @@
+/*
+ * Cards: one <li> per authored row (image cell + body cell).
+ * Option values come from careers.blueshieldca.com computed styles
+ * (see migration-work/cards-extracted.css). The source stacks every
+ * variant in a single column below its desktop breakpoint.
+ */
+
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: var(--card-gap);
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  margin: 0;
+  border: var(--border-width) solid var(--color-border-subtle);
+  background-color: var(--color-background);
 }
 
 .cards .cards-card-body {
-  margin: 16px;
+  margin: var(--card-spacing);
 }
 
 .cards .cards-card-image {
@@ -24,4 +32,253 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+/* Shared: a card whose link is stretched over the whole tile */
+.cards .cards-card-linked {
+  position: relative;
+}
+
+.cards .cards-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-raised);
+}
+
+.cards .cards-card-linked:focus-within {
+  outline: var(--focus-outline-width) solid currentcolor;
+  outline-offset: var(--focus-outline-offset);
+}
+
+.cards .cards-card-title,
+.cards .cards-card-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards .cards-card-link:focus-visible {
+  outline: none;
+}
+
+.cards .cards-card-linked:hover .cards-card-link {
+  text-decoration: underline;
+}
+
+/* Option: feature-links - white shadowed tiles with a chevron CTA (source .homegallery_tiles) */
+.cards.feature-links > ul {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+/* source stacks the tiles with a 15px bottom margin on every tile (also the last) */
+.cards.feature-links > ul > li {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 var(--space-s);
+  padding: var(--space-xl);
+  border: 0;
+  border-radius: var(--radius-large);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-tile);
+  color: var(--color-text);
+  text-align: left;
+}
+
+.cards.feature-links .cards-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 0;
+}
+
+.cards.feature-links .cards-card-body > * {
+  margin: 0;
+}
+
+.cards.feature-links .cards-card-body h3 {
+  margin: 0 0 var(--card-spacing);
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--body-line-height);
+}
+
+.cards.feature-links .cards-card-body p {
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+/* source descriptions end in a blank line (24px) before the CTA */
+.cards.feature-links .cards-card-body > p:where(:not(.cards-card-cta)) {
+  flex: 0 100 100%;
+  margin-bottom: calc(var(--body-font-size-m) * var(--body-line-height));
+}
+
+.cards.feature-links .cards-card-cta {
+  margin-top: auto;
+}
+
+/* min-height: the source chevron glyph (27px inline-block) makes the link 28px tall */
+main .cards.feature-links .cards-card-cta a:any-link {
+  display: inline-block;
+  min-height: var(--card-cta-min-height);
+  color: var(--color-link);
+  font-size: var(--card-cta-font-size);
+  font-weight: var(--font-weight-strong);
+  line-height: var(--body-line-height);
+  text-decoration: none;
+}
+
+.cards.feature-links .cards-card-cta a::after {
+  content: '';
+  display: inline-block;
+  width: var(--card-cta-chevron-size);
+  height: var(--card-cta-chevron-size);
+
+  /* source: 7px gap + 6px glyph; the drawn 8px chevron keeps the same 13px advance and visual position */
+  margin: var(--card-cta-chevron-margin);
+  border-top: var(--border-width-strong) solid currentcolor;
+  border-right: var(--border-width-strong) solid currentcolor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform var(--transition-duration-medium);
+}
+
+.cards.feature-links .cards-card-cta a:hover::after,
+.cards.feature-links .cards-card-cta a:focus::after {
+  transform: translate(5px, -2px) rotate(45deg);
+}
+
+/* Option: icon-tiles - centered icon, title and description (source .tileIcons) */
+.cards.icon-tiles > ul {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+/* source columns carry the 30px gutter as 15px side padding (text column 330px at 390, 400px at 1440) */
+.cards.icon-tiles > ul > li {
+  padding: var(--space-l) var(--space-s) 0;
+  border: 0;
+  background-color: transparent;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.cards.icon-tiles .cards-card-image {
+  margin: 0 0 var(--card-spacing);
+  text-align: center;
+}
+
+.cards.icon-tiles .cards-card-image picture {
+  display: inline-block;
+}
+
+.cards.icon-tiles > ul > li img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: fill;
+}
+
+.cards.icon-tiles .cards-card-body {
+  margin: 0;
+}
+
+.cards.icon-tiles .cards-card-body h3 {
+  margin: 0 0 var(--space-l);
+  font-size: var(--heading-font-size-m);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--heading-line-height);
+}
+
+.cards.icon-tiles .cards-card-body p {
+  margin: 0 0 var(--space-m);
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+/* Option: video-tiles - square thumbnail, play icon and a blue title bar (source .ipr_videoTiles) */
+.cards.video-tiles > ul {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+/* source stacks the tiles with a 20px bottom margin on every tile (also the last) */
+.cards.video-tiles > ul > li {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 var(--space-m);
+  border: 0;
+}
+
+.cards.video-tiles .cards-card-image {
+  position: relative;
+  flex: 100 100 100%;
+}
+
+.cards.video-tiles .cards-card-image > p {
+  margin: 0;
+}
+
+.cards.video-tiles > ul > li img {
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* the shared .video-play circle (styles.css), as an outlined ring */
+.cards.video-tiles .cards-video-play {
+  background: var(--icon-play-outline) center / var(--video-play-size) no-repeat;
+  box-shadow: var(--shadow-media-control);
+  pointer-events: none;
+}
+
+.cards.video-tiles .cards-card-body {
+  margin: 0;
+  padding: var(--space-m);
+  background-color: var(--color-band-accent);
+  color: var(--color-on-band-accent);
+  text-align: center;
+}
+
+.cards.video-tiles .cards-card-body > * {
+  margin: 0;
+}
+
+.cards.video-tiles .cards-card-body h3 {
+  color: var(--color-on-band-accent);
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--heading-line-height);
+}
+
+/* breakpoint-exception: the source tiles (Bootstrap col-lg-4) go to 3 columns at 992px */
+@media (width >= 992px) {
+  .cards.feature-links > ul,
+  .cards.icon-tiles > ul,
+  .cards.video-tiles > ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cards.feature-links > ul {
+    gap: var(--space-l);
+  }
+
+  .cards.feature-links > ul > li,
+  .cards.video-tiles > ul > li {
+    margin: 0;
+  }
+
+  /* source tiles are 33.33% wide plus 40px gaps and overflow the container;
+     here they stay inside it (each tile ~27px narrower) */
+  .cards.video-tiles > ul {
+    gap: var(--space-xl);
+  }
+
+  /* Tiles that follow a gallery in the same section overlap its lower edge */
+  .gallery-wrapper + .cards-wrapper > .cards.feature-links {
+    position: relative;
+    z-index: var(--z-raised);
+    margin-top: calc(-1 * var(--gallery-overlap));
+  }
 }

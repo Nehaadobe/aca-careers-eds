@@ -1,0 +1,162 @@
+/* Banner runs edge to edge; its content is constrained inside the block */
+main > .section > .banner-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.banner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.banner .banner-media {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-below);
+  line-height: 0;
+}
+
+.banner .banner-media picture,
+.banner .banner-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.banner .banner-media img {
+  object-fit: cover;
+}
+
+.banner .banner-content {
+  box-sizing: border-box;
+  max-width: var(--banner-content-max-width);
+  margin: 0 auto;
+  padding: var(--banner-padding);
+}
+
+.banner .banner-content > :first-child {
+  margin-top: 0;
+}
+
+.banner .banner-content > :last-child {
+  margin-bottom: 0;
+}
+
+@media (width >= 900px) {
+  .banner .banner-content {
+    padding: var(--banner-padding-desktop);
+  }
+}
+
+/* Option: locations - navy band, map pinned right (source section.locations) */
+.banner.locations {
+  background-color: var(--color-band);
+  color: var(--color-on-band);
+}
+
+/* map behaves like the source background: contain, 100% 50% */
+.banner.locations .banner-media img {
+  object-fit: contain;
+  object-position: 100% 50%;
+}
+
+/* below 992px the source darkens the map behind the text */
+.banner.locations .banner-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-scrim);
+}
+
+.banner.locations .banner-content {
+  max-width: var(--content-max-width);
+  padding: var(--banner-locations-padding-block) var(--content-padding);
+}
+
+.banner.locations .banner-content :is(h1, h2, h3, h4) {
+  margin-bottom: var(--space-l);
+  color: inherit;
+}
+
+.banner.locations .banner-content p {
+  max-width: var(--banner-text-max-width);
+  margin-bottom: var(--banner-text-gap);
+  color: inherit;
+}
+
+.banner.locations .banner-content p.button-wrapper {
+  margin: 0;
+}
+
+@media (width >= 992px) {
+  .banner.locations .banner-media::after {
+    content: none;
+  }
+}
+
+/* Option: statement - centered lead text on the blue band (source .ipr_textBanner) */
+.banner.statement {
+  background-color: var(--color-band-accent);
+  color: var(--color-on-band-accent);
+  text-align: center;
+}
+
+.banner.statement .banner-media {
+  display: none;
+}
+
+/* source: section padding 30px 0; the lead keeps its 30px bottom margin inside the band */
+.banner.statement .banner-content {
+  max-width: min(calc(var(--article-max-width) + 2 * var(--content-padding)), var(--content-max-width));
+  padding: var(--space-l) var(--content-padding);
+}
+
+.banner.statement .banner-content :is(p, h1, h2, h3, h4, h5, h6) {
+  margin: 0 0 var(--space-l);
+  color: inherit;
+  font-family: var(--font-heading);
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--heading-line-height);
+}
+
+.banner.statement .banner-content a:any-link {
+  color: inherit;
+}
+
+/* Option: image-cta - photo inside the content width, heading + CTA near the bottom (source .ipr_banner) */
+.banner.image-cta {
+  margin-inline: max(var(--content-padding), calc((100% - var(--content-max-width)) / 2 + var(--content-padding)));
+  color: var(--color-on-media);
+  text-align: center;
+}
+
+/* the photo sets the height (1920 x 787); the box grows if the text needs more room */
+.banner.image-cta .banner-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-width: none;
+  aspect-ratio: 1920 / 787;
+  padding: 0 var(--content-padding) var(--space-m);
+}
+
+.banner.image-cta .banner-content :is(h1, h2, h3) {
+  margin-bottom: var(--space-l);
+  color: inherit;
+}
+
+.banner.image-cta .banner-content .button-wrapper {
+  margin: 0;
+}
+
+.banner.image-cta.no-image {
+  background-color: var(--color-band);
+}
+
+@media (width >= 768px) {
+  .banner.image-cta .banner-content {
+    padding-bottom: var(--space-3xl);
+  }
+}

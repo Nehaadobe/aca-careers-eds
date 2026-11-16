@@ -1,0 +1,32 @@
+{
+  "variantName": "image",
+  "baseBlock": "image",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Inline story image that text wraps around, as on the source .textImage-left / .textImage-right.",
+    "layout": "Float left/right at every width like the source: 400px wide (the most common authored source width), max-width 100% (full column width on mobile), margin 0 0 10px 20px for right (mirrored for left). Caption below the image: 20px top padding, 14px/21px, italic, body text color. The section must clear floats (the block wrapper should not overflow the next section).",
+    "tokens": "Use only the semantic tokens in styles/brand.css (multi-brand). Caption color var(--color-text-muted).",
+    "source": "https://careers.blueshieldca.com/blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities and /blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist"
+  },
+  "contentPattern": {
+    "structure": "Block table 'Image (left)' or 'Image (right)' with one cell: the picture, optionally followed by a caption paragraph (italic). The block sits between default-content paragraphs of a story body; the text that follows it in the same section wraps beside it.",
+    "variants": "left: floats left, text wraps on the right. right: floats right, text wraps on the left. No option (plain 'Image'): full-width image, no float.",
+    "notes": "Must not break when the caption is missing or when the author puts the caption in a second row. Used in 25 stories (left in 13, right in 21).",
+    "example": "Image (right): picture + italic caption 'Sarah Miller with her two daughters...'"
+  },
+  "options": [
+    {
+      "class": "left",
+      "label": "Left"
+    },
+    {
+      "class": "right",
+      "label": "Right"
+    }
+  ],
+  "memberVariantIds": [
+    "image-left",
+    "image-right"
+  ],
+  "reuseGuidance": "Use inside story bodies for a photo the following paragraphs wrap around: Image (left) or Image (right). Plain Image gives a full-width inline image. Keep the block in the same section as the text that should wrap."
+}

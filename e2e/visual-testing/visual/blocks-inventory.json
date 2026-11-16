@@ -1,0 +1,709 @@
+[
+ {
+  "id": "page-hero",
+  "tags": [
+   "@hero",
+   "@landing"
+  ],
+  "path": "/life-at-blue-shield",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".page-header > .container"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .columns.curve"
+   }
+  },
+  "actualPath": "/life-at-blue-shield.html"
+ },
+ {
+  "id": "highlight-panel",
+  "tags": [
+   "@section",
+   "@landing"
+  ],
+  "path": "/life-at-blue-shield",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".simplebox-content"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .section.light-blue .default-content-wrapper"
+   }
+  },
+  "actualPath": "/life-at-blue-shield.html"
+ },
+ {
+  "id": "video-tiles",
+  "tags": [
+   "@cards",
+   "@landing"
+  ],
+  "path": "/life-at-blue-shield",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".ipr_videoTiles"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .cards.video-tiles"
+   }
+  },
+  "actualPath": "/life-at-blue-shield.html"
+ },
+ {
+  "id": "banner-image-cta",
+  "tags": [
+   "@banner",
+   "@landing"
+  ],
+  "path": "/life-at-blue-shield",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "section.ipr_banner"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .banner.image-cta"
+   }
+  },
+  "actualPath": "/life-at-blue-shield.html"
+ },
+ {
+  "id": "home-gallery",
+  "tags": [
+   "@gallery",
+   "@home"
+  ],
+  "path": "/",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".homegallery_wrapper .homegallery"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .gallery"
+   }
+  },
+  "actualPath": "/index.html"
+ },
+ {
+  "id": "feature-links",
+  "tags": [
+   "@cards",
+   "@home"
+  ],
+  "path": "/",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".homegallery_tiles"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .cards.feature-links"
+   }
+  },
+  "actualPath": "/index.html"
+ },
+ {
+  "id": "home-quotes",
+  "tags": [
+   "@quote",
+   "@home"
+  ],
+  "path": "/",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "section.contentSection__centerTitle"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .section.quote-container"
+   }
+  },
+  "actualPath": "/index.html"
+ },
+ {
+  "id": "banner-locations",
+  "tags": [
+   "@banner",
+   "@home"
+  ],
+  "path": "/",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "section.locations"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .banner.locations"
+   }
+  },
+  "actualPath": "/index.html"
+ },
+ {
+  "id": "columns-alternating",
+  "tags": [
+   "@columns",
+   "@landing"
+  ],
+  "path": "/life-at-blue-shield/our-workplace-model",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".ipr_indexChess"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .columns.alternating"
+   }
+  },
+  "actualPath": "/life-at-blue-shield/our-workplace-model.html"
+ },
+ {
+  "id": "banner-statement",
+  "tags": [
+   "@banner",
+   "@landing"
+  ],
+  "path": "/growth-development",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "section.ipr_textBanner"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .banner.statement"
+   }
+  },
+  "actualPath": "/growth-development.html"
+ },
+ {
+  "id": "growth-stories",
+  "tags": [
+   "@article-list",
+   "@landing"
+  ],
+  "path": "/growth-development",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "#site_content section.contentSection:not(.contentSection__centerTitle)"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .section.article-list-container"
+   }
+  },
+  "actualPath": "/growth-development.html"
+ },
+ {
+  "id": "belonging-gallery",
+  "tags": [
+   "@gallery",
+   "@landing"
+  ],
+  "path": "/a-culture-of-belonging",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".dei_cards .homegallery"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .gallery"
+   }
+  },
+  "actualPath": "/a-culture-of-belonging.html"
+ },
+ {
+  "id": "faq-closed",
+  "tags": [
+   "@accordion",
+   "@landing"
+  ],
+  "path": "/how-to-get-hired",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".faq"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .accordion"
+   }
+  },
+  "actualPath": "/how-to-get-hired.html"
+ },
+ {
+  "id": "story-listing",
+  "tags": [
+   "@story-listing"
+  ],
+  "path": "/blog",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "#site_content .page-body"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .story-listing"
+   }
+  },
+  "actualPath": "/blog.html"
+ },
+ {
+  "id": "article-header",
+  "tags": [
+   "@article-header",
+   "@story"
+  ],
+  "path": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "#site_content .article > .container"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .article-header-content"
+   }
+  },
+  "actualPath": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist.html"
+ },
+ {
+  "id": "article-hero-image",
+  "tags": [
+   "@article-header",
+   "@story"
+  ],
+  "path": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "figure.article-hero"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .article-header-hero"
+   }
+  },
+  "actualPath": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist.html"
+ },
+ {
+  "id": "image-right",
+  "tags": [
+   "@image",
+   "@story"
+  ],
+  "path": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".textImage-right"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .image.right"
+   }
+  },
+  "actualPath": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist.html"
+ },
+ {
+  "id": "image-left",
+  "tags": [
+   "@image",
+   "@story"
+  ],
+  "path": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".textImage-left"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .image.left"
+   }
+  },
+  "actualPath": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist.html"
+ },
+ {
+  "id": "story-callout",
+  "tags": [
+   "@section",
+   "@story"
+  ],
+  "path": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".article-body .simplebox-content"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .section.light-blue .default-content-wrapper"
+   }
+  },
+  "actualPath": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist.html"
+ },
+ {
+  "id": "more-stories",
+  "tags": [
+   "@article-list",
+   "@story"
+  ],
+  "path": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "section.contentSection.blue_bottom"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .section.article-list-container"
+   }
+  },
+  "actualPath": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist.html"
+ },
+ {
+  "id": "share",
+  "tags": [
+   "@share",
+   "@story"
+  ],
+  "path": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".article-share"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .share"
+   }
+  },
+  "actualPath": "/blog/an-inside-look-into-the-role-of-a-blue-shield-of-california-pharmacist.html"
+ },
+ {
+  "id": "table-callout",
+  "tags": [
+   "@table",
+   "@story"
+  ],
+  "path": "/blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".article-body table"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .table"
+   }
+  },
+  "actualPath": "/blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities.html"
+ },
+ {
+  "id": "video-hero",
+  "tags": [
+   "@embed",
+   "@story"
+  ],
+  "path": "/blog/celebrating-a-record-breaking-year-of-giving-back-in-2023",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "figure.article-hero-video"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .article-header-hero"
+   }
+  },
+  "actualPath": "/blog/celebrating-a-record-breaking-year-of-giving-back-in-2023.html"
+ },
+ {
+  "id": "youtube-embed",
+  "tags": [
+   "@embed",
+   "@story"
+  ],
+  "path": "/blog/alvins-story-making-an-impact-while-helping-your-friends-and-family",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": ".article-body iframe"
+   }
+  },
+  "actual": {
+   "target": {
+    "selector": "main .embed"
+   }
+  },
+  "actualPath": "/blog/alvins-story-making-an-impact-while-helping-your-friends-and-family.html"
+ },
+ {
+  "id": "stellarus-header",
+  "tags": [
+   "@stellarus",
+   "@header"
+  ],
+  "path": "/careers",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "nav"
+   },
+   "ready": "#careers"
+  },
+  "actual": {
+   "target": {
+    "selector": "body > header"
+   }
+  },
+  "referenceOrigin": "https://www.stellarus.com",
+  "actualPath": "/stellarus/careers.html"
+ },
+ {
+  "id": "stellarus-hero",
+  "tags": [
+   "@stellarus",
+   "@hero"
+  ],
+  "path": "/careers",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "#careers"
+   },
+   "ready": "#careers"
+  },
+  "actual": {
+   "target": {
+    "selector": "main .hero.centered"
+   }
+  },
+  "referenceOrigin": "https://www.stellarus.com",
+  "actualPath": "/stellarus/careers.html"
+ },
+ {
+  "id": "stellarus-footer",
+  "tags": [
+   "@stellarus",
+   "@footer"
+  ],
+  "path": "/careers",
+  "capture": "element",
+  "viewports": {
+   "names": [
+    "mobile-390",
+    "desktop-1440"
+   ]
+  },
+  "reference": {
+   "target": {
+    "selector": "footer"
+   },
+   "ready": "#careers"
+  },
+  "actual": {
+   "target": {
+    "selector": "footer .footer"
+   }
+  },
+  "referenceOrigin": "https://www.stellarus.com",
+  "actualPath": "/stellarus/careers.html"
+ }
+]

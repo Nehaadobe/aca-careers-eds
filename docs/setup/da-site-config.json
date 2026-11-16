@@ -1,0 +1,53 @@
+{
+  "library": {
+    "total": 4,
+    "offset": 0,
+    "limit": 4,
+    "data": [
+      {
+        "title": "Blocks",
+        "path": "https://content.da.live/nehaadobe/aca-careers-eds/tools/library/blocks.json",
+        "format": "",
+        "ref": "",
+        "icon": "",
+        "experience": ""
+      },
+      {
+        "title": "Templates",
+        "path": "https://content.da.live/nehaadobe/aca-careers-eds/tools/library/templates.json",
+        "format": "",
+        "ref": "",
+        "icon": "",
+        "experience": ""
+      },
+      {
+        "title": "Icons",
+        "path": "https://content.da.live/nehaadobe/aca-careers-eds/tools/library/icons.json",
+        "format": ":<content>:",
+        "ref": "",
+        "icon": "",
+        "experience": ""
+      },
+      {
+        "title": "Media Library",
+        "path": "https://da.live/nx/public/plugins/media-library/media-library.html",
+        "format": "",
+        "ref": "",
+        "icon": "https://da.live/blocks/edit/img/Smock_Images_18_N.svg",
+        "experience": "fullsize-dialog"
+      }
+    ]
+  },
+  "data": {
+    "total": 0,
+    "offset": 0,
+    "limit": 0,
+    "data": []
+  },
+  ":names": [
+    "library",
+    "data"
+  ],
+  ":version": 3,
+  ":type": "multi-sheet"
+}

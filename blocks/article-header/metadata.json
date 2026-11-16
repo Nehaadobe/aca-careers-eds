@@ -1,0 +1,25 @@
+{
+  "variantName": "article-header",
+  "baseBlock": "article-header",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Blog story header: category links, title, date, byline with share links, then a full-width hero image or video",
+    "layout": "Text column (930px inside a 960px box with 15px gutters): Role/Topic links in a row, H1, publication date, byline with the share block right-aligned on the same row from 992px (share vertically centered on the byline height). Each author: optional 50px round photo, 20px gap, name (600) and title at 19.2px line height; several authors sit side by side 30px apart from 992px and stack 20px apart below. Hero below: full width with 15px gutters on mobile, 90vw from 992px; an image fills it (1200/630), a video stays in the 930px column",
+    "source": "https://careers.blueshieldca.com/blog/perseverance-in-motion",
+    "sections": ["Article header"]
+  },
+  "contentPattern": {
+    "structure": "Auto-built on Template = blog-article pages (scripts.js buildAutoBlocks), not authored. Key/value rows Role, Topic, Publication Date, Author, Author Title from page metadata; a row with the first H1; a row with the hero that directly follows the H1 (picture paragraph or Embed (video) block); a row with a nested share block",
+    "example": "Role 'People and Engagement', Topic 'Life at Blue Shield', Publication Date 2026-03-18, H1 'Perseverance in Motion', hero image",
+    "behavior": "Category links go to /blog?role=<value> and /blog?topic=<value> (story-listing URL state); date renders as 'March 18, 2026'; byline is omitted when there is no Author; several authors (semicolon-separated Author / Author Title / Author Image, matched by position) render as separate byline entries; the H1 and hero are moved out of the body (not duplicated); nested share/embed blocks are decorated by this block"
+  },
+  "options": [],
+  "memberVariantIds": ["article-header"],
+  "usage": {
+    "notes": ["Auto-blocked on all 22 blog-article stories"],
+    "pagesUsing": ["/blog/*"],
+    "reuseCount": 22,
+    "lastUsed": "2026-10-26"
+  },
+  "reuseGuidance": "Do not author. Set page metadata Template = blog-article plus Role, Topic, Publication Date and optionally Author / Author Title; start the body with an H1 followed by the hero image or an Embed (video) block."
+}

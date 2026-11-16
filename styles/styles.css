@@ -1,3 +1,5 @@
+@import url('brand.css');
+
 /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -10,81 +12,53 @@
  * governing permissions and limitations under the License.
  */
 
-:root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
-
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
-
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
-
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
-
-  /* nav height */
-  --nav-height: 64px;
-}
-
-/* fallback fonts */
-@font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
-}
-
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
-}
-
-@media (width >= 900px) {
-  :root {
-    /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
-
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
-  }
-}
-
 body {
   display: none;
   margin: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: var(--body-font-family);
+  background-color: var(--page-background);
+  background-image: var(--page-background-image);
+  color: var(--color-text);
+  color-scheme: var(--color-scheme);
+  font-family: var(--font-body);
   font-size: var(--body-font-size-m);
-  line-height: 1.6;
+  font-weight: var(--font-weight-body);
+  line-height: var(--body-line-height);
+  font-variant-ligatures: var(--font-ligatures);
+  -webkit-font-smoothing: var(--font-smoothing);
+  -moz-osx-font-smoothing: var(--font-smoothing-moz);
+  text-rendering: var(--text-rendering);
 }
 
 body.appear {
   display: block;
 }
 
+/* theme decoration layers fixed to the viewport (none unless a theme sets the tokens):
+   ::before sits behind the content (e.g. a starfield), ::after over it (e.g. film grain) */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+body::before {
+  z-index: var(--z-below);
+  background-image: var(--page-stars-image);
+}
+
+body::after {
+  z-index: var(--z-decoration);
+  background-image: var(--page-grain-image);
+  opacity: var(--page-grain-opacity);
+  mix-blend-mode: overlay;
+}
+
 header {
+  position: var(--header-position);
+  top: 0;
+  z-index: var(--z-header);
   height: var(--nav-height);
 }
 
@@ -98,24 +72,45 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* default content typography (source computed styles) */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
-  font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
-  scroll-margin: 40px;
+  margin-top: 0;
+  margin-bottom: var(--space-l);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--heading-line-height);
+  scroll-margin: var(--space-xl);
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
+h1 {
+  margin-bottom: var(--space-m);
+  font-family: var(--font-display);
+  font-size: var(--heading-font-size-xxl);
+  font-weight: var(--font-weight-display);
+  line-height: var(--heading-line-height);
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-transform);
+}
+
 h2 { font-size: var(--heading-font-size-xl); }
-h3 { font-size: var(--heading-font-size-l); }
-h4 { font-size: var(--heading-font-size-m); }
+
+h3 {
+  margin-bottom: var(--space-s);
+  font-size: var(--heading-font-size-l);
+  line-height: var(--line-height-snug);
+}
+
+h4 {
+  margin-bottom: var(--space-xs);
+  font-size: var(--heading-font-size-m);
+}
+
 h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
 
@@ -125,8 +120,39 @@ ol,
 ul,
 pre,
 blockquote {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin-top: 0;
+  margin-bottom: var(--space-m);
+}
+
+ol,
+ul {
+  padding-left: var(--list-indent);
+}
+
+li {
+  margin-bottom: var(--list-item-gap);
+}
+
+/* source bold is semibold (600), not the UA 700 */
+b,
+strong {
+  font-weight: var(--font-weight-strong);
+}
+
+/* superscripts and subscripts do not open up the line (source reboot) */
+sub,
+sup {
+  position: relative;
+  font-size: var(--font-size-script);
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sup { top: var(--sup-offset); }
+sub { bottom: var(--sub-offset); }
+
+p em:only-child {
+  font-size: var(--body-font-size-s);
 }
 
 code,
@@ -135,15 +161,11 @@ pre {
 }
 
 pre {
-  padding: 16px;
-  border-radius: 8px;
-  background-color: var(--light-color);
+  padding: var(--pre-padding);
+  border-radius: var(--radius-small);
+  background-color: var(--color-surface-tint);
   overflow-x: auto;
   white-space: pre;
-}
-
-main > div {
-  margin: 40px 16px;
 }
 
 input,
@@ -153,24 +175,44 @@ button {
   font: inherit;
 }
 
-/* links */
+/* links: link color, no underline; hover darkens */
 a:any-link {
-  color: var(--link-color);
+  color: var(--color-link);
   text-decoration: none;
   overflow-wrap: break-word;
 }
 
 a:hover {
-  color: var(--link-hover-color);
+  color: var(--color-link-hover);
+  text-decoration: none;
+}
+
+a:focus-visible {
+  outline: var(--focus-outline-width) solid var(--color-focus);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* buttons: EDS reset, then source pill variants */
+main a.button:any-link {
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: var(--color-link);
+  font-size: inherit;
+  font-weight: inherit;
+  padding: 0;
+  margin: 0;
   text-decoration: underline;
+  white-space: normal;
 }
 
-/* buttons */
 p.button-wrapper {
-  margin: 12px 0;
+  margin: var(--space-m) 0;
 }
 
-a.button:any-link,
+main a.button.primary:any-link,
+main a.button.accent:any-link,
+main a.button.secondary:any-link,
 button.button {
   box-sizing: border-box;
   display: inline-flex;
@@ -178,104 +220,83 @@ button.button {
   justify-content: center;
   max-width: 100%;
   margin: 0;
-  border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
-  font: inherit;
-  font-weight: 500;
-  line-height: 1.25;
+  border: var(--border-width) solid var(--button-border-color);
+  border-radius: var(--radius-button);
+  padding: var(--button-primary-padding);
+  gap: var(--button-arrow-gap);
+  font-family: var(--font-body);
+  font-size: var(--body-font-size-m);
+  font-weight: var(--font-weight-strong);
+  line-height: var(--body-line-height);
+  text-align: center;
   text-decoration: none;
   cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-a.button[aria-disabled="true"],
+/* primary + accent: blue fill */
+main a.button.primary:any-link,
+main a.button.accent:any-link,
+button.button.primary,
+button.button.accent {
+  background-color: var(--button-primary-background);
+  box-shadow: var(--shadow-button);
+  color: var(--button-primary-color);
+}
+
+/* theme arrow after the primary label, drawn in the text color (none unless a theme sets it) */
+main a.button:is(.primary, .accent)::after {
+  content: '';
+  flex: 0 0 auto;
+  width: var(--button-arrow-size);
+  height: var(--button-arrow-size);
+  background-color: currentcolor;
+  mask: var(--button-arrow-image) center / contain no-repeat;
+  transition: transform var(--transition-fast);
+}
+
+main a.button:is(.primary, .accent):hover::after {
+  transform: translateX(var(--button-arrow-hover-shift));
+}
+
+main a.button.primary:hover,
+main a.button.accent:hover,
+button.button.primary:hover,
+button.button.accent:hover {
+  border-color: var(--button-hover-border-color);
+  background-color: var(--button-primary-hover-background);
+  box-shadow: var(--shadow-button-hover);
+  color: var(--button-primary-hover-color);
+}
+
+/* secondary: white fill, navy text (used on dark bands) */
+main a.button.secondary:any-link,
+button.button.secondary {
+  padding: var(--button-secondary-padding);
+  border-color: var(--button-secondary-border-color);
+  background-color: var(--button-secondary-background);
+  color: var(--button-secondary-color);
+}
+
+main a.button.secondary:hover,
+button.button.secondary:hover {
+  border-color: var(--button-secondary-hover-border-color);
+  background-color: var(--button-secondary-hover-background);
+  color: var(--button-secondary-hover-color);
+}
+
+main a.button:is(.primary, .accent, .secondary):focus-visible,
+button.button:focus-visible {
+  outline-offset: var(--focus-outline-offset-tight);
+  box-shadow: var(--focus-ring);
+}
+
+main a.button[aria-disabled="true"],
 button.button:disabled {
   cursor: not-allowed;
+  opacity: 0.65;
   pointer-events: none;
-}
-
-a.button.primary,
-button.button.primary {
-  border-color: var(--text-color);
-  background-color: var(--text-color);
-  color: var(--background-color);
-}
-
-a.button.primary:hover,
-a.button.primary:focus-visible,
-button.button.primary:hover,
-button.button.primary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--dark-color);
-  color: var(--light-color);
-}
-
-a.button.primary[aria-disabled="true"],
-a.button.primary[aria-disabled="true"]:hover,
-a.button.primary[aria-disabled="true"]:focus-visible,
-button.button.primary:disabled,
-button.button.primary:disabled:hover,
-button.button.primary:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
-}
-
-a.button.secondary,
-button.button.secondary {
-  border-color: var(--text-color);
-  background-color: transparent;
-  color: var(--text-color);
-}
-
-a.button.secondary:hover,
-a.button.secondary:focus-visible,
-button.button.secondary:hover,
-button.button.secondary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--light-color);
-  color: var(--dark-color);
-}
-
-a.button.secondary[aria-disabled="true"],
-a.button.secondary[aria-disabled="true"]:hover,
-a.button.secondary[aria-disabled="true"]:focus-visible,
-button.button.secondary:disabled,
-button.button.secondary:disabled:hover,
-button.button.secondary:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
-}
-
-/* high-impact call-to-action */
-a.button.accent,
-button.button.accent {
-  border-color: var(--link-color);
-  background-color: var(--link-color);
-  color: var(--background-color);
-}
-
-a.button.accent:hover,
-a.button.accent:focus-visible,
-button.button.accent:hover,
-button.button.accent:focus-visible {
-  border-color: var(--link-hover-color);
-  background-color: var(--link-hover-color);
-}
-
-a.button.accent[aria-disabled="true"],
-a.button.accent[aria-disabled="true"]:hover,
-a.button.accent[aria-disabled="true"]:focus-visible,
-button.button.accent:disabled,
-button.button.accent:disabled:hover,
-button.button.accent:disabled:focus-visible {
-  background-color: var(--light-color);
-  border-color: var(--light-color);
-  color: var(--dark-color);
 }
 
 main img {
@@ -286,8 +307,8 @@ main img {
 
 .icon {
   display: inline-block;
-  height: 24px;
-  width: 24px;
+  height: var(--icon-size);
+  width: var(--icon-size);
 }
 
 .icon img {
@@ -297,29 +318,321 @@ main img {
 
 /* sections */
 main > .section {
-  margin: 40px 0;
+  margin: var(--section-spacing) 0;
 }
 
 main > .section > div {
-  max-width: 1200px;
+  box-sizing: border-box;
+  max-width: var(--content-max-width);
   margin: auto;
-  padding: 0 24px;
+  padding: 0 var(--content-padding);
+}
+
+/* story body sections keep their children's margins inside (the source body is one
+   continuous column), so the story gaps below do not depend on margin collapsing */
+:where(body.blog-article) main > .section:not(.article-header-container) {
+  display: flow-root;
 }
 
 main > .section:first-of-type {
   margin-top: 0;
 }
 
-@media (width >= 900px) {
-  main > .section > div {
-    padding: 0 32px;
+/* source rhythm: 30px below the page hero, 90px between icon-tile groups and
+   hero/photo strips, 30px between plain centered text and a photo strip; the page header
+   is a Columns (curve) block, whose section columns.js marks with .columns-curve-container */
+main > .section:is(.hero-container, .columns-curve-container) {
+  margin-bottom: 0;
+}
+
+main > .section:is(.hero-container, .columns-curve-container) + .section {
+  margin-top: var(--space-l);
+}
+
+main > .section:is(.hero-container, .columns-curve-container) + .gallery-container {
+  margin-top: var(--section-spacing);
+}
+
+main > .section:is(.hero-container, .columns-curve-container) + .section.centered.cards-container,
+main > .section.gallery-container + .section.centered.cards-container,
+main > .section.centered.cards-container + .gallery-container {
+  margin-top: var(--section-spacing-wide);
+}
+
+main > .section.centered:not([class*='-container']):has(+ .gallery-container),
+main > .section.gallery-container:has(+ .section.centered:not([class*='-container'])) {
+  margin-bottom: var(--space-l);
+}
+
+main > .section.centered:not([class*='-container']) + .gallery-container,
+main > .section.gallery-container + .section.centered:not([class*='-container']) {
+  margin-top: var(--space-l);
+}
+
+/* the locations banner closes the page flush against the footer */
+main > .section:last-child:has(.banner.locations) {
+  margin-bottom: 0;
+}
+
+/* section metadata styles (mapped from source backgrounds/alignment) */
+main .section.centered .default-content-wrapper {
+  text-align: center;
+}
+
+/* blue: full-bleed accent band (BSC brand blue) with white text (source .ipr_textBanner / contentSection_blue) */
+main .section.blue {
+  margin: 0 0 var(--section-spacing);
+  padding: var(--space-l) 0;
+  background-color: var(--color-band-accent);
+  color: var(--color-on-band-accent);
+}
+
+/* dark grounds (blue section, banner, hero over a photo): buttons use the on-dark colors */
+:is(main .section.blue, .banner, .hero:not(.centered)) {
+  --button-primary-color: var(--button-on-dark-primary-color);
+  --button-primary-hover-color: var(--button-on-dark-primary-hover-color);
+  --button-secondary-color: var(--button-on-dark-secondary-color);
+  --button-secondary-hover-color: var(--button-on-dark-secondary-hover-color);
+  --button-secondary-border-color: var(--button-on-dark-secondary-border-color);
+  --button-secondary-hover-border-color: var(--button-on-dark-secondary-hover-border-color);
+}
+
+/*
+ * Story cards: the tile shared by the article-list and story-listing blocks (source .tiles).
+ * The blocks add these classes and keep only their own layout differences.
+ */
+.story-card-grid {
+  display: grid;
+  gap: var(--space-l);
+  margin: 0;
+  padding: var(--space-xs) 0 var(--space-m);
+  list-style: none;
+}
+
+.story-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-fast);
+}
+
+.story-card:hover {
+  box-shadow: var(--ring-hover), var(--shadow-card);
+}
+
+/* keyboard focus on the card link (article-list) or on the title link inside (story-listing) */
+.story-card:is(:focus-visible, :has(:focus-visible)) {
+  outline: none;
+  box-shadow: var(--focus-ring), var(--shadow-card);
+}
+
+.story-card-image {
+  line-height: 0;
+}
+
+.story-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 25 / 14;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.story-card-body {
+  padding: var(--space-xl);
+}
+
+.story-card-title {
+  margin: 0 0 var(--space-l);
+  color: var(--color-link);
+  font-family: var(--font-heading);
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-snug);
+}
+
+.story-card-date {
+  color: var(--color-text-muted);
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+.story-card-description {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+/* round video play control centered on a poster (embed facade, columns and cards videos) */
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--video-play-size);
+  height: var(--video-play-size);
+  border-radius: 50%;
+  background: var(--icon-play-solid) center / var(--video-play-size) no-repeat var(--color-primary);
+  transform: translate(-50%, -50%);
+}
+
+main .section.blue h1,
+main .section.blue h2,
+main .section.blue h3,
+main .section.blue h4,
+main .section.blue p,
+main .section.blue a:any-link {
+  color: var(--color-on-band-accent);
+}
+
+main .section.blue a:focus-visible {
+  outline-color: var(--color-on-band-accent);
+}
+
+/* links inside running text are underlined: blue on body text is under 3:1,
+   so color alone does not mark them as links */
+main :is(.default-content-wrapper, .table, .accordion, .quote, .columns) :is(p, li) a:any-link:not(.button) {
+  text-decoration: underline;
+  text-underline-offset: var(--link-underline-offset);
+}
+
+/* light-blue: rounded light-blue panel inside the content width (source .simplebox) */
+main .section.light-blue .default-content-wrapper {
+  box-sizing: border-box;
+  padding: var(--space-xl);
+  border-radius: var(--radius-panel);
+  background-color: var(--color-surface-tint);
+}
+
+main .section.light-blue .default-content-wrapper > :last-child {
+  margin-bottom: 0;
+}
+
+/* legacy/boilerplate names kept working */
+main .section.light,
+main .section.highlight {
+  background-color: var(--color-surface-tint);
+  margin: 0;
+  padding: var(--space-xl) 0;
+}
+
+/* blog articles: narrower reading column, like the source (960px container, 930px text) */
+body.blog-article main > .section > div {
+  max-width: var(--article-max-width);
+}
+
+/* story body text: source subheads (Bootstrap h3: 22.4px from 1200px, fluid below),
+   paragraphs, list items and italics */
+body.blog-article main > .section:not(.article-list-container) .default-content-wrapper h3 {
+  margin-bottom: var(--space-2xs);
+  font-size: var(--article-subhead-font-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--heading-line-height);
+}
+
+body.blog-article main .default-content-wrapper li {
+  margin-bottom: 0;
+}
+
+body.blog-article main .default-content-wrapper p em:only-child {
+  font-size: inherit;
+}
+
+/* inline story images (source .textImage-center): centered, 20px below, no line gap */
+body.blog-article main .default-content-wrapper p:has(> picture) {
+  text-align: center;
+}
+
+body.blog-article main .default-content-wrapper p > picture img {
+  vertical-align: top;
+}
+
+/* caption: an italic paragraph right after the image (source .textImage-captionBody) */
+body.blog-article main .default-content-wrapper p:has(> picture) + p:has(> em:only-child) {
+  font-size: var(--body-font-size-s);
+  text-align: center;
+}
+
+/* "Find Your Next Role" (source .article-action): centered, 20px padding above and
+   below, so 40px under a paragraph and 20px under a table */
+body.blog-article main .default-content-wrapper > p.button-wrapper:last-child {
+  margin: 0 0 var(--space-m);
+  padding-top: var(--space-m);
+  text-align: center;
+}
+
+/* story highlight box (source .simplebox): text-column wide, in the flow of the article */
+body.blog-article main > .section.light-blue {
+  margin: 0 0 var(--space-m);
+}
+
+body.blog-article main > .section.light-blue + .section {
+  margin-top: 0;
+}
+
+body.blog-article main > .section:has(+ .section.light-blue) {
+  margin-bottom: 0;
+}
+
+body.blog-article main > .section.light-blue > .default-content-wrapper {
+  width: calc(100% - 2 * var(--content-padding));
+  max-width: calc(var(--article-max-width) - 2 * var(--content-padding));
+  padding-bottom: var(--space-2xl); /* 40px + the last paragraph's 20px, as on the source */
+}
+
+/* "More Stories": content-wide, centered title, 120px below the last body element */
+body.blog-article main > .section.article-list-container {
+  margin-top: var(--article-list-spacing);
+}
+
+body.blog-article main > .section.article-list-container > div {
+  max-width: var(--content-max-width);
+}
+
+body.blog-article main > .section.article-list-container > .default-content-wrapper {
+  text-align: center;
+}
+
+
+/* honor the OS "reduce motion" setting site-wide (hover zooms, slides, smooth scroll) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* section metadata */
-main .section.light,
-main .section.highlight {
-  background-color: var(--light-color);
+/* section heading with a single "View More Stories" link (source .contentSection-header):
+   heading left, link right on one row from 768px */
+main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0 var(--space-m);
+  margin-bottom: var(--space-l);
+}
+
+main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) > * {
   margin: 0;
-  padding: 40px 0;
+}
+
+main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) > p > a {
+  font-size: var(--heading-font-size-m);
+  font-weight: var(--font-weight-strong);
+  line-height: var(--body-line-height);
+  text-decoration: none;
+}
+
+main .section.article-list-container > .default-content-wrapper:has(> h2 + p:last-child > a:only-child) > p > a::after {
+  content: '\203A';
+  margin-left: var(--link-chevron-gap);
 }

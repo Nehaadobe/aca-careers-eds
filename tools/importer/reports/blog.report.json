@@ -1,0 +1,12 @@
+{
+  "status": "success",
+  "url": "https://careers.blueshieldca.com/blog",
+  "path": "blog",
+  "timestamp": "2026-10-30T18:45:09.114Z",
+  "title": "Our people | Blue Shield of California | Careers",
+  "template": "story-listing",
+  "blocks": [
+    "hero-page",
+    "story-listing"
+  ]
+}

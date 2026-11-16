@@ -1,3 +1,123 @@
 {
-  "extends": ["stylelint-config-standard"]
+  "extends": [
+    "stylelint-config-standard"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "blocks/**/*.css",
+        "styles/*.css"
+      ],
+      "rules": {
+        "color-no-hex": true,
+        "color-named": "never",
+        "function-disallowed-list": [
+          "rgb",
+          "rgba",
+          "hsl",
+          "hsla",
+          "hwb",
+          "lab",
+          "lch",
+          "oklab",
+          "oklch",
+          "color"
+        ],
+        "declaration-property-value-allowed-list": {
+          "font-family": [
+            "/^var\\(--[\\w-]+\\)$/",
+            "inherit"
+          ],
+          "font": [
+            "inherit",
+            "/var\\(--[\\w-]+\\)$/"
+          ]
+        },
+        "scale-unlimited/declaration-strict-value": [
+          [
+            "font-size",
+            "line-height",
+            "font-weight",
+            "letter-spacing",
+            "/^margin/",
+            "/^padding/",
+            "gap",
+            "row-gap",
+            "column-gap",
+            "/^inset/",
+            "top",
+            "right",
+            "bottom",
+            "left",
+            "/^border(-(top|right|bottom|left|block|inline)(-(start|end))?)?(-width)?$/",
+            "/radius$/",
+            "outline",
+            "outline-width",
+            "outline-offset",
+            "z-index",
+            "box-shadow"
+          ],
+          {
+            "ignoreVariables": true,
+            "ignoreFunctions": false,
+            "expandShorthand": true,
+            "ignoreValues": [
+              "0",
+              "auto",
+              "inherit",
+              "initial",
+              "unset",
+              "revert",
+              "none",
+              "normal",
+              "100%",
+              "50%",
+              "solid",
+              "dashed",
+              "dotted",
+              "currentcolor",
+              "transparent",
+              "1lh",
+              "/^(calc|min|max|clamp)\\((?!.*(?<![\\d.])(?!100(vw|vh|dvh|svh|%)(?![\\d.])|50%)\\d*\\.?\\d+(px|rem|em|vw|vh|%|ch|dvh|svh))[^]*\\)$/",
+              "/^var\\(--[\\w-]+\\),$/"
+            ],
+            "message": "Use a design token (var(--\u2026)) from styles/brand.css for \"${property}\", not \"${value}\"; add a token there if none fits"
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "styles/brand.css",
+        "styles/themes/*.css"
+      ],
+      "rules": {
+        "color-no-hex": null,
+        "color-named": null,
+        "function-disallowed-list": null,
+        "declaration-property-value-allowed-list": null,
+        "scale-unlimited/declaration-strict-value": null
+      }
+    },
+    {
+      "files": [
+        "styles/fonts.css"
+      ],
+      "rules": {
+        "declaration-property-value-allowed-list": null,
+        "scale-unlimited/declaration-strict-value": null
+      }
+    },
+    {
+      "files": [
+        "styles/onetrust.css"
+      ],
+      "rules": {
+        "scale-unlimited/declaration-strict-value": null
+      }
+    }
+  ],
+  "plugins": [
+    "stylelint-declaration-strict-value"
+  ]
 }

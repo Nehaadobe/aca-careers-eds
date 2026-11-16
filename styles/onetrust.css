@@ -1,0 +1,49 @@
+/*
+ * OneTrust banner overrides (client styles.css), loaded by scripts/consent.js after the
+ * Blue Shield banner styles (www.blueshieldca.com/vendor/onetrust/onetrust.css).
+ * The banners use the page's body font (--font-body, the brand theme font) instead of the
+ * SDK font; the custom "trusted partners" banner asks for Fieldwork, which only the
+ * Ascendiun theme loads, so it uses the body font as well.
+ */
+
+/* OneTrust banner (first banner): paragraphs and title */
+#onetrust-banner-sdk .onetrust-first-para,
+#onetrust-banner-sdk .onetrust-second-para,
+#onetrust-banner-sdk h2#onetrust-policy-title {
+  font-family: var(--font-body) !important;
+}
+
+/* OneTrust banner buttons */
+#onetrust-banner-sdk button#onetrust-pc-btn-handler,
+#onetrust-banner-sdk button#onetrust-accept-btn-handler,
+#onetrust-banner-sdk .ot-sdk-button {
+  padding: 6px 24px 10px !important;
+  font-family: var(--font-body) !important;
+}
+
+/* OneTrust Preferences Center typography */
+#onetrust-pc-sdk h2#ot-pc-title,
+#onetrust-pc-sdk div#ot-pc-desc,
+#onetrust-pc-sdk .ot-acc-hdr h4.ot-cat-header,
+#onetrust-pc-sdk .ot-tgl .ot-label-status,
+#onetrust-pc-sdk .ot-btn-container button.save-preference-btn-handler.onetrust-close-btn-handler {
+  font-family: var(--font-body) !important;
+}
+
+/* custom "trusted partners" banner (scripts/onetrust.js) */
+#onetrust-banner,
+#onetrust-banner h2,
+#onetrust-banner p,
+#onetrust-banner .onetrust-btn {
+  font-family: var(--font-body) !important;
+}
+
+@media (width >= 375px) and (width <= 767.5px) {
+  #onetrust-banner {
+    width: 340px !important;
+  }
+
+  .onetrust-btn {
+    width: 100%;
+  }
+}

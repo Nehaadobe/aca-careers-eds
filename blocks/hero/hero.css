@@ -1,37 +1,160 @@
-.hero-container .hero-wrapper {
-  max-width: unset;
+/*
+ * Hero block. Values from the source computed styles (migration-work/hero-extracted.css).
+ * Options:
+ *   home          - full-bleed photo, headline + CTA centered at the bottom
+ *   centered      - centered text intro: eyebrow, H1, copy, CTAs side by side (Stellarus careers)
+ */
+
+/* the hero manages its own width; the section wrapper must not cap it */
+main .section > .hero-wrapper {
+  max-width: none;
   padding: 0;
 }
 
-.hero {
+/* ---------- default + home: full-bleed photo with overlaid headline ---------- */
+.hero:not(.centered) {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
-}
-
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
-.hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   box-sizing: border-box;
+  min-height: var(--hero-min-height);
+  padding: 0 var(--content-padding);
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--color-text);
 }
 
-.hero img {
-  object-fit: cover;
+.hero:not(.centered) picture {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-below);
+  background-color: var(--color-surface-muted);
+}
+
+.hero:not(.centered) img {
+  display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
-@media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
-  }
+.hero:not(.centered) .hero-content {
+  max-width: var(--hero-title-max-width);
+  margin: 0 auto;
+  padding: var(--space-l) 0;
+  text-align: center;
+}
+
+.hero:not(.centered) .hero-content h1,
+.hero:not(.centered) .hero-content h2 {
+  max-width: var(--hero-title-max-width);
+  margin: 0;
+  color: var(--color-on-media);
+  font-family: var(--font-display);
+  font-size: var(--heading-font-size-xxl);
+  font-weight: var(--font-weight-display);
+  line-height: var(--hero-title-line-height);
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-transform);
+  text-shadow: var(--shadow-text-on-media);
+}
+
+.hero:not(.centered) .hero-content p {
+  margin: var(--space-m) 0 0;
+}
+
+/* ---------- centered: text-only intro (eyebrow, H1, copy, CTAs) ----------
+   Source: stellarus.com/careers (fluid padding and H1 size, measured at 390-1440px). */
+.hero.centered {
+  box-sizing: border-box;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--hero-centered-padding-top) var(--content-padding) var(--hero-centered-padding-bottom);
+  color: var(--color-text);
+  text-align: center;
+}
+
+.hero.centered .hero-media-wrap {
+  max-width: var(--hero-centered-max-width);
+  margin: 0 auto var(--space-xl);
+  line-height: 0;
+}
+
+.hero.centered .hero-media-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero.centered .hero-content {
+  max-width: var(--hero-centered-max-width);
+  margin: 0 auto;
+}
+
+.hero.centered .hero-eyebrow {
+  margin: 0 0 var(--hero-eyebrow-gap);
+  color: var(--color-text-muted);
+  font-family: var(--hero-eyebrow-font);
+  font-size: var(--body-font-size-xxs);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-loose);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+.hero.centered .hero-content :is(h1, h2, h3) {
+  max-width: var(--hero-centered-title-max-width);
+  margin: 0 auto var(--hero-centered-title-gap);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--hero-centered-title-size);
+  font-weight: var(--hero-centered-title-weight);
+  line-height: var(--hero-centered-title-line-height);
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-transform);
+  position: relative;
+  isolation: isolate;
+}
+
+/* theme drawing behind the eyebrow and heading (source: constellation, scaled from the heading
+   block by --hero-decoration-scale); none unless the theme sets --hero-decoration-image */
+.hero.centered .hero-content :is(h1, h2, h3)::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * (var(--body-font-size-xxs) * var(--line-height-loose) + var(--hero-eyebrow-gap))) 0 0; /* up to the top of the eyebrow line */
+  z-index: var(--z-below);
+  background: var(--hero-decoration-image) center / contain no-repeat;
+  transform: scale(var(--hero-decoration-scale));
+  pointer-events: none;
+}
+
+.hero.centered .hero-content > p:not(.hero-eyebrow) {
+  margin: 0 0 var(--hero-centered-copy-gap);
+  color: var(--color-text-secondary);
+  font-size: var(--lead-font-size);
+  line-height: var(--line-height-relaxed);
+  text-wrap: pretty; /* source: no one-word last lines */
+}
+
+/* buttons wrap onto a second centered row when they do not fit (source: 14px gaps) */
+.hero.centered .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--hero-actions-gap);
+  margin-top: var(--hero-actions-margin); /* collapses with the paragraph margin: 34px below the copy */
+}
+
+.hero.centered .hero-actions p.button-wrapper {
+  margin: 0;
+}
+
+/* the global button styles (styles.css), as fixed-height single-line pills */
+.hero.centered .hero-actions a.button:any-link {
+  height: var(--hero-button-height);
+  font-size: var(--body-font-size-m);
+  line-height: var(--line-height-single);
+  letter-spacing: var(--tracking-button);
+  white-space: nowrap;
 }

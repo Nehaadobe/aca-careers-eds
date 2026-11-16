@@ -1,0 +1,24 @@
+{
+  "variantName": "share",
+  "baseBlock": "share",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Social share links for the current page",
+    "layout": "'Share' label followed by three 40px circular icon links: LinkedIn, Facebook, X",
+    "source": "https://careers.blueshieldca.com/blog/perseverance-in-motion",
+    "sections": ["Article header"]
+  },
+  "contentPattern": {
+    "structure": "Auto-built inside the article-header on blog-article pages. When authored: an empty block, or a single cell whose text replaces the 'Share' label",
+    "behavior": "Links are built from the canonical URL (else page URL without query/hash) and og:title / H1; each opens in a new tab with rel='noopener noreferrer' and an aria-label 'Share on <network> (opens in a new tab)'; the list is labelled by the visible label"
+  },
+  "options": [],
+  "memberVariantIds": ["share"],
+  "usage": {
+    "notes": ["Auto-blocked in the article header of all blog-article stories"],
+    "pagesUsing": ["/blog/*"],
+    "reuseCount": 22,
+    "lastUsed": "2026-10-26"
+  },
+  "reuseGuidance": "Comes for free on blog articles. Elsewhere, author an empty 'Share' block where the links should appear."
+}

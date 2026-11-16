@@ -1,0 +1,174 @@
+/* Article header: categories, title, date, byline + share, then a full-width hero.
+ * Values from source computed styles (careers.blueshieldca.com blog articles).
+ * Source breakpoint for the byline/share row and the wide hero is 992px.
+ */
+.article-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding-top: var(--space-xl);
+
+  /* source: 40px between hero and article body (section spacing is 60px) */
+  margin-bottom: calc(var(--space-xl) - var(--section-spacing));
+}
+
+.article-header .article-header-content {
+  /* source .container: 960px box with 15px gutters around the 930px text column */
+  margin: 0 calc(-1 * var(--content-padding));
+  padding: 0 var(--content-padding);
+}
+
+/* categories: inline-block links separated by a space + 30px (as in the source markup) */
+.article-header .article-header-categories {
+  margin: 0 0 var(--space-s);
+  padding: 0;
+  list-style: none;
+}
+
+.article-header .article-header-categories li {
+  display: inline;
+  margin: 0;
+}
+
+/* collapsible space between links, dropped at line wraps like source whitespace */
+.article-header .article-header-categories li + li::before {
+  content: " ";
+}
+
+.article-header .article-header-categories li + li a {
+  margin-left: var(--space-l);
+}
+
+.article-header .article-header-categories a:any-link {
+  display: inline-block;
+  font-weight: var(--font-weight-strong);
+  text-decoration: none;
+}
+
+.article-header .article-header-categories a:hover {
+  text-decoration: underline;
+}
+
+.article-header .article-header-title {
+  margin: 0 0 var(--space-m);
+  font-size: var(--article-title-font-size);
+  line-height: var(--article-title-line-height);
+}
+
+.article-header .article-header-date {
+  margin: var(--space-m) 0;
+}
+
+/* byline + share: stacked on mobile, one row on desktop */
+.article-header .article-header-meta {
+  margin: 0;
+}
+
+/* source keeps the (empty) author row's space when a story has no byline */
+.article-header .article-header-meta:not(:has(.article-header-byline)) {
+  margin-top: var(--space-xl);
+}
+
+/* source: authors stack 20px apart on mobile and sit side by side on desktop */
+.article-header .article-header-byline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+  margin: 0 0 var(--space-m);
+  padding: 0;
+  list-style: none;
+}
+
+.article-header .article-header-author-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-m);
+  margin: 0;
+}
+
+/* source: 30px right margin on every author but the last (also on mobile) */
+.article-header .article-header-byline-multiple .article-header-author-item:not(:last-child) {
+  margin-right: var(--space-l);
+}
+
+/* source: 50px round avatar, text starts 20px to its right */
+.article-header .article-header-author-photo {
+  flex: none;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.article-header .article-header-author-text > p {
+  margin: 0;
+  line-height: var(--heading-line-height);
+}
+
+.article-header .article-header-author-text > .article-header-author {
+  margin: var(--space-4xs) 0;
+  font-weight: var(--font-weight-strong);
+}
+
+/* hero: the source figure is full width with 15px gutters on mobile and 90vw on
+   desktop; an image fills it, a video stays in the 930px text column */
+.article-header .article-header-hero {
+  box-sizing: border-box;
+  align-self: center;
+  width: calc(100% + 2 * var(--content-padding));
+  padding: 0 var(--content-padding);
+  line-height: 0;
+}
+
+.article-header .article-header-hero picture,
+.article-header .article-header-hero img {
+  display: block;
+  width: 100%;
+}
+
+/* source hero renditions are 1200x630 thumbnails, shown at their natural ratio */
+.article-header .article-header-hero img {
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+}
+
+/* video hero stays in the text column */
+.article-header .article-header-hero .embed {
+  max-width: calc(var(--article-max-width) - 2 * var(--content-padding));
+  margin: 0 auto;
+  line-height: normal;
+}
+
+@media (width >= 992px) {
+  .article-header .article-header-meta {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* with a byline, share sits at the right end of the row; without one it stays left */
+  .article-header .article-header-byline {
+    flex-direction: row;
+    gap: 0;
+    margin: 0 var(--space-xs) 0 0;
+  }
+
+  .article-header .article-header-author-item {
+    flex: 0 1 auto;
+  }
+
+  /* share is as tall as the byline; its label and links are centered vertically */
+  .article-header .article-header-meta > .share-wrapper {
+    display: flex;
+    flex: none;
+  }
+
+  .article-header .article-header-meta:not(:has(.article-header-byline)) {
+    margin-top: var(--space-2xl);
+  }
+
+  /* source: 90% wide figure with 15px inner gutters */
+  .article-header .article-header-hero {
+    width: var(--article-hero-width-desktop);
+  }
+}

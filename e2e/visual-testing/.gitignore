@@ -1,0 +1,5 @@
+node_modules/
+test-results/
+playwright-report/
+# approved LIVE references are kept per machine (see README "Baseline persistence")
+visual/__screenshots__/

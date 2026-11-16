@@ -1,0 +1,77 @@
+/*
+ * Embed block. Values from careers.blueshieldca.com:
+ * - YouTube embed in .article-body (p > .ipr_responsiveVideo > iframe): full column width, margin 0 0 20px
+ * - option "video" (figure.article-hero-video > .ipr_responsiveVideo > video): 16:9 (padding-bottom 56.25%),
+ *   object-fit contain, transparent backdrop, figure margin 0 0 40px
+ * The article header resets the margin when it hosts the hero video.
+ */
+.embed {
+  width: 100%;
+  margin: 0 0 var(--space-m);
+}
+
+.embed.video {
+  margin-bottom: var(--space-xl);
+}
+
+.embed .embed-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.embed .embed-frame > video,
+.embed .embed-frame > iframe,
+.embed .embed-frame > picture,
+.embed .embed-frame > picture img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.embed .embed-frame > video {
+  object-fit: contain;
+}
+
+/* third-party player box: the source's 560x315 iframe keeps 315px of height in
+   columns narrower than 560px; dark until the poster (or the player) loads */
+.embed:not(.embed-video) .embed-frame {
+  min-height: var(--embed-min-height);
+  background-color: var(--color-media-background);
+}
+
+.embed .embed-frame > picture img {
+  object-fit: cover;
+}
+
+/* provider thumbnail: letterboxed like the provider's own player */
+.embed .embed-frame > .embed-thumbnail img {
+  object-fit: contain;
+}
+
+/* facade play button: the shared .video-play circle (styles.css) as a button */
+.embed .embed-play {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.embed .embed-play:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.embed .embed-play:focus-visible {
+  outline: 0;
+  box-shadow: var(--focus-ring);
+}
+
+.embed .embed-consent {
+  margin: var(--embed-consent-gap) 0 0;
+  font-size: var(--body-font-size-xs);
+}

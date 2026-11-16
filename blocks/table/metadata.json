@@ -1,0 +1,24 @@
+{
+  "variantName": "table",
+  "baseBlock": "table",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Tabular data, or a bordered callout box when the table has a single cell",
+    "layout": "Multi-cell: full-width table, first row as column headers, horizontal scroll on narrow screens. Single cell: bordered box holding the cell content (bold heading paragraph + text)",
+    "source": "https://careers.blueshieldca.com/blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities",
+    "sections": ["Article body callout"]
+  },
+  "contentPattern": {
+    "structure": "one block row per table row, one cell per column; the first row is the header unless the no-header class is set. A single-cell block renders as a callout",
+    "example": "Single cell: bold 'The broader impact of our support' paragraph followed by a text paragraph with a BoardSource link"
+  },
+  "options": [],
+  "memberVariantIds": ["table"],
+  "usage": {
+    "notes": ["1 blog-article story uses a single-cell Table as a callout"],
+    "pagesUsing": ["/blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities"],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-26"
+  },
+  "reuseGuidance": "Use 'Table' for real rows and columns. For a boxed aside, author a single-cell Table: the content renders inside a bordered box."
+}

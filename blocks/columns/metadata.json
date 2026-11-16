@@ -1,0 +1,64 @@
+{
+  "variantName": "columns",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Side-by-side columns of content; with 'alternating', image/text rows whose sides alternate; with 'curve', the page header (H1 and intro beside a photo with a curved corner)",
+    "layout": "Cells sit side by side from 900px and stack on mobile",
+    "alternating": "Image/text rows on white; the image side follows the authored cell order from 900px (image cell first = image left); image stacks above the text on mobile. A poster image with a YouTube link shows a blue circular play button and opens the video in a modal dialog",
+    "sources": [
+      "https://careers.blueshieldca.com/growth-development",
+      "https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model",
+      "https://careers.blueshieldca.com/life-at-blue-shield",
+      "https://careers.blueshieldca.com/how-to-get-hired",
+      "https://careers.blueshieldca.com/total-rewards",
+      "https://careers.blueshieldca.com/events",
+      "https://careers.blueshieldca.com/blog",
+      "https://careers.blueshieldca.com/a-culture-of-belonging"
+    ],
+    "sections": [
+      "Our Internship Program",
+      "Connecting with purpose / hybrid strategy"
+    ],
+    "curve": "Page header (formerly Hero (page)): 40% text / 60% photo from 900px, photo fills the row height; the photo has one curved corner facing the text (--radius-media / --radius-media-mirror). Cell order sets the side: text first = photo right, photo first = photo left. Mobile: full-width photo above centered text"
+  },
+  "contentPattern": {
+    "structure": "one row per line of columns, one cell per column. With 'alternating': each row has a media cell (image, optionally followed by a youtube.com/watch link for a video) and a text cell (optional H3, paragraphs, lists, links); the cell order sets the side: image cell first = image left, text cell first = image right. With 'curve': each row has a text cell (H1, intro paragraphs) and a photo cell; the cell order sets the photo side",
+    "example": "Row 1: poster image + https://www.youtube.com/watch?v=R2OGCW75eaY | paragraphs, bullet list, bold link 'View our current internship opportunities'"
+  },
+  "options": [
+    {
+      "class": "alternating",
+      "label": "Alternating"
+    },
+    {
+      "class": "curve",
+      "label": "Curve"
+    }
+  ],
+  "memberVariantIds": [
+    "columns-alternating",
+    "columns-curve"
+  ],
+  "usage": {
+    "notes": [
+      "Growth & development internship program row with a video poster: authored as 'Columns (alternating)'",
+      "Our workplace model two image/text rows: authored as 'Columns (alternating)'",
+      "Page headers of the section pages (life-at-blue-shield, our-workplace-model, a-culture-of-belonging, growth-development, total-rewards, how-to-get-hired, events, blog): authored as 'Columns (curve)', text cell first (photo right); formerly 'Hero (page)'",
+      "Since 2026-11-03 the alternating image side follows the cell order (was odd/even rows); our-workplace-model row 2 authored text first to keep its layout"
+    ],
+    "pagesUsing": [
+      "/growth-development",
+      "/life-at-blue-shield/our-workplace-model",
+      "/life-at-blue-shield",
+      "/a-culture-of-belonging",
+      "/how-to-get-hired",
+      "/total-rewards",
+      "/events",
+      "/blog"
+    ],
+    "reuseCount": 8,
+    "lastUsed": "2026-11-03"
+  },
+  "reuseGuidance": "Use 'Columns (alternating)' for stacked image/text rows that swap sides; The cell order sets the side: image cell first = image left, text cell first = image right (swap the cells on every other row for a zigzag). Put a YouTube link under the image to turn it into a video play button. Plain 'Columns' keeps the boilerplate behaviour. Use 'Columns (curve)' for the page header at the top of section pages: put the text cell first for the photo on the right, the photo cell first for the photo on the left."
+}

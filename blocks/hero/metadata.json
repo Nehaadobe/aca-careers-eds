@@ -1,0 +1,58 @@
+{
+  "variantName": "hero",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Page-opening image with a headline and call to action",
+    "layout": "Background image fills the block; content row sits on top",
+    "home": "Full-bleed photo with a centered H2 headline and a CTA button below it",
+    "source": "https://careers.blueshieldca.com/",
+    "sections": [
+      "Hero"
+    ],
+    "sources": [
+      "https://careers.blueshieldca.com/total-rewards",
+      "https://careers.blueshieldca.com/growth-development",
+      "https://careers.blueshieldca.com/a-culture-of-belonging",
+      "https://careers.blueshieldca.com/how-to-get-hired",
+      "https://careers.blueshieldca.com/life-at-blue-shield",
+      "https://careers.blueshieldca.com/life-at-blue-shield/our-workplace-model",
+      "https://www.stellarus.com/careers"
+    ],
+    "centered": "Centered column: eyebrow then H1 (max \u2248680px), text max-width 760px, centered; vertical padding \u2248 96px top/bottom on desktop. Eyebrow: mono font, 11px, uppercase, letter-spacing 0.18em, muted color. H1: display font, 700, \u22482.7rem desktop / 1.8rem mobile, line-height 1.08, letter-spacing -0.03em. Body: 18px / 1.7, secondary text color. Primary button: pill (radius full), accent background, white text, 16px 600, padding 15px 30px, glow shadow, trailing arrow \u2192. Secondary button: pill, translucent surface background with a 1px strong border, primary text color."
+  },
+  "contentPattern": {
+    "structure": "row 1: background image; row 2: heading (H1 or H2) and an optional CTA link in its own paragraph",
+    "example": "Background image, H2 'A great place to do meaningful work.', CTA 'Find Your Next Role'",
+    "centered": "Same two-row hero model (image row optional/empty, content row). Content: first paragraph before the H1 is the eyebrow; H1; body paragraphs; bold link = primary button, italic link = secondary button.",
+    "centeredExample": "Empty image row; content: eyebrow 'Careers', H1 'Help us fix healthcare.', two paragraphs, bold link View All Open Positions, italic link Submit Your Resume"
+  },
+  "options": [
+    {
+      "class": "home",
+      "label": "Home"
+    },
+    {
+      "class": "centered",
+      "label": "Centered"
+    }
+  ],
+  "memberVariantIds": [
+    "hero-home",
+    "hero-centered"
+  ],
+  "usage": {
+    "notes": [
+      "Homepage top hero: authored as 'Hero (home)'"
+    ],
+    "pagesUsing": [
+      "/"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-10-26"
+  },
+  "reuseGuidance": "Use plain 'Hero' for the boilerplate left-aligned hero; add the 'home' option for the full-bleed centered homepage hero. A lone link in the content row becomes a button under 'home'. For interior page headers (H1 and intro beside a photo with a curved corner) use 'Columns (curve)'. Add the 'centered' option for a text-only intro: optional eyebrow paragraph before the H1, body copy and CTA buttons (bold link = primary, italic link = secondary) centered side by side; the image row may be left empty.",
+  "notes": [
+    "The former 'page' variation (page header) is now the Columns (curve) block."
+  ]
+}

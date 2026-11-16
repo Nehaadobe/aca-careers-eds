@@ -1,0 +1,30 @@
+{
+  "variantName": "article-list",
+  "baseBlock": "article-list",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Curated grid of story cards; replaces the source 'More Stories' row on every story (76 pages, 1-10 cards each) and the 'Growth & development stories' row on /growth-development.",
+    "layout": "Grid with Columns 2/3/4 from 900px (default 3), 1 column on mobile. Cards: white surface, radius 20px, shadow 0 0 10px rgb(0 0 0 / 16%), image on top (≈230px tall at 410px wide, object-fit cover), text area padding 30px 40px 40px. Title 24px/30px 600 in the link/brand color; date 16px muted; description 16px/24px body color; 'View highlights' 16px link color. Hover/focus: 1px brand-color ring (box-shadow 0 0 0 1px) plus the shadow.",
+    "grounds": "Light: cards on the page background. Tinted: a light-tint band (source #edf6f9) behind the lower ~60% of the cards (source .blue_bottom: band from 40% height to the bottom, 40px bottom padding). Dark: band in the dark/band color with cards on top.",
+    "tokens": "CSS must use ONLY the semantic tokens in styles/brand.css for colors, fonts, radii and shadows (multi-brand: BSC default, themes in styles/themes/). Stylelint rejects hex, rgb(), hsl(), named colors and raw font stacks in block CSS. Add a missing token to styles/brand.css with the BSC value (and to the theme files when it differs).",
+    "source": "https://careers.blueshieldca.com/blog/* (section.contentSection.blue_bottom .tiles) and https://careers.blueshieldca.com/growth-development"
+  },
+  "contentPattern": {
+    "structure": "One block table. Single-cell rows each hold one story link: an internal path (/blog/<slug> or any other indexed page such as /a-culture-of-belonging) or an external URL listed in the external-stories sheet. Two-cell rows are options (key | value): Columns (2 | 3 | 4, default 3), Ground (Light | Tinted | Dark, default Light), Display Article date (Yes | No, default Yes), Display Short description (Yes | No, default Yes). Keys are case-insensitive; unknown keys are ignored; authors may omit option rows. The section heading ('More Stories', 'Growth & development stories') and any 'View More Stories' link are default content before the block, not part of it.",
+    "data": "Resolve every link at runtime with scripts/story-index.js: loadStories({ index: ['/blog/query-index.json', '/sitemap.json'], external: '/blog/external-stories.json' }) gives normalized stories (href, title, description, image, date, external flag). Match internal links by pathname (ignore trailing slash and host when same origin) against the query index — include ALL indexed pages, not only /blog/ (pass a pathPrefix of '/' or match directly against the index rows, because 2 More Stories cards point to /a-culture-of-belonging and /how-to-get-hired). Match external links by full URL against the external-stories sheet. Unresolved links are skipped with console.warn (e.g. an unpublished story) and never break the block. Keep authored order.",
+    "card": "Each card is one link (whole card clickable): image (16:9-ish, cover), title, optional date (Month DD, YYYY via formatStoryDate) and optional short description, plus a 'View highlights' text link label at the bottom as on the source. External cards open the external URL (same tab, rel=noopener as on source).",
+    "example": "Rows: /blog/how-sarah-miller-is-nurturing-her-passion-for-healing-communities | https://news.blueshieldca.com/... | /blog/reflections-from-our-2025-interns; Columns | 3; Ground | Tinted; Display Article date | No; Display Short description | Yes"
+  },
+  "options": [],
+  "configRows": {
+    "Columns": "2 | 3 | 4 (default 3)",
+    "Ground": "Light | Tinted | Dark (default Light)",
+    "Display Article date": "Yes | No (default Yes)",
+    "Display Short description": "Yes | No (default Yes)",
+    "Link Label": "text | No (default 'View highlights' on Tinted/Dark, none on Light)"
+  },
+  "memberVariantIds": [
+    "article-list"
+  ],
+  "reuseGuidance": "Use for any hand-picked row of story cards (More Stories on stories, Growth & development stories). Put the section heading and any View More Stories link as default content before the block. For a searchable/filterable listing use story-listing instead."
+}

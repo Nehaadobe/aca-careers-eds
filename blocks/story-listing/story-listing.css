@@ -1,0 +1,383 @@
+/* Story listing: filter panel, story grid, pagination (source /blog .indexFilter, .tiles, .pagination) */
+.story-listing {
+  color: var(--color-text);
+}
+
+/* Filter panel */
+.story-listing .story-listing-filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+  margin: 0 0 var(--space-l);
+  padding: var(--story-filters-padding-block) var(--space-l) var(--space-xl);
+  border-radius: var(--radius-panel);
+  background-color: var(--color-surface-tint);
+}
+
+.story-listing .story-listing-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+/* "Filter Posts" title with "Clear Filters" on the right; the link's taller line overhangs like the source float */
+.story-listing .story-listing-field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-m);
+  height: calc(var(--body-font-size-m) * var(--body-line-height));
+}
+
+.story-listing .story-listing-label {
+  font-size: var(--body-font-size-m);
+  font-weight: var(--font-weight-strong);
+  line-height: var(--body-line-height);
+}
+
+.story-listing a.story-listing-clear:any-link {
+  flex: none;
+  color: var(--color-link);
+  font-weight: var(--font-weight-strong);
+  line-height: var(--story-filters-clear-line-height);
+}
+
+.story-listing a.story-listing-clear:hover {
+  color: var(--color-link-hover);
+}
+
+/* Search input with the submit button overlaying its right end */
+.story-listing .story-listing-search-input {
+  position: relative;
+  display: flex;
+}
+
+.story-listing .story-listing-input,
+.story-listing .story-listing-select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: var(--control-height);
+  margin: 0;
+  padding: var(--button-padding-block) var(--space-xl) var(--button-padding-block) var(--control-padding-inline);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-control) 0 0 var(--radius-control);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.story-listing .story-listing-input::placeholder {
+  color: var(--color-text-subtle);
+  opacity: 1;
+}
+
+.story-listing .story-listing-input::-webkit-search-cancel-button {
+  margin-right: var(--space-2xs);
+}
+
+.story-listing .story-listing-select {
+  padding-right: var(--select-padding-end);
+  border-radius: var(--radius-control);
+  background-image: var(--icon-select-chevron);
+  background-position: calc(100% - var(--control-padding-inline)) 50%;
+  background-repeat: no-repeat;
+  background-size: var(--select-chevron-size);
+  appearance: none;
+  cursor: pointer;
+}
+
+.story-listing .story-listing-input:focus,
+.story-listing .story-listing-select:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.story-listing .story-listing-search-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--story-search-button-width);
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: var(--border-width) solid var(--button-border-color);
+  border-radius: 0 var(--radius-control) var(--radius-control) 0;
+  background-color: var(--button-primary-background);
+  color: var(--button-primary-color);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.story-listing .story-listing-search-button:hover {
+  border-color: var(--button-hover-border-color);
+  background-color: var(--button-primary-hover-background);
+}
+
+.story-listing .story-listing-search-button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Magnifier glyph drawn in CSS, geometry of the source 24px feather "search" svg:
+   circle r 8 at (11, 11), handle (16.65, 16.65)-(21, 21), 2px round strokes.
+   The positions below are the glyph's own drawing, not layout spacing. */
+.story-listing .story-listing-search-icon {
+  position: relative;
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.story-listing .story-listing-search-icon::before,
+.story-listing .story-listing-search-icon::after {
+  content: '';
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.story-listing .story-listing-search-icon::before {
+  /* stylelint-disable scale-unlimited/declaration-strict-value -- glyph drawing */
+  top: 2px;
+  left: 2px;
+  /* stylelint-enable scale-unlimited/declaration-strict-value */
+  width: 18px;
+  height: 18px;
+  border: var(--border-width-strong) solid currentcolor;
+  border-radius: 50%;
+}
+
+.story-listing .story-listing-search-icon::after {
+  /* stylelint-disable scale-unlimited/declaration-strict-value -- glyph drawing */
+  top: 17.83px;
+  left: 14.75px;
+  /* stylelint-enable scale-unlimited/declaration-strict-value */
+  width: 8.15px;
+  height: var(--border-width-strong);
+  border-radius: var(--radius-hairline);
+  background-color: currentcolor;
+  transform: rotate(45deg);
+}
+
+.story-listing .story-listing-selects {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+/* Results count: not shown on the source; kept for screen readers (role=status) */
+.story-listing .story-listing-count {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px; /* stylelint-disable-line scale-unlimited/declaration-strict-value -- visually hidden pattern */
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ...but shown when nothing matches */
+.story-listing.story-listing-empty .story-listing-count {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0 0 var(--space-l);
+  overflow: visible;
+  clip-path: none;
+  white-space: normal;
+}
+
+/* Story grid: card tiles are the shared .story-card rules in styles.css (source .tiles) */
+.story-listing .story-listing-grid {
+  grid-template-columns: 1fr;
+}
+
+.story-listing .story-listing-grid:focus {
+  outline: none;
+}
+
+.story-listing.story-listing-empty .story-listing-grid {
+  display: none;
+}
+
+.story-listing .story-listing-card {
+  position: relative;
+  margin: 0;
+}
+
+.story-listing .story-listing-card-body {
+  flex: 1 1 auto;
+  background-color: var(--color-surface);
+}
+
+.story-listing .story-listing-card-link:any-link,
+.story-listing .story-listing-card-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The title link covers the whole tile */
+.story-listing .story-listing-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-raised);
+}
+
+.story-listing .story-listing-card-link:focus-visible {
+  outline: none;
+}
+
+.story-listing .story-listing-card-date {
+  margin: var(--space-xs) 0;
+}
+
+/* Pagination */
+.story-listing .story-listing-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-l);
+  font-size: var(--body-font-size-l);
+  line-height: var(--body-line-height);
+}
+
+.story-listing .story-listing-pagination[hidden] {
+  display: none;
+}
+
+.story-listing .story-listing-pages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.story-listing .story-listing-pages li {
+  margin: 0;
+  padding: 0 var(--space-3xs);
+}
+
+/* source: "... 13" share one item, so the dots sit a space-width from the last page */
+.story-listing .story-listing-pages .story-listing-page-gap {
+  padding-right: 0;
+}
+
+.story-listing .story-listing-pages a:any-link {
+  color: var(--color-link);
+}
+
+.story-listing .story-listing-pages a:hover {
+  color: var(--color-link-hover);
+}
+
+.story-listing .story-listing-pages a[aria-current='page'] {
+  color: var(--color-text-strong);
+  font-weight: var(--font-weight-strong);
+}
+
+.story-listing .story-listing-page-prev,
+.story-listing .story-listing-page-next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pagination-arrow-width);
+  height: var(--pagination-arrow-height);
+  color: var(--color-link);
+}
+
+.story-listing .story-listing-page-prev[aria-disabled='true'],
+.story-listing .story-listing-page-next[aria-disabled='true'] {
+  color: var(--color-text-subtle);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* Angle glyph (source fontello icon-angle-left/right) */
+.story-listing .story-listing-page-arrow {
+  width: var(--pagination-chevron-size);
+  height: var(--pagination-chevron-size);
+  border-top: var(--border-width-strong) solid currentcolor;
+  border-right: var(--border-width-strong) solid currentcolor;
+}
+
+.story-listing .story-listing-page-prev .story-listing-page-arrow {
+  margin-left: var(--space-4xs);
+  transform: rotate(-135deg);
+}
+
+.story-listing .story-listing-page-next .story-listing-page-arrow {
+  margin-right: var(--space-4xs);
+  transform: rotate(45deg);
+}
+
+/* Loading */
+.story-listing.story-listing-loading .story-listing-grid {
+  min-height: var(--story-grid-loading-height);
+}
+
+@media (width >= 768px) {
+  /* Source md: groups still stacked, but the selects keep their own width and touch */
+  .story-listing .story-listing-filters {
+    padding-bottom: var(--story-filters-padding-block);
+  }
+
+  .story-listing .story-listing-selects {
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .story-listing .story-listing-select {
+    align-self: flex-start;
+    width: auto;
+    padding-right: var(--select-padding-end-wide);
+  }
+}
+
+@media (width >= 992px) {
+  /* Source lg (Bootstrap col-lg-4 tiles): search on its own row, then facets and
+     sort; when sort wraps (below 1200px) it sits right under the facets */
+  .story-listing .story-listing-filters {
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 0 var(--space-m);
+  }
+
+  .story-listing .story-listing-field {
+    flex: 0 1 auto;
+  }
+
+  .story-listing .story-listing-search {
+    flex: 0 0 100%;
+    margin-bottom: var(--space-m);
+  }
+
+  .story-listing .story-listing-selects {
+    flex-direction: row;
+    gap: var(--space-m);
+  }
+
+  .story-listing .story-listing-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (width > 1400px) {
+  /* All three filter groups on one row */
+  .story-listing .story-listing-search {
+    flex: 0 0 var(--story-search-width);
+    margin-bottom: 0;
+  }
+}

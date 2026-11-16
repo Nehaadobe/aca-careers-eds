@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://careers.blueshieldca.com/",
+  "path": "index",
+  "timestamp": "2026-10-30T18:39:58.120Z",
+  "title": "A great place to do meaningful work | Blue Shield of California | Careers",
+  "template": "homepage",
+  "blocks": [
+    "hero-home",
+    "gallery",
+    "cards-feature-links",
+    "quote",
+    "quote",
+    "banner-locations"
+  ]
+}

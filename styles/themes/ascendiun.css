@@ -1,0 +1,206 @@
+/*
+ * Theme: Ascendiun (page metadata `theme: ascendiun`, set per folder through bulk metadata:
+ * /ascendiun/** -> ascendiun). Loaded by scripts/scripts.js in loadEager.
+ * Overrides token values only; the contract and BSC defaults are in styles/brand.css.
+ * Values: measured on https://www.ascendiun.com/ascendiun/ (November 2026): Fieldwork Geo Light,
+ * Chicago Black #000 text, CTA Blue #0071bc links and calls to action (navy #162c55 on hover),
+ * #f7f7f7 footer, a black statement band, square corners, no shadows. The source has no buttons:
+ * calls to action are bold arrow links ("Explore … ->"), so buttons are arrow links here (client
+ * decision). Tokens the source has no equivalent for keep the BSC value (marked "BSC").
+ */
+
+/* Fieldwork (Light, Light Italic, DemiBold) and its metric-matched fallback are shared with
+   BSC: styles/fonts.css and styles/brand.css. */
+
+body {
+  --color-scheme: light;
+
+  /* page and surfaces */
+  --color-background: #fff;
+  --color-surface: #f7f7f7; /* source: the only boxes (footer, media contact) are flat grey */
+  --color-surface-tint: #f7f7f7;
+  --color-surface-muted: #f7f7f7;
+  --page-background-image: none;
+
+  /* text (source: Chicago Black; #333 for secondary copy) */
+  --color-text: #000;
+  --color-text-strong: #000;
+  --color-text-secondary: #000;
+  --color-text-muted: #333;
+  --color-text-subtle: #6c757d; /* BSC: placeholders, disabled controls */
+
+  /* links (source: CTA Blue, navy on hover) */
+  --color-link: #0071bc;
+  --color-link-hover: #162c55;
+
+  /* primary action */
+  --color-primary: #0071bc;
+  --color-primary-hover: #162c55;
+  --color-primary-press: #162c55;
+  --color-on-primary: #fff;
+
+  /* bands (source: the black statement band under the hero) */
+  --color-band: #000;
+  --color-on-band: #fff;
+
+  /* strong accent: FAQ question text and open/hover rows */
+  --color-accent-strong: #162c55;
+  --color-on-accent-strong: #fff;
+
+  /* borders (BSC: the source has no inputs or framed boxes) and focus (source: 2px CTA Blue) */
+  --color-border: #ccc;
+  --color-border-subtle: #dadada;
+  --color-border-strong: rgb(128 128 128);
+  --color-focus: #0071bc;
+
+  /* media: text and controls over photos and video (BSC) */
+  --color-on-media: #fff;
+  --color-media-background: #000;
+  --color-scrim: rgb(0 0 0 / 50%);
+  --color-scrim-strong: rgb(0 0 0 / 70%);
+  --color-backdrop: rgb(0 0 0 / 80%);
+
+  /* header (source: white bar, no rule under it) and footer (source: #f7f7f7, #333 text,
+     underlined CTA Blue links, black wordmark) */
+  --header-background: #fff;
+  --header-border-color: transparent;
+  --header-button-background: #f7f7f7;
+  --footer-background: #f7f7f7;
+  --footer-text: #333;
+  --footer-utility-background: #f7f7f7;
+  --footer-utility-text: #333;
+  --footer-link-color: #0071bc;
+  --footer-link-hover-color: #162c55;
+  --footer-utility-link-color: #0071bc;
+  --footer-link-decoration: underline;
+
+  /* logos: the black Ascendiun wordmark (scripts.js THEMES.ascendiun.logos), 288x26 on the source */
+  --footer-logo-filter: none;
+  --nav-logo-width: 216px;
+  --footer-logo-width: 216px;
+  --footer-brand-width: 246px;
+  --footer-icon-filter: brightness(0);
+
+  /* buttons as the source's arrow links: bold CTA Blue label, 16px arrow 8px after it,
+     navy on hover with the arrow moving 10px right; the outline button uses the source's
+     8px 12px link box with a CTA Blue border */
+  --button-padding: 8px 12px;
+  --button-primary-padding: 0;
+  --button-border-color: transparent;
+  --button-hover-border-color: transparent;
+  --button-primary-background: transparent;
+  --button-primary-hover-background: transparent;
+  --button-primary-color: #0071bc;
+  --button-primary-hover-color: #162c55;
+  --button-secondary-background: transparent;
+  --button-secondary-hover-background: transparent;
+  --button-secondary-color: #0071bc;
+  --button-secondary-hover-color: #162c55;
+  --button-secondary-border-color: #0071bc;
+  --button-secondary-hover-border-color: #162c55;
+  --button-arrow-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M15 7.52L8.5 1.02C8.24 0.76 7.81 0.76 7.54 1.02C7.28 1.28 7.28 1.71 7.54 1.98L12.89 7.33H1.52C1.15 7.33 0.85 7.63 0.85 8C0.85 8.37 1.15 8.67 1.52 8.67H12.89L7.55 14.01C7.29 14.27 7.29 14.7 7.55 14.97C7.68 15.1 7.85 15.17 8.03 15.17C8.21 15.17 8.38 15.1 8.51 14.97L15.01 8.47C15.27 8.21 15.27 7.78 15.01 7.51L15 7.52Z'/%3E%3C/svg%3E"); /* source _Arrow.svg */
+  --button-arrow-size: 16px;
+  --button-arrow-gap: 8px;
+  --button-arrow-hover-shift: 10px;
+
+  /* on photos and dark bands (source: white type on the hero photo and the black band) */
+  --button-on-dark-primary-color: #fff;
+  --button-on-dark-primary-hover-color: #fff;
+  --button-on-dark-secondary-color: #fff;
+  --button-on-dark-secondary-hover-color: #fff;
+  --button-on-dark-secondary-border-color: #fff;
+  --button-on-dark-secondary-hover-border-color: #fff;
+
+  /* heroes (source: 906px wide 64px / 72px headline over the photo) */
+  --hero-title-max-width: 906px;
+  --hero-title-line-height: 1.125;
+  --hero-centered-title-size: var(--heading-font-size-xxl);
+  --hero-centered-title-weight: 300;
+  --hero-eyebrow-font: var(--font-body);
+
+  /* card links (source: 18px DemiBold text links such as "Explore Stellarus", at every width) */
+  --card-cta-font-size: 18px;
+
+  /* fonts (source: Fieldwork everywhere, light, ligatures off) */
+  --font-body: fieldwork, fieldwork-fallback, sans-serif;
+  --font-heading: fieldwork, fieldwork-fallback, sans-serif;
+  --font-display: fieldwork, fieldwork-fallback, sans-serif;
+  --font-weight-body: 300;
+  --font-weight-heading: 300;
+  --font-weight-display: 300;
+  --font-ligatures: no-common-ligatures;
+  --heading-line-height: 1.1; /* source: 40px / 44px section heading */
+  --display-tracking: -1px; /* source hero headline */
+  --display-transform: none;
+
+  /* body sizes (source, from 768px: 20px intro copy, 18px body; smaller below, see below) */
+  --body-font-size-l: 20px;
+  --body-font-size-m: 18px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 14px;
+  --body-line-height: 1.34; /* 24px on 18px */
+
+  /* heading sizes (source, from 1440px: 64px hero, 40px section heading, 24px company name) */
+  --heading-font-size-xxl: 64px;
+  --heading-font-size-xl: 40px;
+  --heading-font-size-l: 24px;
+  --heading-font-size-m: 20px;
+  --heading-font-size-s: 18px;
+  --heading-font-size-xs: 16px;
+  --article-title-font-size: 40px;
+
+  /* spacing (source: 80px below the statement band, 32px side gutters) */
+  --section-spacing: 80px;
+  --content-padding: 32px;
+
+  /* shapes (source: square corners everywhere) */
+  --radius-button: 0;
+  --radius-card: 0;
+  --radius-panel: 0;
+  --radius-media: 0;
+  --radius-media-mirror: 0;
+  --radius-small: 0;
+  --radius-large: 0;
+  --radius-control: 0;
+
+  /* shadows (source: none; white text sits on photos without a shadow) */
+  --shadow-card: none;
+  --shadow-tile: none;
+  --shadow-raised: none;
+  --shadow-button: none;
+  --shadow-button-hover: none;
+  --shadow-text-on-media: none;
+
+  /* motion (source: hover changes are instant) */
+  --transition-fast: 0s;
+  --transition-duration-medium: 0s;
+}
+
+/* breakpoint-exception: source sizes between 1024 and 1439px (56px hero, 32px headings) */
+@media (width < 1440px) {
+  body {
+    --heading-font-size-xxl: 56px;
+    --heading-font-size-xl: 32px;
+    --nav-logo-width: 150px; /* the wide wordmark leaves room for the nav links and CTA */
+  }
+}
+
+/* breakpoint-exception: source sizes between 768 and 1023px */
+@media (width < 1024px) {
+  body {
+    --heading-font-size-xxl: 40px;
+    --body-font-size-m: 16px;
+    --body-line-height: 1.5; /* 24px on 16px */
+  }
+}
+
+/* breakpoint-exception: source sizes below 768px */
+@media (width < 768px) {
+  body {
+    --heading-font-size-xl: 24px;
+    --heading-font-size-l: 20px;
+    --body-font-size-l: 18px;
+    --section-spacing: 40px;
+    --nav-logo-width: 150px; /* leaves room for the site name beside the menu button */
+  }
+}

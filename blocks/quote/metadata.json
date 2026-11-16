@@ -1,0 +1,25 @@
+{
+  "variantName": "quote",
+  "baseBlock": "quote",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Employee quotation with a circular portrait and attribution",
+    "layout": "Centered column: portrait, quotation, attribution pinned to the bottom so side-by-side quotes align; two or more adjacent Quote blocks in one section sit side by side from 900px",
+    "source": "https://careers.blueshieldca.com/",
+    "sections": [
+      "Why work with us"
+    ]
+  },
+  "contentPattern": {
+    "structure": "row 1: portrait image (optional); row 2: quotation; row 3: attribution (name, role)",
+    "example": "Rashad Richard portrait, quotation, '\u2014 Rashad Richard, Vendor Management Specialist'"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "quote-portrait"
+  ],
+  "usage": [
+    "'Why work with us' section: two consecutive 'Quote' blocks in one section"
+  ],
+  "reuseGuidance": "One Quote block per person. Place quotes one after another in the same section to show them side by side (no section style needed; this project's aem.js does not apply Section Metadata styles). Italic text in the attribution is rendered as <cite>."
+}
