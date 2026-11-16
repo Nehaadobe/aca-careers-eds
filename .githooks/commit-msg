@@ -1,0 +1,5 @@
+#!/bin/sh
+# Conventional Commits check on the first line of the message. See RULES.md.
+. "$(dirname "$0")/_common.sh"
+
+exec node tools/rules.mjs commit-msg "$1"

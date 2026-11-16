@@ -241,19 +241,24 @@ export async function loadStories({
 /**
  * Builds a lookup that resolves an authored link to a loaded story. Same-origin
  * links match by pathname (trailing slash, query and hash ignored); external
- * links match by full URL (trailing slash and hash ignored).
+ * links match by full URL (trailing slash and hash ignored), then by origin and
+ * path alone, so a link with tracking or preview parameters (utm_*, ?preview=...)
+ * still finds its story.
  * @param {object[]} stories normalized stories (see loadStories)
  * @returns {function(string): (object|null)}
  */
 export function createStoryLookup(stories) {
   const internal = new Map();
   const external = new Map();
-  const externalKey = (url) => `${url.origin}${trimSlash(url.pathname)}${url.search}`;
+  const externalPath = new Map();
+  const pathKey = (url) => `${url.origin}${trimSlash(url.pathname)}`;
+  const externalKey = (url) => `${pathKey(url)}${url.search}`;
   stories.forEach((story) => {
     if (story.external) {
       try {
-        const key = externalKey(new URL(story.url));
-        if (!external.has(key)) external.set(key, story);
+        const url = new URL(story.url);
+        if (!external.has(externalKey(url))) external.set(externalKey(url), story);
+        if (!externalPath.has(pathKey(url))) externalPath.set(pathKey(url), story);
       } catch (e) { /* skip malformed */ }
     } else if (!internal.has(trimSlash(story.path))) {
       internal.set(trimSlash(story.path), story);
@@ -270,7 +275,7 @@ export function createStoryLookup(stories) {
     if (url.origin === window.location.origin) {
       return internal.get(trimSlash(url.pathname)) || null;
     }
-    return external.get(externalKey(url)) || null;
+    return external.get(externalKey(url)) || externalPath.get(pathKey(url)) || null;
   };
 }
 

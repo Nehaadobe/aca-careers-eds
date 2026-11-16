@@ -235,7 +235,7 @@ it then appears in the slash menu **and** in the blog filters.
 | --- | --- | --- | --- |
 | Bulk metadata | `/metadata` | Settings applied by folder: theme `bsc` for `/**`, `stellarus` for `/stellarus/**`; `noindex` for `/drafts/**` and `/tools/**` | Adding a brand folder (e.g. `/ascendiun/**` → `ascendiun`) |
 | Redirects | `/redirects` | `Source` → `Destination` (today: `/blog/authors` and `/blog/search` → `/blog`) | A page is moved, renamed or deleted |
-| External stories | `/blog/external-stories` | Off-site stories (news site) shown in the blog listing and usable in Article Lists. Columns: title, url, image, publication-date, description, roles, topics | Adding or removing an off-site story |
+| External stories | `/blog/external-stories` | Off-site stories (news site) shown in the blog listing and usable in Article Lists. Columns: title, url, image, publication-date, description, roles, topics. `image` is a path on this site (`/blog/external-images/<name>.jpg`), never a link to another host | Adding or removing an off-site story |
 | Library options | `/tools/library/blocks` → `options` tab | Allowed values for the slash menu: Article List options, section styles, Template, Theme, Roles, Topics | New Role or Topic, new option value |
 | Library lists | `/tools/library/blocks` (`data` tab), `/tools/library/templates`, `/tools/library/icons` | What the Library panel shows | Adding a block example, template or icon |
 
@@ -261,7 +261,7 @@ after preview.
 | Task | Steps |
 | --- | --- |
 | **Add a story** | `/blog` → New document → insert the **Story article** template → write the story → fill Metadata (Template `blog-article`, Roles, Topics, Publication Date, Author, Image) → Preview → Publish |
-| **Add an off-site story** | Add a row to `/blog/external-stories` → Preview and publish the sheet |
+| **Add an off-site story** | Upload the card image (JPG or PNG, 1200 x 630) to the `/blog/external-images` folder, named after the story (e.g. `women-transforming-health-care-jane-doe.jpg`) → Preview and publish the image → add a row to `/blog/external-stories` with the article link (without tracking parameters such as `utm_…`) and the image path `/blog/external-images/<name>.jpg` → Preview and publish the sheet |
 | **Change "More Stories" on a story** | Edit the Article List rows (one story link per row) → Preview → Publish |
 | **Edit a page** | Open it → change → Preview → Publish |
 | **Delete or move a page** | Add a row to `/redirects` first → delete or move the document → preview and publish `/redirects` |

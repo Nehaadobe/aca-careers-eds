@@ -1,14 +1,22 @@
 name: Build
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
-    - name: Use Node.js 20
+      with:
+        fetch-depth: 0 # full history for the commit message check
+    - name: Use Node.js 24
       uses: actions/setup-node@v7
       with:
         node-version: 24
     - run: npm ci
     - run: npm run lint
+    # repeats the commit-msg hook (hooks can be skipped with --no-verify or by edits on github.com);
+    # the PR head sha, not the merge ref, so --first-parent walks the PR's own commits.
+    # Skipped for release PRs (develop -> main): their commits were checked when they reached develop.
+    - name: Commit messages (Conventional Commits, see RULES.md)
+      if: github.event_name == 'pull_request' && !(github.head_ref == 'develop' && github.base_ref == 'main')
+      run: node tools/rules.mjs commits "origin/${{ github.base_ref }}..${{ github.event.pull_request.head.sha }}"

@@ -1,0 +1,14 @@
+/*
+ * Theme: Blue Shield of California (page metadata `theme: bsc`, the default for every page outside
+ * the brand folders). Loaded by scripts/scripts.js in loadEager, like the other brand themes.
+ *
+ * styles/brand.css is the shared base: its token values are the Blue Shield values, and Stellarus
+ * and Ascendiun start from them. A change there reaches every brand that does not override that
+ * token. To change something for Blue Shield only, override the token here instead, on `body`:
+ *
+ *   body {
+ *     --color-link: #005a96;
+ *   }
+ *
+ * Blue Shield uses the base font (Fieldwork: styles/fonts.css), so it needs no fonts folder.
+ */
