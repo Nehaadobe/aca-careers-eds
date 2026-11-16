@@ -9,8 +9,8 @@
  * decision). Tokens the source has no equivalent for keep the BSC value (marked "BSC").
  */
 
-/* Fieldwork (Light, Light Italic, DemiBold) and its metric-matched fallback are shared with
-   BSC: styles/fonts.css and styles/brand.css. */
+/* Fonts: the base font, Fieldwork (Light, Light Italic, DemiBold), shared with BSC:
+   styles/fonts.css (files in fonts/) and its metric-matched fallback in styles/brand.css. */
 
 body {
   --color-scheme: light;

@@ -1,10 +1,11 @@
 /*
- * Brand font: Fieldwork (Hoftype), used by the Blue Shield careers site and Ascendiun.
+ * Base font: Fieldwork (Hoftype), used by the Blue Shield careers site and Ascendiun. A brand with
+ * another font has its own fonts.css in its theme folder (e.g. styles/themes/stellarus/).
  * Files in /fonts: the client's web fonts as delivered (.otf: Geo Light, Italic Light and Geo
  * DemiBold, the same files www.blueshieldca.com serves) and their WOFF2 compressions, which
  * browsers load first (the .otf is the fallback source). The client's web font license covers
  * the careers sites.
- * Loaded by scripts.js loadFonts() for themes with `webFonts` (after the LCP section on
+ * Loaded by scripts.js loadFonts() for themes with `fonts: 'base'` (after the LCP section on
  * mobile); until then the metric-matched fieldwork-fallback in styles/brand.css shows.
  * Only Light (300) and DemiBold (600) exist: text up to 500 renders Light, 600+ DemiBold.
  */
