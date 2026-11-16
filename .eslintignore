@@ -4,3 +4,5 @@ helix-importer-ui
 e2e/
 # Storybook: own package and dependencies (see storybook/README.md)
 storybook/
+# Storybook build output (generated, minified)
+storybook/storybook-static/

@@ -47,7 +47,8 @@ committed, so run it on a machine that has the content export, then commit the r
 ## Notes
 
 - Photos load from their original addresses (internet connection needed).
-- Fonts are self-hosted with the site (`fonts/`): Fieldwork for Blue Shield and Ascendiun (`styles/fonts.css`),
-  Inter, Space Grotesk and JetBrains Mono for Stellarus (its theme file). Until they load, the metric-matched fallbacks are shown.
+- Fonts are self-hosted with the site: the base font Fieldwork for Blue Shield and Ascendiun (`styles/fonts.css`,
+  files in `fonts/`), and Inter, Space Grotesk and JetBrains Mono for Stellarus (`styles/themes/stellarus/fonts.css`,
+  files in `styles/themes/stellarus/fonts/`). Until they load, the metric-matched fallbacks are shown.
 - The Storybook is kept out of the site: `storybook/*` is in `.hlxignore`, its packages and build output
   in `.gitignore`, and it has its own lint scope (root `.eslintignore`).

@@ -14,3 +14,4 @@ migration-work/*
 tools/importer/*
 default-query.yaml
 storybook/*
+tools/rules.mjs

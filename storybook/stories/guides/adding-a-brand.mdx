@@ -6,11 +6,13 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 Example: how the Ascendiun brand was added (follow the same steps for a new brand).
 
-1. **Tokens:** fill `styles/themes/ascendiun.css` with the brand's values for the tokens that differ from
-   Blue Shield (colors, fonts, radii, shadows …). Self-hosted fonts go in `fonts/` with their
-   `@font-face` rules in the theme file.
-2. **Scripts:** in `THEMES` (`scripts/scripts.js`), set `css: true`, whether it uses the shared Fieldwork fonts
-   (`webFonts`), whether OneTrust runs, `favicon: '/favicons/ascendiun.png'` (add the icon to `favicons/`) and
+1. **Tokens:** create the brand folder `styles/themes/ascendiun/` and fill `styles/themes/ascendiun/ascendiun.css`
+   with the brand's values for the tokens that differ from the base in `styles/brand.css` (colors, fonts, radii,
+   shadows …). A brand that uses the base font (Fieldwork) needs nothing more. A brand with its own font gets
+   `styles/themes/<brand>/fonts.css` with the `@font-face` rules and the files in `styles/themes/<brand>/fonts/`
+   (as Stellarus does); its metric-matched fallback faces stay in the theme file.
+2. **Scripts:** in `THEMES` (`scripts/scripts.js`), set `css: true`, its fonts (`fonts: 'base'` for Fieldwork,
+   `fonts: 'theme'` for its own `fonts.css`), whether OneTrust runs, `favicon: '/favicons/ascendiun.png'` (add the icon to `favicons/`) and
    `logos` (the brand logo shown instead of the careers logo, an icon in `icons/`).
 3. **Content:** create the `/ascendiun/` folder in Document Authoring and add a row to `/metadata`:
    `URL` `/ascendiun/**`, `theme` `ascendiun`. Preview and publish the sheet.

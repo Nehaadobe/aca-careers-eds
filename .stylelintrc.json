@@ -89,7 +89,7 @@
     {
       "files": [
         "styles/brand.css",
-        "styles/themes/*.css"
+        "styles/themes/**/*.css"
       ],
       "rules": {
         "color-no-hex": null,
@@ -101,7 +101,8 @@
     },
     {
       "files": [
-        "styles/fonts.css"
+        "styles/fonts.css",
+        "styles/themes/*/fonts.css"
       ],
       "rules": {
         "declaration-property-value-allowed-list": null,

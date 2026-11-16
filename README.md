@@ -25,6 +25,8 @@ npm i
 npm run lint
 ```
 
+Commit, branch and push rules (Git hooks and CI checks) are described in [RULES.md](RULES.md).
+
 ## Local development
 
 1. Create a new repository based on the `aem-boilerplate` template
