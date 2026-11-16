@@ -4,16 +4,18 @@
  * - Every design value used by styles/styles.css, styles/video-modal.css and blocks/ is a
  *   token from this file: colors, font stacks, font sizes, line heights, font weights, letter
  *   spacing, spacing (margin, padding, gap, offsets), radii, border and outline widths,
- *   shadows, z-index and component sizes. Raw values live here and in styles/themes/*.css
- *   only; stylelint enforces that (.stylelintrc.json: colors and fonts, plus
+ *   shadows, z-index and component sizes. Raw values live here and in the theme files
+ *   (styles/themes/<brand>/<brand>.css) only; stylelint enforces that (.stylelintrc.json: colors
+ *   and fonts, plus
  *   scale-unlimited/declaration-strict-value for the others). calc(), min(), max() and
  *   clamp() are fine when every length in them is a token (100%, 50%, 100vw and 100vh aside).
  * - Use a scale token when the role fits (--space-*, --body-font-size-*, --heading-font-size-*,
  *   --font-weight-*, --line-height-*, --z-*), so a theme that restyles the scale restyles the
  *   block too. For a one-off measurement, add a named component token (e.g. --card-gap) next
  *   to the others of its block below, with a one-line comment; never a raw value in a block.
- * - A theme (page metadata `theme`) loads styles/themes/<theme>.css in loadEager, which
- *   overrides token values on `body`. BSC needs no theme file: these defaults are BSC.
+ * - A theme (page metadata `theme`) loads styles/themes/<theme>/<theme>.css in loadEager, which
+ *   overrides token values on `body`. These defaults are the BSC values and the base of every
+ *   brand; a change for Blue Shield only goes in styles/themes/bsc/bsc.css.
  * - Tokens with a raw value are declared on :root. Tokens defined from other tokens
  *   (aliases) are declared on `body`, so they re-resolve when a theme overrides the base
  *   token on `body` (a var() is computed where it is declared, then inherited as a value).

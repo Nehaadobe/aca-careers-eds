@@ -44,8 +44,10 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
 /**
  * Brands. Page metadata `theme` selects one (normally set per folder through bulk
  * metadata); without it, or with an unknown value, the page is BSC.
- * - css: loads styles/themes/<theme>.css (token overrides). BSC is the token default.
- * - webFonts: loads styles/fonts.css (Fieldwork, self-hosted).
+ * - css: loads styles/themes/<theme>/<theme>.css (token overrides on top of styles/brand.css,
+ *   whose values are the BSC base).
+ * - fonts: 'base' loads styles/fonts.css (Fieldwork, the base font); 'theme' loads the brand's
+ *   own styles/themes/<theme>/fonts.css (fonts in styles/themes/<theme>/fonts/).
  * - consent: OneTrust by default; page metadata `consent: on|off` overrides it.
  * - favicon: the brand's icon (head.html links the BSC one); none keeps the BSC icon.
  * - logos: brand logo icons shown instead of the careers ones in the shared nav and footer
@@ -53,11 +55,11 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
  */
 const THEMES = {
   bsc: {
-    css: false, webFonts: true, consent: true, favicon: '/favicons/bsc.png',
+    css: true, fonts: 'base', consent: true, favicon: '/favicons/bsc.png',
   },
   stellarus: {
     css: true,
-    webFonts: false,
+    fonts: 'theme',
     consent: false,
     favicon: '/favicons/stellarus.png',
     logos: { 'bsc-logo': 'stellarus-logo-full', 'bsc-logo-white': 'stellarus-logo-full' },
@@ -66,7 +68,7 @@ const THEMES = {
   // OneTrust stays on for the careers domain
   ascendiun: {
     css: true,
-    webFonts: true,
+    fonts: 'base',
     consent: true,
     favicon: '/favicons/ascendiun.png',
     logos: { 'bsc-logo': 'ascendiun-logo', 'bsc-logo-white': 'ascendiun-logo' },
@@ -119,7 +121,7 @@ async function loadTheme(theme) {
   if (favicon && icon) icon.href = `${window.hlx.codeBasePath}${favicon}`;
   if (!THEMES[theme].css) return;
   try {
-    await loadCSS(`${window.hlx.codeBasePath}/styles/themes/${theme}.css`);
+    await loadCSS(`${window.hlx.codeBasePath}/styles/themes/${theme}/${theme}.css`);
   } catch {
     // eslint-disable-next-line no-console
     console.warn(`Theme "${theme}" could not be loaded; using the default tokens`);
@@ -139,11 +141,14 @@ function isConsentEnabled(theme) {
 }
 
 /**
- * load fonts.css (brands using Fieldwork) and set a session storage flag
+ * loads the theme's fonts (the base fonts.css or the brand's own) and sets a session storage flag
  */
 async function loadFonts() {
-  if (!THEMES[getTheme()].webFonts) return;
-  await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
+  const theme = getTheme();
+  const { fonts } = THEMES[theme];
+  if (!fonts) return;
+  const path = fonts === 'theme' ? `/styles/themes/${theme}/fonts.css` : '/styles/fonts.css';
+  await loadCSS(`${window.hlx.codeBasePath}${path}`);
   try {
     if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
   } catch (e) {
