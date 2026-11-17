@@ -170,3 +170,20 @@ reaches every brand.
 Each brand site has `/careers`, `/nav`, `/footer`, a `/metadata` sheet (`/**` → its theme; `noindex` for `/drafts/**`
 and `/tools/**`) and its own `/tools/library`. Production domains and CDN for the brand sites are still to be set up.
 
+## 6. Per-site settings: the `/configs` sheet
+
+Each site can have a sheet named `configs` at its root in Document Authoring (columns `key` and `value`),
+previewed and published like a page (`/configs.json`). The code reads it on every page; a missing sheet or key
+uses the default below, so a site needs only the rows it changes.
+
+| key | Default | Used for |
+| --- | --- | --- |
+| `onetrust-id` | `019878d6-0d4b-7b81-b399-94a1c6d2e133` (Blue Shield) | OneTrust domain script on `*.aem.live` and the production domain |
+| `onetrust-id-test` | `onetrust-id` + `-test` | OneTrust domain script on previews (`*.aem.page`) and localhost |
+| `launch-url` | `https://assets.adobedtm.com/4292fae30116/d60ed27415b5/launch-93c4e2f28128.min.js` | Adobe Launch (CJA) library |
+| `launch-url-staging` | `launch-url` with `-staging.min.js` | Launch library for pages with `analytics: staging` |
+
+Only values in the expected format are used: a OneTrust ID (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`, optionally
+`-test`) and a Launch URL on `https://assets.adobedtm.com/…min.js`; anything else is ignored (a console warning)
+and the default applies. The sheet is public: put IDs and URLs in it, never secrets (API keys, tokens).
+
