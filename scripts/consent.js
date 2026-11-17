@@ -1,4 +1,5 @@
 import { loadCSS, loadScript } from './aem.js';
+import getConfigValue from './configs.js';
 
 /**
  * Consent (OneTrust) and analytics (Adobe Launch for CJA), kept off the critical path as the
@@ -14,6 +15,9 @@ import { loadCSS, loadScript } from './aem.js';
  *
  * The OneTrust domain script is the production one on *.aem.live and *.blueshieldca.com, and
  * the `-test` one elsewhere (aem.page previews, localhost), as in the client snippet.
+ * Each site's `/configs` sheet (scripts/configs.js) may set its own OneTrust ID (`onetrust-id`,
+ * `onetrust-id-test`) and Launch libraries (`launch-url`, `launch-url-staging`); only values in
+ * the expected format are used (an author cannot point the page at another script host).
  *
  * OneTrust calls window.OptanonWrapper when it is ready and after every consent change; each
  * call also publishes the state for consent-aware code (e.g. the embed block):
@@ -31,14 +35,30 @@ import { loadCSS, loadScript } from './aem.js';
 const BASE_DOMAIN_SCRIPT = '019878d6-0d4b-7b81-b399-94a1c6d2e133';
 const IS_PROD = window.location.hostname.endsWith('.aem.live')
   || /(^|\.)blueshieldca\.com$/i.test(window.location.hostname);
-const DOMAIN_SCRIPT = IS_PROD ? BASE_DOMAIN_SCRIPT : `${BASE_DOMAIN_SCRIPT}-test`;
-const AUTO_BLOCK_URL = `https://cdn.cookielaw.org/consent/${DOMAIN_SCRIPT}/OtAutoBlock.js`;
 const SDK_STUB_URL = 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js';
 /** Banner styles maintained by Blue Shield (the custom "trusted partners" banner). */
 const BANNER_CSS_URL = 'https://www.blueshieldca.com/vendor/onetrust/onetrust.css';
 /** Adobe Launch (CJA) production library, and its Staging environment library. */
 const LAUNCH_URL = 'https://assets.adobedtm.com/4292fae30116/d60ed27415b5/launch-93c4e2f28128.min.js';
-const LAUNCH_STAGING_URL = LAUNCH_URL.replace(/\.min\.js$/, '-staging.min.js');
+
+/** `/configs` values must look like these: a OneTrust domain-script ID, a Launch library. */
+const ONETRUST_ID = /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}(-test)?$/i;
+const isOneTrustId = (value) => ONETRUST_ID.test(value);
+const isLaunchUrl = (value) => /^https:\/\/assets\.adobedtm\.com\/[\w/-]+\.min\.js$/.test(value);
+
+/** The OneTrust domain script for this site and host (production or `-test`). */
+async function getDomainScript() {
+  const id = await getConfigValue('onetrust-id', BASE_DOMAIN_SCRIPT, isOneTrustId);
+  if (IS_PROD) return id;
+  return getConfigValue('onetrust-id-test', id.endsWith('-test') ? id : `${id}-test`, isOneTrustId);
+}
+
+/** The Launch library for this site: production, or the Staging environment library. */
+async function getLaunchUrl(mode) {
+  const prod = await getConfigValue('launch-url', LAUNCH_URL, isLaunchUrl);
+  if (mode !== 'staging') return prod;
+  return getConfigValue('launch-url-staging', prod.replace(/\.min\.js$/, '-staging.min.js'), isLaunchUrl);
+}
 
 /** OneTrust categories that must be active for third-party media (C0004: targeting). */
 const CONSENT_GROUPS = ['C0004'];
@@ -86,11 +106,12 @@ async function startConsent({ enabled }) {
   loadCSS(BANNER_CSS_URL);
   loadCSS(`${window.hlx.codeBasePath}/styles/onetrust.css`);
   try {
-    await loadScript(AUTO_BLOCK_URL, { type: 'text/javascript' });
+    const domainScript = await getDomainScript();
+    await loadScript(`https://cdn.cookielaw.org/consent/${domainScript}/OtAutoBlock.js`, { type: 'text/javascript' });
     await loadScript(SDK_STUB_URL, {
       type: 'text/javascript',
       charset: 'UTF-8',
-      'data-domain-script': DOMAIN_SCRIPT,
+      'data-domain-script': domainScript,
       'data-document-language': 'true',
     });
   } catch (error) {
@@ -120,7 +141,7 @@ export async function loadAnalytics({ mode = '' } = {}) {
   if (mode === 'off') return;
   if (!consentStarted || !(await consentStarted)) return;
   try {
-    await loadScript(mode === 'staging' ? LAUNCH_STAGING_URL : LAUNCH_URL, { async: '' });
+    await loadScript(await getLaunchUrl(mode), { async: '' });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.warn('Adobe Launch failed to load', error);
