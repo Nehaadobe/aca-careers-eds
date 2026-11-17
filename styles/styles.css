@@ -316,6 +316,17 @@ main img {
   width: 100%;
 }
 
+/* line icons (scripts.js decorateLineIcons): the shape drawn in the text colour */
+.icon.icon-line {
+  background-color: var(--icon-color);
+  forced-color-adjust: none;
+  mask: var(--icon-image) center / contain no-repeat;
+}
+
+.icon-line > img {
+  opacity: 0;
+}
+
 /* sections */
 main > .section {
   margin: var(--section-spacing) 0;

@@ -1,5 +1,5 @@
 ---
-title: "Careers Sites (Blue Shield of California, Stellarus) - Author Guide"
+title: "Careers Sites (Blue Shield of California, Stellarus, Ascendiun) - Author Guide"
 date: "November 2, 2026"
 ---
 
@@ -26,9 +26,13 @@ The site runs on AEM Edge Delivery Services. Content is written in **Document Au
 
 | Brand | Pages | Theme | Preview example |
 | --- | --- | --- | --- |
-| Blue Shield of California | Everything outside `/stellarus/` and `/ascendiun/` | `bsc` (default) | https://main--aca-careers-eds--nehaadobe.aem.page/ |
+| Blue Shield of California | This DA site: https://da.live/#/nehaadobe/aca-careers-eds (everything outside `/stellarus/`) | `bsc` (default) | https://main--aca-careers-eds--nehaadobe.aem.page/ |
 | Stellarus | `/stellarus/` folder (today: `/stellarus/careers`) | `stellarus` | https://main--aca-careers-eds--nehaadobe.aem.page/stellarus/careers |
-| Ascendiun | `/ascendiun/` folder (not created yet) | `ascendiun` | - |
+| Ascendiun | Its own DA site: https://da.live/#/nehaadobe/ascendiun (`/careers`, `/nav`, `/footer`) | `ascendiun` (for the whole site, in its `/metadata`) | https://main--ascendiun--nehaadobe.aem.page/careers |
+
+Each brand site has its own `/nav`, `/footer`, `/metadata` and author library (`/tools/library`); all brands run
+the same code, so blocks and templates are the same everywhere. A brand site's header and footer are edited in
+that site only. The old `/ascendiun/` folder here redirects to the brand site.
 
 Content source (Config Service): `content.da.live/nehaadobe/aca-careers-eds`. There is one language (English).
 
@@ -71,7 +75,7 @@ the cursor.
 | --- | --- |
 | **Blocks** | Every block with each of its variations (source: `/tools/library/blocks/`) |
 | **Templates** | Section landing page, Text page, Story article, Stellarus landing page |
-| **Icons** | Logos: bsc-logo, bsc-logo-white, bsc-shield (the shield on its own), stellarus-logo (the star), stellarus-logo-full (star + Stellarus wordmark), ascendiun-logo, ascendiun-logo-white. Social and UI: facebook, twitter, instagram, linkedin, glassdoor, search. Inserted as `:name:` (e.g. `:bsc-shield:`) |
+| **Icons** | Logos: bsc-logo, bsc-logo-white, bsc-shield (the shield on its own), stellarus-logo (the star), stellarus-logo-full (star + Stellarus wordmark), ascendiun-logo, ascendiun-logo-white. Social and UI: facebook, twitter, instagram, linkedin, glassdoor, search. Line icons: the client's 2026 set of 159 (e.g. `:calendar:`, `:graduation-cap:`, `:heart-check:`), shown in the text colour; see them all in Storybook (Foundations → Icons). Inserted as `:name:` (e.g. `:bsc-shield:`) |
 | **Media** | Images already uploaded to Document Authoring |
 
 **Slash menu:** inside a block table, type `/` in a value cell to pick from the allowed values (for example
@@ -224,16 +228,32 @@ Every page ends with a **Metadata** block. Type `/` in a value cell for the allo
 | Author Image | Optional | Author photo URL, one per author, separated by `;` | |
 | Theme | Rarely | Overrides the brand theme from the folder | `stellarus` |
 | nav / footer | Rarely | Use another header / footer document | `/nav` |
+| Analytics | Rarely | Adobe Analytics (CJA): `off` turns it off on the page, `staging` uses the Launch staging library, `on` or empty is the normal production tracking. See "Turn analytics (CJA) on or off" | `off` |
+| Consent | Rarely | `off` removes the cookie banner **and** analytics from the page; `on` forces the banner | `off` |
 
 Roles and Topics must use the exact values from the library lists (the slash menu shows them). To add a new
 Role or Topic, ask an administrator to add it to the `options` tab of `/tools/library/blocks` and preview it;
 it then appears in the slash menu **and** in the blog filters.
 
+### Turn analytics (CJA) on or off
+
+Analytics (Adobe Launch, which sends the data to Customer Journey Analytics) runs on Blue Shield and Ascendiun
+pages after the visitor accepts cookies. Authors control it with the **Analytics** metadata value:
+
+| To change | Where | What to set |
+| --- | --- | --- |
+| One page | The page's **Metadata** block: add a row `Analytics` | `off`, `staging` or `on`, then Preview and Publish the page |
+| A folder or the whole site | The site's `/metadata` sheet: add a column `analytics`; one row per folder (`URL` such as `/drafts/**` or `/**`) | The same values, then Preview and Publish `/metadata`, and ask an administrator to re-index the site (publishing `/metadata` clears the index fields) |
+
+A value on the page wins over the sheet. `Consent: off` also turns analytics off (no cookie banner means no
+consent). The Stage site (`bsca-careers-stage`) sets `analytics: off` for `/**`, so test visits stay out of
+the production reports.
+
 ## Configuration Sheets
 
 | Sheet | Location | Purpose | When to update |
 | --- | --- | --- | --- |
-| Bulk metadata | `/metadata` | Settings applied by folder: theme `bsc` for `/**`, `stellarus` for `/stellarus/**`; `noindex` for `/drafts/**` and `/tools/**` | Adding a brand folder (e.g. `/ascendiun/**` → `ascendiun`) |
+| Bulk metadata | `/metadata` | Settings applied by folder: theme `bsc` for `/**`, `stellarus` for `/stellarus/**`; `noindex` for `/drafts/**` and `/tools/**`. Each brand site has its own `/metadata` (theme for `/**`) | Rarely |
 | Redirects | `/redirects` | `Source` → `Destination` (today: `/blog/authors` and `/blog/search` → `/blog`) | A page is moved, renamed or deleted |
 | External stories | `/blog/external-stories` | Off-site stories (news site) shown in the blog listing and usable in Article Lists. Columns: title, url, image, publication-date, description, roles, topics. `image` is a path on this site (`/blog/external-images/<name>.jpg`), never a link to another host | Adding or removing an off-site story |
 | Library options | `/tools/library/blocks` → `options` tab | Allowed values for the slash menu: Article List options, section styles, Template, Theme, Roles, Topics | New Role or Topic, new option value |
@@ -268,7 +288,7 @@ after preview.
 | **Update the menu** | Edit `/nav` → Preview → Publish (applies to all brands) |
 | **Update the footer** | Edit `/footer` → Preview → Publish (applies to all brands) |
 | **Add a Role or Topic** | Ask an administrator to update the library `options` tab; then tag stories with it |
-| **Start the Ascendiun pages** | Create the `/ascendiun/` folder and its pages; add `/ascendiun/**` → theme `ascendiun` to `/metadata` |
+| **Add an Ascendiun page** | Create it in that brand's DA site (see Sites and brands); its `/metadata` already sets the theme |
 
 ## Images and Media
 
@@ -280,6 +300,19 @@ after preview.
 
 Best practices: descriptive file names, alt text on every image, a 1200×630 share image for each page. Images
 are resized and compressed automatically.
+
+### Ascendiun brand rules for authors
+
+From the Ascendiun Brand Guidelines. The theme already applies the colours, fonts and logo sizes; these are
+the choices that are up to you:
+
+| Topic | Rule |
+| --- | --- |
+| Photography | Images should suggest a brighter future: stars, night skies, people looking up or ahead, aspirational settings, in deep blue and teal tones. Avoid generic office or building photos on Ascendiun pages |
+| Logo | Use `:ascendiun-logo:` (black) on light backgrounds and `:ascendiun-logo-white:` on dark ones. Never stretch, recolour, add effects to or crop it; keep empty space around it about the width of its star; never smaller than 170 px wide. The family-of-logos lockup (Ascendiun with Blue Shield, Stellarus and Altais) is for PowerPoint, letterhead and memos only, not for web pages |
+| Headlines | Sentence case (or all caps, which the theme spaces like the logo). Fieldwork Light, black; never bold a headline |
+| Bold | Body copy is not bolded. Use bold (DemiBold) only for subheads and to call out an important detail such as a phone number or web address |
+| Colour | Digital Blue is reserved for links and calls to action. Don't use it for headings or decoration |
 
 ## Troubleshooting
 

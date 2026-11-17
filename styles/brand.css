@@ -103,6 +103,7 @@
   /* header and footer */
   --nav-logo-filter: none; /* themes on a dark page recolor the nav logo image */
   --nav-logo-width: 125px;
+  --nav-brand-gap: var(--space-m); /* each side of the line between the logo and the site name */
   --header-border-color: #f4f4f4;
   --header-button-background: #f8f9fa;
   --footer-background: #25282a;
@@ -233,10 +234,13 @@
   /* accordion, table, image, quote, embed, video modal */
   --accordion-gap: 16px; /* between items; the answer panel overlaps its question by the same */
   --accordion-label-padding-open: 38px;
+  --accordion-label-font-weight: var(--font-weight-display); /* question row */
   --table-margin: 32px;
   --table-cell-padding: 0.5em;
   --table-paragraph-gap: 0.25em;
   --image-float-width: 400px; /* left / right story images */
+  --image-float-width-small: 200px; /* `small` story images (source thumbnails, 131-250px) */
+  --image-float-width-large: 600px; /* `large` story images (source 500-600px floats) */
   --quote-portrait-size: 94px;
   --quote-paragraph-gap: 1em;
   --embed-min-height: 315px; /* the source 560x315 player keeps its height in narrow columns */
@@ -387,6 +391,7 @@
 
   /* control and icon sizes */
   --icon-size: 24px; /* :icon: images, social glyphs */
+  --icon-color: currentcolor; /* line icons (the 2026 set): the text colour; a theme may set a brand colour */
   --control-size: 40px; /* square icon buttons */
   --control-height: 47.0938px; /* story search input and filter selects */
   --control-padding-inline: 16px;

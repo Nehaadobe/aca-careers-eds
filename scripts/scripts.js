@@ -42,8 +42,8 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
 }
 
 /**
- * Brands. Page metadata `theme` selects one (normally set per folder through bulk
- * metadata); without it, or with an unknown value, the page is BSC.
+ * Brands. Page metadata `theme` selects one (set by each site's bulk metadata: a brand's own DA
+ * site sets its brand for `/**`); without it, or with an unknown value, the page is BSC.
  * - css: loads styles/themes/<theme>/<theme>.css (token overrides on top of styles/brand.css,
  *   whose values are the BSC base).
  * - fonts: 'base' loads styles/fonts.css (Fieldwork, the base font); 'theme' loads the brand's
@@ -102,8 +102,10 @@ export function getPageMetadata(name, doc = document) {
 function getTheme() {
   const theme = toClassName(getPageMetadata('theme').split(',')[0]);
   if (THEMES[theme]) return theme;
-  // no theme metadata (e.g. a local preview, which drops it): the brand folder in the path
-  // (/ascendiun/careers, /stellarus/careers)
+  // no theme metadata (e.g. a local preview, which drops it): the brand site in the host
+  // (main--stellarus--blueshieldca.aem.page) or the brand folder in the path (/ascendiun/careers)
+  const siteName = toClassName(window.location.hostname.split('.')[0].split('--')[1] || '');
+  if (siteName !== DEFAULT_THEME && THEMES[siteName]) return siteName;
   const folder = window.location.pathname.split('/').map(toClassName)
     .find((segment) => segment !== DEFAULT_THEME && THEMES[segment]);
   return folder || DEFAULT_THEME;
@@ -138,6 +140,18 @@ function isConsentEnabled(theme) {
   if (['off', 'false', 'no'].includes(value)) return false;
   if (['on', 'true', 'yes'].includes(value)) return true;
   return THEMES[theme].consent;
+}
+
+/**
+ * Page metadata `analytics` for Adobe Launch (CJA): `off`, `staging` or `on` (the default, '').
+ * Independent of `consent`; Launch still needs the cookie banner (OneTrust) to run on the page.
+ * @returns {string}
+ */
+function getAnalyticsMode() {
+  const value = toClassName(getPageMetadata('analytics'));
+  if (['off', 'false', 'no'].includes(value)) return 'off';
+  if (value === 'staging') return 'staging';
+  return value ? 'on' : '';
 }
 
 /**
@@ -387,6 +401,21 @@ const ICON_LABELS = {
 };
 
 /**
+ * Line icons follow the text colour. An `<img>` cannot inherit `color`, so every icon that is not a
+ * logo or social icon (the names in ICON_LABELS keep their own colours) is drawn as a mask filled
+ * with `--icon-color` (the text colour unless a theme sets one); the image stays for its size.
+ * @param {Element} root
+ */
+export function decorateLineIcons(root) {
+  root.querySelectorAll('span.icon > img[data-icon-name]').forEach((img) => {
+    if (ICON_LABELS[img.dataset.iconName]) return;
+    const span = img.parentElement;
+    span.classList.add('icon-line');
+    span.style.setProperty('--icon-image', `url("${img.getAttribute('src')}")`);
+  });
+}
+
+/**
  * Turns `:icon-name:` icons (span.icon) in a fragment such as the nav or footer into images
  * from /icons. Logos keep their own proportions (no 16x16 default size), and a link that
  * holds only an icon gets an accessible name: its title, a known label, or the icon name.
@@ -405,6 +434,7 @@ export function decorateFragmentIcons(root) {
     }
   });
   decorateIcons(root);
+  decorateLineIcons(root);
   root.querySelectorAll('span.icon > img[data-icon-name]').forEach((img) => {
     const name = img.dataset.iconName;
     if (name.includes('logo')) {
@@ -522,6 +552,7 @@ export function openExternalLinksInNewTab(root, sameSiteHosts = []) {
  */
 export function decorateMain(main) {
   decorateIcons(main);
+  decorateLineIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
   decorateSectionMetadata(main);
@@ -589,7 +620,7 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   window.setTimeout(() => {
-    import('./consent.js').then(({ loadAnalytics }) => loadAnalytics());
+    import('./consent.js').then(({ loadAnalytics }) => loadAnalytics({ mode: getAnalyticsMode() }));
   }, 3000);
 }
 

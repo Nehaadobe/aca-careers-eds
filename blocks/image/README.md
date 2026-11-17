@@ -14,6 +14,8 @@ Single block table. Content: Block table 'Image (left)' or 'Image (right)' with 
 | --- | --- |
 | Left | `left` |
 | Right | `right` |
+| Small (a 200px thumbnail; combine with Left or Right, e.g. `Image (right, small)`) | `small` |
+| Large (a 600px image; combine with Left or Right, e.g. `Image (left, large)`) | `large` |
 
 ## Universal Editor fields
 

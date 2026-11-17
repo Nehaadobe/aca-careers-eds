@@ -140,7 +140,7 @@ header .nav-brand {
 
 header .nav-brand .nav-logo {
   display: block;
-  padding-right: var(--space-m);
+  padding-right: var(--nav-brand-gap);
   line-height: 0;
 }
 
@@ -159,7 +159,7 @@ header .nav-brand .nav-logo img {
 }
 
 header .nav-brand .nav-site-name {
-  padding: var(--nav-site-name-padding-block) 0 var(--nav-site-name-padding-block) var(--space-m);
+  padding: var(--nav-site-name-padding-block) 0 var(--nav-site-name-padding-block) var(--nav-brand-gap);
   border-left: var(--border-width-strong) solid var(--header-border-color);
   color: var(--color-text);
   font-size: var(--body-font-size-m);

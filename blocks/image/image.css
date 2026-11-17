@@ -1,7 +1,8 @@
 /*
  * Image block: inline story image (source .textImage-left / .textImage-right).
  * Options: left | right float a 400px image (as on the source, at every width) so the
- * following text wraps beside it; no option = full width. Tokens only (multi-brand).
+ * following text wraps beside it; small makes it a 200px thumbnail and large a 600px image
+ * (with left or right they float); no option = full width. Tokens only (multi-brand).
  */
 
 .image .image-figure {
@@ -59,6 +60,22 @@
 .image.left .image-figure,
 .image.right .image-figure {
   margin: 0;
+}
+
+/* small: a thumbnail, as the source's small widget images (131-250px wide); combine with
+   left or right to float it */
+.image.small {
+  box-sizing: border-box;
+  width: var(--image-float-width-small);
+  max-width: 100%;
+}
+
+/* large: a 600px image, as the source's large widget images (500-600px wide); combine with
+   left or right to float it */
+.image.large {
+  box-sizing: border-box;
+  width: var(--image-float-width-large);
+  max-width: 100%;
 }
 
 /* keep the floated image inside its section */
