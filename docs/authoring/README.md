@@ -228,10 +228,26 @@ Every page ends with a **Metadata** block. Type `/` in a value cell for the allo
 | Author Image | Optional | Author photo URL, one per author, separated by `;` | |
 | Theme | Rarely | Overrides the brand theme from the folder | `stellarus` |
 | nav / footer | Rarely | Use another header / footer document | `/nav` |
+| Analytics | Rarely | Adobe Analytics (CJA): `off` turns it off on the page, `staging` uses the Launch staging library, `on` or empty is the normal production tracking. See "Turn analytics (CJA) on or off" | `off` |
+| Consent | Rarely | `off` removes the cookie banner **and** analytics from the page; `on` forces the banner | `off` |
 
 Roles and Topics must use the exact values from the library lists (the slash menu shows them). To add a new
 Role or Topic, ask an administrator to add it to the `options` tab of `/tools/library/blocks` and preview it;
 it then appears in the slash menu **and** in the blog filters.
+
+### Turn analytics (CJA) on or off
+
+Analytics (Adobe Launch, which sends the data to Customer Journey Analytics) runs on Blue Shield and Ascendiun
+pages after the visitor accepts cookies. Authors control it with the **Analytics** metadata value:
+
+| To change | Where | What to set |
+| --- | --- | --- |
+| One page | The page's **Metadata** block: add a row `Analytics` | `off`, `staging` or `on`, then Preview and Publish the page |
+| A folder or the whole site | The site's `/metadata` sheet: add a column `analytics`; one row per folder (`URL` such as `/drafts/**` or `/**`) | The same values, then Preview and Publish `/metadata`, and ask an administrator to re-index the site (publishing `/metadata` clears the index fields) |
+
+A value on the page wins over the sheet. `Consent: off` also turns analytics off (no cookie banner means no
+consent). The Stage site (`bsca-careers-stage`) sets `analytics: off` for `/**`, so test visits stay out of
+the production reports.
 
 ## Configuration Sheets
 

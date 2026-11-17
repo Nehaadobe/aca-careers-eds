@@ -7,6 +7,7 @@ import { loadCSS, loadScript } from './aem.js';
  *   started by scripts.js after the page has loaded (end of loadLazy), not before LCP;
  * - loadAnalytics: Adobe Launch, started by scripts.js in the delayed phase (3s after load),
  *   after OneTrust and only where OneTrust runs (Blue Shield and Ascendiun; not Stellarus).
+ *   Page metadata `analytics` (off | on | staging) turns it off or picks the Launch library.
  * Loading Launch late loses no consent: its OneTrust rule opts in when the
  * `analyticsConsentReady` cookie (scripts/onetrust.js) exists and otherwise waits for the
  * `analyticsConsentReady` event.
@@ -35,8 +36,9 @@ const AUTO_BLOCK_URL = `https://cdn.cookielaw.org/consent/${DOMAIN_SCRIPT}/OtAut
 const SDK_STUB_URL = 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js';
 /** Banner styles maintained by Blue Shield (the custom "trusted partners" banner). */
 const BANNER_CSS_URL = 'https://www.blueshieldca.com/vendor/onetrust/onetrust.css';
-/** Adobe Launch (CJA) production library. */
+/** Adobe Launch (CJA) production library, and its Staging environment library. */
 const LAUNCH_URL = 'https://assets.adobedtm.com/4292fae30116/d60ed27415b5/launch-93c4e2f28128.min.js';
+const LAUNCH_STAGING_URL = LAUNCH_URL.replace(/\.min\.js$/, '-staging.min.js');
 
 /** OneTrust categories that must be active for third-party media (C0004: targeting). */
 const CONSENT_GROUPS = ['C0004'];
@@ -109,11 +111,16 @@ export default function initConsent(options) {
   return consentStarted;
 }
 
-/** Loads Adobe Launch (CJA) after OneTrust, on pages where OneTrust runs. */
-export async function loadAnalytics() {
+/**
+ * Loads Adobe Launch (CJA) after OneTrust, on pages where OneTrust runs.
+ * @param {{mode?: string}} [options] page metadata `analytics`: `off` loads nothing, `staging`
+ *   the Launch Staging library, anything else (`on`, empty) the production library
+ */
+export async function loadAnalytics({ mode = '' } = {}) {
+  if (mode === 'off') return;
   if (!consentStarted || !(await consentStarted)) return;
   try {
-    await loadScript(LAUNCH_URL, { async: '' });
+    await loadScript(mode === 'staging' ? LAUNCH_STAGING_URL : LAUNCH_URL, { async: '' });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.warn('Adobe Launch failed to load', error);
