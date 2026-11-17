@@ -389,6 +389,7 @@
 
   /* control and icon sizes */
   --icon-size: 24px; /* :icon: images, social glyphs */
+  --icon-color: currentcolor; /* line icons (the 2026 set): the text colour; a theme may set a brand colour */
   --control-size: 40px; /* square icon buttons */
   --control-height: 47.0938px; /* story search input and filter selects */
   --control-padding-inline: 16px;
