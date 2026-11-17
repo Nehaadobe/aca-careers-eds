@@ -11,7 +11,6 @@ site-scope/*
 e2e/*
 docs/*
 migration-work/*
-tools/importer/*
 default-query.yaml
 storybook/*
 tools/rules.mjs
