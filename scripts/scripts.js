@@ -387,6 +387,21 @@ const ICON_LABELS = {
 };
 
 /**
+ * Line icons follow the text colour. An `<img>` cannot inherit `color`, so every icon that is not a
+ * logo or social icon (the names in ICON_LABELS keep their own colours) is drawn as a mask filled
+ * with `--icon-color` (the text colour unless a theme sets one); the image stays for its size.
+ * @param {Element} root
+ */
+export function decorateLineIcons(root) {
+  root.querySelectorAll('span.icon > img[data-icon-name]').forEach((img) => {
+    if (ICON_LABELS[img.dataset.iconName]) return;
+    const span = img.parentElement;
+    span.classList.add('icon-line');
+    span.style.setProperty('--icon-image', `url("${img.getAttribute('src')}")`);
+  });
+}
+
+/**
  * Turns `:icon-name:` icons (span.icon) in a fragment such as the nav or footer into images
  * from /icons. Logos keep their own proportions (no 16x16 default size), and a link that
  * holds only an icon gets an accessible name: its title, a known label, or the icon name.
@@ -405,6 +420,7 @@ export function decorateFragmentIcons(root) {
     }
   });
   decorateIcons(root);
+  decorateLineIcons(root);
   root.querySelectorAll('span.icon > img[data-icon-name]').forEach((img) => {
     const name = img.dataset.iconName;
     if (name.includes('logo')) {
@@ -522,6 +538,7 @@ export function openExternalLinksInNewTab(root, sameSiteHosts = []) {
  */
 export function decorateMain(main) {
   decorateIcons(main);
+  decorateLineIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
   decorateSectionMetadata(main);
