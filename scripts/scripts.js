@@ -42,8 +42,8 @@ if (window.trustedTypes && window.trustedTypes.createPolicy) {
 }
 
 /**
- * Brands. Page metadata `theme` selects one (normally set per folder through bulk
- * metadata); without it, or with an unknown value, the page is BSC.
+ * Brands. Page metadata `theme` selects one (set by each site's bulk metadata: a brand's own DA
+ * site sets its brand for `/**`); without it, or with an unknown value, the page is BSC.
  * - css: loads styles/themes/<theme>/<theme>.css (token overrides on top of styles/brand.css,
  *   whose values are the BSC base).
  * - fonts: 'base' loads styles/fonts.css (Fieldwork, the base font); 'theme' loads the brand's
@@ -102,8 +102,10 @@ export function getPageMetadata(name, doc = document) {
 function getTheme() {
   const theme = toClassName(getPageMetadata('theme').split(',')[0]);
   if (THEMES[theme]) return theme;
-  // no theme metadata (e.g. a local preview, which drops it): the brand folder in the path
-  // (/ascendiun/careers, /stellarus/careers)
+  // no theme metadata (e.g. a local preview, which drops it): the brand site in the host
+  // (main--stellarus--blueshieldca.aem.page) or the brand folder in the path (/ascendiun/careers)
+  const siteName = toClassName(window.location.hostname.split('.')[0].split('--')[1] || '');
+  if (siteName !== DEFAULT_THEME && THEMES[siteName]) return siteName;
   const folder = window.location.pathname.split('/').map(toClassName)
     .find((segment) => segment !== DEFAULT_THEME && THEMES[segment]);
   return folder || DEFAULT_THEME;
