@@ -3,6 +3,7 @@
  * Options:
  *   home          - full-bleed photo, headline + CTA centered at the bottom
  *   centered      - centered text intro: eyebrow, H1, copy, CTAs side by side (Stellarus careers)
+ * Bands further down the page (image, heading and CTA) are the Banner block.
  */
 
 /* the hero manages its own width; the section wrapper must not cap it */
