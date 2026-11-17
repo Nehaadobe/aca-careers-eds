@@ -281,6 +281,19 @@ after preview.
 Best practices: descriptive file names, alt text on every image, a 1200×630 share image for each page. Images
 are resized and compressed automatically.
 
+### Ascendiun brand rules for authors
+
+From the Ascendiun Brand Guidelines. The theme already applies the colours, fonts and logo sizes; these are
+the choices that are up to you:
+
+| Topic | Rule |
+| --- | --- |
+| Photography | Images should suggest a brighter future: stars, night skies, people looking up or ahead, aspirational settings, in deep blue and teal tones. Avoid generic office or building photos on Ascendiun pages |
+| Logo | Use `:ascendiun-logo:` (black) on light backgrounds and `:ascendiun-logo-white:` on dark ones. Never stretch, recolour, add effects to or crop it; keep empty space around it about the width of its star; never smaller than 170 px wide. The family-of-logos lockup (Ascendiun with Blue Shield, Stellarus and Altais) is for PowerPoint, letterhead and memos only, not for web pages |
+| Headlines | Sentence case (or all caps, which the theme spaces like the logo). Fieldwork Light, black; never bold a headline |
+| Bold | Body copy is not bolded. Use bold (DemiBold) only for subheads and to call out an important detail such as a phone number or web address |
+| Colour | Digital Blue is reserved for links and calls to action. Don't use it for headings or decoration |
+
 ## Troubleshooting
 
 | Issue | Solution |
