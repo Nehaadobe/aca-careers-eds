@@ -214,5 +214,6 @@ body {
     --body-font-size-l: 18px;
     --section-spacing: 40px;
     --nav-logo-width: 170px; /* guideline minimum on the web (ascendiun.com: 195px on phones) */
+    --nav-brand-gap: 16px; /* fits the 170px logo on 360px phones; still wider than the logo star */
   }
 }

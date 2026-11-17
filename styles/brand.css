@@ -103,6 +103,7 @@
   /* header and footer */
   --nav-logo-filter: none; /* themes on a dark page recolor the nav logo image */
   --nav-logo-width: 125px;
+  --nav-brand-gap: var(--space-m); /* each side of the line between the logo and the site name */
   --header-border-color: #f4f4f4;
   --header-button-background: #f8f9fa;
   --footer-background: #25282a;
