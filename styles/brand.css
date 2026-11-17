@@ -233,6 +233,7 @@
   /* accordion, table, image, quote, embed, video modal */
   --accordion-gap: 16px; /* between items; the answer panel overlaps its question by the same */
   --accordion-label-padding-open: 38px;
+  --accordion-label-font-weight: var(--font-weight-display); /* question row */
   --table-margin: 32px;
   --table-cell-padding: 0.5em;
   --table-paragraph-gap: 0.25em;
