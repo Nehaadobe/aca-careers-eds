@@ -75,8 +75,15 @@
       align-items: center;
     }
 
-    main.error .error-number {
+    /* the flex layout centres the message vertically; the section stays full width so the
+       content lines up with the header, like on every other page */
+    main.error > .section {
       width: 100%;
+    }
+
+    main.error .error-number {
+      width: 300px;
+      max-width: 100%;
     }
 
     main.error .error-number text {
