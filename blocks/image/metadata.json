@@ -10,7 +10,7 @@
   },
   "contentPattern": {
     "structure": "Block table 'Image (left)' or 'Image (right)' with one cell: the picture, optionally followed by a caption paragraph (italic). The block sits between default-content paragraphs of a story body; the text that follows it in the same section wraps beside it.",
-    "variants": "left: floats left, text wraps on the right. right: floats right, text wraps on the left. No option (plain 'Image'): full-width image, no float.",
+    "variants": "left: floats left, text wraps on the right. right: floats right, text wraps on the left. No option (plain 'Image'): full-width image, no float. small: a 200px thumbnail; with left or right it floats (e.g. Image (right, small)).",
     "notes": "Must not break when the caption is missing or when the author puts the caption in a second row. Used in 25 stories (left in 13, right in 21).",
     "example": "Image (right): picture + italic caption 'Sarah Miller with her two daughters...'"
   },
@@ -22,6 +22,10 @@
     {
       "class": "right",
       "label": "Right"
+    },
+    {
+      "class": "small",
+      "label": "Small"
     }
   ],
   "memberVariantIds": [

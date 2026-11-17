@@ -9,6 +9,8 @@
  *               follows wraps on the right.
  *   - `right` - floats right (400px, at most the column width); the text that
  *               follows wraps on the left.
+ *   - `small` - a 200px thumbnail (at most the column width); with `left` or
+ *               `right` it floats, e.g. `Image (right, small)`.
  *   - none    - full-width image, no float.
  */
 

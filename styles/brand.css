@@ -239,6 +239,7 @@
   --table-cell-padding: 0.5em;
   --table-paragraph-gap: 0.25em;
   --image-float-width: 400px; /* left / right story images */
+  --image-float-width-small: 200px; /* `small` story images (source thumbnails, 131-250px) */
   --quote-portrait-size: 94px;
   --quote-paragraph-gap: 1em;
   --embed-min-height: 315px; /* the source 560x315 player keeps its height in narrow columns */
