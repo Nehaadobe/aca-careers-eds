@@ -14,8 +14,10 @@ Example: how the Ascendiun brand was added (follow the same steps for a new bran
 2. **Scripts:** in `THEMES` (`scripts/scripts.js`), set `css: true`, its fonts (`fonts: 'base'` for Fieldwork,
    `fonts: 'theme'` for its own `fonts.css`), whether OneTrust runs, `favicon: '/favicons/ascendiun.png'` (add the icon to `favicons/`) and
    `logos` (the brand logo shown instead of the careers logo, an icon in `icons/`).
-3. **Content:** create the `/ascendiun/` folder in Document Authoring and add a row to `/metadata`:
-   `URL` `/ascendiun/**`, `theme` `ascendiun`. Preview and publish the sheet.
+3. **Content:** give the brand its own DA site, as for Ascendiun (`nehaadobe/ascendiun`): a Config Service
+   site on this code (repoless), its DA configuration (library), and in DA its `/nav`, `/footer`,
+   `/tools/library` and a `/metadata` sheet with `URL` `/**`, `theme` `<brand>`. Preview and publish it.
+   (A folder in the Blue Shield site with a `/<brand>/**` row in its `/metadata` also still works.)
 4. **Library:** add the value to the `theme` row of the `options` tab in `/tools/library/blocks`, so it
    appears in the Metadata slash menu.
 5. **Storybook:** the toolbar already lists Ascendiun. A new brand needs an entry in `globalTypes.brand` in

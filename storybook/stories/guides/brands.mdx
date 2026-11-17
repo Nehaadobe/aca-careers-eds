@@ -9,14 +9,16 @@ All brands share one site, one block library, one header and one footer. A brand
 
 | Brand | Theme value | Pages | Theme file | Favicon |
 | --- | --- | --- | --- | --- |
-| Blue Shield of California | `bsc` (default) | everything outside the brand folders | `styles/themes/bsc/bsc.css` (Blue Shield-only changes; the base values are in `styles/brand.css`) | `favicons/bsc.png` |
+| Blue Shield of California | `bsc` (default) | its DA site (outside `/stellarus/`) | `styles/themes/bsc/bsc.css` (Blue Shield-only changes; the base values are in `styles/brand.css`) | `favicons/bsc.png` |
 | Stellarus | `stellarus` | `/stellarus/**` | `styles/themes/stellarus/stellarus.css` (fonts: `styles/themes/stellarus/fonts.css`) | `favicons/stellarus.png` |
-| Ascendiun | `ascendiun` | `/ascendiun/**` | `styles/themes/ascendiun/ascendiun.css` | `favicons/ascendiun.png` (the logo bug, as on ascendiun.com) |
+| Ascendiun | `ascendiun` | its own DA site `nehaadobe/ascendiun` (`/**`) | `styles/themes/ascendiun/ascendiun.css` | `favicons/ascendiun.png` (the logo bug, as on ascendiun.com) |
 
 ## How a page gets its theme
 
-1. The `/metadata` sheet sets `theme` per folder (`/**` → `bsc`, `/stellarus/**` → `stellarus`). A page
-   can override it with a `Theme` row in its own Metadata block.
+1. Each site's `/metadata` sheet sets `theme` (Blue Shield: `/**` → `bsc`, `/stellarus/**` → `stellarus`;
+   a brand's own DA site: `/**` → its brand). A page can override it with a `Theme` row in its own Metadata
+   block. Without theme metadata the code falls back to the site name in the host
+   (`main--ascendiun--nehaadobe.aem.page`), then to a brand folder in the path.
 2. `scripts/scripts.js` reads the theme, adds it as a class on `<body>`, swaps the favicon and loads
    `styles/themes/<theme>/<theme>.css` before the first section is shown.
 3. The theme file overrides token values on `body`; blocks and `styles/styles.css` only use tokens, so

@@ -1,5 +1,5 @@
 ---
-title: "Careers Sites (Blue Shield of California, Stellarus) - Author Guide"
+title: "Careers Sites (Blue Shield of California, Stellarus, Ascendiun) - Author Guide"
 date: "November 2, 2026"
 ---
 
@@ -26,9 +26,13 @@ The site runs on AEM Edge Delivery Services. Content is written in **Document Au
 
 | Brand | Pages | Theme | Preview example |
 | --- | --- | --- | --- |
-| Blue Shield of California | Everything outside `/stellarus/` and `/ascendiun/` | `bsc` (default) | https://main--aca-careers-eds--nehaadobe.aem.page/ |
+| Blue Shield of California | This DA site: https://da.live/#/nehaadobe/aca-careers-eds (everything outside `/stellarus/`) | `bsc` (default) | https://main--aca-careers-eds--nehaadobe.aem.page/ |
 | Stellarus | `/stellarus/` folder (today: `/stellarus/careers`) | `stellarus` | https://main--aca-careers-eds--nehaadobe.aem.page/stellarus/careers |
-| Ascendiun | `/ascendiun/` folder (not created yet) | `ascendiun` | - |
+| Ascendiun | Its own DA site: https://da.live/#/nehaadobe/ascendiun (`/careers`, `/nav`, `/footer`) | `ascendiun` (for the whole site, in its `/metadata`) | https://main--ascendiun--nehaadobe.aem.page/careers |
+
+Each brand site has its own `/nav`, `/footer`, `/metadata` and author library (`/tools/library`); all brands run
+the same code, so blocks and templates are the same everywhere. A brand site's header and footer are edited in
+that site only. The old `/ascendiun/` folder here redirects to the brand site.
 
 Content source (Config Service): `content.da.live/nehaadobe/aca-careers-eds`. There is one language (English).
 
@@ -71,7 +75,7 @@ the cursor.
 | --- | --- |
 | **Blocks** | Every block with each of its variations (source: `/tools/library/blocks/`) |
 | **Templates** | Section landing page, Text page, Story article, Stellarus landing page |
-| **Icons** | Logos: bsc-logo, bsc-logo-white, bsc-shield (the shield on its own), stellarus-logo (the star), stellarus-logo-full (star + Stellarus wordmark), ascendiun-logo, ascendiun-logo-white. Social and UI: facebook, twitter, instagram, linkedin, glassdoor, search. Line icons: the client's 2026 set of 159 (e.g. `:calendar:`, `:graduation-cap:`, `:heart-check:`), shown in the text colour; see them all at `/tools/icons/index.html` on any preview. Inserted as `:name:` (e.g. `:bsc-shield:`) |
+| **Icons** | Logos: bsc-logo, bsc-logo-white, bsc-shield (the shield on its own), stellarus-logo (the star), stellarus-logo-full (star + Stellarus wordmark), ascendiun-logo, ascendiun-logo-white. Social and UI: facebook, twitter, instagram, linkedin, glassdoor, search. Line icons: the client's 2026 set of 159 (e.g. `:calendar:`, `:graduation-cap:`, `:heart-check:`), shown in the text colour; see them all in Storybook (Foundations → Icons). Inserted as `:name:` (e.g. `:bsc-shield:`) |
 | **Media** | Images already uploaded to Document Authoring |
 
 **Slash menu:** inside a block table, type `/` in a value cell to pick from the allowed values (for example
@@ -233,7 +237,7 @@ it then appears in the slash menu **and** in the blog filters.
 
 | Sheet | Location | Purpose | When to update |
 | --- | --- | --- | --- |
-| Bulk metadata | `/metadata` | Settings applied by folder: theme `bsc` for `/**`, `stellarus` for `/stellarus/**`; `noindex` for `/drafts/**` and `/tools/**` | Adding a brand folder (e.g. `/ascendiun/**` → `ascendiun`) |
+| Bulk metadata | `/metadata` | Settings applied by folder: theme `bsc` for `/**`, `stellarus` for `/stellarus/**`; `noindex` for `/drafts/**` and `/tools/**`. Each brand site has its own `/metadata` (theme for `/**`) | Rarely |
 | Redirects | `/redirects` | `Source` → `Destination` (today: `/blog/authors` and `/blog/search` → `/blog`) | A page is moved, renamed or deleted |
 | External stories | `/blog/external-stories` | Off-site stories (news site) shown in the blog listing and usable in Article Lists. Columns: title, url, image, publication-date, description, roles, topics. `image` is a path on this site (`/blog/external-images/<name>.jpg`), never a link to another host | Adding or removing an off-site story |
 | Library options | `/tools/library/blocks` → `options` tab | Allowed values for the slash menu: Article List options, section styles, Template, Theme, Roles, Topics | New Role or Topic, new option value |
@@ -268,7 +272,7 @@ after preview.
 | **Update the menu** | Edit `/nav` → Preview → Publish (applies to all brands) |
 | **Update the footer** | Edit `/footer` → Preview → Publish (applies to all brands) |
 | **Add a Role or Topic** | Ask an administrator to update the library `options` tab; then tag stories with it |
-| **Start the Ascendiun pages** | Create the `/ascendiun/` folder and its pages; add `/ascendiun/**` → theme `ascendiun` to `/metadata` |
+| **Add an Ascendiun page** | Create it in that brand's DA site (see Sites and brands); its `/metadata` already sets the theme |
 
 ## Images and Media
 
