@@ -14,7 +14,39 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="og:title" content="Page not found">
-  <script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+  <!--
+    A 404 has no page metadata, so the site's /metadata row for /** (theme, analytics, consent, nav,
+    footer) is applied first: every brand site shows its own theme, header and footer on any domain.
+    When the site has an authored /fragments/errors/404, it replaces the default content below.
+  -->
+  <script nonce="aem" type="module">
+    try {
+      const resp = await fetch('/metadata.json');
+      if (resp.ok) {
+        const { data = [] } = await resp.json();
+        const site = data.find((row) => row.URL === '/**') || {};
+        Object.entries(site).forEach(([name, value]) => {
+          if (name === 'URL' || !value || document.head.querySelector(`meta[name="${name.toLowerCase()}"]`)) return;
+          const meta = document.createElement('meta');
+          meta.name = name.toLowerCase();
+          meta.content = value;
+          document.head.append(meta);
+        });
+      }
+    } catch (e) {
+      // no metadata: the page code falls back to the site name in the host
+    }
+    try {
+      const resp = await fetch('/fragments/errors/404.plain.html');
+      if (resp.ok) {
+        document.querySelector('main.error').innerHTML = '<div><div class="fragment"><div><div>'
+          + '<a href="/fragments/errors/404">/fragments/errors/404</a></div></div></div></div>';
+      }
+    } catch (e) {
+      // no authored 404: keep the default content
+    }
+    await import('/scripts/scripts.js');
+  </script>
   <script nonce="aem" type="module">
     window.addEventListener('load', () => {
       if (document.referrer) {
@@ -25,8 +57,8 @@
           backBtn.href = pathname;
           backBtn.textContent = 'Go back';
           backBtn.title = 'Go back';
-          const btnContainer = document.querySelector('.button-container');
-          btnContainer.append(backBtn);
+          const btnContainer = document.querySelector('main.error .button-container');
+          if (btnContainer) btnContainer.append(backBtn);
         }
       }
     });

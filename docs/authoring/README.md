@@ -314,6 +314,14 @@ the choices that are up to you:
 | Bold | Body copy is not bolded. Use bold (DemiBold) only for subheads and to call out an important detail such as a phone number or web address |
 | Colour | Digital Blue is reserved for links and calls to action. Don't use it for headings or decoration |
 
+### Page not found (404)
+
+Each site shows its own theme, header and footer on its "page not found" page. To write the message, create a
+document **`/fragments/errors/404`** in your site (for example a heading such as "We can't find that page", a
+sentence and a button link to the home page or open positions), then Preview and Publish it. Without that document
+the default "404 / Page Not Found / Go home" content is shown. Each brand site (Blue Shield, Stellarus,
+Ascendiun, Stage) has its own.
+
 ## Troubleshooting
 
 | Issue | Solution |
