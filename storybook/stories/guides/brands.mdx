@@ -11,7 +11,7 @@ All brands share one site, one block library, one header and one footer. A brand
 | --- | --- | --- | --- | --- |
 | Blue Shield of California | `bsc` (default) | everything outside the brand folders | `styles/themes/bsc/bsc.css` (Blue Shield-only changes; the base values are in `styles/brand.css`) | `favicons/bsc.png` |
 | Stellarus | `stellarus` | `/stellarus/**` | `styles/themes/stellarus/stellarus.css` (fonts: `styles/themes/stellarus/fonts.css`) | `favicons/stellarus.png` |
-| Ascendiun | `ascendiun` | `/ascendiun/**` | `styles/themes/ascendiun/ascendiun.css` | Blue Shield icon until it has its own |
+| Ascendiun | `ascendiun` | `/ascendiun/**` | `styles/themes/ascendiun/ascendiun.css` | `favicons/ascendiun.png` (the logo bug, as on ascendiun.com) |
 
 ## How a page gets its theme
 
@@ -26,7 +26,8 @@ All brands share one site, one block library, one header and one footer. A brand
 
 `styles/brand.css` defines every token with the Blue Shield value: it is the base of every brand. A theme
 overrides only what differs. A change in `brand.css` reaches every brand that does not override that token, so a
-change for Blue Shield only goes in `styles/themes/bsc/bsc.css`.
+change for Blue Shield only goes in `styles/themes/bsc/bsc.css`. Example: `--accordion-label-font-weight: 500`
+(the live careers site's weight), while the base token keeps the display weight for the other brands.
 Groups (see Foundations): page and surfaces, text, links, primary action, bands, accents, borders, media,
 header and footer, buttons, fonts, font weights, line heights, tracking, body and heading sizes, the
 spacing scale, spacing and widths, shapes, line widths, stacking order, control sizes, shadows, motion,
@@ -50,3 +51,19 @@ Rules, enforced by stylelint (`npm run lint:css`):
 `THEMES` in `scripts/scripts.js` holds the non-CSS differences: whether the theme loads a CSS file, uses
 the base Fieldwork font (`fonts: 'base'`: Blue Shield and Ascendiun) or its own (`fonts: 'theme'`: Stellarus), runs OneTrust (Stellarus: off), which
 favicon it shows and which logo replaces the careers logo in the shared header and footer (`logos`).
+
+## Ascendiun brand guidelines
+
+The Ascendiun theme follows the Ascendiun Brand Guidelines. Where the guideline and ascendiun.com differ,
+ascendiun.com wins.
+
+| Rule | In the theme |
+| --- | --- |
+| Digital Blue `#0071BC`, calls to action only | `--color-brand-digital-blue`, used by links, buttons and focus |
+| Core palette: Miami `#1F688C`, Baton Rouge `#3C2C6F`, Palm Springs `#F7F3EF` | `--color-brand-miami`, `--color-brand-baton-rouge`, `--color-brand-palm-springs`: available, not used on the pages yet. They are defined in the Ascendiun theme only, so Foundations / Colors (which lists `brand.css`) does not show them |
+| Fieldwork Geo Light for body text and headlines; DemiBold for subheads, links and callouts | `--font-weight-body` / `--font-weight-heading` 300 |
+| All caps tracked 150, like the logo | `--tracking-caps`, `--tracking-eyebrow` 0.15em |
+| Logo at least 170 px wide on the web; clearspace about the star's width | `--nav-logo-width` 216 px, 170 px below 1440 px; `--nav-brand-gap` 16 px on phones |
+| Logo bug as the website icon | `favicons/ascendiun.png` |
+
+Photography and logo-use rules for authors are in `docs/authoring/README.md` ("Ascendiun brand rules for authors").
