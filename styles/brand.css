@@ -103,6 +103,7 @@
   /* header and footer */
   --nav-logo-filter: none; /* themes on a dark page recolor the nav logo image */
   --nav-logo-width: 125px;
+  --nav-brand-gap: var(--space-m); /* each side of the line between the logo and the site name */
   --header-border-color: #f4f4f4;
   --header-button-background: #f8f9fa;
   --footer-background: #25282a;
@@ -233,6 +234,7 @@
   /* accordion, table, image, quote, embed, video modal */
   --accordion-gap: 16px; /* between items; the answer panel overlaps its question by the same */
   --accordion-label-padding-open: 38px;
+  --accordion-label-font-weight: var(--font-weight-display); /* question row */
   --table-margin: 32px;
   --table-cell-padding: 0.5em;
   --table-paragraph-gap: 0.25em;
