@@ -7,6 +7,9 @@
  * #f7f7f7 footer, a black statement band, square corners, no shadows. The source has no buttons:
  * calls to action are bold arrow links ("Explore … ->"), so buttons are arrow links here (client
  * decision). Tokens the source has no equivalent for keep the BSC value (marked "BSC").
+ * Checked against the Ascendiun Brand Guidelines (November 2026): colors, logo minimum size and
+ * clearspace, Fieldwork Geo Light/DemiBold hierarchy, all-caps tracking. Where the guideline and
+ * ascendiun.com differ, ascendiun.com wins (client decision).
  */
 
 /* Fonts: the base font, Fieldwork (Light, Light Italic, DemiBold), shared with BSC:
@@ -14,6 +17,13 @@
 
 body {
   --color-scheme: light;
+
+  /* brand palette (Brand Guidelines, Color). Digital Blue is for calls to action only; the core
+     palette is available to blocks and section styles but not used on ascendiun.com today. */
+  --color-brand-digital-blue: #0071bc; /* RGB 0 113 188 */
+  --color-brand-miami: #1f688c; /* RGB 31 104 140, CMYK 89 45 20 18; the star in the logo */
+  --color-brand-baton-rouge: #3c2c6f; /* RGB 60 44 111, CMYK 93 98 24 12 */
+  --color-brand-palm-springs: #f7f3ef; /* RGB 247 243 239, CMYK 2 3 4 0 */
 
   /* page and surfaces */
   --color-background: #fff;
@@ -30,11 +40,11 @@ body {
   --color-text-subtle: #6c757d; /* BSC: placeholders, disabled controls */
 
   /* links (source: CTA Blue, navy on hover) */
-  --color-link: #0071bc;
+  --color-link: var(--color-brand-digital-blue);
   --color-link-hover: #162c55;
 
   /* primary action */
-  --color-primary: #0071bc;
+  --color-primary: var(--color-brand-digital-blue);
   --color-primary-hover: #162c55;
   --color-primary-press: #162c55;
   --color-on-primary: #fff;
@@ -51,7 +61,7 @@ body {
   --color-border: #ccc;
   --color-border-subtle: #dadada;
   --color-border-strong: rgb(128 128 128);
-  --color-focus: #0071bc;
+  --color-focus: var(--color-brand-digital-blue);
 
   /* media: text and controls over photos and video (BSC) */
   --color-on-media: #fff;
@@ -69,9 +79,9 @@ body {
   --footer-text: #333;
   --footer-utility-background: #f7f7f7;
   --footer-utility-text: #333;
-  --footer-link-color: #0071bc;
+  --footer-link-color: var(--color-brand-digital-blue);
   --footer-link-hover-color: #162c55;
-  --footer-utility-link-color: #0071bc;
+  --footer-utility-link-color: var(--color-brand-digital-blue);
   --footer-link-decoration: underline;
 
   /* logos: the black Ascendiun wordmark (scripts.js THEMES.ascendiun.logos), 288x26 on the source */
@@ -90,13 +100,13 @@ body {
   --button-hover-border-color: transparent;
   --button-primary-background: transparent;
   --button-primary-hover-background: transparent;
-  --button-primary-color: #0071bc;
+  --button-primary-color: var(--color-brand-digital-blue);
   --button-primary-hover-color: #162c55;
   --button-secondary-background: transparent;
   --button-secondary-hover-background: transparent;
-  --button-secondary-color: #0071bc;
+  --button-secondary-color: var(--color-brand-digital-blue);
   --button-secondary-hover-color: #162c55;
-  --button-secondary-border-color: #0071bc;
+  --button-secondary-border-color: var(--color-brand-digital-blue);
   --button-secondary-hover-border-color: #162c55;
   --button-arrow-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M15 7.52L8.5 1.02C8.24 0.76 7.81 0.76 7.54 1.02C7.28 1.28 7.28 1.71 7.54 1.98L12.89 7.33H1.52C1.15 7.33 0.85 7.63 0.85 8C0.85 8.37 1.15 8.67 1.52 8.67H12.89L7.55 14.01C7.29 14.27 7.29 14.7 7.55 14.97C7.68 15.1 7.85 15.17 8.03 15.17C8.21 15.17 8.38 15.1 8.51 14.97L15.01 8.47C15.27 8.21 15.27 7.78 15.01 7.51L15 7.52Z'/%3E%3C/svg%3E"); /* source _Arrow.svg */
   --button-arrow-size: 16px;
@@ -132,6 +142,8 @@ body {
   --heading-line-height: 1.1; /* source: 40px / 44px section heading */
   --display-tracking: -1px; /* source hero headline */
   --display-transform: none;
+  --tracking-caps: 0.15em; /* guideline: all caps use 150 tracking, to mimic the logo */
+  --tracking-eyebrow: 0.15em;
 
   /* body sizes (source, from 768px: 20px intro copy, 18px body; smaller below, see below) */
   --body-font-size-l: 20px;
@@ -181,7 +193,7 @@ body {
   body {
     --heading-font-size-xxl: 56px;
     --heading-font-size-xl: 32px;
-    --nav-logo-width: 150px; /* the wide wordmark leaves room for the nav links and CTA */
+    --nav-logo-width: 170px; /* guideline minimum on the web; leaves room for the nav links and CTA */
   }
 }
 
@@ -201,6 +213,7 @@ body {
     --heading-font-size-l: 20px;
     --body-font-size-l: 18px;
     --section-spacing: 40px;
-    --nav-logo-width: 150px; /* leaves room for the site name beside the menu button */
+    --nav-logo-width: 170px; /* guideline minimum on the web (ascendiun.com: 195px on phones) */
+    --nav-brand-gap: 16px; /* fits the 170px logo on 360px phones; still wider than the logo star */
   }
 }
