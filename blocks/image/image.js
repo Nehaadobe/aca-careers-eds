@@ -11,6 +11,8 @@
  *               follows wraps on the left.
  *   - `small` - a 200px thumbnail (at most the column width); with `left` or
  *               `right` it floats, e.g. `Image (right, small)`.
+ *   - `large` - a 600px image (at most the column width); with `left` or
+ *               `right` it floats, e.g. `Image (left, large)`.
  *   - none    - full-width image, no float.
  */
 
