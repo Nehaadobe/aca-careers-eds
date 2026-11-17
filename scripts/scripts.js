@@ -143,6 +143,18 @@ function isConsentEnabled(theme) {
 }
 
 /**
+ * Page metadata `analytics` for Adobe Launch (CJA): `off`, `staging` or `on` (the default, '').
+ * Independent of `consent`; Launch still needs the cookie banner (OneTrust) to run on the page.
+ * @returns {string}
+ */
+function getAnalyticsMode() {
+  const value = toClassName(getPageMetadata('analytics'));
+  if (['off', 'false', 'no'].includes(value)) return 'off';
+  if (value === 'staging') return 'staging';
+  return value ? 'on' : '';
+}
+
+/**
  * loads the theme's fonts (the base fonts.css or the brand's own) and sets a session storage flag
  */
 async function loadFonts() {
@@ -608,7 +620,7 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   window.setTimeout(() => {
-    import('./consent.js').then(({ loadAnalytics }) => loadAnalytics());
+    import('./consent.js').then(({ loadAnalytics }) => loadAnalytics({ mode: getAnalyticsMode() }));
   }, 3000);
 }
 
