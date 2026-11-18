@@ -28,9 +28,15 @@ const VENDORED = ['scripts/aem.js']; // blocked unless ALLOW_AEM_JS=1
 export const GENERATED_PATHS = ['storybook/storybook-static/', 'helix-importer-ui/']; // not linted
 const MAX_DESCRIPTION = 72;
 const MAX_HOST_LABEL = 63; // DNS label limit for <branch>--<repo>--<owner>.aem.page
-// extra sites on the same code (repoless): GitHub owner/repo -> more <repo>--<owner> labels
+// extra sites on the same code (repoless): GitHub owner/repo -> more <repo>--<owner> labels.
+// Every branch preview host must fit, so the longest label (the Stage sites) sets the branch limit.
 const SITE_OVERRIDES = {
-  'aemsites/bsca-careers': ['bsca-careers--blueshieldca'],
+  'aemsites/bsca-careers': [
+    'bsca-careers--blueshieldca', 'bsca-careers-stage--blueshieldca',
+    'stellarus-careers--blueshieldca', 'stellarus-careers-stage--blueshieldca',
+    'ascendiun-careers--blueshieldca', 'ascendiun-careers-stage--blueshieldca',
+  ],
+  'nehaadobe/aca-careers-eds': ['ascendiun--nehaadobe'],
 };
 
 /* ---------- helpers ---------- */
