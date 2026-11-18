@@ -65,6 +65,8 @@ node tools/rules.mjs commits origin/main..HEAD
 - [ ] Block force pushes and deletion
 - [ ] No bypass list, administrators included
 - [ ] Merge method: any (squash is fine: there is no subtree)
-- [ ] Optional: CODEOWNERS for `.github/workflows/`, `.eslintrc.js`, `.stylelintrc.json`, `.githooks/`,
-      `tools/rules.mjs`, `scripts/aem.js`, `scripts/scripts.js`, `styles/styles.css`, `head.html`
-- [ ] Optional: the pull request template (`.github/pull_request_template.md`) with Before/After preview URLs
+- [ ] Optional: "Require review from Code Owners". `.github/CODEOWNERS` lists the owners for the whole repo; add a
+      second owner first, because authors can't approve their own pull requests
+
+The pull request template (`.github/pull_request_template.md`) asks for the Jira ticket (`ASCCAEM-<id>`),
+Before/After preview URLs, and a check that the change doesn't affect the other brand sites (or was checked on each).

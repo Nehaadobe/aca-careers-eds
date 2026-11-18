@@ -1,0 +1,5 @@
+# Code owners are added as reviewers on every pull request automatically.
+# To make their approval required, a repository admin turns on "Require review from Code Owners" in the
+# ruleset for main and develop. GitHub doesn't let authors approve their own pull requests, so list at
+# least two owners before turning that on.
+* @Nehaadobe
