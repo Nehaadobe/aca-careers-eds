@@ -16,6 +16,8 @@ Single block table. Content: Block table 'Image (left)' or 'Image (right)' with 
 | Right | `right` |
 | Small (a 200px thumbnail; combine with Left or Right, e.g. `Image (right, small)`) | `small` |
 | Large (a 600px image; combine with Left or Right, e.g. `Image (left, large)`) | `large` |
+| Exact width in pixels, at most the text column (e.g. `Image (right, width-300)`), for a source image of another size | `width-<px>` |
+| No wrap: with Left or Right, the image keeps its side and size but the text that follows starts below it (e.g. `Image (left, large, no-wrap)`) | `no-wrap` |
 
 ## Universal Editor fields
 

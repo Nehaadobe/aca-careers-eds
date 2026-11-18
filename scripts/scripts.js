@@ -571,6 +571,8 @@ async function loadEager(doc) {
   // so add the template class through the case-insensitive lookup as well
   const template = toClassName(getPageMetadata('template'));
   if (template) document.body.classList.add(template);
+  // Article width: wide - the story text uses the full content width (some source stories)
+  if (toClassName(getPageMetadata('article-width')) === 'wide') document.body.classList.add('article-wide');
   // theme tokens load in parallel with decoration and are applied before the first paint
   const themeLoaded = loadTheme(getTheme());
   const main = doc.querySelector('main');

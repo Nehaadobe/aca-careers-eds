@@ -608,6 +608,13 @@ body.blog-article main > .section.article-list-container > .default-content-wrap
   text-align: center;
 }
 
+/* Article width: wide - the story text uses the full content width, as on the source stories
+   with a full-width body; the title, date and share row stay in the narrow column */
+body.blog-article.article-wide main > .section:not(.article-header-container, .article-list-container) > div {
+  /* never narrower than a normal story (the content width is the smaller one below 1200px) */
+  max-width: max(var(--content-max-width), var(--article-max-width));
+}
+
 
 /* honor the OS "reduce motion" setting site-wide (hover zooms, slides, smooth scroll) */
 @media (prefers-reduced-motion: reduce) {

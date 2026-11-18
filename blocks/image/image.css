@@ -78,6 +78,28 @@
   max-width: 100%;
 }
 
+/* width-<px>: an exact width set by the block code (--image-width), for a source image of
+   another size; wins over small, large and the default */
+.image.left[style*='--image-width'],
+.image.right[style*='--image-width'],
+.image[style*='--image-width'] {
+  box-sizing: border-box;
+  width: var(--image-width);
+  max-width: 100%;
+}
+
+/* no-wrap: the image keeps its side and size, the text that follows starts below it (the
+   source's floated images followed by empty lines) */
+.image.no-wrap.left,
+.image.no-wrap.right {
+  float: none;
+  margin-bottom: var(--space-l);
+}
+
+.image.no-wrap.right {
+  margin-left: auto;
+}
+
 /* keep the floated image inside its section */
 main .section:has(.image.left, .image.right)::after {
   content: '';
