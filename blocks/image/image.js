@@ -13,6 +13,10 @@
  *               `right` it floats, e.g. `Image (right, small)`.
  *   - `large` - a 600px image (at most the column width); with `left` or
  *               `right` it floats, e.g. `Image (left, large)`.
+ *   - `width-<px>` - an exact width in pixels (at most the column width), e.g.
+ *               `Image (right, width-300)`, for a source image of another size.
+ *   - `no-wrap` - with `left` or `right`: the image keeps its side and size, but
+ *               the text that follows starts below it instead of beside it.
  *   - none    - full-width image, no float.
  */
 
@@ -76,4 +80,8 @@ export default function decorate(block) {
     figure.append(figcaption);
   }
   block.replaceChildren(figure);
+
+  // width-<px>: an exact width (the CSS caps it at the column width)
+  const width = [...block.classList].map((c) => c.match(/^width-(\d{2,4})$/)).find(Boolean);
+  if (width) block.style.setProperty('--image-width', `${width[1]}px`);
 }
