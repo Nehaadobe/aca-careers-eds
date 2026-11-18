@@ -1,4 +1,4 @@
-import { decorateLoneLinkButtons, unwrapPicture } from '../../scripts/scripts.js';
+import { decorateLoneLinkButtons, splitMediaAndContent, unwrapPicture } from '../../scripts/scripts.js';
 
 /**
  * Banner block: heading, copy and a call to action over a background image.
@@ -11,11 +11,12 @@ import { decorateLoneLinkButtons, unwrapPicture } from '../../scripts/scripts.js
  *     instead of behind it on wide screens.
  *   - `statement` - a large statement paragraph on a blue band; no image.
  *   - `image-cta` - full-bleed photo with a centered heading and CTA button over it.
+ *
+ * Banner is a band inside the page; the page-opening image and headline is the Hero block.
+ * Both share splitMediaAndContent (scripts.js).
  */
 export default function decorate(block) {
-  const picture = block.querySelector('picture');
-  const cells = [...block.querySelectorAll(':scope > div > div')];
-  const contentCell = cells.find((cell) => cell.textContent.trim() !== '');
+  const { picture, contentCell } = splitMediaAndContent(block);
 
   const content = document.createElement('div');
   content.className = 'banner-content';
@@ -38,8 +39,6 @@ export default function decorate(block) {
     media.className = 'banner-media';
     media.append(picture);
     children.push(media);
-  } else {
-    block.classList.add('no-image');
   }
   children.push(content);
 

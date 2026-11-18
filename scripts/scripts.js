@@ -383,6 +383,20 @@ function decorateSectionMetadata(main) {
   });
 }
 
+/**
+ * Splits a media + text block (Hero, Banner): the picture and the content cell (the first cell
+ * with text: heading, copy or CTA). Without a picture the block gets `no-image`.
+ * @param {Element} block
+ * @returns {{ picture: Element|null, contentCell: Element|undefined }}
+ */
+export function splitMediaAndContent(block) {
+  const picture = block.querySelector('picture');
+  const cells = [...block.querySelectorAll(':scope > div > div')];
+  const contentCell = cells.find((cell) => cell.textContent.trim() !== '');
+  if (!picture) block.classList.add('no-image');
+  return { picture, contentCell };
+}
+
 /** Accessible names for links that hold only an icon (`:icon-name:` in Document Authoring). */
 const ICON_LABELS = {
   'bsc-logo': 'Blue Shield of California',
