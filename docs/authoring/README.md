@@ -246,8 +246,8 @@ pages after the visitor accepts cookies. Authors control it with the **Analytics
 | A folder or the whole site | The site's `/metadata` sheet: add a column `analytics`; one row per folder (`URL` such as `/drafts/**` or `/**`) | The same values, then Preview and Publish `/metadata`, and ask an administrator to re-index the site (publishing `/metadata` clears the index fields) |
 
 A value on the page wins over the sheet. `Consent: off` also turns analytics off (no cookie banner means no
-consent). The Stage site (`bsca-careers-stage`) sets `analytics: off` for `/**`, so test visits stay out of
-the production reports.
+consent). The Stage sites (`bsca-careers-stage`, `stellarus-careers-stage`, `ascendiun-careers-stage`) set
+`analytics: off` for `/**`, so test visits stay out of the production reports.
 
 ## Configuration Sheets
 
