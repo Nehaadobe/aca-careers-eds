@@ -102,10 +102,13 @@ export function getPageMetadata(name, doc = document) {
 function getTheme() {
   const theme = toClassName(getPageMetadata('theme').split(',')[0]);
   if (THEMES[theme]) return theme;
-  // no theme metadata (e.g. a local preview, which drops it): the brand site in the host
-  // (main--stellarus--blueshieldca.aem.page) or the brand folder in the path (/ascendiun/careers)
+  // no theme metadata (e.g. a local preview, which drops it): the brand site in the host, named
+  // <theme> or <theme>-<anything> (main--stellarus-careers--blueshieldca.aem.page), or the brand
+  // folder in the path (/ascendiun/careers)
   const siteName = toClassName(window.location.hostname.split('.')[0].split('--')[1] || '');
-  if (siteName !== DEFAULT_THEME && THEMES[siteName]) return siteName;
+  const siteTheme = Object.keys(THEMES).find((name) => name !== DEFAULT_THEME
+    && (siteName === name || siteName.startsWith(`${name}-`)));
+  if (siteTheme) return siteTheme;
   const folder = window.location.pathname.split('/').map(toClassName)
     .find((segment) => segment !== DEFAULT_THEME && THEMES[segment]);
   return folder || DEFAULT_THEME;
