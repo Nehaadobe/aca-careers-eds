@@ -115,6 +115,7 @@ A block is a table. The first row holds the block name, with the variation in br
 | **Quote** | Employee quotation with a round portrait | none | Row 1: portrait (optional). Row 2: the quotation. Row 3: name and role |
 | **Table** | Data table, or a bordered callout box | `no-header` (no header row). A table with a **single cell** becomes a callout box | One block row per table row, one cell per column. The first row is the header unless `no-header` is set |
 | **Image** | Story image that the text wraps around | `left`, `right` | One cell: the picture, optionally followed by an italic caption. Place it between paragraphs; the text that follows wraps beside it |
+| **Text** | Story text with an alignment (e.g. right-aligned sign-offs) | `right`, `center` | One cell with the paragraphs; place it between story paragraphs |
 | **Embed** | Responsive 16:9 video | `video` (MP4 file, used as story hero video) | Row 1: poster image (optional). Row 2: the link (`.mp4` for `video`, or a YouTube / Vimeo URL). Shortcut: a YouTube or Vimeo URL pasted alone on its own line becomes a video automatically |
 | **Fragment** | Reuse content from another document | none | One cell with the path of the document to include, e.g. `/drafts/fragments/find-your-next-role`. A link to a `/fragments/` path on its own also becomes a fragment |
 
@@ -220,6 +221,7 @@ Every page ends with a **Metadata** block. Type `/` in a value cell for the allo
 | Description | Yes | Search result text and the card text in story lists | One or two sentences |
 | Image | Recommended | Share image (social networks) and story card image. Replace the picture to change it | 1200×630 image |
 | Template | Stories | `blog-article` turns on the story layout and the automatic Article Header | `blog-article` |
+| Share position | Rarely | `right`: the Share buttons sit at the right, right below the date, for stories that show them there on the old site without an author | `right` |
 | Roles | Stories | Role tags: shown above the title and used by the blog Roles filter. Several: separate with commas | `Finance, Operations` |
 | Topics | Stories | Topic tags, same as Roles | `Life at Blue Shield` |
 | Publication Date | Stories | Date shown on the story and its cards, and used for sorting | `2026-10-13` |

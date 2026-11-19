@@ -1,0 +1,8 @@
+/* Text block: paragraphs with the source's inline alignment; spacing as default content */
+.text.right {
+  text-align: right;
+}
+
+.text.center {
+  text-align: center;
+}

@@ -69,6 +69,11 @@
   margin-top: var(--space-xl);
 }
 
+/* Share position: right: the empty author row sits right below the date */
+.article-header .article-header-meta.article-header-meta-share-right {
+  margin-top: 0;
+}
+
 /* source: authors stack 20px apart on mobile and sit side by side on desktop */
 .article-header .article-header-byline {
   display: flex;
@@ -165,6 +170,13 @@
 
   .article-header .article-header-meta:not(:has(.article-header-byline)) {
     margin-top: var(--space-2xl);
+  }
+
+  /* Share position: right (the source's empty author row): share at the right end, right
+     below the date */
+  .article-header .article-header-meta.article-header-meta-share-right {
+    justify-content: flex-end;
+    margin-top: 0;
   }
 
   /* source: 90% wide figure with 15px inner gutters */
