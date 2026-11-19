@@ -390,6 +390,18 @@ main .section.centered .default-content-wrapper {
   text-align: center;
 }
 
+/* narrow: a 960px reading column on wide screens, as the source's narrow containers (the
+   resource groups on /a-culture-of-belonging); the normal width below 1200px */
+main > .section.narrow > div {
+  max-width: min(var(--content-max-width), calc(var(--article-max-width) + 2 * var(--content-padding)));
+}
+
+/* centered-mobile: headings and paragraphs centered below 992px, lists keep their start
+   alignment (the source /why-relocate title and intro) */
+main .section.centered-mobile .default-content-wrapper > :is(h1, h2, h3, h4, p) {
+  text-align: var(--section-centered-mobile-align);
+}
+
 /* blue: full-bleed accent band (BSC brand blue) with white text (source .ipr_textBanner / contentSection_blue) */
 main .section.blue {
   margin: 0 0 var(--section-spacing);
