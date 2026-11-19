@@ -12,6 +12,8 @@ Single block table. Content: Auto-built on Template = blog-article pages (script
 
 No variations.
 
+Page metadata `Share: off` hides the share row; `Share position: left | right | center` places it (default: right of the byline, or left without one).
+
 ## Universal Editor fields
 
 N/A (Document Authoring project)

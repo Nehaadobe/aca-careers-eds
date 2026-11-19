@@ -18,6 +18,8 @@ Story cards are not a Cards option: use the **Article List** block.
 | Icon Tiles | `icon-tiles` |
 | Video Tiles | `video-tiles` |
 
+Interface text comes from the placeholders sheet (`/placeholders/global`, keys Video.Play); the code keeps the current text as the default. See the author guide, "Placeholders: interface text".
+
 ## Universal Editor fields
 
 N/A (Document Authoring project)

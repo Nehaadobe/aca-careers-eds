@@ -7,6 +7,7 @@ import {
   splitList,
   STORY_SOURCES,
 } from '../../scripts/story-index.js';
+import { loadPlaceholders, placeholder } from '../../scripts/placeholders.js';
 
 /**
  * Article list block: a curated grid of story cards. Authored content:
@@ -106,7 +107,8 @@ export default async function decorate(block) {
   block.classList.add(`columns-${columns}`, `ground-${ground}`);
   // the source shows "View highlights" on the More Stories band, not on plain tile rows
   const label = options['link-label'];
-  let linkLabel = ground === 'light' ? '' : 'View highlights';
+  const ph = await loadPlaceholders();
+  let linkLabel = ground === 'light' ? '' : placeholder(ph, 'Stories.ViewHighlights', 'View highlights');
   if (label !== undefined) linkLabel = isNo(label) ? '' : label;
   block.classList.toggle('with-link-label', Boolean(linkLabel));
   const config = {
