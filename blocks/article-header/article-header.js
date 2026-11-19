@@ -1,4 +1,4 @@
-import { decorateBlock, loadBlock } from '../../scripts/aem.js';
+import { decorateBlock, getMetadata, loadBlock } from '../../scripts/aem.js';
 import { createTag as el } from '../../scripts/scripts.js';
 import {
   buildStoryTime,
@@ -135,7 +135,12 @@ export default async function decorate(block) {
   if (byline || content.share) {
     // the share block gets its own wrapper (decorateBlock marks the parent as `share-wrapper`)
     const share = content.share ? el('div', null, content.share) : null;
-    inner.append(el('div', { className: 'article-header-meta' }, byline, share));
+    const meta = el('div', { className: 'article-header-meta' }, byline, share);
+    // `Share position: right`: the source's empty author row, share at its right end
+    if (!byline && getMetadata('share-position').toLowerCase() === 'right') {
+      meta.classList.add('article-header-meta-share-right');
+    }
+    inner.append(meta);
   }
 
   const parts = [inner];
