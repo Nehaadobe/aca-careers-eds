@@ -17,6 +17,7 @@ import {
   openExternalLinksInNewTab,
   resolveFragmentMedia,
 } from '../../scripts/scripts.js';
+import { loadPlaceholders, placeholder } from '../../scripts/placeholders.js';
 
 // desktop navigation breakpoint: theme token --nav-desktop-min-width (default 1200px)
 let DESKTOP_QUERY = window.matchMedia('(width >= 1200px)');
@@ -108,7 +109,9 @@ function setMenuOpen(nav, open) {
   const drawerOpen = open && !DESKTOP_QUERY.matches;
   nav.setAttribute('aria-expanded', open ? 'true' : 'false');
   button?.setAttribute('aria-expanded', open ? 'true' : 'false');
-  button?.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  button?.setAttribute('aria-label', open
+    ? placeholder(null, 'Header.CloseNavigation', 'Close navigation')
+    : placeholder(null, 'Header.OpenNavigation', 'Open navigation'));
   document.body.classList.toggle('nav-open', drawerOpen);
   // everything behind the dimmed page is unreachable while the drawer is open
   [nav.querySelector('.nav-brand'), nav.querySelector('.nav-row-utility'),
@@ -128,7 +131,7 @@ function buildHamburger(nav) {
   button.type = 'button';
   button.setAttribute('aria-controls', 'nav-menu');
   button.setAttribute('aria-expanded', 'false');
-  button.setAttribute('aria-label', 'Open navigation');
+  button.setAttribute('aria-label', placeholder(null, 'Header.OpenNavigation', 'Open navigation'));
   button.innerHTML = '<span class="nav-hamburger-icon" aria-hidden="true"></span>';
   button.addEventListener('click', () => setMenuOpen(nav, nav.getAttribute('aria-expanded') !== 'true'));
   wrap.append(button);
@@ -157,7 +160,7 @@ export default async function decorate(block) {
   DESKTOP_QUERY = desktopQuery();
   const pageHeader = block.closest('header');
   if (pageHeader) trackScroll(pageHeader);
-  const fragment = await fetchLayoutFragment('nav', '/nav');
+  const [fragment] = await Promise.all([fetchLayoutFragment('nav', '/nav'), loadPlaceholders()]);
   block.textContent = '';
   if (!fragment) return;
 
@@ -169,7 +172,7 @@ export default async function decorate(block) {
 
   const nav = document.createElement('nav');
   nav.id = 'nav';
-  nav.setAttribute('aria-label', 'Main');
+  nav.setAttribute('aria-label', placeholder(null, 'Header.MainNavigation', 'Main'));
   const parts = {};
   // 4 sections: utility, brand, sections, tools; 3 sections (no utility row, e.g. Stellarus):
   // brand, sections, tools
@@ -204,7 +207,7 @@ export default async function decorate(block) {
       home.append(loosePicture);
       parts.brand.prepend(home);
       if (!home.getAttribute('aria-label')) decorateFragmentIcons(parts.brand);
-      if (!home.getAttribute('aria-label')) home.setAttribute('aria-label', 'Home');
+      if (!home.getAttribute('aria-label')) home.setAttribute('aria-label', placeholder(null, 'Header.Home', 'Home'));
     }
     const links = [...parts.brand.querySelectorAll('a')];
     links.forEach((a) => {
@@ -221,7 +224,7 @@ export default async function decorate(block) {
   // drawer title bar (below the desktop breakpoint)
   const menuTitle = document.createElement('p');
   menuTitle.className = 'nav-menu-title';
-  menuTitle.textContent = 'Menu';
+  menuTitle.textContent = placeholder(null, 'Header.Menu', 'Menu');
   menu.append(menuTitle);
   if (parts.sections) {
     const list = parts.sections.querySelector('ul');

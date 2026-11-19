@@ -14,6 +14,8 @@ Single block table. Content: row 1: poster image (optional); row 2: link to the 
 | --- | --- |
 | Video | `video` |
 
+Interface text comes from the placeholders sheet (`/placeholders/global`, keys Video.PlayTitled, Video.Download, Video.Consent*); the code keeps the current text as the default. See the author guide, "Placeholders: interface text".
+
 ## Universal Editor fields
 
 N/A (Document Authoring project)

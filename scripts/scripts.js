@@ -15,6 +15,7 @@ import {
   toCamelCase,
   toClassName,
 } from './aem.js';
+import { applyPlaceholder } from './placeholders.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -443,7 +444,8 @@ export function decorateFragmentIcons(root) {
     }
     const link = img.closest('a');
     if (link && !link.textContent.trim() && !link.getAttribute('aria-label')) {
-      link.setAttribute('aria-label', link.title || ICON_LABELS[name] || name.replace(/-/g, ' '));
+      if (link.title) link.setAttribute('aria-label', link.title);
+      else applyPlaceholder(`Icon.${name}`, ICON_LABELS[name] || name.replace(/-/g, ' '), {}, (text) => link.setAttribute('aria-label', text));
     }
   });
 }

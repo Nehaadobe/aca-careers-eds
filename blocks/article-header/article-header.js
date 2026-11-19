@@ -122,6 +122,10 @@ async function loadNested(nested) {
   await loadBlock(nested);
 }
 
+/** `Share` values that hide the share row, and the `Share position` values. */
+const SHARE_OFF = ['off', 'no', 'false', 'hide', 'hidden', 'none'];
+const SHARE_POSITIONS = ['left', 'right', 'center'];
+
 export default async function decorate(block) {
   const { config, content } = readRows(block);
 
@@ -132,13 +136,20 @@ export default async function decorate(block) {
   if (date) inner.append(date);
 
   const byline = buildByline(config);
+  // page metadata `Share: off` hides the share row (default on)
+  if (SHARE_OFF.includes(getMetadata('share').trim().toLowerCase())) {
+    content.share?.remove();
+    content.share = null;
+  }
   if (byline || content.share) {
     // the share block gets its own wrapper (decorateBlock marks the parent as `share-wrapper`)
     const share = content.share ? el('div', null, content.share) : null;
     const meta = el('div', { className: 'article-header-meta' }, byline, share);
-    // `Share position: right`: the source's empty author row, share at its right end
-    if (!byline && getMetadata('share-position').toLowerCase() === 'right') {
-      meta.classList.add('article-header-meta-share-right');
+    // page metadata `Share position`: left | right | center; default: right of the byline, or left
+    // under the date when there is no byline (as on the source)
+    const position = getMetadata('share-position').trim().toLowerCase();
+    if (share && SHARE_POSITIONS.includes(position)) {
+      meta.classList.add(`article-header-meta-share-${position}`);
     }
     inner.append(meta);
   }

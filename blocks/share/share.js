@@ -1,4 +1,5 @@
 import { getMetadata } from '../../scripts/aem.js';
+import { applyPlaceholder } from '../../scripts/placeholders.js';
 
 /**
  * Share block: a "Share" label and LinkedIn, Facebook and X share links for
@@ -59,7 +60,8 @@ export default function decorate(block) {
   label.className = 'share-label';
   shareCount += 1;
   label.id = `share-label-${shareCount}`;
-  label.textContent = authored || 'Share';
+  if (authored) label.textContent = authored;
+  else applyPlaceholder('Share.Label', 'Share', {}, (text) => { label.textContent = text; });
 
   const list = document.createElement('ul');
   list.className = 'share-links';
@@ -71,7 +73,7 @@ export default function decorate(block) {
     link.href = network.href(url, title);
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    link.setAttribute('aria-label', `Share on ${network.name} (opens in a new tab)`);
+    applyPlaceholder('Share.LinkLabel', 'Share on {network} (opens in a new tab)', { network: network.name }, (text) => link.setAttribute('aria-label', text));
     // glyphs share a 512-unit em box, drawn at 1em (16px) like the source icon font
     link.innerHTML = `<svg class="share-icon" viewBox="0 0 ${network.width} 512" width="${network.width / 32}" height="16" aria-hidden="true" focusable="false" fill="currentColor">${network.icon}</svg>`;
     const li = document.createElement('li');

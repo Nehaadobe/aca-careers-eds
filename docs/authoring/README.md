@@ -221,7 +221,8 @@ Every page ends with a **Metadata** block. Type `/` in a value cell for the allo
 | Description | Yes | Search result text and the card text in story lists | One or two sentences |
 | Image | Recommended | Share image (social networks) and story card image. Replace the picture to change it | 1200×630 image |
 | Template | Stories | `blog-article` turns on the story layout and the automatic Article Header | `blog-article` |
-| Share position | Rarely | `right`: the Share buttons sit at the right, right below the date, for stories that show them there on the old site without an author | `right` |
+| Share | Rarely | `off` hides the Share buttons on the story (default `on`) | `off` |
+| Share position | Rarely | `left`, `right` or `center`. Default: right of the author byline, or left under the date when the story has no author | `right` |
 | Roles | Stories | Role tags: shown above the title and used by the blog Roles filter. Several: separate with commas | `Finance, Operations` |
 | Topics | Stories | Topic tags, same as Roles | `Life at Blue Shield` |
 | Publication Date | Stories | Date shown on the story and its cards, and used for sorting | `2026-10-13` |
@@ -316,6 +317,13 @@ the choices that are up to you:
 | Bold | Body copy is not bolded. Use bold (DemiBold) only for subheads and to call out an important detail such as a phone number or web address |
 | Colour | Digital Blue is reserved for links and calls to action. Don't use it for headings or decoration |
 
+### Share buttons and author byline
+
+Every story gets a Share row (LinkedIn, Facebook, X) automatically under the title. Page metadata controls it:
+`Share: off` hides it, `Share position: left | right | center` places it (default: right of the author byline, or
+left under the date when there is no author). The byline comes from `Author`, `Author Title` and `Author Image`
+(several authors separated by semicolons, in the same order). The label text is the placeholder `Share.Label`.
+
 ### Page not found (404)
 
 Each site shows its own theme, header and footer on its "page not found" page. To write the message, create a
@@ -323,6 +331,59 @@ document **`/fragments/errors/404`** in your site (for example a heading such as
 sentence and a button link to the home page or open positions), then Preview and Publish it. Without that document
 the default "404 / Page Not Found / Go home" content is shown. Each brand site (Blue Shield, Stellarus,
 Ascendiun, Stage) has its own.
+
+
+## Placeholders: interface text
+
+Labels, buttons and screen-reader texts that the site code adds (not page content) come from the sheet
+**`/placeholders/global`** in each site (columns `Key` and `Value`). The code keeps the text below as the
+default, so a missing sheet, key or empty value changes nothing. Preview and publish the sheet after a change;
+each site (Blue Shield, Stellarus, Ascendiun, Stage) has its own sheet. `{name}` parts are filled in by the
+code (keep them). Keys are not case-sensitive. A value authored in a block (e.g. a Story Listing
+`Search Label` row) wins over the sheet.
+
+| Key | Default | Where |
+| --- | --- | --- |
+| `Global.SearchLabel` | Search Blogs | Blog listing: search label and search button |
+| `Global.SearchPlaceholder` | Search Blog | Blog listing: text inside the search box |
+| `Blog.FilterLabel` | Filter Posts | Blog listing: filters title |
+| `Blog.Filter.roles` | Roles | Blog listing: first option of the Roles filter |
+| `Blog.Filter.topics` | Topics | Blog listing: first option of the Topics filter |
+| `Blog.ClearFilters` | Clear Filters | Blog listing: link that resets the filters |
+| `Blog.SortLabel` | Sort By | Blog listing: sort title |
+| `Blog.SortNewest` | Newest | Blog listing: sort option |
+| `Blog.SortOldest` | Oldest | Blog listing: sort option |
+| `Blog.SortTitleAZ` | Title A-Z | Blog listing: sort option |
+| `Blog.SortTitleZA` | Title Z-A | Blog listing: sort option |
+| `Blog.ResultsPaged` | Showing {start}–{end} of {total} {noun} | Blog listing: results count (screen readers) with several pages |
+| `Blog.ResultsAll` | {total} {noun} | Blog listing: results count on one page |
+| `Blog.StoryOne` | story | Blog listing: {noun} for 1 result |
+| `Blog.StoryMany` | stories | Blog listing: {noun} for several results |
+| `Blog.NoResults` | No stories match your search. Try different keywords or clear the filters. | Blog listing: nothing matches |
+| `Blog.NoStories` | No stories are available right now. | Blog listing: the story index could not be loaded |
+| `Blog.PreviousPage` | Previous page | Blog listing: pagination (screen readers) |
+| `Blog.NextPage` | Next page | Blog listing: pagination (screen readers) |
+| `Blog.PageNumber` | Page {page} | Blog listing: pagination numbers (screen readers) |
+| `Stories.ViewHighlights` | View highlights | More Stories cards: link label (tinted / dark rows) |
+| `Share.Label` | Share | Story pages: share row label |
+| `Share.LinkLabel` | Share on {network} (opens in a new tab) | Story pages: share links (screen readers) |
+| `Video.Play` | Play video | Video tiles: name of the play button / title |
+| `Video.PlayTitled` | Play video: {title} | Video tiles and embeds: play button with the video title |
+| `Video.Download` | Download the video | MP4 videos: fallback link |
+| `Video.ConsentText` | This video is hosted by {provider}. Accept cookies to play it here, or  | YouTube/Vimeo without cookie consent: notice |
+| `Video.ConsentLink` | watch it on {provider} | YouTube/Vimeo notice: link |
+| `Video.ConsentEnd` |  (opens in a new tab). | YouTube/Vimeo notice: end |
+| `Header.OpenNavigation` | Open navigation | Header: menu button (screen readers) |
+| `Header.CloseNavigation` | Close navigation | Header: menu button when open |
+| `Header.MainNavigation` | Main | Header: navigation name (screen readers) |
+| `Header.Home` | Home | Header: logo link without a name |
+| `Header.Menu` | Menu | Header: mobile menu title |
+| `Footer.SocialMedia` | Social media | Footer: social links list (screen readers) |
+| `Footer.UtilityLinks` | Blue Shield of California | Footer: utility links (screen readers); set the brand name on brand sites |
+| `Icon.<icon-name>` | brand / network name | Icon-only links, e.g. Icon.linkedin = LinkedIn, Icon.bsc-logo = Blue Shield of California |
+| `Error.NotFound` | Page Not Found | 404 page (without an authored /fragments/errors/404) |
+| `Error.GoHome` | Go home | 404 page: home button |
+| `Error.GoBack` | Go back | 404 page: back button |
 
 ## Troubleshooting
 

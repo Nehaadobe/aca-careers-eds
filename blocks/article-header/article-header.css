@@ -69,8 +69,14 @@
   margin-top: var(--space-xl);
 }
 
+/* Share position: center: the share row centered (all widths); left: under the byline */
+.article-header .article-header-meta.article-header-meta-share-center > .share-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
 /* Share position: right: the empty author row sits right below the date */
-.article-header .article-header-meta.article-header-meta-share-right {
+.article-header .article-header-meta.article-header-meta-share-right:not(:has(.article-header-byline)) {
   margin-top: 0;
 }
 
@@ -172,9 +178,26 @@
     margin-top: var(--space-2xl);
   }
 
+  .article-header .article-header-meta.article-header-meta-share-center {
+    justify-content: center;
+  }
+
+  /* Share position: left / center with a byline: share on its own row under the byline (the
+     byline stays left; center centers the share row only) */
+  .article-header .article-header-meta.article-header-meta-share-left:has(.article-header-byline),
+  .article-header .article-header-meta.article-header-meta-share-center:has(.article-header-byline) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-m);
+  }
+
+  .article-header .article-header-meta.article-header-meta-share-center:has(.article-header-byline) > .share-wrapper {
+    align-self: center;
+  }
+
   /* Share position: right (the source's empty author row): share at the right end, right
      below the date */
-  .article-header .article-header-meta.article-header-meta-share-right {
+  .article-header .article-header-meta.article-header-meta-share-right:not(:has(.article-header-byline)) {
     justify-content: flex-end;
     margin-top: 0;
   }

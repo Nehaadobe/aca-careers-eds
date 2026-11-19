@@ -12,6 +12,8 @@ Single block table. Content: Configuration only: two-cell key | value rows (read
 
 No variations.
 
+Interface text comes from the placeholders sheet (`/placeholders/global`, keys Global.SearchLabel, Global.SearchPlaceholder and Blog.*); the code keeps the current text as the default. See the author guide, "Placeholders: interface text".
+
 ## Universal Editor fields
 
 N/A (Document Authoring project)

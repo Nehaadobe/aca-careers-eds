@@ -1,5 +1,6 @@
 import { getYouTubeId, unwrapPicture } from '../../scripts/scripts.js';
 import { bindVideoLink } from '../../scripts/video-modal.js';
+import { applyPlaceholder } from '../../scripts/placeholders.js';
 
 /**
  * Columns block: one row per line of columns, one cell per column.
@@ -47,7 +48,7 @@ function decorateVideo(cell) {
   const play = document.createElement('a');
   play.href = link.href;
   play.className = 'columns-video';
-  play.setAttribute('aria-label', title ? `Play video: ${title}` : 'Play video');
+  applyPlaceholder(title ? 'Video.PlayTitled' : 'Video.Play', title ? 'Play video: {title}' : 'Play video', { title }, (text) => play.setAttribute('aria-label', text));
   const icon = document.createElement('span');
   icon.className = 'columns-video-play video-play';
   icon.setAttribute('aria-hidden', 'true');
