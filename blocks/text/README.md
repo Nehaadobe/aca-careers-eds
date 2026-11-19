@@ -14,6 +14,8 @@ Single block table. Content: one cell (or several) with the paragraphs, headings
 | --- | --- |
 | Right-aligned | `right` |
 | Centered | `center` |
+| Box: the light-blue panel (source .simplebox) | `box` |
+| Float left: a third of the column wide, the photo and text that follow sit beside it; full width below 768px (e.g. `Text (box, float-left)`, the pull quote on the Joe Sabo story) | `float-left` |
 
 ## Universal Editor fields
 

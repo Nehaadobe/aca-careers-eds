@@ -115,7 +115,7 @@ A block is a table. The first row holds the block name, with the variation in br
 | **Quote** | Employee quotation with a round portrait | none | Row 1: portrait (optional). Row 2: the quotation. Row 3: name and role |
 | **Table** | Data table, or a bordered callout box | `no-header` (no header row). A table with a **single cell** becomes a callout box | One block row per table row, one cell per column. The first row is the header unless `no-header` is set |
 | **Image** | Story image that the text wraps around | `left`, `right` | One cell: the picture, optionally followed by an italic caption. Place it between paragraphs; the text that follows wraps beside it |
-| **Text** | Story text with an alignment (e.g. right-aligned sign-offs) | `right`, `center` | One cell with the paragraphs; place it between story paragraphs |
+| **Text** | Story text with an alignment (e.g. right-aligned sign-offs), or a pull-quote box | `right`, `center`; `box` (light-blue panel), `float-left` (a third wide, the photo and text beside it) | One cell with the paragraphs; place it between story paragraphs |
 | **Embed** | Responsive 16:9 video | `video` (MP4 file, used as story hero video) | Row 1: poster image (optional). Row 2: the link (`.mp4` for `video`, or a YouTube / Vimeo URL). Shortcut: a YouTube or Vimeo URL pasted alone on its own line becomes a video automatically |
 | **Fragment** | Reuse content from another document | none | One cell with the path of the document to include, e.g. `/drafts/fragments/find-your-next-role`. A link to a `/fragments/` path on its own also becomes a fragment |
 
