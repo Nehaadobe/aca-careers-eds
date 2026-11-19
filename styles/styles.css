@@ -396,9 +396,9 @@ main > .section.narrow > div {
   max-width: min(var(--content-max-width), calc(var(--article-max-width) + 2 * var(--content-padding)));
 }
 
-/* centered-mobile: headings and paragraphs centered below 992px, lists keep their start
-   alignment (the source /why-relocate title and intro) */
-main .section.centered-mobile .default-content-wrapper > :is(h1, h2, h3, h4, p) {
+/* centered-mobile: headings centered below 992px, text and lists keep their start alignment
+   (the source /why-relocate title) */
+main .section.centered-mobile .default-content-wrapper > :is(h1, h2, h3, h4) {
   text-align: var(--section-centered-mobile-align);
 }
 
