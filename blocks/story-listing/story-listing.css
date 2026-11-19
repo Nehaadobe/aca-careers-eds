@@ -375,7 +375,13 @@
 }
 
 @media (width > 1400px) {
-  /* All three filter groups on one row */
+  /* All three filter groups on one row, 30px apart as on the source; the selects size to
+     their options and shrink a little to fit (the brand font is wider than the source's) */
+  .story-listing .story-listing-filters {
+    flex-wrap: nowrap;
+    column-gap: var(--space-l);
+  }
+
   .story-listing .story-listing-search {
     flex: 0 0 var(--story-search-width);
     margin-bottom: 0;
