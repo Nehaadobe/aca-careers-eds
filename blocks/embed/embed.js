@@ -1,5 +1,6 @@
 import { getVimeoId, getYouTubeId } from '../../scripts/scripts.js';
 import { hasMediaConsent } from '../../scripts/video-modal.js';
+import { applyPlaceholder, placeholder } from '../../scripts/placeholders.js';
 
 /**
  * Embed block.
@@ -68,7 +69,7 @@ function renderVideo(block, href, img, title) {
   source.type = 'video/mp4';
   const fallback = document.createElement('a');
   fallback.href = href;
-  fallback.textContent = 'Download the video';
+  applyPlaceholder('Video.Download', 'Download the video', {}, (text) => { fallback.textContent = text; });
   video.append(source, fallback);
   block.classList.add('embed-video');
   block.replaceChildren(frame(video));
@@ -118,7 +119,7 @@ function renderFacade(block, link, picture, provider, title) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'embed-play video-play';
-  button.setAttribute('aria-label', `Play video: ${label}`);
+  applyPlaceholder('Video.PlayTitled', 'Play video: {title}', { title: label }, (text) => button.setAttribute('aria-label', text));
 
   const container = frame(...[picture, button].filter(Boolean));
   container.classList.add('embed-placeholder');
@@ -148,11 +149,12 @@ function renderFacade(block, link, picture, provider, title) {
     watch.href = link;
     watch.target = '_blank';
     watch.rel = 'noopener noreferrer';
-    watch.textContent = `watch it on ${provider.name}`;
+    watch.textContent = placeholder(null, 'Video.ConsentLink', 'watch it on {provider}', { provider: provider.name });
     notice.append(
-      `This video is hosted by ${provider.name}. Accept cookies to play it here, or `,
+      // sheet values are trimmed, so the spaces around the link are added here
+      `${placeholder(null, 'Video.ConsentText', 'This video is hosted by {provider}. Accept cookies to play it here, or', { provider: provider.name })} `,
       watch,
-      ' (opens in a new tab).',
+      ` ${placeholder(null, 'Video.ConsentEnd', '(opens in a new tab).')}`,
     );
     block.append(notice);
     watch.focus();

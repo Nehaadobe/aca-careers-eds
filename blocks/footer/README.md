@@ -28,6 +28,8 @@ A link to `#cookie-preferences` opens the consent manager's preference center (O
 
 No variations.
 
+Interface text comes from the placeholders sheet (`/placeholders/global`, keys Footer.*); the code keeps the current text as the default. See the author guide, "Placeholders: interface text".
+
 ## Universal Editor fields
 
 N/A (Document Authoring project)

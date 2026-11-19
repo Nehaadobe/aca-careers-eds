@@ -1,6 +1,7 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { getYouTubeId } from '../../scripts/scripts.js';
 import { bindVideoLink } from '../../scripts/video-modal.js';
+import { applyPlaceholder } from '../../scripts/placeholders.js';
 
 /**
  * Cards block: one row per card; an optional image cell, then a body cell.
@@ -87,7 +88,10 @@ function decorateVideoTiles(ul) {
       titleLink = document.createElement('a');
       titleLink.href = href;
       titleLink.append(...heading.childNodes);
-      if (!titleLink.textContent.trim()) titleLink.textContent = title || 'Play video';
+      if (!titleLink.textContent.trim()) {
+        if (title) titleLink.textContent = title;
+        else applyPlaceholder('Video.Play', 'Play video', {}, (text) => { titleLink.textContent = text; });
+      }
       heading.append(titleLink);
     }
     // Drop other links to the same video (e.g. a bare URL paragraph), now redundant.

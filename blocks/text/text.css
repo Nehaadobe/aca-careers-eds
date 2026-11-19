@@ -1,0 +1,41 @@
+/* Text block: paragraphs with the source's inline alignment; spacing as default content */
+.text.right {
+  text-align: right;
+}
+
+.text.center {
+  text-align: center;
+}
+
+/* box: the light-blue panel as a block (source .simplebox), e.g. a pull quote beside a photo */
+.text.box {
+  box-sizing: border-box;
+  padding: var(--space-xl) var(--space-xl) var(--space-2xl); /* 40px + the last paragraph's 20px */
+  border-radius: var(--radius-panel);
+  background-color: var(--color-surface-tint);
+}
+
+.text.box > :last-child {
+  margin-bottom: 0;
+}
+
+/* float-left: the box sits left, a third of the column wide, and the photo and text that follow
+   go beside it (source .simplebox.align-left); full width below 768px */
+.text.float-left {
+  margin: 0 0 var(--space-m);
+}
+
+@media (width >= 768px) {
+  .text.float-left {
+    float: left;
+    width: var(--text-float-width);
+    margin: 0 var(--space-m) var(--space-xs) 0;
+  }
+}
+
+/* keep the floated box inside its section */
+main .section:has(.text.float-left)::after {
+  content: '';
+  display: table;
+  clear: both;
+}

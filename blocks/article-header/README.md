@@ -12,6 +12,8 @@ Single block table. Content: Auto-built on Template = blog-article pages (script
 
 No variations.
 
+The share row: a Share table in the story (moved into the header), then page metadata `Share: off` / `Share position: left | right | center`, then the site default `/fragments/share` (default: shown; right of the byline, or left without one). See blocks/share/README.md.
+
 ## Universal Editor fields
 
 N/A (Document Authoring project)
