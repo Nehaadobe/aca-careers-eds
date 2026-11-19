@@ -187,9 +187,35 @@ const ARTICLE_HEADER_FIELDS = [
  * block, with the article metadata and a share block, in a new first section.
  * @param {Element} main The container element
  */
+/** The page holding the site's default Share table (see scripts/share-table.js). */
+export const SHARE_FRAGMENT_PATH = '/fragments/share';
+let shareFragment;
+
+/**
+ * Fetches the Share fragment once per page (started early on stories, before the header loads).
+ * @returns {Promise<string>} its HTML, or '' when there is none
+ */
+export function loadShareFragment() {
+  if (!shareFragment) {
+    shareFragment = fetch(`${SHARE_FRAGMENT_PATH}.plain.html`)
+      .then((resp) => (resp.ok ? resp.text() : ''))
+      .catch(() => '');
+  }
+  return shareFragment;
+}
+
 function buildArticleHeader(main) {
   const h1 = main.querySelector(':scope > div > h1');
   if (!h1 || main.querySelector('.article-header')) return;
+  loadShareFragment();
+  // a Share table authored in the story replaces the automatic one (moved into the header)
+  const authoredShare = main.querySelector(':scope > div > div.share');
+  if (authoredShare) {
+    const shareSection = authoredShare.parentElement;
+    authoredShare.remove();
+    if (shareSection !== h1.parentElement && !shareSection.textContent.trim()
+      && !shareSection.querySelector('picture, img, div')) shareSection.remove();
+  }
 
   const rows = ARTICLE_HEADER_FIELDS
     .map(([label, name]) => [label, getPageMetadata(name)])
@@ -210,7 +236,7 @@ function buildArticleHeader(main) {
 
   rows.push([h1]);
   if (hero) rows.push([hero]);
-  rows.push([buildBlock('share', '')]);
+  rows.push([authoredShare || buildBlock('share', '')]);
 
   const section = document.createElement('div');
   section.append(buildBlock('article-header', rows));

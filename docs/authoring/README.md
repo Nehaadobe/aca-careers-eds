@@ -126,7 +126,7 @@ A block is a table. The first row holds the block name, with the variation in br
 | **Article List** | Curated cards for chosen stories ("More Stories" on every story, "Growth & development stories") | Set by option rows (below) | One row per story with a single cell: a story link (`/blog/<name>`), any other site page (e.g. `/how-to-get-hired`), or an off-site story URL listed in the `external-stories` sheet. Add option rows as needed |
 | **Story Listing** | The searchable, filterable, paginated story grid on `/blog` | none | Settings only, as key / value rows (below). Cards, filters and paging are built automatically |
 | **Article Header** | Story header: Roles/Topics links, title, date, author line, share links and hero | none | **Not authored.** Built automatically on pages with Template `blog-article` from the page metadata, the H1 and the image or video right after it |
-| **Share** | Share links (LinkedIn, Facebook, X) | none | Added automatically inside the Article Header. If authored on another page: one cell with the label ("Share"), or an empty cell for the default label. The icons are drawn when the page is previewed or published, so in the editor the block shows only its label |
+| **Share** | Share or social links (icons) with a title | none | Added automatically inside the Article Header; a Share table on the page (title row, `:icon:` + link rows, `shareShow`, `sharePosition`) replaces it, and `/fragments/share` sets the site default. See "Share buttons and author byline". Icons are drawn on preview and live, not in the editor |
 
 **Article List options** (two-cell rows; type `/` in the value cell for the allowed values):
 
@@ -319,10 +319,41 @@ the choices that are up to you:
 
 ### Share buttons and author byline
 
-Every story gets a Share row (LinkedIn, Facebook, X) automatically under the title. Page metadata controls it:
-`Share: off` hides it, `Share position: left | right | center` places it (default: right of the author byline, or
-left under the date when there is no author). The byline comes from `Author`, `Author Title` and `Author Image`
-(several authors separated by semicolons, in the same order). The label text is the placeholder `Share.Label`.
+Every story gets a Share row automatically under the title. Authors change it without code with a **Share** table:
+
+| Share | |
+| --- | --- |
+| Share | |
+| :facebook: | https://www.facebook.com/BlueShieldCA |
+| :linkedin: | https://www.linkedin.com/company/blue-shield-of-california |
+| :twitter: | https://twitter.com/BlueShieldCA |
+| shareShow | on |
+| sharePosition | right |
+
+- **Title row** (one cell): the text before the icons. Empty or missing: the placeholder `Share.Label` ("Share").
+- **Icon rows**: an icon (`:facebook:`, `:linkedin:`, `:twitter:`, `:x:` or any icon from the Icons library) or a pasted
+  image, then a link. The rows set the order; delete a row to drop that icon. Links open in a new tab exactly as typed
+  (`facebook.com` gets `https://`). They are plain links: to share the page, put `{url}` (and `{title}`) in the link,
+  e.g. `https://www.linkedin.com/sharing/share-offsite/?url={url}`, `https://www.facebook.com/sharer/sharer.php?u={url}`,
+  `https://x.com/intent/tweet?url={url}&text={title}`. Facebook, LinkedIn, Twitter and X keep the built-in round icons.
+- **`shareShow`**: `on` or `off`. **`sharePosition`**: `left`, `right` or `center`. Names are not case-sensitive
+  (`share show`, `show`, `share position`, `position` also work).
+- **Every row is optional.** Without any Share table the row shows LinkedIn, Facebook and X *share* links for the page.
+
+Which setting wins, strongest first:
+
+1. A Share table in the story itself (it is moved into the story header and replaces the automatic row);
+2. page metadata `Share` (on / off) and `Share position`;
+3. the site default: the Share table on the page **`/fragments/share`** (all stories of that site);
+4. the built-in default (shown; right of the author byline, or left under the date without an author; LinkedIn,
+   Facebook and X share links).
+
+Title and icon rows follow the same order (page table, then `/fragments/share`, then built-in); page metadata only sets
+on/off and position. On other pages a Share table shows where it is placed, aligned by its own `sharePosition`.
+
+**Site default:** create the page `/fragments/share` with only this table, then preview and publish it; every story of
+the site uses it. The byline comes from `Author`, `Author Title` and `Author Image` (several authors separated by
+semicolons, in the same order).
 
 ### Page not found (404)
 
@@ -367,6 +398,7 @@ code (keep them). Keys are not case-sensitive. A value authored in a block (e.g.
 | `Stories.ViewHighlights` | View highlights | More Stories cards: link label (tinted / dark rows) |
 | `Share.Label` | Share | Story pages: share row label |
 | `Share.LinkLabel` | Share on {network} (opens in a new tab) | Story pages: share links (screen readers) |
+| `Share.OpenLabel` | {network} (opens in a new tab) | Share table plain links without `{url}` (screen readers) |
 | `Video.Play` | Play video | Video tiles: name of the play button / title |
 | `Video.PlayTitled` | Play video: {title} | Video tiles and embeds: play button with the video title |
 | `Video.Download` | Download the video | MP4 videos: fallback link |

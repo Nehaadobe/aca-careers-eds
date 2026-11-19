@@ -6,6 +6,13 @@ import {
   splitList,
   STORY_LISTING,
 } from '../../scripts/story-index.js';
+import {
+  hasShareSettings,
+  loadSiteShareTable,
+  parsePosition,
+  parseShow,
+  readShareTable,
+} from '../../scripts/share-table.js';
 
 /**
  * Article header for blog stories. Auto-built by scripts.js (buildAutoBlocks)
@@ -122,9 +129,16 @@ async function loadNested(nested) {
   await loadBlock(nested);
 }
 
-/** `Share` values that hide the share row, and the `Share position` values. */
-const SHARE_OFF = ['off', 'no', 'false', 'hide', 'hidden', 'none'];
-const SHARE_POSITIONS = ['left', 'right', 'center'];
+/** Adds the share position class, or removes the share row when it is off. */
+function applyShareSettings(meta, share, show, position) {
+  if (!meta || !share) return;
+  if (show === false) {
+    share.remove();
+    if (!meta.children.length) meta.remove();
+    return;
+  }
+  if (position) meta.classList.add(`article-header-meta-share-${position}`);
+}
 
 export default async function decorate(block) {
   const { config, content } = readRows(block);
@@ -136,21 +150,23 @@ export default async function decorate(block) {
   if (date) inner.append(date);
 
   const byline = buildByline(config);
-  // page metadata `Share: off` hides the share row (default on)
-  if (SHARE_OFF.includes(getMetadata('share').trim().toLowerCase())) {
+  // shareShow / sharePosition: the story's own Share table, then page metadata `Share` /
+  // `Share position`, then the site default (/fragments/share). Default: shown, right of the
+  // byline, or left under the date when there is no byline (as on the source).
+  const table = content.share ? readShareTable(content.share) : null;
+  let show = hasShareSettings(table) ? table.show : undefined;
+  let position = hasShareSettings(table) ? table.position : undefined;
+  show = show ?? parseShow(getMetadata('share'));
+  position = position ?? parsePosition(getMetadata('share-position'));
+  if (show === false) {
     content.share?.remove();
     content.share = null;
   }
-  if (byline || content.share) {
-    // the share block gets its own wrapper (decorateBlock marks the parent as `share-wrapper`)
-    const share = content.share ? el('div', null, content.share) : null;
-    const meta = el('div', { className: 'article-header-meta' }, byline, share);
-    // page metadata `Share position`: left | right | center; default: right of the byline, or left
-    // under the date when there is no byline (as on the source)
-    const position = getMetadata('share-position').trim().toLowerCase();
-    if (share && SHARE_POSITIONS.includes(position)) {
-      meta.classList.add(`article-header-meta-share-${position}`);
-    }
+  let meta = null;
+  // the share block gets its own wrapper (decorateBlock marks the parent as `share-wrapper`)
+  const share = content.share ? el('div', null, content.share) : null;
+  if (byline || share) {
+    meta = el('div', { className: 'article-header-meta' }, byline, share);
     inner.append(meta);
   }
 
@@ -169,5 +185,11 @@ export default async function decorate(block) {
 
   const nested = [content.share, content.hero]
     .filter((node) => node && node.matches('div.share, div.embed'));
-  await Promise.all(nested.map(loadNested));
+  // the site default was fetched early (scripts.js); it only fills what the page leaves unset
+  const needSite = share && (show === undefined || position === undefined);
+  const [site] = await Promise.all([
+    needSite ? loadSiteShareTable() : null,
+    ...nested.map(loadNested),
+  ]);
+  applyShareSettings(meta, share, show ?? site?.show, position ?? site?.position);
 }

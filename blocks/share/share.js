@@ -1,10 +1,13 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { applyPlaceholder } from '../../scripts/placeholders.js';
+import { loadSiteShareTable, readShareTable } from '../../scripts/share-table.js';
 
 /**
- * Share block: a "Share" label and LinkedIn, Facebook and X share links for
- * the current page. Auto-built inside the article-header on blog articles;
- * it can also be authored (an optional single cell overrides the label).
+ * Share block: a title and icon links. Auto-built inside the article-header on blog articles;
+ * it can also be authored as a table (scripts/share-table.js): a title row, one row per icon
+ * (`:facebook:` | link) and `shareShow` / `sharePosition` rows. Rows the page does not set come
+ * from the site default (`/fragments/share`); without either, the label is the placeholder
+ * `Share.Label` and the links are LinkedIn, Facebook and X share links for the current page.
  *
  * The shared URL is the canonical URL (falling back to the page URL without
  * query or hash); the title is og:title, then the H1, then document.title.
@@ -49,10 +52,62 @@ function shareTitle() {
   return (og || document.querySelector('main h1')?.textContent || document.title || '').trim();
 }
 
+/** Built-in glyphs for these icon names (the look of the default share row). */
+const KNOWN = {
+  linkedin: { network: NETWORKS[0], name: 'LinkedIn' },
+  facebook: { network: NETWORKS[1], name: 'Facebook' },
+  x: { network: NETWORKS[2], name: 'X' },
+  twitter: { network: NETWORKS[2], name: 'Twitter' },
+};
+
+const FILL = /\{(url|title)\}|%7B(url|title)%7D/gi;
+
+function glyph(network) {
+  // glyphs share a 512-unit em box, drawn at 1em (16px) like the source icon font
+  return `<svg class="share-icon" viewBox="0 0 ${network.width} 512" width="${network.width / 32}" height="16" aria-hidden="true" focusable="false" fill="currentColor">${network.icon}</svg>`;
+}
+
+function newLink(href, className) {
+  const link = document.createElement('a');
+  link.className = className;
+  link.href = href;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  return link;
+}
+
+/** The built-in LinkedIn, Facebook and X share links. */
+function defaultLinks(url, title) {
+  return NETWORKS.map((network) => {
+    const link = newLink(network.href(url, title), `share-link share-${network.id}`);
+    applyPlaceholder('Share.LinkLabel', 'Share on {network} (opens in a new tab)', { network: network.name }, (text) => link.setAttribute('aria-label', text));
+    link.innerHTML = glyph(network);
+    return link;
+  });
+}
+
+/** A link from a table row: as typed, `{url}` / `{title}` filled in. */
+function tableLink(item, url, title) {
+  const fills = item.href.match(FILL);
+  const href = item.href.replace(FILL, (match, a, b) => encodeURIComponent((a || b).toLowerCase() === 'url' ? url : title));
+  const known = KNOWN[item.name];
+  const link = newLink(href, `share-link share-${known ? known.network.id : 'custom'}`);
+  if (known) link.innerHTML = glyph(known.network);
+  else if (item.icon) link.append(item.icon.cloneNode(true));
+  else if (item.picture) link.append(item.picture.cloneNode(true));
+  link.querySelectorAll('img').forEach((img) => img.setAttribute('alt', ''));
+  const name = known?.name || item.label || (item.name || '').replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) || href;
+  // a {url} link shares this page; any other link just opens
+  if (fills) applyPlaceholder('Share.LinkLabel', 'Share on {network} (opens in a new tab)', { network: name }, (text) => link.setAttribute('aria-label', text));
+  else applyPlaceholder('Share.OpenLabel', '{network} (opens in a new tab)', { network: name }, (text) => link.setAttribute('aria-label', text));
+  return link;
+}
+
 let shareCount = 0;
 
-export default function decorate(block) {
-  const authored = block.textContent.trim();
+export default async function decorate(block) {
+  const page = readShareTable(block);
+  const site = (!page.items.length || page.title === undefined) ? await loadSiteShareTable() : null;
   const url = shareUrl();
   const title = shareTitle();
 
@@ -60,26 +115,30 @@ export default function decorate(block) {
   label.className = 'share-label';
   shareCount += 1;
   label.id = `share-label-${shareCount}`;
-  if (authored) label.textContent = authored;
+  const authoredTitle = page.title ?? site?.title;
+  if (authoredTitle) label.textContent = authoredTitle;
   else applyPlaceholder('Share.Label', 'Share', {}, (text) => { label.textContent = text; });
 
   const list = document.createElement('ul');
   list.className = 'share-links';
   list.setAttribute('aria-labelledby', label.id);
-
-  NETWORKS.forEach((network) => {
-    const link = document.createElement('a');
-    link.className = `share-link share-${network.id}`;
-    link.href = network.href(url, title);
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    applyPlaceholder('Share.LinkLabel', 'Share on {network} (opens in a new tab)', { network: network.name }, (text) => link.setAttribute('aria-label', text));
-    // glyphs share a 512-unit em box, drawn at 1em (16px) like the source icon font
-    link.innerHTML = `<svg class="share-icon" viewBox="0 0 ${network.width} 512" width="${network.width / 32}" height="16" aria-hidden="true" focusable="false" fill="currentColor">${network.icon}</svg>`;
+  const items = page.items.length ? page.items : site?.items;
+  const links = items?.length
+    ? items.map((item) => tableLink(item, url, title))
+    : defaultLinks(url, title);
+  links.forEach((link) => {
     const li = document.createElement('li');
     li.append(link);
     list.append(li);
   });
 
   block.replaceChildren(label, list);
+
+  // in a story the article header applies shareShow / sharePosition; elsewhere the page's table
+  if (block.closest('.article-header')) return;
+  if (page.show === false) {
+    (block.closest('.share-wrapper') || block).remove();
+    return;
+  }
+  if (page.position) block.classList.add(`share-${page.position}`);
 }
