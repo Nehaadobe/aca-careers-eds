@@ -352,6 +352,7 @@
   --article-list-spacing: 100px; /* "More Stories" below the story body */
   --content-max-width: 1320px;
   --content-padding: 15px;
+  --section-centered-mobile-align: center; /* section style centered-mobile (headings); start from 992px */
   --footer-accent-line: none; /* decorative line above the footer (Stellarus) */
   --nav-desktop-min-width: 1200px; /* header.js: desktop navigation from this width */
   --article-max-width: 960px;
@@ -438,7 +439,10 @@
 }
 
 @media (width >= 992px) {
-  :root { --content-max-width: 960px; }
+  :root {
+    --content-max-width: 960px;
+    --section-centered-mobile-align: start; /* section style centered-mobile */
+  }
 }
 
 @media (width >= 1200px) {

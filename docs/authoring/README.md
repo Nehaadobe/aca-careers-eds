@@ -207,6 +207,8 @@ end of it:
 | `light-blue` | Rounded light-blue panel around the section's text (on stories: a full-width band) |
 | `blue` | Brand blue band with white text |
 | `two-up` | Offered in the slash menu but has **no visible effect** at the moment |
+| `narrow` | A 960px reading column on wide screens (normal width below 1200px), as the resource groups on /a-culture-of-belonging |
+| `centered-mobile` | Headings centered below 992px; text and lists stay left, and everything is left-aligned on desktop (as the /why-relocate title) |
 
 Several styles can be combined with a comma: `light-blue, centered`.
 

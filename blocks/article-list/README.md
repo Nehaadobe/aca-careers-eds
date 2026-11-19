@@ -12,6 +12,8 @@ Single block table. Content: One block table. Single-cell rows each hold one sto
 
 No variations. The Ground option also selects the source treatment: Tinted/Dark = the More Stories band (title 10px above the text, 'View highlights' label); Light = the plain tile row of /growth-development (30px inset, title 30px above the text, no label).
 
+Card titles of internal stories use the story's headline (H1), as on the source; the index title is shown until the story content has loaded.
+
 ## Universal Editor fields
 
 N/A (Document Authoring project)

@@ -24,6 +24,7 @@ export const STORY_LISTING = {
   params: { roles: 'role', topics: 'topic' },
 };
 const sheetCache = new Map();
+const storyContentCache = new Map();
 
 /**
  * Splits a comma-separated value (or an array of them) into trimmed items.
@@ -354,6 +355,22 @@ export function buildStoryTime(date) {
   time.dateTime = new Date(date).toISOString().slice(0, 10);
   time.textContent = formatStoryDate(date);
   return time;
+}
+
+/**
+ * A story's authored content (its `.plain.html`), parsed once per path for the page lifetime.
+ * Shared by the card video badge and the card headline.
+ * @param {string} path story path on this site
+ * @returns {Promise<Document|null>} null when the story cannot be loaded
+ */
+export function loadStoryContent(path) {
+  if (!storyContentCache.has(path)) {
+    storyContentCache.set(path, fetch(`${path}.plain.html`)
+      .then(async (response) => (response.ok
+        ? new DOMParser().parseFromString(await response.text(), 'text/html') : null))
+      .catch(() => null));
+  }
+  return storyContentCache.get(path);
 }
 
 /**

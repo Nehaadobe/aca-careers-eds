@@ -3,6 +3,7 @@ import {
   buildStoryImage,
   buildStoryTime,
   createStoryLookup,
+  loadStoryContent,
   loadStories,
   splitList,
   STORY_SOURCES,
@@ -73,6 +74,14 @@ function buildCard(story, { showDate, showDescription, linkLabel }) {
   title.className = 'article-list-card-title story-card-title';
   title.textContent = story.title;
   body.append(title);
+  // the source titles a card with the story's headline (H1), which can differ from the
+  // page title in the index; internal stories switch to it once their content is loaded
+  if (story.path && !story.external) {
+    loadStoryContent(story.path).then((content) => {
+      const heading = content?.querySelector('h1')?.textContent.trim();
+      if (heading) title.textContent = heading;
+    });
+  }
 
   if (showDate && story.date) {
     const date = document.createElement('p');
