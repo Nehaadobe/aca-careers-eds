@@ -151,9 +151,10 @@ function renderFacade(block, link, picture, provider, title) {
     watch.rel = 'noopener noreferrer';
     watch.textContent = placeholder(null, 'Video.ConsentLink', 'watch it on {provider}', { provider: provider.name });
     notice.append(
-      placeholder(null, 'Video.ConsentText', 'This video is hosted by {provider}. Accept cookies to play it here, or ', { provider: provider.name }),
+      // sheet values are trimmed, so the spaces around the link are added here
+      `${placeholder(null, 'Video.ConsentText', 'This video is hosted by {provider}. Accept cookies to play it here, or', { provider: provider.name })} `,
       watch,
-      placeholder(null, 'Video.ConsentEnd', ' (opens in a new tab).'),
+      ` ${placeholder(null, 'Video.ConsentEnd', '(opens in a new tab).')}`,
     );
     block.append(notice);
     watch.focus();

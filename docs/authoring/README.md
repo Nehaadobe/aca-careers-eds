@@ -370,9 +370,9 @@ code (keep them). Keys are not case-sensitive. A value authored in a block (e.g.
 | `Video.Play` | Play video | Video tiles: name of the play button / title |
 | `Video.PlayTitled` | Play video: {title} | Video tiles and embeds: play button with the video title |
 | `Video.Download` | Download the video | MP4 videos: fallback link |
-| `Video.ConsentText` | This video is hosted by {provider}. Accept cookies to play it here, or  | YouTube/Vimeo without cookie consent: notice |
+| `Video.ConsentText` | This video is hosted by {provider}. Accept cookies to play it here, or | YouTube/Vimeo without cookie consent: notice |
 | `Video.ConsentLink` | watch it on {provider} | YouTube/Vimeo notice: link |
-| `Video.ConsentEnd` |  (opens in a new tab). | YouTube/Vimeo notice: end |
+| `Video.ConsentEnd` | (opens in a new tab). | YouTube/Vimeo notice: end |
 | `Header.OpenNavigation` | Open navigation | Header: menu button (screen readers) |
 | `Header.CloseNavigation` | Close navigation | Header: menu button when open |
 | `Header.MainNavigation` | Main | Header: navigation name (screen readers) |
