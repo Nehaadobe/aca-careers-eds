@@ -132,9 +132,9 @@ body {
   --card-cta-font-size: 18px;
 
   /* fonts (source: Fieldwork everywhere, light, ligatures off) */
-  --font-body: fieldwork, fieldwork-fallback, sans-serif;
-  --font-heading: fieldwork, fieldwork-fallback, sans-serif;
-  --font-display: fieldwork, fieldwork-fallback, sans-serif;
+  --font-body: fieldwork, fieldwork-fallback, fieldwork-fallback-roboto, sans-serif;
+  --font-heading: fieldwork, fieldwork-fallback, fieldwork-fallback-roboto, sans-serif;
+  --font-display: fieldwork, fieldwork-fallback, fieldwork-fallback-roboto, sans-serif;
   --font-weight-body: 300;
   --font-weight-heading: 300;
   --font-weight-display: 300;

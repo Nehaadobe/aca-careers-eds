@@ -164,7 +164,8 @@ function buildCard(story) {
   const body = el(
     'div',
     { className: 'story-listing-card-body story-card-body' },
-    el('h3', { className: 'story-listing-card-title story-card-title' }, link),
+    // h2: the cards sit right under the listing's H1 (no heading level skipped)
+    el('h2', { className: 'story-listing-card-title story-card-title' }, link),
   );
   if (story.date) {
     body.append(el('p', { className: 'story-listing-card-date story-card-date' }, buildStoryTime(story.date)));
@@ -255,17 +256,15 @@ function buildPagination(config, state, totalPages, nav) {
   nav.hidden = totalPages <= 1;
   if (totalPages <= 1) return;
   const arrow = (dir, target, label) => {
-    const a = el(
-      'a',
-      { className: `story-listing-page-${dir}`, 'aria-label': label },
-      el('span', { className: 'story-listing-page-arrow', 'aria-hidden': 'true' }),
-    );
-    if (target >= 1 && target <= totalPages) {
-      a.href = stateUrl(config, state, target);
-      a.dataset.page = target;
-    } else {
-      a.setAttribute('aria-disabled', 'true');
+    const glyph = el('span', { className: 'story-listing-page-arrow', 'aria-hidden': 'true' });
+    // no previous / next page: a greyed-out arrow, not a link (hidden from screen readers)
+    if (target < 1 || target > totalPages) {
+      const attrs = { className: `story-listing-page-${dir}`, 'aria-hidden': 'true', 'data-disabled': '' };
+      return el('span', attrs, glyph);
     }
+    const a = el('a', { className: `story-listing-page-${dir}`, 'aria-label': label }, glyph);
+    a.href = stateUrl(config, state, target);
+    a.dataset.page = target;
     return a;
   };
   const list = el('ol', { className: 'story-listing-pages' });
