@@ -281,7 +281,7 @@ after preview.
 | Task | Steps |
 | --- | --- |
 | **Add a story** | `/blog` → New document → insert the **Story article** template → write the story → fill Metadata (Template `blog-article`, Roles, Topics, Publication Date, Author, Image) → Preview → Publish |
-| **Add an off-site story** | Upload the card image (JPG or PNG, 1200 x 630) to the `/blog/external-images` folder, named after the story (e.g. `women-transforming-health-care-jane-doe.jpg`) → Preview and publish the image → add a row to `/blog/external-stories` with the article link (without tracking parameters such as `utm_…`) and the image path `/blog/external-images/<name>.jpg` → Preview and publish the sheet |
+| **Add an off-site story** | Upload the card image (JPG or PNG, 1200 x 630) to the `/blog/external-images` folder, named after the story (e.g. `women-transforming-health-care-jane-doe.jpg`) → Preview and publish the image → add a row to `/blog/external-stories` with the article link (without tracking parameters such as `utm_…`) and the image path `/blog/external-images/<name>.jpg` → if the article is a video, put `Yes` in the row's **`video`** column (the card then shows the play badge on /blog and in More Stories; empty = no) → Preview and publish the sheet |
 | **Change "More Stories" on a story** | Edit the Article List rows (one story link per row) → Preview → Publish |
 | **Edit a page** | Open it → change → Preview → Publish |
 | **Delete or move a page** | Add a row to `/redirects` first → delete or move the document → preview and publish `/redirects` |
