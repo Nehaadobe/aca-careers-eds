@@ -163,6 +163,12 @@ export async function loadOptionValues(url, key) {
     .filter(Boolean);
 }
 
+/** `video` cell of a sheet row (column name in any case): yes, true, x or 1. */
+function isVideoRow(row) {
+  const key = Object.keys(row).find((k) => k.trim().toLowerCase() === 'video');
+  return ['yes', 'true', 'x', '1', 'y'].includes(String(key ? row[key] : '').trim().toLowerCase());
+}
+
 /**
  * Turns a sheet row into a story. Query-index rows use `path`; external rows
  * use `url`. Rows without a title or link are dropped (returns null).
@@ -193,6 +199,8 @@ export function normalizeStory(row) {
     roles: splitList(row.roles),
     topics: splitList(row.topics),
     author: String(row.author || '').trim(),
+    // off-site stories: `video: yes` in the external-stories sheet shows the play badge on cards
+    video: isVideoRow(row),
   };
 }
 
@@ -379,5 +387,7 @@ export function buildStoryImage(story, className) {
     img.decoding = 'async';
     wrapper.append(img);
   }
+  // off-site stories with `video: yes` (external-stories sheet): play badge on the card image
+  if (story.video) wrapper.classList.add('has-video');
   return wrapper;
 }

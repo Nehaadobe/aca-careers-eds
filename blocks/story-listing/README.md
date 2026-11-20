@@ -8,6 +8,8 @@ Model: `standalone`
 
 Single block table. Content: Configuration only: two-cell key | value rows (read with readBlockConfig). Cards, filters and pagination are built at runtime from the site query index merged with the external-stories sheet.
 
+Off-site stories (`/blog/external-stories`) with **`video: Yes`** (also `yes`, `true`, `x`, `1`) show the play badge on their image in the listing cards; an empty `video` cell means no badge.
+
 ## Supported variations
 
 No variations.

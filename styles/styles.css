@@ -444,6 +444,25 @@ main .section.blue {
   line-height: 0;
 }
 
+/* play badge on a story card image: on-site stories with a video (More Stories) and off-site
+   stories marked `video: yes` in the external-stories sheet */
+.story-card-image.has-video {
+  position: relative;
+}
+
+.story-card-image.has-video::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: var(--z-raised);
+  width: var(--story-video-badge-size);
+  height: var(--story-video-badge-size);
+  background: var(--icon-story-play) center no-repeat;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
 .story-card-image img {
   display: block;
   width: 100%;
