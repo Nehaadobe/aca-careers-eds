@@ -536,9 +536,10 @@ body.blog-article main > .section > div {
   max-width: var(--article-max-width);
 }
 
-/* story body text: source subheads (Bootstrap h3: 22.4px from 1200px, fluid below),
+/* story body text: source subheads (Bootstrap h3: 22.4px from 1200px, fluid below; h2 or h3, so the first
+   subhead under the H1 can be an h2),
    paragraphs, list items and italics */
-body.blog-article main > .section:not(.article-list-container) .default-content-wrapper h3 {
+body.blog-article main > .section:not(.article-list-container) .default-content-wrapper :is(h2, h3) {
   margin-bottom: var(--space-2xs);
   font-size: var(--article-subhead-font-size);
   font-weight: var(--font-weight-medium);
