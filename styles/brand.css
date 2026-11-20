@@ -46,6 +46,28 @@
   src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('Arimo Bold');
 }
 
+/* Android has no Arial (or a clone), so its text would wrap in an unscaled Roboto and shift when Fieldwork
+   arrives. Second stand-in, measured the same way against Roboto: Light 104.34% of Roboto, DemiBold
+   101.44% of Roboto Bold (same ascent / descent as above). Used only when the Arial one has no font. */
+@font-face {
+  font-family: fieldwork-fallback-roboto;
+  size-adjust: 104.34%;
+  ascent-override: 79.93%;
+  descent-override: 18.72%;
+  line-gap-override: 0%;
+  src: local('Roboto'), local('Roboto-Regular'), local('Roboto Regular');
+}
+
+@font-face {
+  font-family: fieldwork-fallback-roboto;
+  font-weight: 600 900;
+  size-adjust: 101.44%;
+  ascent-override: 82.22%;
+  descent-override: 19.25%;
+  line-gap-override: 0%;
+  src: local('Roboto Bold'), local('Roboto-Bold');
+}
+
 :root {
   --color-scheme: light;
 
@@ -219,6 +241,7 @@
   --pagination-arrow-width: 28px;
   --pagination-arrow-height: 30px;
   --pagination-chevron-size: 7px;
+  --pagination-target-size: 24px; /* page numbers: minimum tap target (WCAG 2.5.8) */
 
   /* columns */
   --columns-gap: 24px;
@@ -241,6 +264,7 @@
   --image-float-width: 400px; /* left / right story images */
   --image-float-width-small: 200px; /* `small` story images (source thumbnails, 131-250px) */
   --image-float-width-large: 600px; /* `large` story images (source 500-600px floats) */
+  --text-float-width: 33%; /* Text (float-left) boxes, a third of the column (source .simplebox.align-left) */
   --quote-portrait-size: 94px;
   --quote-paragraph-gap: 1em;
   --embed-min-height: 315px; /* the source 560x315 player keeps its height in narrow columns */
@@ -267,9 +291,9 @@
   --icon-play-solid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23fff' d='M47.538 28.875 19.846 12c-.461 0-.923 0-1.154.225-.461.225-.692.45-.692.9v33.75c0 .45.23.675.692.9 0 .225.231.225.462.225s.461 0 .692-.225L47.538 30.9c.231-.225.462-.675.462-.9 0-.45-.23-.9-.462-1.125ZM20.308 44.85v-29.7L44.769 30l-24.461 14.85Z'/%3E%3C/svg%3E"); /* video facades */
 
   /* fonts */
-  --font-body: fieldwork, fieldwork-fallback, sans-serif;
-  --font-heading: fieldwork, fieldwork-fallback, sans-serif;
-  --font-display: fieldwork, fieldwork-fallback, sans-serif;
+  --font-body: fieldwork, fieldwork-fallback, fieldwork-fallback-roboto, sans-serif;
+  --font-heading: fieldwork, fieldwork-fallback, fieldwork-fallback-roboto, sans-serif;
+  --font-display: fieldwork, fieldwork-fallback, fieldwork-fallback-roboto, sans-serif;
   --font-mono: ui-monospace, sfmono-regular, menlo, consolas, monospace;
 
   /* font weights: text roles (themes restyle these) */
@@ -393,6 +417,7 @@
   --icon-size: 24px; /* :icon: images, social glyphs */
   --icon-color: currentcolor; /* line icons (the 2026 set): the text colour; a theme may set a brand colour */
   --control-size: 40px; /* square icon buttons */
+  --share-icon-size: 16px; /* icons in the share row (as the built-in glyphs) */
   --control-height: 47.0938px; /* story search input and filter selects */
   --control-padding-inline: 16px;
   --select-padding-end: 48px; /* room for the chevron */

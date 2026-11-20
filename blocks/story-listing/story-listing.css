@@ -276,6 +276,11 @@
 }
 
 .story-listing .story-listing-pages a:any-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: var(--pagination-target-size);
+  min-height: var(--pagination-target-size);
   color: var(--color-link);
 }
 
@@ -298,8 +303,8 @@
   color: var(--color-link);
 }
 
-.story-listing .story-listing-page-prev[aria-disabled='true'],
-.story-listing .story-listing-page-next[aria-disabled='true'] {
+.story-listing .story-listing-page-prev[data-disabled],
+.story-listing .story-listing-page-next[data-disabled] {
   color: var(--color-text-subtle);
   opacity: 0.25;
   pointer-events: none;

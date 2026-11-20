@@ -11,6 +11,7 @@ import {
   STORY_LISTING,
   STORY_SOURCES,
 } from '../../scripts/story-index.js';
+import { loadPlaceholders, placeholder as placeholderText } from '../../scripts/placeholders.js';
 
 /**
  * Story listing block: searchable, filterable, sortable and paginated grid of
@@ -35,10 +36,10 @@ import {
  */
 
 const SORTS = [
-  { value: 'newest', label: 'Newest' },
-  { value: 'oldest', label: 'Oldest' },
-  { value: 'title-a-z', label: 'Title A-Z' },
-  { value: 'title-z-a', label: 'Title Z-A' },
+  { value: 'newest', label: 'Newest', key: 'Blog.SortNewest' },
+  { value: 'oldest', label: 'Oldest', key: 'Blog.SortOldest' },
+  { value: 'title-a-z', label: 'Title A-Z', key: 'Blog.SortTitleAZ' },
+  { value: 'title-z-a', label: 'Title Z-A', key: 'Blog.SortTitleZA' },
 ];
 
 let instance = 0;
@@ -55,7 +56,7 @@ function readConfig(block) {
   const facets = facetNames.map((key) => ({
     key,
     param: STORY_LISTING.params[key] || key.replace(/s$/, ''),
-    label: text(raw[`${key}-label`], key.charAt(0).toUpperCase() + key.slice(1).replace(/-/g, ' ')),
+    label: text(raw[`${key}-label`], placeholderText(null, `Blog.Filter.${key}`, key.charAt(0).toUpperCase() + key.slice(1).replace(/-/g, ' '))),
     options: splitList(raw[key]),
   }));
   const pageSize = parseInt(text(raw['page-size']), 10);
@@ -70,12 +71,12 @@ function readConfig(block) {
     pathPrefix: text(raw.path, STORY_SOURCES.pathPrefix),
     exclude: raw.exclude ? splitList(raw.exclude) : STORY_SOURCES.exclude,
     labels: {
-      search: text(raw['search-label'], 'Search Blogs'),
-      placeholder: text(raw['search-placeholder'], 'Search Blog'),
-      filter: text(raw['filter-label'], 'Filter Posts'),
-      clear: text(raw['clear-label'], 'Clear Filters'),
-      sort: text(raw['sort-label'], 'Sort By'),
-      noResults: text(raw['no-results'], 'No stories match your search. Try different keywords or clear the filters.'),
+      search: text(raw['search-label'], placeholderText(null, 'Global.SearchLabel', 'Search Blogs')),
+      placeholder: text(raw['search-placeholder'], placeholderText(null, 'Global.SearchPlaceholder', 'Search Blog')),
+      filter: text(raw['filter-label'], placeholderText(null, 'Blog.FilterLabel', 'Filter Posts')),
+      clear: text(raw['clear-label'], placeholderText(null, 'Blog.ClearFilters', 'Clear Filters')),
+      sort: text(raw['sort-label'], placeholderText(null, 'Blog.SortLabel', 'Sort By')),
+      noResults: text(raw['no-results'], placeholderText(null, 'Blog.NoResults', 'No stories match your search. Try different keywords or clear the filters.')),
     },
   };
 }
@@ -163,7 +164,8 @@ function buildCard(story) {
   const body = el(
     'div',
     { className: 'story-listing-card-body story-card-body' },
-    el('h3', { className: 'story-listing-card-title story-card-title' }, link),
+    // h2: the cards sit right under the listing's H1 (no heading level skipped)
+    el('h2', { className: 'story-listing-card-title story-card-title' }, link),
   );
   if (story.date) {
     body.append(el('p', { className: 'story-listing-card-date story-card-date' }, buildStoryTime(story.date)));
@@ -235,7 +237,8 @@ function buildControls(config, id) {
     ));
   }
 
-  const sort = buildSelect(`${id}-sort`, 'sort', null, SORTS);
+  const sortOptions = SORTS.map((s) => ({ ...s, label: placeholderText(null, s.key, s.label) }));
+  const sort = buildSelect(`${id}-sort`, 'sort', null, sortOptions);
   form.append(el(
     'div',
     { className: 'story-listing-field story-listing-sort' },
@@ -253,17 +256,15 @@ function buildPagination(config, state, totalPages, nav) {
   nav.hidden = totalPages <= 1;
   if (totalPages <= 1) return;
   const arrow = (dir, target, label) => {
-    const a = el(
-      'a',
-      { className: `story-listing-page-${dir}`, 'aria-label': label },
-      el('span', { className: 'story-listing-page-arrow', 'aria-hidden': 'true' }),
-    );
-    if (target >= 1 && target <= totalPages) {
-      a.href = stateUrl(config, state, target);
-      a.dataset.page = target;
-    } else {
-      a.setAttribute('aria-disabled', 'true');
+    const glyph = el('span', { className: 'story-listing-page-arrow', 'aria-hidden': 'true' });
+    // no previous / next page: a greyed-out arrow, not a link (hidden from screen readers)
+    if (target < 1 || target > totalPages) {
+      const attrs = { className: `story-listing-page-${dir}`, 'aria-hidden': 'true', 'data-disabled': '' };
+      return el('span', attrs, glyph);
     }
+    const a = el('a', { className: `story-listing-page-${dir}`, 'aria-label': label }, glyph);
+    a.href = stateUrl(config, state, target);
+    a.dataset.page = target;
     return a;
   };
   const list = el('ol', { className: 'story-listing-pages' });
@@ -274,14 +275,19 @@ function buildPagination(config, state, totalPages, nav) {
       return;
     }
     const a = el('a', {
-      href: stateUrl(config, state, p), 'data-page': p, 'aria-label': `Page ${p}`, 'aria-current': p === state.page ? 'page' : null,
+      href: stateUrl(config, state, p), 'data-page': p, 'aria-label': placeholderText(null, 'Blog.PageNumber', 'Page {page}', { page: p }), 'aria-current': p === state.page ? 'page' : null,
     }, String(p));
     list.append(el('li', { className: p === state.page ? 'story-listing-page-current' : null }, a));
   });
-  nav.append(arrow('prev', state.page - 1, 'Previous page'), list, arrow('next', state.page + 1, 'Next page'));
+  nav.append(
+    arrow('prev', state.page - 1, placeholderText(null, 'Blog.PreviousPage', 'Previous page')),
+    list,
+    arrow('next', state.page + 1, placeholderText(null, 'Blog.NextPage', 'Next page')),
+  );
 }
 
 export default async function decorate(block) {
+  await loadPlaceholders();
   instance += 1;
   const id = `story-listing-${instance}`;
   const config = readConfig(block);
@@ -317,12 +323,16 @@ export default async function decorate(block) {
     grid.replaceChildren(...pageItems.map(buildCard));
     block.classList.toggle('story-listing-empty', !sorted.length);
     if (!sorted.length) {
-      status.textContent = stories.length ? config.labels.noResults : 'No stories are available right now.';
+      status.textContent = stories.length ? config.labels.noResults : placeholderText(null, 'Blog.NoStories', 'No stories are available right now.');
     } else {
-      const noun = sorted.length === 1 ? 'story' : 'stories';
+      const noun = sorted.length === 1
+        ? placeholderText(null, 'Blog.StoryOne', 'story') : placeholderText(null, 'Blog.StoryMany', 'stories');
+      const values = {
+        start: start + 1, end: start + pageItems.length, total: sorted.length, noun,
+      };
       status.textContent = totalPages > 1
-        ? `Showing ${start + 1}–${start + pageItems.length} of ${sorted.length} ${noun}`
-        : `${sorted.length} ${noun}`;
+        ? placeholderText(null, 'Blog.ResultsPaged', 'Showing {start}–{end} of {total} {noun}', values)
+        : placeholderText(null, 'Blog.ResultsAll', '{total} {noun}', values);
     }
     buildPagination(config, state, totalPages, nav);
   };

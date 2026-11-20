@@ -17,6 +17,7 @@ import {
   openExternalLinksInNewTab,
   resolveFragmentMedia,
 } from '../../scripts/scripts.js';
+import { loadPlaceholders, placeholder } from '../../scripts/placeholders.js';
 
 const SECTION_NAMES = ['brand', 'notice', 'links', 'social', 'utility', 'legal'];
 // sections whose off-site links open in a new tab (as on the source site)
@@ -118,7 +119,7 @@ function buildBand(name, children, tag = 'div') {
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  const fragment = await fetchLayoutFragment('footer', '/footer');
+  const [fragment] = await Promise.all([fetchLayoutFragment('footer', '/footer'), loadPlaceholders()]);
   block.textContent = '';
   if (!fragment) return;
 
@@ -148,13 +149,13 @@ export default async function decorate(block) {
       .forEach((name) => openExternalLinksInNewTab(parts[name]));
   }
   if (parts.links) groupLinkLists(parts.links);
-  parts.social?.querySelector('ul')?.setAttribute('aria-label', 'Social media');
+  parts.social?.querySelector('ul')?.setAttribute('aria-label', placeholder(null, 'Footer.SocialMedia', 'Social media'));
 
   let utility = null;
   if (parts.utility) {
     utility = document.createElement('nav');
     utility.className = 'footer-utility';
-    utility.setAttribute('aria-label', 'Blue Shield of California');
+    utility.setAttribute('aria-label', placeholder(null, 'Footer.UtilityLinks', 'Blue Shield of California'));
     utility.append(...parts.utility.childNodes);
   }
 

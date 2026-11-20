@@ -12,6 +12,8 @@ Single block table. Content: One block table. Single-cell rows each hold one sto
 
 No variations. The Ground option also selects the source treatment: Tinted/Dark = the More Stories band (title 10px above the text, 'View highlights' label); Light = the plain tile row of /growth-development (30px inset, title 30px above the text, no label).
 
+Interface text comes from the placeholders sheet (`/placeholders/global`, keys Stories.ViewHighlights); the code keeps the current text as the default. See the author guide, "Placeholders: interface text".
+
 ## Universal Editor fields
 
 N/A (Document Authoring project)

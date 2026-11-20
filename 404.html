@@ -13,6 +13,7 @@
     window.errorCode = '404';
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/favicons/bsc.png">
   <meta property="og:title" content="Page not found">
   <!--
     A 404 has no page metadata, so the site's /metadata row for /** (theme, analytics, consent, nav,
@@ -46,6 +47,13 @@
       // no authored 404: keep the default content
     }
     await import('/scripts/scripts.js');
+    // the default 404 texts from the placeholders sheet (an authored /fragments/errors/404 replaces them)
+    const { loadPlaceholders, placeholder } = await import('/scripts/placeholders.js');
+    const ph = await loadPlaceholders();
+    const message = document.querySelector('main.error .error-message');
+    if (message) message.textContent = placeholder(ph, 'Error.NotFound', message.textContent);
+    const home = document.querySelector('main.error .error-button-home');
+    if (home) home.textContent = placeholder(ph, 'Error.GoHome', home.textContent);
   </script>
   <script nonce="aem" type="module">
     window.addEventListener('load', () => {
@@ -57,6 +65,10 @@
           backBtn.href = pathname;
           backBtn.textContent = 'Go back';
           backBtn.title = 'Go back';
+          import('/scripts/placeholders.js').then(({ loadPlaceholders, placeholder }) => loadPlaceholders().then((ph) => {
+            backBtn.textContent = placeholder(ph, 'Error.GoBack', 'Go back');
+            backBtn.title = backBtn.textContent;
+          }));
           const btnContainer = document.querySelector('main.error .button-container');
           if (btnContainer) btnContainer.append(backBtn);
         }
