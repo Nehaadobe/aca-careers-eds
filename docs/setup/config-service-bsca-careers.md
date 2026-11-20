@@ -106,6 +106,39 @@ curl -s -X POST -H "x-auth-token: $AUTH_TOKEN" -H "Content-Type: text/yaml" \
 
 The indexes fill when pages are **published**; previewing alone does not add them.
 
+Then upload the sitemap setting, `default-sitemap.yaml` in the repository root (set `origin` to the
+site's own host first):
+
+```sh
+curl -s -o default-sitemap.yaml \
+  https://raw.githubusercontent.com/aemsites/bsca-careers/develop/default-sitemap.yaml
+curl -s -X POST -H "x-auth-token: $AUTH_TOKEN" -H "Content-Type: text/yaml" \
+  --data-binary @default-sitemap.yaml \
+  https://admin.hlx.page/config/blueshieldca/sites/bsca-careers/content/sitemap.yaml
+```
+
+Without it, Edge Delivery adds its automatic sitemap, which writes **every** published document
+(`/nav`, `/footer`, `/fragments/...`) into `/sitemap.json`, ignores the excludes above and leaves
+those rows without title, description and image. With it, `sitemap.xml` is built from the
+`sitemap` index, so the excludes and `robots: noindex` apply.
+
+If excluded paths are already in `/sitemap.json` (e.g. the setting was added late), remove them
+from the index (the pages stay published), re-index the published pages and rebuild the sitemap:
+
+```sh
+# per excluded path, e.g. /nav
+curl -s -X DELETE -H "x-auth-token: $AUTH_TOKEN" \
+  https://admin.hlx.page/index/blueshieldca/bsca-careers/main/nav
+# per published page, e.g. /blog
+curl -s -X POST -H "x-auth-token: $AUTH_TOKEN" \
+  https://admin.hlx.page/index/blueshieldca/bsca-careers/main/blog
+curl -s -X POST -H "x-auth-token: $AUTH_TOKEN" \
+  https://admin.hlx.page/sitemap/blueshieldca/bsca-careers/main/sitemap.xml
+```
+
+Done for `bsca-careers` and `bsca-careers-stage` on 20 November 2026. The brand sites have no
+blog and no index setting yet.
+
 ## 4. Access
 
 The working site uses the default (`"access": { "admin": { "role": {}, "requireAuth": "auto" } }`):
@@ -144,6 +177,8 @@ The project team that runs the migration needs `author` (preview) and, for go-li
 | `https://develop--bsca-careers--blueshieldca.aem.page/head.html` | 200 (code from GitHub) |
 | `https://develop--bsca-careers--blueshieldca.aem.page/` after previewing `/index` | The careers home page with header, footer and the Blue Shield theme |
 | `https://admin.hlx.page/config/blueshieldca/sites/bsca-careers/content/query.yaml` | The two indexes `sitemap` and `blog` |
+| `https://admin.hlx.page/config/blueshieldca/sites/bsca-careers/content/sitemap.yaml` | The `default` sitemap from `/sitemap.json`, with the site's `origin` |
+| `https://main--bsca-careers--blueshieldca.aem.live/sitemap.xml` (after publishing) | Only public pages: no `/nav`, `/footer`, `/fragments/...`, `/drafts/...`, `/tools/...`; no `https://undefined/` |
 
 Then the project team previews (and later publishes) the pages on the new site.
 
@@ -152,6 +187,8 @@ Then the project team previews (and later publishes) the pages on the new site.
 - **Production domain:** the CDN for careers.blueshieldca.com points to
   `main--bsca-careers--blueshieldca.aem.live`, and the site's CDN settings
   (`cdn.prod.host: careers.blueshieldca.com`, CDN type) are added so cache purges reach it.
+- **Sitemap host:** change `origin` in the site's `sitemap.yaml` (and `default-sitemap.yaml`) to
+  `https://careers.blueshieldca.com`, then rebuild the sitemap.
 - **Code on `main`:** the live site (`aem.live`) serves the `main` branch, which is still the
   repository template; the code is merged to `main` only when the team decides.
 - **Consent and analytics:** OneTrust uses its production configuration on `*.aem.live` and
