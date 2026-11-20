@@ -89,6 +89,16 @@
     main.error .error-number text {
       font-family: var(--font-mono);
     }
+
+    /* the default message is the page's H1 but keeps the H2 look it always had */
+    main.error .error-message {
+      margin-bottom: var(--space-l);
+      font-family: var(--font-heading);
+      font-size: var(--heading-font-size-xl);
+      font-weight: var(--font-weight-heading);
+      letter-spacing: normal;
+      text-transform: none;
+    }
   </style>
   <link rel="stylesheet" href="/styles/lazy-styles.css">
 </head>
@@ -100,7 +110,7 @@
       <svg viewBox="1 0 38 18" class="error-number">
         <text x="0" y="17">404</text>
       </svg>
-      <h2 class="error-message">Page Not Found</h2>
+      <h1 class="error-message">Page Not Found</h1>
       <p class="button-container">
         <a href="/" class="button secondary error-button-home">Go home</a>
       </p>

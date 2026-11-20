@@ -272,6 +272,15 @@ the change to apply.
 **Workflow:** edit in Document Authoring → **Preview** → check → **Publish**. Many pages at once:
 https://da.live/apps/bulk.
 
+**See it while you edit:** the editor's **Preview** tab (top right, above **Versions**) shows the page as you type,
+in mobile, tablet, laptop and desktop sizes. In a few cases (around 2%) it can differ from the real page; when in
+doubt, use **Preview** in the Sidekick. Only for the Document Authoring editor (`da.live/edit#…`); the newer
+Experience Workspace editor (`#canvas`) has a layout view instead.
+
+**Version history:** every document and sheet keeps its versions. Open the **Versions** (or **History**) tab on the
+right to see earlier versions and restore one. Restoring changes the document only; preview and publish again to
+change the site.
+
 **Story index:** the blog listing and every Article List read a story index that is updated **only when a page
 is published**. A new or changed story appears in the listing and in "More Stories" after you publish it, not
 after preview.
@@ -300,6 +309,14 @@ after preview.
 
 Best practices: descriptive file names, alt text on every image, a 1200×630 share image for each page. Images
 are resized and compressed automatically.
+
+- **Upload images into Document Authoring** (drag and drop or **Add image**); they're stored in a hidden folder next
+  to the document (e.g. `.life-at-blue-shield/`). Don't paste image links from other websites: the page then depends
+  on that site, and the image disappears from the next preview if it's removed there.
+- **Alt text:** describe what the photo shows (right-click → alt text). Leave it empty only for decorative images
+  such as icons next to a heading that already says the same thing.
+- **Links to our own pages:** use the site path (e.g. `/growth-development`) or the full production URL, never a
+  preview address (`…aem.page`).
 
 ### Ascendiun brand rules for authors
 
