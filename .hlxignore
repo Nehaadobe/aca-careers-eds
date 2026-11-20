@@ -12,4 +12,5 @@ e2e/*
 docs/*
 migration-work/*
 default-query.yaml
+default-sitemap.yaml
 tools/rules.mjs

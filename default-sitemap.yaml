@@ -1,0 +1,19 @@
+# Sitemap setting of the Blue Shield careers sites (Config Service: content/sitemap.yaml).
+# Not read from this repository: upload it to each site (docs/setup/config-service-bsca-careers.md, step 3).
+#
+# Without a sitemap setting Edge Delivery runs its automatic sitemap, which lists EVERY published
+# document (nav, footer, fragments) and writes into /sitemap.json, the same target as the custom
+# `sitemap` index in default-query.yaml: it ignores that index's excludes and strips the other fields
+# (title, description, image) from the rows it writes. This setting builds sitemap.xml from the custom
+# index instead, so its excludes and `robots: noindex` apply.
+#
+# origin: the host used in the sitemap URLs. Required while the site has no cdn.prod.host (without it
+# the URLs read https://undefined/...). Per site: main--<site>--blueshieldca.aem.live, e.g.
+# main--bsca-careers-stage--blueshieldca.aem.live; at go-live, the production domain.
+version: 1
+sitemaps:
+  default:
+    origin: https://main--bsca-careers--blueshieldca.aem.live
+    source: /sitemap.json
+    destination: /sitemap.xml
+    lastmod: YYYY-MM-DD
