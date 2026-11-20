@@ -631,3 +631,13 @@ async function loadPage() {
 }
 
 loadPage();
+
+/**
+ * Live preview in the Document Authoring editor (Preview tab):
+ * https://www.aem.live/docs/ew/authoring/live-preview. Loads only with ?dapreview.
+ */
+(async function loadDa() {
+  if (!new URL(window.location.href).searchParams.get('dapreview')) return;
+  // eslint-disable-next-line import/no-unresolved
+  import('https://da.live/scripts/dapreview.js').then(({ default: daPreview }) => daPreview(loadPage));
+}());
