@@ -186,6 +186,50 @@ body {
   --hero-decoration-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 120' opacity='0.45'%3E%3Cg stroke='rgb(150 180 255 / 22%25)' stroke-width='1'%3E%3Cline x1='60' y1='40' x2='140' y2='18'/%3E%3Cline x1='140' y1='18' x2='210' y2='64'/%3E%3Cline x1='210' y1='64' x2='300' y2='30'/%3E%3Cline x1='300' y1='30' x2='330' y2='96'/%3E%3Cline x1='300' y1='30' x2='420' y2='22'/%3E%3Cline x1='420' y1='22' x2='470' y2='70'/%3E%3Cline x1='470' y1='70' x2='540' y2='44'/%3E%3C/g%3E%3Cg fill='rgb(190 205 255 / 55%25)'%3E%3Ccircle cx='60' cy='40' r='2.4'/%3E%3Ccircle cx='140' cy='18' r='1.6'/%3E%3Ccircle cx='210' cy='64' r='1.6'/%3E%3Ccircle cx='300' cy='30' r='2.4'/%3E%3Ccircle cx='330' cy='96' r='1.6'/%3E%3Ccircle cx='420' cy='22' r='1.6'/%3E%3Ccircle cx='470' cy='70' r='2.4'/%3E%3Ccircle cx='540' cy='44' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
   --hero-decoration-scale: 1.5;
 
+  /* Stellarus Brand Playbook V6 (Visual Guidelines, Nov 2026): the playbook values, defined
+     here as an option and NOT used yet. The theme still follows www.stellarus.com (dark page,
+     Inter / Space Grotesk). To adopt an item, point the matching token above at one of these,
+     e.g. --color-primary: var(--playbook-color-new-york). Report:
+     migration-work/stellarus-brand-playbook-gap-2026-11-20.md */
+
+  /* core palette (slide 10) */
+  --playbook-color-new-orleans: #436db3; /* blue */
+  --playbook-color-los-angeles: #bfd0ee; /* light periwinkle (dark text only) */
+  --playbook-color-honolulu: #f4454e; /* red: accents; white text only for large/bold text */
+  --playbook-color-palm-springs: #f7f3ef; /* warm off-white */
+  --playbook-color-detroit: #ededed; /* light grey */
+  --playbook-color-black: #000;
+  --playbook-color-white: #fff;
+
+  /* secondary palette, used sparingly (slide 10) */
+  --playbook-color-new-york: #08285e; /* dark navy: bold, data-driven content */
+  --playbook-color-atlanta: #5c1b53; /* deep purple accent */
+
+  /* gradients (slide 10): New York + New Orleans, Los Angeles + New Orleans */
+  --playbook-gradient-dark: linear-gradient(135deg, #08285e 0%, #436db3 100%);
+  --playbook-gradient-light: linear-gradient(90deg, #bfd0ee 0%, #436db3 100%);
+
+  /* typography (slides 3-4): Geist Bold headlines, Medium sub-heads / buttons / pull quotes,
+     Light body (never bold); Roboto where Geist can't load. Geist files are not loaded yet. */
+  --playbook-font-family: geist, roboto, sans-serif;
+  --playbook-font-weight-headline: 700;
+  --playbook-font-weight-subhead: 500;
+  --playbook-font-weight-body: 300;
+
+  /* brand elements (slide 7): short red underline under a headline or photo */
+  --playbook-underline-color: #f4454e;
+  --playbook-underline-width: 48px;
+  --playbook-underline-height: 3px;
+
+  /* buttons (moodboard): navy rounded rectangle, white label in Geist Medium */
+  --playbook-button-background: #08285e;
+  --playbook-button-color: #fff;
+  --playbook-button-radius: 4px;
+
+  /* logo (slides 12-14): at least 170px wide on the web, clear space = height of the "S";
+     white/red logo on dark backgrounds, black/red on white */
+  --playbook-logo-min-width: 170px;
+
   /* decoration (source starfield): 70 white dots of 0.8-2.2px twinkling between 15% and 90%
      opacity every 2.5-5s; generated with a fixed seed, tiled at 1440 x 900 (the source scatters
      them at random on each load) */
